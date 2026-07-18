@@ -1,0 +1,54 @@
+---
+import Site from '../layouts/Site.astro'
+import { HeroShowcase } from '../components/HeroShowcase'
+import { CopyCommand } from '../components/CopyCommand'
+import { COMPONENTS } from '../data/manifest'
+const count = COMPONENTS.length
+---
+
+<Site>
+  <section style="display:grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap:56px; align-items:center; padding:32px 0 64px;" class="hero-grid">
+    <div style="display:flex; flex-direction:column; gap:24px;">
+      <span style="align-self:flex-start; font-size:12px; font-weight:900; letter-spacing:1.5px; text-transform:uppercase; color:var(--ink); background:var(--yellow); padding:6px 14px; border-radius:999px; box-shadow: inset 0 -4px 0 rgba(0,0,0,0.08);">Claymorphism · React</span>
+      <h1 style="font-size:clamp(40px, 6vw, 68px); font-weight:900; letter-spacing:-2px; line-height:1.02; margin:0;">
+        Every surface<br />a cushion.
+      </h1>
+      <p style="font-size:20px; font-weight:700; color:var(--muted); max-width:34ch; margin:0;">
+        Pouf is a puffy, pastel, kid-shaped UI kit for React — bright and chunky, the maximalist answer to flat design. Copy-paste it in, shadcn-style.
+      </p>
+      <div style="display:flex; flex-direction:column; gap:10px; max-width:520px;">
+        <CopyCommand client:load command="npx shadcn@latest add https://pouf.dev/r/button.json" />
+        <span style="font-size:13px; color:var(--muted); font-weight:700;">or browse the components and copy the source directly.</span>
+      </div>
+      <div style="display:flex; gap:12px; flex-wrap:wrap;">
+        <a href="/docs/" style="text-decoration:none; color:var(--ink); font-weight:900; background:var(--purple); padding:14px 26px; border-radius:20px; box-shadow: var(--pouf-control);">Get started</a>
+        <a href="/docs/button" style="text-decoration:none; color:var(--ink); font-weight:900; background:transparent; padding:14px 26px; border-radius:20px; box-shadow: inset 0 0 0 2px rgba(201,168,255,0.55);">Browse {count} components</a>
+      </div>
+    </div>
+    <div>
+      <HeroShowcase client:visible />
+    </div>
+  </section>
+
+  <section style="display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:20px; padding:24px 0 40px;" class="feature-grid">
+    <div style="background:var(--surface); border-radius:24px; padding:24px; box-shadow: var(--pouf-card);">
+      <h3 style="margin:0 0 8px; font-weight:900; font-size:19px;">Depth is the affordance</h3>
+      <p style="margin:0; color:var(--muted); font-weight:700;">Inner highlight, inner floor, outer drop. Buttons press in; badges stay flat. State you can feel.</p>
+    </div>
+    <div style="background:var(--surface); border-radius:24px; padding:24px; box-shadow: var(--pouf-card);">
+      <h3 style="margin:0 0 8px; font-weight:900; font-size:19px;">You own the source</h3>
+      <p style="margin:0; color:var(--muted); font-weight:700;">Install with the shadcn CLI or copy the file. No dependency to version-lock. Tailwind v4 + Radix under the hood.</p>
+    </div>
+    <div style="background:var(--surface); border-radius:24px; padding:24px; box-shadow: var(--pouf-card);">
+      <h3 style="margin:0 0 8px; font-weight:900; font-size:19px;">Variants, not classNames</h3>
+      <p style="margin:0; color:var(--muted); font-weight:700;">Appearance is chosen by props, so your app can't drift off-system. Need an escape hatch? You have the code.</p>
+    </div>
+  </section>
+
+  <style>
+    @media (max-width: 860px) {
+      .hero-grid { grid-template-columns: minmax(0,1fr) !important; }
+      .feature-grid { grid-template-columns: minmax(0,1fr) !important; }
+    }
+  </style>
+</Site>

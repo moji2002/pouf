@@ -1,0 +1,32 @@
+---
+import Site from '../layouts/Site.astro'
+let changelog: { month: string; subjects: string[] }[] = []
+try {
+  changelog = (await import('../data/changelog.json')).default as typeof changelog
+} catch {}
+const MONTHS = ['', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+const label = (m: string) => {
+  const [y, mo] = m.split('-')
+  return `${MONTHS[Number(mo)]} ${y}`
+}
+---
+
+<Site title="Changelog" description="What changed in Pouf, from the registry's git history.">
+  <article style="max-width:720px; display:flex; flex-direction:column; gap:28px;">
+    <div style="display:flex; flex-direction:column; gap:8px;">
+      <h1 style="font-size:40px; font-weight:900; letter-spacing:-1px; margin:0;">Changelog</h1>
+      <p style="font-size:18px; color:var(--muted); font-weight:700; margin:0;">Generated from the commits that shipped the components.</p>
+    </div>
+    {changelog.length === 0 && <p style="color:var(--muted); font-weight:700;">No history yet.</p>}
+    {changelog.map((g) => (
+      <section style="display:flex; flex-direction:column; gap:12px;">
+        <h2 style="font-size:20px; font-weight:900; margin:0;">{label(g.month)}</h2>
+        <ul style="margin:0; padding-left:20px; display:flex; flex-direction:column; gap:6px;">
+          {g.subjects.map((s) => (
+            <li style="font-weight:700; color:var(--ink);">{s}</li>
+          ))}
+        </ul>
+      </section>
+    ))}
+  </article>
+</Site>

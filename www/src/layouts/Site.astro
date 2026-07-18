@@ -1,0 +1,74 @@
+---
+import '@fontsource-variable/nunito'
+import '../styles/site.css'
+import { COMPONENTS, SECTIONS } from '../data/manifest'
+
+interface Props {
+  title?: string
+  description?: string
+  /** When set, renders the docs sidebar and marks the active slug. */
+  docsSlug?: string | null
+}
+const { title = 'Pouf', description = 'A puffy, pastel, kid-shaped UI kit for React. Claymorphism, done as a shadcn-style registry.', docsSlug = undefined } = Astro.props
+const showSidebar = docsSlug !== undefined
+const bySection = SECTIONS.map((s) => ({ section: s, items: COMPONENTS.filter((c) => c.section === s) })).filter((g) => g.items.length)
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title === 'Pouf' ? 'Pouf — puffy UI for React' : `${title} · Pouf`}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <link rel="icon" href="/favicon.svg" />
+  </head>
+  <body style="background: var(--bg); color: var(--ink); font-family: var(--font); font-weight: 700; min-height: 100vh; margin: 0;">
+    <header class="site-header">
+      <div class="site-wrap" style="display:flex; align-items:center; gap:16px; height:64px;">
+        <a href="/" style="display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--ink);">
+          <span aria-hidden="true" style="width:34px; height:34px; border-radius:12px; background:var(--purple); box-shadow: var(--pouf-blob); display:inline-block;"></span>
+          <strong style="font-size:20px; font-weight:900; letter-spacing:-0.5px;">Pouf</strong>
+        </a>
+        <nav style="margin-left:auto; display:flex; align-items:center; gap:4px;">
+          <a class="site-link" href="/docs/">Docs</a>
+          <a class="site-link" href="/docs/button">Components</a>
+          <a class="site-link" href="/changelog">Changelog</a>
+          <a class="site-link" href="https://github.com/pouf-ui/pouf">GitHub</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="site-wrap" style="padding-top:40px; padding-bottom:80px;">
+      {showSidebar ? (
+        <div class="docs-grid">
+          <aside class="docs-sidebar">
+            <a class="site-link" href="/docs/" style="font-weight:900;">Getting started</a>
+            {bySection.map((g) => (
+              <div style="margin-top:16px;">
+                <div style="font-size:11px; font-weight:900; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); padding:4px 12px;">{g.section}</div>
+                {g.items.map((c) => (
+                  <a class="site-link" href={`/docs/${c.slug}`} aria-current={c.slug === docsSlug ? 'page' : undefined} style="font-size:14px; padding:6px 12px;">{c.title.split(',')[0].split(' (')[0]}</a>
+                ))}
+              </div>
+            ))}
+          </aside>
+          <div style="min-width:0;">
+            <slot />
+          </div>
+        </div>
+      ) : (
+        <slot />
+      )}
+    </main>
+
+    <footer style="border-top:1px solid rgba(201,168,255,0.3);">
+      <div class="site-wrap" style="padding:32px 24px; display:flex; flex-wrap:wrap; gap:12px; align-items:center; color:var(--muted); font-size:14px;">
+        <span>Pouf — MIT licensed. Built with Pouf.</span>
+        <span style="margin-left:auto;">Visual language adapted from novusgfx/retro-design-system (MIT).</span>
+      </div>
+    </footer>
+  </body>
+</html>

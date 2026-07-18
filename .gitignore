@@ -4,3 +4,6 @@ dist
 gallery/harness/.candidate
 *.log
 .DS_Store
+
+# generated at build
+www/src/data/changelog.json

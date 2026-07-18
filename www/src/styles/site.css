@@ -1,0 +1,69 @@
+/* The site runs on the real Pouf theme — it IS the demo. Importing pouf.css
+ * pulls in Tailwind, the @theme tokens, the cushion utilities, and the
+ * component chrome. @source scans the site's own markup for utility classes
+ * (pouf.css already scans registry/pouf for the components themselves). */
+@import '../../../registry/pouf/pouf.css';
+@source '../';
+
+/* Site-chrome helpers layered so component/utility rules still win. */
+@layer components {
+  .site-wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(201, 168, 255, 0.3);
+  }
+  .site-link {
+    font-weight: 800;
+    color: var(--ink);
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 12px;
+  }
+  .site-link:hover {
+    background: rgba(201, 168, 255, 0.2);
+  }
+  .site-link[aria-current='page'] {
+    background: var(--purple);
+  }
+  .docs-grid {
+    display: grid;
+    grid-template-columns: 240px minmax(0, 1fr);
+    gap: 40px;
+    align-items: start;
+  }
+  @media (max-width: 860px) {
+    .docs-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .docs-sidebar {
+      display: none;
+    }
+  }
+  .docs-sidebar {
+    position: sticky;
+    top: 88px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    max-height: calc(100vh - 108px);
+    overflow-y: auto;
+  }
+  .code-block {
+    background: var(--ink);
+    color: #f0e9ff;
+    font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    padding: 16px 20px;
+    border-radius: 16px;
+    overflow-x: auto;
+  }
+}
