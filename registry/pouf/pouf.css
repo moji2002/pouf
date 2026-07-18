@@ -1,0 +1,173 @@
+/* ============================================================================
+ * POUF — the theme file. Tokens as Tailwind v4 @theme, the clay recipe as
+ * custom properties, shared cushion machinery as @utility recipes.
+ *
+ * Visual language adapted from novusgfx/retro-design-system (MIT),
+ * styles/39-claymorphism. One deliberate deviation, kept from the fork:
+ * ink on pastel, never white — the reference's white-on-pastel .btn fails
+ * WCAG AA (1.25:1–1.99:1 measured); its own -pink/-mint/-yellow variants
+ * use ink (6.10:1–9.75:1). We follow the better instinct uniformly.
+ * ========================================================================= */
+@import 'tailwindcss';
+
+@theme {
+  /* -- Palette: verbatim from the reference ------------------------------ */
+  --color-bg: #f0e9ff;
+  --color-ink: #3a2e5c;
+  --color-muted: #7c6ba8;
+  --color-pink: #ffb3d1;
+  --color-purple: #c9a8ff;
+  --color-blue: #9ec8ff;
+  --color-mint: #a8f0d0;
+  --color-yellow: #ffe58a;
+  --color-orange: #ffb38a;
+  --color-surface: #ffffff;
+
+  --font-pouf: 'Nunito', 'SF Pro Rounded', 'Helvetica Neue', system-ui, sans-serif;
+
+  /* -- Radii: verbatim (card 32, control 20, blob 24) -------------------- */
+  --radius-card: 32px;
+  --radius-control: 20px;
+  --radius-blob: 24px;
+  --radius-pill: 999px;
+}
+
+:root {
+  /* -- Legacy token aliases. Components and the recipes below speak these
+   *    names; @theme above is the Tailwind-facing vocabulary. Both resolve
+   *    to the same values. -------------------------------------------- */
+  --bg: var(--color-bg);
+  --ink: var(--color-ink);
+  --muted: var(--color-muted);
+  --pink: var(--color-pink);
+  --purple: var(--color-purple);
+  --blue: var(--color-blue);
+  --mint: var(--color-mint);
+  --yellow: var(--color-yellow);
+  --orange: var(--color-orange);
+  --surface: var(--color-surface);
+  --font: var(--font-pouf);
+  --r-card: var(--radius-card);
+  --r-control: var(--radius-control);
+  --r-blob: var(--radius-blob);
+  --r-pill: var(--radius-pill);
+
+  /* -- Semantic aliases. Screens speak intent ("this is a loss"), never
+   *    colour ("this is pink"), so a re-theme is a change here alone. ---- */
+  --up: var(--mint);
+  --down: var(--pink);
+  --warn: var(--yellow);
+  --info: var(--blue);
+  --idle: var(--purple);
+
+  /* -- Spacing scale. The reference uses 6/8/10/12/14/16/20/24/26/32/40. -- */
+  --s1: 6px;
+  --s2: 8px;
+  --s3: 12px;
+  --s4: 16px;
+  --s5: 20px;
+  --s6: 24px;
+  --s7: 32px;
+  --s8: 40px;
+
+  /* -- The clay recipe. Three shadows encoding one physical claim:
+   *    light from above (inner top highlight), the surface's own thickness
+   *    (inner floor shadow), and the cast onto the page (outer drop). ---- */
+  /* -- Floor thickness as tokens, because the floor inset paints INSIDE the
+   *    box: symmetric padding therefore reads bottom-heavy — the lip eats
+   *    that much of the lower whitespace. White containers below bias their
+   *    vertical padding by half their lip (same total height, optically
+   *    centred content). The blob solves the same problem with a
+   *    translateY(-2px) on its glyph. ---------------------------------- */
+  --lip: 10px;
+  --lip-row: 6px;
+  --pouf-card:
+    inset 0 calc(-1 * var(--lip)) 0 rgba(201, 168, 255, 0.35),
+    inset 0 6px 0 rgba(255, 255, 255, 0.9),
+    0 20px 40px rgba(58, 46, 92, 0.15);
+  --pouf-control:
+    inset 0 -6px 0 rgba(0, 0, 0, 0.15), inset 0 4px 0 rgba(255, 255, 255, 0.35),
+    0 8px 16px rgba(58, 46, 92, 0.2);
+  --pouf-control-active:
+    inset 0 -3px 0 rgba(0, 0, 0, 0.15), inset 0 2px 0 rgba(255, 255, 255, 0.35),
+    0 4px 10px rgba(58, 46, 92, 0.15);
+  --pouf-blob:
+    inset 0 -8px 0 rgba(0, 0, 0, 0.12), inset 0 4px 0 rgba(255, 255, 255, 0.4),
+    0 10px 20px rgba(58, 46, 92, 0.15);
+  --pouf-field:
+    inset 0 -4px 0 rgba(0, 0, 0, 0.06), inset 0 4px 0 rgba(255, 255, 255, 0.7),
+    inset 0 0 0 2px rgba(201, 168, 255, 0.2);
+  --pouf-field-focus:
+    inset 0 -4px 0 rgba(0, 0, 0, 0.06), inset 0 4px 0 rgba(255, 255, 255, 0.7),
+    inset 0 0 0 3px var(--purple);
+
+  /* -- Cushion rows. "Every row a cushion" at 32px padding makes a 50-row
+   *    log unnavigable, so rows get their own tighter scale. The shadow
+   *    recipe is kept whole -- only the padding tightens. ---------------- */
+  --pouf-row:
+    inset 0 calc(-1 * var(--lip-row)) 0 rgba(201, 168, 255, 0.3),
+    inset 0 4px 0 rgba(255, 255, 255, 0.9),
+    0 8px 18px rgba(58, 46, 92, 0.1);
+  --pouf-row-hover:
+    inset 0 calc(-1 * var(--lip-row)) 0 rgba(201, 168, 255, 0.45),
+    inset 0 4px 0 rgba(255, 255, 255, 0.95),
+    0 12px 24px rgba(58, 46, 92, 0.16);
+}
+
+/* ============================================================================
+ * Base. Tailwind preflight supplies box-sizing/margin/padding resets; what
+ * remains here is pouf's own base voice, kept identical to the fork.
+ * ========================================================================= */
+@layer base {
+  /* -- Preflight compensations. Tailwind's preflight unstyles headings, makes
+   *    buttons/form controls inherit line-height, and re-aligns svg. Pouf's
+   *    fork-fidelity contract is the UA behavior the original design was
+   *    measured against, so restore exactly that. Verified property-by-
+   *    property against the golden snapshots. --------------------------- */
+  h1 { font-size: 2em; }
+  h2 { font-size: 1.5em; }
+  h3 { font-size: 1.17em; }
+  h4 { font-size: 1em; }
+  h5 { font-size: 0.83em; }
+  h6 { font-size: 0.67em; }
+  button, input, textarea, select {
+    line-height: normal;
+    appearance: auto;
+  }
+  img, svg, video, canvas, audio, iframe, embed, object {
+    display: inline;
+    vertical-align: baseline;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font);
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 1.5;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* The reference ships `:focus` only. A keyboard operator needs a visible
+   * ring that does not fire on mouse click. */
+  :focus-visible {
+    outline: 3px solid var(--ink);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* @utility cushion recipes are added here by the per-component migration as
+ * shared machinery is lifted out of legacy.css (cushion-control, cushion-card,
+ * lip-floor, …). Keyframes migrate here alongside their components. */
