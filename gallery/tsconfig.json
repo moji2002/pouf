@@ -1,7 +1,7 @@
 {
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "types": ["vite/client"]
+    "types": ["vite/client", "bun-types"]
   },
-  "include": ["src", "../registry/pouf"]
+  "include": ["src", "../registry/pouf", "harness"]
 }
