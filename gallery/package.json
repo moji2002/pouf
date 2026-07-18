@@ -1,12 +1,20 @@
 {
   "name": "@pouf/gallery",
   "private": true,
-  "scripts": { "dev": "vite --port 4700 --strictPort", "build": "vite build" },
-  "dependencies": { "@fontsource-variable/nunito": "^5.0.0", "react": "^19.0.0", "react-dom": "^19.0.0" },
+  "scripts": {
+    "dev": "vite --port 4700 --strictPort",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "@fontsource-variable/nunito": "^5.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
   "devDependencies": {
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^4.3.0",
+    "playwright": "^1.61.1",
     "vite": "^6.0.0"
   }
 }
