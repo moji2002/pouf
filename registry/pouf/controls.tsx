@@ -419,7 +419,9 @@ export function Combobox({
                   // (pouf.css nav-link section) instead of duplicating it.
                   data-highlighted={i === active ? '' : undefined}
                   data-state={o === value ? 'checked' : undefined}
-                  className="pouf-option flex flex-row items-center flex-wrap min-w-0 gap-[var(--gap,var(--s4))] justify-between"
+                  // .pouf-option already supplies flex/align/gap; only the
+                  // right-pushed check needs justify-between (+ wrap/min-w-0).
+                  className="pouf-option flex-wrap min-w-0 justify-between"
                   onClick={() => commit(o)}
                   onMouseEnter={() => setActive(i)}
                 >
