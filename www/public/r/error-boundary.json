@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "error-boundary",
+  "title": "ErrorBoundary",
+  "registryDependencies": [
+    "https://pouf.dev/r/base.json",
+    "https://pouf.dev/r/button.json",
+    "https://pouf.dev/r/layout.json",
+    "https://pouf.dev/r/media.json",
+    "https://pouf.dev/r/surface.json",
+    "https://pouf.dev/r/text.json"
+  ],
+  "files": [
+    {
+      "path": "registry/pouf/ErrorBoundary.tsx",
+      "content": "import { Component, type ErrorInfo, type ReactNode } from 'react'\nimport { Button } from './Button'\nimport { Card } from './surface'\nimport { Row, Stack } from './layout'\nimport { Heading, Text } from './text'\nimport { Blob } from './media'\n\ninterface Props {\n  children: ReactNode\n  /** Named so a fallback can say WHICH part died — \"Positions failed\" is\n   *  actionable, \"Something went wrong\" is not. */\n  name: string\n  /** Reset when this changes (e.g. the route path), so navigating away from a\n   *  crashed screen doesn't leave the error stuck on the new one. */\n  resetKey?: string\n}\n\ninterface State {\n  error: Error | null\n}\n\n/** Catches render crashes so one broken part can't blank the whole admin.\n *\n * This matters more here than in a typical app: the shell renders ModeBanner,\n * the paper-vs-live indicator. If a render error in Positions unmounted the\n * whole tree, the operator would be left staring at a blank page with no\n * indication of whether the engine is live — and the engine keeps trading\n * regardless. So boundaries wrap each screen and each independent section,\n * never the shell itself.\n *\n * Must be a class: there is still no hook equivalent of componentDidCatch.\n */\nexport class ErrorBoundary extends Component<Props, State> {\n  state: State = { error: null }\n\n  static getDerivedStateFromError(error: Error): State {\n    return { error }\n  }\n\n  componentDidCatch(error: Error, info: ErrorInfo): void {\n    // Keep the stack in the console: the fallback deliberately doesn't render it\n    // (it isn't useful to an operator), but it must not be swallowed either.\n    console.error(`[${this.props.name}] render error`, error, info.componentStack)\n  }\n\n  componentDidUpdate(prev: Props): void {\n    if (this.state.error && prev.resetKey !== this.props.resetKey) this.setState({ error: null })\n  }\n\n  render(): ReactNode {\n    if (!this.state.error) return this.props.children\n    return (\n      <Card>\n        <Stack gap={4}>\n          <Row gap={3} wrap={false}>\n            <Blob tone=\"warn\" size=\"md\" icon=\"warn\" />\n            <Stack gap={1}>\n              <Heading level={3}>{this.props.name} couldn't be displayed</Heading>\n              <Text muted>\n                This part of the admin hit an error. The rest of the page still works, and the engine is unaffected.\n              </Text>\n            </Stack>\n          </Row>\n          <Text size=\"sm\" mono>\n            {this.state.error.message}\n          </Text>\n          <Row justify=\"end\">\n            <Button size=\"sm\" tone=\"mint\" onClick={() => this.setState({ error: null })}>\n              Try again\n            </Button>\n          </Row>\n        </Stack>\n      </Card>\n    )\n  }\n}\n",
+      "type": "registry:ui",
+      "target": "components/pouf/ErrorBoundary.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

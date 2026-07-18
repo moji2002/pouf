@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "toggle",
+  "title": "ToggleGroup",
+  "dependencies": [
+    "@radix-ui/react-toggle-group",
+    "clsx"
+  ],
+  "registryDependencies": [
+    "https://pouf.dev/r/base.json",
+    "https://pouf.dev/r/button.json",
+    "https://pouf.dev/r/icon.json",
+    "https://pouf.dev/r/tone.json"
+  ],
+  "files": [
+    {
+      "path": "registry/pouf/toggle.tsx",
+      "content": "import * as RToggle from '@radix-ui/react-toggle-group'\nimport clsx from 'clsx'\nimport { type Tone } from './tone'\nimport { buttonClasses } from './Button'\nimport { Icon } from './Icon'\nimport type { IconName } from './Icon'\n\nexport interface ToggleOption {\n  value: string\n  label: string\n  icon?: IconName\n}\n\ninterface ToggleGroupProps {\n  value: string[]\n  onChange: (value: string[]) => void\n  options: ToggleOption[]\n  label: string\n  tone?: Tone\n}\n\nexport function ToggleGroup({ value, onChange, options, label, tone = 'purple' }: ToggleGroupProps) {\n  return (\n    <RToggle.Root\n      type=\"multiple\"\n      value={value}\n      onValueChange={onChange}\n      className=\"pouf-toggle inline-flex flex-wrap gap-(--s2)\"\n      aria-label={label}\n    >\n      {options.map((o) => (\n        // Literal pouf-btn classes, like Segmented: an \"on\" item is pressed in\n        // (pouf-toggle__item[data-state='on']), never merely re-coloured.\n        <RToggle.Item\n          key={o.value}\n          value={o.value}\n          className={clsx(buttonClasses({ size: 'sm', tone }), 'pouf-toggle__item data-[state=on]:[transform:translateY(2px)] data-[state=on]:cushion-control-active')}\n        >\n          {o.icon && <Icon name={o.icon} size=\"sm\" />}\n          {o.label}\n        </RToggle.Item>\n      ))}\n    </RToggle.Root>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/pouf/toggle.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

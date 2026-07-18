@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "readout",
+  "title": "Stat, Metric",
+  "registryDependencies": [
+    "https://pouf.dev/r/base.json",
+    "https://pouf.dev/r/icon.json",
+    "https://pouf.dev/r/media.json",
+    "https://pouf.dev/r/surface.json",
+    "https://pouf.dev/r/text.json",
+    "https://pouf.dev/r/tone.json"
+  ],
+  "files": [
+    {
+      "path": "registry/pouf/readout.tsx",
+      "content": "import type { ReactNode } from 'react'\nimport { Card } from './surface'\nimport { Blob } from './media'\nimport { Text } from './text'\nimport type { IconName } from './Icon'\nimport type { Tone } from './tone'\n\n/** A headline figure on its own cushion.\n *\n * This existed twice, verbatim — `StatTile` in one screen and `Stat` in\n * another — and the copies had already drifted apart: one took the full Tone,\n * the other narrowed it to four. Divergent copies of one idea is the thing a\n * design system exists to stop, so it lives here now. It takes the full Tone;\n * the narrowed signature was the drift, not the intent.\n *\n * The tile leads with its own icon and tone because the block it replaced put\n * four unadorned numbers on one card, where \"0\", \"0 / 0\" and \"+$0.00\" all\n * carried identical weight and nothing said which answered \"am I making money\".\n */\nexport function Stat({ label, value, icon, tone }: { label: string; value: string; icon: IconName; tone: Tone }) {\n  return (\n    <Card variant=\"tight\">\n      <div className=\"pouf-stat flex items-center gap-(--s3)\">\n        <Blob tone={tone} size=\"sm\" icon={icon} />\n        <div className=\"pouf-stat__text flex flex-col gap-[2px] min-w-0\">\n          <span className=\"pouf-stat__label text-[12px] font-extrabold tracking-[1.4px] uppercase text-muted whitespace-nowrap\">\n            {label}\n          </span>\n          {/* dir=\"auto\" for the same reason Text sets it: a value can be a\n              non-Latin string (a channel name in a \"top source\" tile). */}\n          <span\n            className='pouf-stat__value text-[26px] font-black leading-[1.05] tracking-[-0.5px] text-ink [font-variant-numeric:tabular-nums] [font-feature-settings:\"tnum\"]'\n            dir=\"auto\"\n          >\n            {value}\n          </span>\n        </div>\n      </div>\n    </Card>\n  )\n}\n\ninterface MetricProps {\n  label: string\n  /** `null` means UNKNOWN, and renders as an em-dash — never as 0.\n   *\n   * This is the whole reason the component exists. The pattern it replaces was\n   * hand-written at ~34 sites, each re-deriving the rule, e.g.\n   * `{c.trades > 0 ? `${pct}%` : '—'}` with the comment \"A win rate over zero\n   * closed trades is not 0% — it's unknown.\" Any site that forgot printed \"0%\",\n   * which reads as \"this channel always loses\" — a real number, and the\n   * opposite of the truth. The caller still decides *whether* a value is known;\n   * only that answer needs domain knowledge. What is uniform, and therefore\n   * belongs here, is how unknown looks. */\n  value: ReactNode | null\n  /** Tabular figures, so digits line up down a column. On by default: a metric\n   *  is a number unless it isn't (sizing mode, exchange name). */\n  num?: boolean\n  mono?: boolean\n}\n\n/** A labelled readout: small muted label, value beneath.\n *\n * A readout is atomic: \"−$24.75\" must never break after the minus, and a\n * two-line label reads as two metrics — hence nowrap; the ROW wraps whole\n * metrics instead. Inside a Row ([.pouf-row>&]) metrics divide the spare\n * width evenly (a KPI strip) but never below one-line content. */\nexport function Metric({ label, value, num = true, mono }: MetricProps) {\n  return (\n    <div className=\"pouf-metric flex flex-col gap-(--s1) min-w-0 whitespace-nowrap [.pouf-row>&]:flex-[1_1_0] [.pouf-row>&]:min-w-max\">\n      <Text size=\"sm\" muted>\n        {label}\n      </Text>\n      <Text num={num} mono={mono}>\n        {value ?? '—'}\n      </Text>\n    </div>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/pouf/readout.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

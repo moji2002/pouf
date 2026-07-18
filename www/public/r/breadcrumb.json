@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "breadcrumb",
+  "title": "Breadcrumb",
+  "registryDependencies": [
+    "https://pouf.dev/r/base.json"
+  ],
+  "files": [
+    {
+      "path": "registry/pouf/breadcrumb.tsx",
+      "content": "interface BreadcrumbItem {\n  label: string\n  href?: string\n}\n\ninterface BreadcrumbProps {\n  items: BreadcrumbItem[]\n}\n\n/** A list, not a Row of Rows: nav > ol is what a screen reader expects from a\n * breadcrumb, and aria-current marks the page you are on.\n *\n * The separator is a slash — the first build used the `expand` chevron, which\n * points DOWN (it is the Select's open-affordance), so every crumb appeared to\n * open a dropdown. A slash is decorative punctuation and is hidden from\n * readers; links carry ink + underline (hover moves the underline's colour,\n * which works — the old hover set `color` on a child that had its own). */\nexport function Breadcrumb({ items }: BreadcrumbProps) {\n  if (items.length === 0) return null\n\n  return (\n    <nav aria-label=\"Breadcrumb\">\n      <ol className=\"pouf-breadcrumb\">\n        {items.map((item, i) => {\n          const last = i === items.length - 1\n          return (\n            <li key={i} className=\"pouf-breadcrumb__item\">\n              {i > 0 && (\n                <span className=\"pouf-breadcrumb__sep\" aria-hidden=\"true\">\n                  /\n                </span>\n              )}\n              {last || !item.href ? (\n                <span className=\"pouf-breadcrumb__current\" aria-current={last ? 'page' : undefined}>\n                  {item.label}\n                </span>\n              ) : (\n                <a className=\"pouf-breadcrumb__link\" href={item.href}>\n                  {item.label}\n                </a>\n              )}\n            </li>\n          )\n        })}\n      </ol>\n    </nav>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/pouf/breadcrumb.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "button",
+  "title": "Button",
+  "dependencies": [
+    "class-variance-authority"
+  ],
+  "registryDependencies": [
+    "https://pouf.dev/r/base.json",
+    "https://pouf.dev/r/tone.json"
+  ],
+  "files": [
+    {
+      "path": "registry/pouf/Button.tsx",
+      "content": "import { cva, cx } from 'class-variance-authority'\nimport type { ReactNode } from 'react'\nimport { toneClass, type Tone } from './tone'\n\ninterface ButtonProps {\n  children: ReactNode\n  onClick?: () => void\n  tone?: Tone\n  size?: 'sm' | 'md' | 'lg'\n  /** quiet: no cushion until hover — for tertiary actions that shouldn't\n   *  compete with the primary cushion on the same row. */\n  variant?: 'solid' | 'quiet'\n  block?: boolean\n  disabled?: boolean\n  /** Shows a spinner and blocks the click. A submit that fires twice because\n   *  it looked idle is a real double-write, so pending state is not\n   *  decoration here — it's a safety property. */\n  loading?: boolean\n  type?: 'button' | 'submit'\n  /** Required when the label alone isn't descriptive (icon-only buttons). */\n  label?: string\n}\n\n/* 'pouf-btn' rides along as an unstyled MARKER class: it carries no rules of\n * its own anymore, but container selectors (e.g. the dialog head's\n * `> .pouf-btn` spacing override) still address buttons through it.\n *\n * Same-property utilities don't cascade like the old selectors did, so\n * solid/quiet each own their background and shadow outright. A disabled\n * cushion must read as pressed-flat, not merely faded: the affordance is the\n * depth, so removing the depth is the real signal — solid goes pressed,\n * quiet (already flat) goes bare. */\nconst button = cva(\n  [\n    'pouf-btn relative items-center justify-center gap-(--s2) font-pouf font-black leading-none',\n    'text-ink border-none cursor-pointer',\n    '[transition:box-shadow_120ms_ease,transform_120ms_ease]',\n    'enabled:active:[transform:translateY(2px)] enabled:active:cushion-control-active',\n    'disabled:cursor-not-allowed disabled:opacity-50',\n  ],\n  {\n    variants: {\n      size: {\n        sm: 'text-[13px] px-4 py-[9px] min-h-[38px] rounded-[14px]',\n        md: 'text-[15px] px-[26px] py-[14px] min-h-12 rounded-control',\n        lg: 'text-[17px] px-8 py-[18px] min-h-14 rounded-control',\n      },\n      variant: {\n        solid:\n          'bg-[var(--tone,var(--purple))] cushion-control disabled:cushion-control-active disabled:[transform:translateY(2px)]',\n        quiet:\n          'bg-transparent [box-shadow:inset_0_0_0_2px_rgba(201,168,255,0.55)] enabled:hover:bg-bg enabled:hover:cushion-field disabled:[box-shadow:none]',\n      },\n      block: {\n        true: 'flex w-full',\n        false: 'inline-flex',\n      },\n    },\n    defaultVariants: { size: 'md', variant: 'solid', block: false },\n  },\n)\n\n/** The button look as a class string, exported because Segmented, Tabs,\n *  ToggleGroup, and BottomNav's menu compose literal buttons — sharing the\n *  builder means a toggle can never drift from the button it imitates. */\nexport function buttonClasses(\n  opts: { tone?: Tone; size?: 'sm' | 'md' | 'lg'; variant?: 'solid' | 'quiet'; block?: boolean } = {},\n): string {\n  const { tone = 'purple', size, variant, block } = opts\n  return cx(button({ size, variant, block }), toneClass(tone))\n}\n\nexport function Button({\n  children,\n  onClick,\n  tone = 'purple',\n  size = 'md',\n  variant = 'solid',\n  block,\n  disabled,\n  loading,\n  type = 'button',\n  label,\n}: ButtonProps) {\n  return (\n    <button\n      type={type}\n      className={buttonClasses({ tone, size, variant, block })}\n      onClick={onClick}\n      disabled={disabled || loading}\n      aria-busy={loading || undefined}\n      aria-label={label}\n    >\n      {loading && (\n        <span\n          className=\"size-[15px] rounded-[50%] border-[3px] border-solid border-[rgba(58,46,92,0.25)] border-t-ink [animation:pouf-spin_620ms_linear_infinite]\"\n          aria-hidden=\"true\"\n        />\n      )}\n      {children}\n    </button>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/pouf/Button.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

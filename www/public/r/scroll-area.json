@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "scroll-area",
+  "title": "ScrollArea",
+  "dependencies": [
+    "@radix-ui/react-scroll-area"
+  ],
+  "registryDependencies": [
+    "https://pouf.dev/r/base.json"
+  ],
+  "files": [
+    {
+      "path": "registry/pouf/scrollarea.tsx",
+      "content": "import * as RScroll from '@radix-ui/react-scroll-area'\nimport type { ReactNode } from 'react'\n\ninterface ScrollAreaProps {\n  children: ReactNode\n  maxHeight?: string\n}\n\nexport function ScrollArea({ children, maxHeight = '400px' }: ScrollAreaProps) {\n  return (\n    // maxHeight lives on the VIEWPORT, not the Root: the viewport scrolls itself,\n    // and a percentage height:100% against a Root that only has max-height never\n    // resolves (a percentage height needs an explicit parent height), so the old\n    // build just clipped and never scrolled. A max-height on the scrolling element\n    // directly needs no such resolution.\n    <RScroll.Root className=\"pouf-scroll\">\n      <RScroll.Viewport className=\"pouf-scroll__viewport\" style={{ maxHeight }}>\n        {children}\n      </RScroll.Viewport>\n      <RScroll.Scrollbar className=\"pouf-scroll__bar\" orientation=\"vertical\">\n        <RScroll.Thumb className=\"pouf-scroll__thumb\" />\n      </RScroll.Scrollbar>\n    </RScroll.Root>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/pouf/scrollarea.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "avatar",
+  "title": "Avatar",
+  "dependencies": [
+    "@radix-ui/react-avatar",
+    "class-variance-authority"
+  ],
+  "registryDependencies": [
+    "https://pouf.dev/r/base.json",
+    "https://pouf.dev/r/icon.json",
+    "https://pouf.dev/r/tone.json"
+  ],
+  "files": [
+    {
+      "path": "registry/pouf/avatar.tsx",
+      "content": "import * as RAvatar from '@radix-ui/react-avatar'\nimport { cva, cx } from 'class-variance-authority'\nimport { toneClass, type Tone } from './tone'\nimport { Icon } from './Icon'\nimport type { IconName } from './Icon'\n\ninterface AvatarProps {\n  src?: string\n  alt?: string\n  fallback?: string\n  icon?: IconName\n  tone?: Tone\n  size?: 'sm' | 'md' | 'lg'\n}\n\n/* The root carries the cast shadow: overflow:hidden clips a CHILD's shadow\n * (the old build put the whole blob recipe on the fallback and lost the drop),\n * but never the element's own. Inner highlight/floor live on the fallback\n * face; a photo supplies its own light, so an image avatar keeps just the\n * drop. */\nconst avatar = cva(\n  'pouf-avatar inline-flex items-center justify-center overflow-hidden flex-none bg-bg [box-shadow:0_10px_20px_rgba(58,46,92,0.15)]',\n  {\n    variants: {\n      size: {\n        sm: 'w-8 h-8 rounded-[14px]',\n        md: 'w-12 h-12 rounded-blob',\n        lg: 'w-[72px] h-[72px] rounded-blob',\n      },\n    },\n    defaultVariants: { size: 'md' },\n  },\n)\n\n/* SOFT, blurred insets — not the hard 0-blur bands the Blob uses. On a circle,\n * overflow:hidden clips a hard `inset 0 -6px 0` band into a crescent that\n * reads as a second, clipped disc. A blurred inset instead shades the sphere\n * smoothly: light gathered at the top, a soft floor at the bottom, no hard\n * edge to clip. Initials scale with the face — 15px letters were rattling\n * around the 72px avatar and crowding the 32px one. */\nconst fallback = cva(\n  [\n    'pouf-avatar__fallback w-full h-full flex items-center justify-center font-black text-ink',\n    'bg-[var(--tone,var(--purple))]',\n    '[box-shadow:inset_0_4px_8px_rgba(255,255,255,0.5),inset_0_-7px_11px_rgba(0,0,0,0.06)]',\n  ],\n  {\n    variants: {\n      size: { sm: 'text-[12px]', md: 'text-[15px]', lg: 'text-[22px]' },\n    },\n    defaultVariants: { size: 'md' },\n  },\n)\n\nexport function Avatar({ src, alt, fallback: fallbackText, icon, tone = 'purple', size = 'md' }: AvatarProps) {\n  return (\n    <RAvatar.Root className={avatar({ size })}>\n      {src && <RAvatar.Image className=\"pouf-avatar__img w-full h-full object-cover\" src={src} alt={alt ?? ''} />}\n      <RAvatar.Fallback className={cx(fallback({ size }), toneClass(tone))}>\n        {icon ? <Icon name={icon} size={size === 'lg' ? 'md' : 'sm'} /> : fallbackText?.slice(0, 2).toUpperCase()}\n      </RAvatar.Fallback>\n    </RAvatar.Root>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/pouf/avatar.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

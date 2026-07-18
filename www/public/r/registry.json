@@ -1,0 +1,772 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "pouf",
+  "homepage": "https://pouf.dev",
+  "items": [
+    {
+      "name": "base",
+      "type": "registry:style",
+      "title": "Pouf base",
+      "description": "Theme tokens, cushion utilities, keyframes, and component chrome. Required by every Pouf component. Also import @fontsource-variable/nunito once in your app.",
+      "dependencies": [
+        "clsx",
+        "class-variance-authority",
+        "tailwindcss",
+        "@fontsource-variable/nunito"
+      ],
+      "files": [
+        {
+          "path": "registry/pouf/pouf.css",
+          "type": "registry:file",
+          "target": "components/pouf/pouf.css"
+        }
+      ]
+    },
+    {
+      "name": "alert-bell",
+      "type": "registry:ui",
+      "title": "AlertBell",
+      "files": [
+        {
+          "path": "registry/pouf/AlertBell.tsx",
+          "type": "registry:ui",
+          "target": "components/pouf/AlertBell.tsx"
+        }
+      ],
+      "dependencies": [
+        "clsx"
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/feedback.json",
+        "https://pouf.dev/r/icon.json",
+        "https://pouf.dev/r/text.json"
+      ]
+    },
+    {
+      "name": "aspect-ratio",
+      "type": "registry:ui",
+      "title": "AspectRatio",
+      "files": [
+        {
+          "path": "registry/pouf/aspectratio.tsx",
+          "type": "registry:ui",
+          "target": "components/pouf/aspectratio.tsx"
+        }
+      ],
+      "dependencies": [
+        "@radix-ui/react-aspect-ratio"
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json"
+      ]
+    },
+    {
+      "name": "avatar",
+      "type": "registry:ui",
+      "title": "Avatar",
+      "files": [
+        {
+          "path": "registry/pouf/avatar.tsx",
+          "type": "registry:ui",
+          "target": "components/pouf/avatar.tsx"
+        }
+      ],
+      "dependencies": [
+        "@radix-ui/react-avatar",
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/icon.json",
+        "https://pouf.dev/r/tone.json"
+      ]
+    },
+    {
+      "name": "bottom-nav",
+      "type": "registry:ui",
+      "title": "BottomNav",
+      "files": [
+        {
+          "path": "registry/pouf/BottomNav.tsx",
+          "type": "registry:ui",
+          "target": "components/pouf/BottomNav.tsx"
+        }
+      ],
+      "dependencies": [
+        "@radix-ui/react-dialog",
+        "clsx"
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/button.json",
+        "https://pouf.dev/r/icon.json",
+        "https://pouf.dev/r/layout.json",
+        "https://pouf.dev/r/nav-link.json",
+        "https://pouf.dev/r/text.json",
+        "https://pouf.dev/r/tone.json"
+      ]
+    },
+    {
+      "name": "breadcrumb",
+      "type": "registry:ui",
+      "title": "Breadcrumb",
+      "files": [
+        {
+          "path": "registry/pouf/breadcrumb.tsx",
+          "type": "registry:ui",
+          "target": "components/pouf/breadcrumb.tsx"
+        }
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json"
+      ]
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "files": [
+        {
+          "path": "registry/pouf/Button.tsx",
+          "type": "registry:ui",
+          "target": "components/pouf/Button.tsx"
+        }
+      ],
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/tone.json"
+      ]
+    },
+    {
+      "name": "charts",
+      "type": "registry:ui",
+      "title": "Charts",
+      "files": [
+        {
+          "path": "registry/pouf/charts.tsx",
+          "type": "registry:ui",
+          "target": "components/pouf/charts.tsx"
+        }
+      ],
+      "dependencies": [
+        "recharts"
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/tone.json"
+      ]
+    },
+    {
+      "name": "checkbox",
+      "type": "registry:ui",
+      "title": "Checkbox",
+      "files": [
+        {
+          "path": "registry/pouf/checkbox.tsx",
+          "type": "registry:ui",
+          "target": "components/pouf/checkbox.tsx"
+        }
+      ],
+      "dependencies": [
+        "@radix-ui/react-checkbox",
+        "clsx"
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json"
+      ]
+    },
+    {
+      "name": "controls",
+      "type": "registry:ui",
+      "title": "Controls (Select, Switch, Tooltip, Dialog, Confirm, Combobox)",
+      "files": [
+        {
+          "path": "registry/pouf/controls.tsx",
+          "type": "registry:ui",
+          "target": "components/pouf/controls.tsx"
+        }
+      ],
+      "dependencies": [
+        "@radix-ui/react-alert-dialog",
+        "@radix-ui/react-dialog",
+        "@radix-ui/react-popover",
+        "@radix-ui/react-select",
+        "@radix-ui/react-switch",
+        "@radix-ui/react-tooltip",
+        "clsx"
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/button.json",
+        "https://pouf.dev/r/icon.json",
+        "https://pouf.dev/r/input.json",
+        "https://pouf.dev/r/layout.json",
+        "https://pouf.dev/r/text.json",
+        "https://pouf.dev/r/tone.json"
+      ]
+    },
+    {
+      "name": "disclosure",
+      "type": "registry:ui",
+      "title": "Tabs, Accordion, Collapsible",
+      "files": [
+        {
+          "path": "registry/pouf/disclosure.tsx",
+          "type": "registry:ui",
+          "target": "components/pouf/disclosure.tsx"
+        }
+      ],
+      "dependencies": [
+        "@radix-ui/react-accordion",
+        "@radix-ui/react-collapsible",
+        "@radix-ui/react-tabs",
+        "clsx",
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/button.json",
+        "https://pouf.dev/r/icon.json",
+        "https://pouf.dev/r/tone.json"
+      ]
+    },
+    {
+      "name": "error-boundary",
+      "type": "registry:ui",
+      "title": "ErrorBoundary",
+      "files": [
+        {
+          "path": "registry/pouf/ErrorBoundary.tsx",
+          "type": "registry:ui",
+          "target": "components/pouf/ErrorBoundary.tsx"
+        }
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/button.json",
+        "https://pouf.dev/r/layout.json",
+        "https://pouf.dev/r/media.json",
+        "https://pouf.dev/r/surface.json",
+        "https://pouf.dev/r/text.json"
+      ]
+    },
+    {
+      "name": "feedback",
+      "type": "registry:ui",
+      "title": "Empty, Skeleton, ErrorNote",
+      "files": [
+        {
+          "path": "registry/pouf/feedback.tsx",
+          "type": "registry:ui",
+          "target": "components/pouf/feedback.tsx"
+        }
+      ],
+      "dependencies": [
+        "clsx"
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/icon.json",
+        "https://pouf.dev/r/layout.json",
+        "https://pouf.dev/r/media.json",
+        "https://pouf.dev/r/text.json"
+      ]
+    },
+    {
+      "name": "hover-card",
+      "type": "registry:ui",
+      "title": "HoverCard",
+      "files": [
+        {
+          "path": "registry/pouf/hovercard.tsx",
+          "type": "registry:ui",
+          "target": "components/pouf/hovercard.tsx"
+        }
+      ],
+      "dependencies": [
+        "@radix-ui/react-hover-card",
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json"
+      ]
+    },
+    {
+      "name": "icon",
+      "type": "registry:ui",
+      "title": "Icon",
+      "files": [
+        {
+          "path": "registry/pouf/Icon.tsx",
+          "type": "registry:ui",
+          "target": "components/pouf/Icon.tsx"
+        }
+      ],
+      "dependencies": [
+        "@tabler/icons-react"
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json"
+      ]
+    },
+    {
+      "name": "input",
+      "type": "registry:ui",
+      "title": "Input",
+      "files": [
+        {
+          "path": "registry/pouf/Input.tsx",
+          "type": "registry:ui",
+          "target": "components/pouf/Input.tsx"
+        }
+      ],
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json"
+      ]
+    },
+    {
+      "name": "layout",
+      "type": "registry:ui",
+      "title": "Layout (Stack, Row, Grid, Shell, Sidebar)",
+      "files": [
+        {
+          "path": "registry/pouf/layout.tsx",
+          "type": "registry:ui",
+          "target": "components/pouf/layout.tsx"
+        }
+      ],
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json"
+      ]
+    },
+    {
+      "name": "media",
+      "type": "registry:ui",
+      "title": "Blob, Badge, Dot, Figure",
+      "files": [
+        {
+          "path": "registry/pouf/media.tsx",
+          "type": "registry:ui",
+          "target": "components/pouf/media.tsx"
+        }
+      ],
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/icon.json",
+        "https://pouf.dev/r/tone.json"
+      ]
+    },
+    {
+      "name": "menu",
+      "type": "registry:ui",
+      "title": "DropdownMenu",
+      "files": [
+        {
+          "path": "registry/pouf/menu.tsx",
+          "type": "registry:ui",
+          "target": "components/pouf/menu.tsx"
+        }
+      ],
+      "dependencies": [
+        "@radix-ui/react-dropdown-menu",
+        "clsx",
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/icon.json"
+      ]
+    },
+    {
+      "name": "nav-link",
+      "type": "registry:ui",
+      "title": "NavLink",
+      "files": [
+        {
+          "path": "registry/pouf/NavLink.tsx",
+          "type": "registry:ui",
+          "target": "components/pouf/NavLink.tsx"
+        }
+      ],
+      "dependencies": [
+        "clsx"
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/icon.json",
+        "https://pouf.dev/r/tone.json"
+      ]
+    },
+    {
+      "name": "number-input",
+      "type": "registry:ui",
+      "title": "NumberInput",
+      "files": [
+        {
+          "path": "registry/pouf/NumberInput.tsx",
+          "type": "registry:ui",
+          "target": "components/pouf/NumberInput.tsx"
+        }
+      ],
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/icon.json",
+        "https://pouf.dev/r/input.json",
+        "https://pouf.dev/r/numberinput-math.json"
+      ]
+    },
+    {
+      "name": "numberinput-math",
+      "type": "registry:lib",
+      "title": "NumberInput math",
+      "files": [
+        {
+          "path": "registry/pouf/numberinput-math.ts",
+          "type": "registry:lib",
+          "target": "components/pouf/numberinput-math.ts"
+        }
+      ]
+    },
+    {
+      "name": "pagination",
+      "type": "registry:ui",
+      "title": "Pagination",
+      "files": [
+        {
+          "path": "registry/pouf/pagination.tsx",
+          "type": "registry:ui",
+          "target": "components/pouf/pagination.tsx"
+        }
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/button.json",
+        "https://pouf.dev/r/icon.json",
+        "https://pouf.dev/r/layout.json",
+        "https://pouf.dev/r/text.json"
+      ]
+    },
+    {
+      "name": "progress",
+      "type": "registry:ui",
+      "title": "Progress",
+      "files": [
+        {
+          "path": "registry/pouf/progress.tsx",
+          "type": "registry:ui",
+          "target": "components/pouf/progress.tsx"
+        }
+      ],
+      "dependencies": [
+        "@radix-ui/react-progress",
+        "clsx",
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/tone.json"
+      ]
+    },
+    {
+      "name": "radio-group",
+      "type": "registry:ui",
+      "title": "RadioGroup",
+      "files": [
+        {
+          "path": "registry/pouf/radiogroup.tsx",
+          "type": "registry:ui",
+          "target": "components/pouf/radiogroup.tsx"
+        }
+      ],
+      "dependencies": [
+        "@radix-ui/react-radio-group"
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json"
+      ]
+    },
+    {
+      "name": "readout",
+      "type": "registry:ui",
+      "title": "Stat, Metric",
+      "files": [
+        {
+          "path": "registry/pouf/readout.tsx",
+          "type": "registry:ui",
+          "target": "components/pouf/readout.tsx"
+        }
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/icon.json",
+        "https://pouf.dev/r/media.json",
+        "https://pouf.dev/r/surface.json",
+        "https://pouf.dev/r/text.json",
+        "https://pouf.dev/r/tone.json"
+      ]
+    },
+    {
+      "name": "scroll-area",
+      "type": "registry:ui",
+      "title": "ScrollArea",
+      "files": [
+        {
+          "path": "registry/pouf/scrollarea.tsx",
+          "type": "registry:ui",
+          "target": "components/pouf/scrollarea.tsx"
+        }
+      ],
+      "dependencies": [
+        "@radix-ui/react-scroll-area"
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json"
+      ]
+    },
+    {
+      "name": "segmented",
+      "type": "registry:ui",
+      "title": "Segmented",
+      "files": [
+        {
+          "path": "registry/pouf/Segmented.tsx",
+          "type": "registry:ui",
+          "target": "components/pouf/Segmented.tsx"
+        }
+      ],
+      "dependencies": [
+        "clsx"
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/button.json",
+        "https://pouf.dev/r/tone.json"
+      ]
+    },
+    {
+      "name": "separator",
+      "type": "registry:ui",
+      "title": "Separator",
+      "files": [
+        {
+          "path": "registry/pouf/separator.tsx",
+          "type": "registry:ui",
+          "target": "components/pouf/separator.tsx"
+        }
+      ],
+      "dependencies": [
+        "@radix-ui/react-separator"
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json"
+      ]
+    },
+    {
+      "name": "sheet",
+      "type": "registry:ui",
+      "title": "sheet",
+      "files": [
+        {
+          "path": "registry/pouf/sheet.tsx",
+          "type": "registry:ui",
+          "target": "components/pouf/sheet.tsx"
+        }
+      ],
+      "dependencies": [
+        "@radix-ui/react-dialog"
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/button.json",
+        "https://pouf.dev/r/icon.json",
+        "https://pouf.dev/r/layout.json",
+        "https://pouf.dev/r/text.json"
+      ]
+    },
+    {
+      "name": "slider",
+      "type": "registry:ui",
+      "title": "Slider",
+      "files": [
+        {
+          "path": "registry/pouf/slider.tsx",
+          "type": "registry:ui",
+          "target": "components/pouf/slider.tsx"
+        }
+      ],
+      "dependencies": [
+        "@radix-ui/react-slider"
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json"
+      ]
+    },
+    {
+      "name": "status",
+      "type": "registry:ui",
+      "title": "Status, Freshness, ModeBanner",
+      "files": [
+        {
+          "path": "registry/pouf/status.tsx",
+          "type": "registry:ui",
+          "target": "components/pouf/status.tsx"
+        }
+      ],
+      "dependencies": [
+        "clsx"
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/layout.json",
+        "https://pouf.dev/r/media.json",
+        "https://pouf.dev/r/text.json",
+        "https://pouf.dev/r/tone.json"
+      ]
+    },
+    {
+      "name": "surface",
+      "type": "registry:ui",
+      "title": "Card, RowCard",
+      "files": [
+        {
+          "path": "registry/pouf/surface.tsx",
+          "type": "registry:ui",
+          "target": "components/pouf/surface.tsx"
+        }
+      ],
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json"
+      ]
+    },
+    {
+      "name": "table",
+      "type": "registry:ui",
+      "title": "Table",
+      "files": [
+        {
+          "path": "registry/pouf/table.tsx",
+          "type": "registry:ui",
+          "target": "components/pouf/table.tsx"
+        }
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/text.json"
+      ]
+    },
+    {
+      "name": "text",
+      "type": "registry:ui",
+      "title": "Heading, Text, Highlight, Eyebrow",
+      "files": [
+        {
+          "path": "registry/pouf/text.tsx",
+          "type": "registry:ui",
+          "target": "components/pouf/text.tsx"
+        }
+      ],
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/tone.json"
+      ]
+    },
+    {
+      "name": "toast",
+      "type": "registry:ui",
+      "title": "Toast",
+      "files": [
+        {
+          "path": "registry/pouf/Toast.tsx",
+          "type": "registry:ui",
+          "target": "components/pouf/Toast.tsx"
+        }
+      ],
+      "dependencies": [
+        "clsx",
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/icon.json"
+      ]
+    },
+    {
+      "name": "toaster",
+      "type": "registry:ui",
+      "title": "Toaster",
+      "files": [
+        {
+          "path": "registry/pouf/toaster.tsx",
+          "type": "registry:ui",
+          "target": "components/pouf/toaster.tsx"
+        }
+      ],
+      "dependencies": [
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/icon.json"
+      ]
+    },
+    {
+      "name": "toggle",
+      "type": "registry:ui",
+      "title": "ToggleGroup",
+      "files": [
+        {
+          "path": "registry/pouf/toggle.tsx",
+          "type": "registry:ui",
+          "target": "components/pouf/toggle.tsx"
+        }
+      ],
+      "dependencies": [
+        "@radix-ui/react-toggle-group",
+        "clsx"
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/button.json",
+        "https://pouf.dev/r/icon.json",
+        "https://pouf.dev/r/tone.json"
+      ]
+    },
+    {
+      "name": "tone",
+      "type": "registry:lib",
+      "title": "Tone tokens",
+      "files": [
+        {
+          "path": "registry/pouf/tone.ts",
+          "type": "registry:lib",
+          "target": "components/pouf/tone.ts"
+        }
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json"
+      ]
+    }
+  ]
+}

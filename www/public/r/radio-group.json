@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "radio-group",
+  "title": "RadioGroup",
+  "dependencies": [
+    "@radix-ui/react-radio-group"
+  ],
+  "registryDependencies": [
+    "https://pouf.dev/r/base.json"
+  ],
+  "files": [
+    {
+      "path": "registry/pouf/radiogroup.tsx",
+      "content": "import * as RRadio from '@radix-ui/react-radio-group'\n\ninterface RadioOption {\n  value: string\n  label: string\n}\n\ninterface RadioGroupProps {\n  value: string\n  onChange: (value: string) => void\n  options: RadioOption[]\n  label: string\n  disabled?: boolean\n}\n\nexport function RadioGroup({ value, onChange, options, label, disabled }: RadioGroupProps) {\n  return (\n    <RRadio.Root\n      className=\"pouf-radio-group flex flex-col gap-(--s2)\"\n      value={value}\n      onValueChange={onChange}\n      disabled={disabled}\n      aria-label={label}\n    >\n      {options.map((o) => (\n        <div key={o.value} className=\"pouf-radio-row flex items-center gap-(--s2)\">\n          <RRadio.Item id={`radio-${o.value}`} value={o.value} className={[\n              /* Sized with the checkbox — they sit in the same forms. */\n              'pouf-radio w-7 h-7 rounded-[50%] bg-bg border-none p-0 cursor-pointer cushion-field flex-none',\n              'flex items-center justify-center [transition:background_160ms_ease]',\n              'data-[state=checked]:bg-purple disabled:opacity-50 disabled:cursor-not-allowed',\n            ].join(' ')}>\n            <RRadio.Indicator className={[\n                /* A white dot on the purple disc, not a dark one: an ink dot on\n                 * lavender read as a pupil in a puffy eye. */\n                'pouf-radio__indicator w-2.5 h-2.5 rounded-[50%] bg-surface',\n                '[box-shadow:0_1px_1px_rgba(58,46,92,0.3)]',\n              ].join(' ')} />\n          </RRadio.Item>\n          <label htmlFor={`radio-${o.value}`} className=\"pouf-radio__label text-[15px] font-bold text-ink cursor-pointer\">\n            {o.label}\n          </label>\n        </div>\n      ))}\n    </RRadio.Root>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/pouf/radiogroup.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "hover-card",
+  "title": "HoverCard",
+  "dependencies": [
+    "@radix-ui/react-hover-card",
+    "framer-motion"
+  ],
+  "registryDependencies": [
+    "https://pouf.dev/r/base.json"
+  ],
+  "files": [
+    {
+      "path": "registry/pouf/hovercard.tsx",
+      "content": "import * as RHover from '@radix-ui/react-hover-card'\nimport type { ReactNode } from 'react'\nimport { motion } from 'framer-motion'\n\ninterface HoverCardProps {\n  children: ReactNode\n  content: ReactNode\n  side?: 'top' | 'right' | 'bottom' | 'left'\n  align?: 'start' | 'center' | 'end'\n}\n\nexport function HoverCard({ children, content, side = 'bottom', align = 'center' }: HoverCardProps) {\n  return (\n    <RHover.Root openDelay={300} closeDelay={200}>\n      <RHover.Trigger asChild>\n        <span className=\"pouf-hover__anchor\">{children}</span>\n      </RHover.Trigger>\n      <RHover.Portal>\n        <RHover.Content className=\"pouf-hover\" sideOffset={8} side={side} align={align} asChild>\n          <motion.div\n            initial={{ opacity: 0, scale: 0.97, y: 4 }}\n            animate={{ opacity: 1, scale: 1, y: 0 }}\n            transition={{ duration: 0.15, ease: 'easeOut' }}\n          >\n            {content}\n          </motion.div>\n        </RHover.Content>\n      </RHover.Portal>\n    </RHover.Root>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/pouf/hovercard.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tone",
+  "title": "Tone tokens",
+  "registryDependencies": [
+    "https://pouf.dev/r/base.json"
+  ],
+  "files": [
+    {
+      "path": "registry/pouf/tone.ts",
+      "content": "/** The palette, and the semantic aliases screens should prefer.\n *\n * Screens say what a thing MEANS (\"up\", \"down\", \"warn\") rather than what colour\n * it is (\"mint\", \"pink\"). Re-theming then happens in pouf.css alone: remap --up\n * and every profit figure in the admin follows. Raw palette tones stay available\n * for decorative use where no meaning is implied. */\nexport type Tone =\n  | 'pink'\n  | 'purple'\n  | 'blue'\n  | 'mint'\n  | 'yellow'\n  | 'orange'\n  | 'up'\n  | 'down'\n  | 'warn'\n  | 'info'\n  | 'idle'\n\nexport const toneClass = (tone?: Tone): string | undefined => (tone ? `tone-${tone}` : undefined)\n",
+      "type": "registry:lib",
+      "target": "components/pouf/tone.ts"
+    }
+  ],
+  "type": "registry:lib"
+}

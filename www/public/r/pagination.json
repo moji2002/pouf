@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pagination",
+  "title": "Pagination",
+  "registryDependencies": [
+    "https://pouf.dev/r/base.json",
+    "https://pouf.dev/r/button.json",
+    "https://pouf.dev/r/icon.json",
+    "https://pouf.dev/r/layout.json",
+    "https://pouf.dev/r/text.json"
+  ],
+  "files": [
+    {
+      "path": "registry/pouf/pagination.tsx",
+      "content": "import { Button } from './Button'\nimport { Row } from './layout'\nimport { Icon } from './Icon'\nimport { Text } from './text'\n\ninterface PaginationProps {\n  page: number\n  total: number\n  onChange: (page: number) => void\n}\n\n/** Chevrons, not arrows: `up`/`down` are price direction in this app, and the\n * first build used them here — a \"previous page\" that read as a falling\n * market. The indicator is plain ink; muted fails contrast on --bg at 13px. */\nexport function Pagination({ page, total, onChange }: PaginationProps) {\n  if (total <= 1) return null\n\n  return (\n    <Row gap={2} justify=\"end\">\n      <Button variant=\"quiet\" size=\"sm\" disabled={page <= 1} onClick={() => onChange(page - 1)} label=\"Previous page\">\n        <Icon name=\"prev\" size=\"sm\" />\n      </Button>\n      <Text size=\"sm\" num>\n        {page} / {total}\n      </Text>\n      <Button variant=\"quiet\" size=\"sm\" disabled={page >= total} onClick={() => onChange(page + 1)} label=\"Next page\">\n        <Icon name=\"next\" size=\"sm\" />\n      </Button>\n    </Row>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/pouf/pagination.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

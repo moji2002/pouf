@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sheet",
+  "title": "sheet",
+  "dependencies": [
+    "@radix-ui/react-dialog"
+  ],
+  "registryDependencies": [
+    "https://pouf.dev/r/base.json",
+    "https://pouf.dev/r/button.json",
+    "https://pouf.dev/r/icon.json",
+    "https://pouf.dev/r/layout.json",
+    "https://pouf.dev/r/text.json"
+  ],
+  "files": [
+    {
+      "path": "registry/pouf/sheet.tsx",
+      "content": "import * as RDialog from '@radix-ui/react-dialog'\nimport type { ReactNode } from 'react'\nimport { Button } from './Button'\nimport { Icon } from './Icon'\nimport { Stack } from './layout'\nimport { Heading, Text } from './text'\n\ninterface SheetProps {\n  /** Omit for a fully controlled sheet (open/onOpenChange) with no in-place\n   *  trigger — e.g. opened from a table row click. */\n  trigger?: ReactNode\n  title: string\n  description?: string\n  children: ReactNode\n  open?: boolean\n  onOpenChange?: (open: boolean) => void\n}\n\n/** A side sheet — NOT a centred dialog.\n *\n * The old Sheet reused .pouf-dialog, so \"Open sheet\" produced something visually\n * identical to a modal. A sheet reads as a panel that slides in from an edge: the\n * right on desktop, the bottom on a phone (where the thumb is). Enter and exit are\n * CSS animations keyed off Radix's data-state — Radix's Presence keeps the node\n * mounted until the close animation ends, so it slides out too, no framer needed.\n */\nexport function Sheet({ trigger, title, description, children, open, onOpenChange }: SheetProps) {\n  return (\n    <RDialog.Root open={open} onOpenChange={onOpenChange}>\n      {trigger && <RDialog.Trigger asChild>{trigger}</RDialog.Trigger>}\n      <RDialog.Portal>\n        <RDialog.Overlay className=\"pouf-overlay\" />\n        <RDialog.Content className=\"pouf-sheet-dialog\">\n          <div className=\"pouf-sheet-panel\">\n            <div className=\"pouf-dialog__head\">\n              <Stack gap={1}>\n                <RDialog.Title asChild>\n                  <div>\n                    <Heading level={3}>{title}</Heading>\n                  </div>\n                </RDialog.Title>\n                {description && (\n                  <RDialog.Description asChild>\n                    <div>\n                      <Text size=\"sm\" muted>\n                        {description}\n                      </Text>\n                    </div>\n                  </RDialog.Description>\n                )}\n              </Stack>\n              <RDialog.Close asChild>\n                <Button variant=\"quiet\" size=\"sm\" label=\"Close\">\n                  <Icon name=\"close\" size=\"sm\" />\n                </Button>\n              </RDialog.Close>\n            </div>\n            <div className=\"pouf-dialog__body\">{children}</div>\n          </div>\n        </RDialog.Content>\n      </RDialog.Portal>\n    </RDialog.Root>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/pouf/sheet.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}
