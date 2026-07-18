@@ -2,6 +2,7 @@ import * as RAccordion from '@radix-ui/react-accordion'
 import * as RTabs from '@radix-ui/react-tabs'
 import * as RCollapse from '@radix-ui/react-collapsible'
 import clsx from 'clsx'
+import { buttonClasses } from './Button'
 import { useState, type ReactNode } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Icon } from './Icon'
@@ -37,7 +38,7 @@ export function Tabs({ tabs, value, onChange, tone = 'blue' }: TabsProps) {
           <RTabs.Trigger
             key={t.value}
             value={t.value}
-            className={clsx('pouf-btn', 'pouf-btn--sm', 'pouf-tabs__trigger', toneClass(tone))}
+            className={clsx(buttonClasses({ size: 'sm', tone }), 'pouf-tabs__trigger')}
           >
             {t.label}
           </RTabs.Trigger>

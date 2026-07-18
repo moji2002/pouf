@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+import { buttonClasses } from './Button'
 import * as RDialog from '@radix-ui/react-dialog'
 import { useState } from 'react'
 import { Icon, type IconName } from './Icon'
@@ -138,7 +139,7 @@ export function BottomNav({ primary, groups, currentPath, link: Link = Anchor }:
               </div>
             </div>
             <RDialog.Close asChild>
-              <button type="button" className="pouf-btn pouf-btn--quiet pouf-btn--block pouf-btn--sm">
+              <button type="button" className={buttonClasses({ size: 'sm', variant: 'quiet', block: true })}>
                 <Row gap={2} wrap={false}>
                   <Icon name="close" size="sm" />
                   <Text size="sm">Close</Text>

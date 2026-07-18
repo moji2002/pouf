@@ -9,6 +9,10 @@
  * use ink (6.10:1–9.75:1). We follow the better instinct uniformly.
  * ========================================================================= */
 @import 'tailwindcss';
+/* Scan the registry itself: this file ships next to the components, and
+ * consumers' builds (and the gallery, whose Vite root is elsewhere) must find
+ * the utility classes used in these sources. */
+@source './';
 
 @theme {
   /* -- Palette: verbatim from the reference ------------------------------ */
@@ -168,6 +172,43 @@
   }
 }
 
-/* @utility cushion recipes are added here by the per-component migration as
- * shared machinery is lifted out of legacy.css (cushion-control, cushion-card,
- * lip-floor, …). Keyframes migrate here alongside their components. */
+/* ============================================================================
+ * Cushion recipes. Deliberately @utility with a raw box-shadow rather than
+ * Tailwind's shadow-* utilities: those compose through the --tw-shadow/ring
+ * var stack, which changes the COMPUTED box-shadow string and would trip the
+ * snapshot gate (and subtly alter how rings and cushions interact). Same
+ * reasoning applies migration-wide: transforms, transitions, and animations
+ * are written as arbitrary properties or utilities here, never through
+ * Tailwind's composite var systems.
+ * ========================================================================= */
+@utility cushion-control {
+  box-shadow: var(--pouf-control);
+}
+@utility cushion-control-active {
+  box-shadow: var(--pouf-control-active);
+}
+@utility cushion-card {
+  box-shadow: var(--pouf-card);
+}
+@utility cushion-blob {
+  box-shadow: var(--pouf-blob);
+}
+@utility cushion-field {
+  box-shadow: var(--pouf-field);
+}
+@utility cushion-field-focus {
+  box-shadow: var(--pouf-field-focus);
+}
+@utility cushion-row {
+  box-shadow: var(--pouf-row);
+}
+@utility cushion-row-hover {
+  box-shadow: var(--pouf-row-hover);
+}
+
+/* Keyframes migrate here alongside their components. */
+@keyframes pouf-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

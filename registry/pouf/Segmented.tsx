@@ -1,5 +1,6 @@
 import clsx from 'clsx'
-import { toneClass, type Tone } from './tone'
+import { type Tone } from './tone'
+import { buttonClasses } from './Button'
 
 export interface SegmentedOption<T extends string> {
   value: T
@@ -43,7 +44,7 @@ export function Segmented<T extends string>({ value, onChange, options, label, t
           <button
             key={o.value}
             type="button"
-            className={clsx('pouf-btn', 'pouf-btn--sm', toneClass(tone), on && 'pouf-seg__item--on')}
+            className={clsx(buttonClasses({ size: 'sm', tone }), on && 'pouf-seg__item--on')}
             aria-pressed={on}
             onClick={() => onChange(o.value)}
           >

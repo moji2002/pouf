@@ -104,42 +104,6 @@
     0 12px 24px rgba(58, 46, 92, 0.16);
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  background: var(--bg);
-  color: var(--ink);
-  font-family: var(--font);
-  font-weight: 700;
-  font-size: 15px;
-  line-height: 1.5;
-  min-height: 100vh;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* The reference ships `:focus` only. A keyboard operator flattening a live
- * position needs a visible ring that does not fire on mouse click. */
-:focus-visible {
-  outline: 3px solid var(--ink);
-  outline-offset: 3px;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
 /* Page transition: each screen fades and rises a touch as it mounts. app.tsx
  * keys this on the route path, so it replays on real navigation only (not on a
  * ?query change). Neutralised by the reduced-motion rule above. */
@@ -374,92 +338,6 @@ body {
  * Nothing is lost: the row's Blob carries the same tone and the Badge states it
  * in words, which is the signal that had to exist anyway (WCAG 1.4.1). The edge
  * was only ever a third copy. */
-
-/* ============================================================================
- * BUTTON
- * ========================================================================= */
-.pouf-btn {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--s2);
-  font-family: var(--font);
-  font-weight: 900;
-  font-size: 15px;
-  line-height: 1;
-  /* ink on pastel, never white -- see the deviation note at the top */
-  color: var(--ink);
-  background: var(--tone, var(--purple));
-  border: none;
-  border-radius: var(--r-control);
-  padding: 14px 26px;
-  min-height: 48px; /* pointer target */
-  cursor: pointer;
-  box-shadow: var(--pouf-control);
-  transition:
-    box-shadow 120ms ease,
-    transform 120ms ease;
-}
-.pouf-btn:active:not(:disabled) {
-  transform: translateY(2px);
-  box-shadow: var(--pouf-control-active);
-}
-.pouf-btn:disabled {
-  cursor: not-allowed;
-  opacity: 0.5;
-  /* A disabled cushion must read as pressed-flat, not merely faded: the
-   * affordance is the depth, so removing the depth is the real signal. */
-  box-shadow: var(--pouf-control-active);
-  transform: translateY(2px);
-}
-.pouf-btn--sm {
-  font-size: 13px;
-  padding: 9px 16px;
-  min-height: 38px;
-  border-radius: 14px;
-}
-.pouf-btn--lg {
-  font-size: 17px;
-  padding: 18px 32px;
-  min-height: 56px;
-}
-.pouf-btn--block {
-  display: flex;
-  width: 100%;
-}
-/* Quiet: a flat cushion for tertiary actions that shouldn't compete with the
- * primary one. It keeps a resting ring rather than going fully bare: in a
- * design system where depth IS the affordance, a shadowless label reads as
- * static text, and "can't tell what's clickable" is the standard, well-earned
- * criticism of this whole aesthetic. Recessed, but unmistakably a control. */
-.pouf-btn--quiet {
-  background: transparent;
-  box-shadow: inset 0 0 0 2px rgba(201, 168, 255, 0.55);
-  color: var(--ink);
-}
-.pouf-btn--quiet:hover:not(:disabled) {
-  background: var(--bg);
-  box-shadow: var(--pouf-field);
-}
-.pouf-btn--quiet:disabled {
-  box-shadow: none;
-  transform: none;
-}
-
-.pouf-btn__spinner {
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  border: 3px solid rgba(58, 46, 92, 0.25);
-  border-top-color: var(--ink);
-  animation: pouf-spin 620ms linear infinite;
-}
-@keyframes pouf-spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
 
 /* ============================================================================
  * FIELD / INPUT

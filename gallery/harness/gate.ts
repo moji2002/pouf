@@ -235,8 +235,13 @@ async function main(): Promise<number> {
               const px = diffPixels(component, `${demo.id}.${name}.png`)
               if (problems.length || px > 0) {
                 failures++
+                /* Var ADDITIONS (…: "undefined" → …) are the inert @theme/--tw
+                 * vocabulary landing on every element — real diffs drown in
+                 * them at a 20-line cap, so demote them below everything else. */
+                const isVarAddition = (p: string) => /--[^ ]+: "undefined" →/.test(p)
+                const ranked = [...problems.filter((p) => !isVarAddition(p)), ...problems.filter(isVarAddition)]
                 console.log(`✗ ${component}/${demo.id} [${name}] — ${problems.length} props, ${px} px`)
-                for (const p of problems.slice(0, 20)) console.log(`   ${p}`)
+                for (const p of ranked.slice(0, 30)) console.log(`   ${p}`)
               }
             }
           }

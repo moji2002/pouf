@@ -1,6 +1,7 @@
 import * as RToggle from '@radix-ui/react-toggle-group'
 import clsx from 'clsx'
-import { toneClass, type Tone } from './tone'
+import { type Tone } from './tone'
+import { buttonClasses } from './Button'
 import { Icon } from './Icon'
 import type { IconName } from './Icon'
 
@@ -33,7 +34,7 @@ export function ToggleGroup({ value, onChange, options, label, tone = 'purple' }
         <RToggle.Item
           key={o.value}
           value={o.value}
-          className={clsx('pouf-btn', 'pouf-btn--sm', 'pouf-toggle__item', toneClass(tone))}
+          className={clsx(buttonClasses({ size: 'sm', tone }), 'pouf-toggle__item')}
         >
           {o.icon && <Icon name={o.icon} size="sm" />}
           {o.label}
