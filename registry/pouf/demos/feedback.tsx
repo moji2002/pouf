@@ -2,7 +2,7 @@ import { Empty, Skeleton, ErrorNote } from '../feedback'
 import type { Demo } from './types'
 
 export const emptyDemos: Demo[] = [
-  { id: 'default', render: () => <Empty icon="ok" title="No open positions">The engine is idle.</Empty> },
+  { id: 'default', render: () => <Empty icon="ok" title="Nothing here yet">Add your first item to get started.</Empty> },
   { id: 'no-description', render: () => <Empty icon="idle" title="Nothing here yet" /> },
 ]
 

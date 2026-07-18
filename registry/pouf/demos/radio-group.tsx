@@ -6,11 +6,11 @@ export const radioGroupDemos: Demo[] = [
       <span data-subject>
         <RadioGroup
           label="Sort by"
-          value="profit"
+          value="weekly"
           onChange={() => {}}
           options={[
-            { value: 'profit', label: 'Profit' },
-            { value: 'loss', label: 'Loss' },
+            { value: 'weekly', label: 'Weekly' },
+            { value: 'monthly', label: 'Monthly' },
             { value: 'alpha', label: 'Alphabetical' },
           ]}
         />
@@ -19,12 +19,12 @@ export const radioGroupDemos: Demo[] = [
   { id: 'disabled', render: () => (
       <RadioGroup
         label="Sort by"
-        value="profit"
+        value="weekly"
         onChange={() => {}}
         disabled
         options={[
-          { value: 'profit', label: 'Profit' },
-          { value: 'loss', label: 'Loss' },
+          { value: 'weekly', label: 'Weekly' },
+          { value: 'monthly', label: 'Monthly' },
         ]}
       />
     ) },

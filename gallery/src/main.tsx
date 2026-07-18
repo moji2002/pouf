@@ -1,6 +1,6 @@
 import '@fontsource-variable/nunito'
 import '../../registry/pouf/legacy.css'
-import { StrictMode, useSyncExternalStore } from 'react'
+import { useSyncExternalStore } from 'react'
 import { createRoot } from 'react-dom/client'
 import { allDemos } from '../../registry/pouf/demos'
 
@@ -29,4 +29,4 @@ function App() {
   return <main data-demo-root style={{ padding: 40 }}>{demo.render()}</main>
 }
 
-createRoot(document.getElementById('root')!).render(<StrictMode><App /></StrictMode>)
+createRoot(document.getElementById('root')!).render(<App />)

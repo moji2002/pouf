@@ -13,7 +13,7 @@ import type { Demo } from './types'
  * replace them, since nothing here ever clears the queue. */
 function ToasterOpen({ variant }: { variant: ToastVariant }) {
   useEffect(() => {
-    if (variant === 'default') toast('Trade filled — sample order')
+    if (variant === 'default') toast('Saved — sample note')
     else if (variant === 'success') toast.success('Order filled at 64,201', { description: 'Apple · 0.4 · Limit' })
     else if (variant === 'error') toast.error('API connection lost', { description: 'Retrying…' })
     else if (variant === 'warning')
@@ -28,7 +28,7 @@ export const toasterDemos: Demo[] = [
   { id: 'trigger', states: ['hover', 'focus'], render: () => (
       <span data-subject>
         <Row>
-          <Button size="sm" tone="purple" onClick={() => toast('Trade filled')}>Show toast</Button>
+          <Button size="sm" tone="purple" onClick={() => toast('Saved')}>Show toast</Button>
         </Row>
       </span>
     ) },

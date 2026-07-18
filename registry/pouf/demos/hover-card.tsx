@@ -5,7 +5,7 @@ import { Text } from '../text'
 import { simulateHover } from './interact'
 import type { Demo } from './types'
 
-const content = <Text size="sm">Opened 3 hours ago at 64,201.50 with 2x leverage.</Text>
+const content = <Text size="sm">Created 3 hours ago · 12 items · shared with 2 people.</Text>
 
 function HoverCardOpen() {
   const ref = useRef<HTMLDivElement>(null)

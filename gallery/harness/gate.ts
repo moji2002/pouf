@@ -116,7 +116,9 @@ async function settle(page: Page): Promise<void> {
   let stableStreak = 0
   const start = Date.now()
   while (Date.now() - start < 3500) {
-    const cur = await page.evaluate(() => document.querySelector('[data-demo-root]')?.innerHTML ?? '')
+    /* Body-wide, not demo-root-only: Radix portals mount outside the demo
+     * root and must also be stable before we capture. */
+    const cur = await page.evaluate(() => document.body.innerHTML)
     if (cur === prev) {
       stableStreak++
       if (stableStreak >= 2) return
@@ -134,7 +136,10 @@ async function snap(page: Page, dir: string, component: string, id: string, stat
     (window as unknown as { captureComputedStyles: () => StyleSnapshot }).captureComputedStyles(),
   )
   writeFileSync(join(dir, component, `${id}.${state}.json`), JSON.stringify(styles, null, 1))
-  const png = await page.locator('[data-demo-root]').screenshot({ animations: 'disabled' })
+  /* Viewport shot, not an element shot: fixed bars (BottomNav) and Radix
+   * portals (dialogs, menus) live outside [data-demo-root]'s box and were
+   * invisible to an element screenshot. */
+  const png = await page.screenshot({ animations: 'disabled' })
   writeFileSync(join(dir, component, `${id}.${state}.png`), png)
 }
 

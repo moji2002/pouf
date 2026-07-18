@@ -11,8 +11,8 @@ export const tabsDemos: Demo[] = [
           value="first"
           onChange={() => {}}
           tabs={[
-            { value: 'first', label: 'Positions', content: <Text>Open position content goes here.</Text> },
-            { value: 'second', label: 'History', content: <Text>Closed trade history.</Text> },
+            { value: 'first', label: 'Projects', content: <Text>Active project content goes here.</Text> },
+            { value: 'second', label: 'History', content: <Text>Archived history.</Text> },
             { value: 'third', label: 'Notes', content: <Text size="sm" muted>No notes yet.</Text> },
           ]}
         />
@@ -23,8 +23,8 @@ export const tabsDemos: Demo[] = [
         value="second"
         onChange={() => {}}
         tabs={[
-          { value: 'first', label: 'Positions', content: <Text>Open position content goes here.</Text> },
-          { value: 'second', label: 'History', content: <Text>Closed trade history.</Text> },
+          { value: 'first', label: 'Projects', content: <Text>Active project content goes here.</Text> },
+          { value: 'second', label: 'History', content: <Text>Archived history.</Text> },
         ]}
       />
     ) },
@@ -34,8 +34,8 @@ export const accordionDemos: Demo[] = [
   { id: 'default', render: () => (
       <Accordion
         items={[
-          { value: 'risk', title: 'Risk controls', children: <Text size="sm">Maximum drawdown: 5%. Circuit breaker: 3 consecutive losses.</Text> },
-          { value: 'sizing', title: 'Position sizing', children: <Text size="sm">Fixed fractional at 2% per trade. Max 3 concurrent positions.</Text> },
+          { value: 'risk', title: 'Autosave', children: <Text size="sm">Saves every 30 seconds. Keeps the last 10 versions.</Text> },
+          { value: 'sizing', title: 'Layout density', children: <Text size="sm">Comfortable by default. Compact fits more rows.</Text> },
           { value: 'hours', title: 'Hours', children: <Text size="sm">24/7. Pause during announcements at operator discretion.</Text> },
         ]}
       />
@@ -44,8 +44,8 @@ export const accordionDemos: Demo[] = [
       <Accordion
         defaultValue="risk"
         items={[
-          { value: 'risk', title: 'Risk controls', children: <Text size="sm">Maximum drawdown: 5%. Circuit breaker: 3 consecutive losses.</Text> },
-          { value: 'sizing', title: 'Position sizing', children: <Text size="sm">Fixed fractional at 2% per trade.</Text> },
+          { value: 'risk', title: 'Autosave', children: <Text size="sm">Saves every 30 seconds. Keeps the last 10 versions.</Text> },
+          { value: 'sizing', title: 'Layout density', children: <Text size="sm">Comfortable by default.</Text> },
         ]}
       />
     ) },

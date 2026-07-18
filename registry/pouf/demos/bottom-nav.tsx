@@ -6,14 +6,14 @@ import type { Demo } from './types'
 
 const primary: NavItem[] = [
   { href: '/overview', label: 'Overview', icon: 'overview', tone: 'purple' },
-  { href: '/positions', label: 'Positions', icon: 'positions', tone: 'blue' },
+  { href: '/positions', label: 'Projects', icon: 'positions', tone: 'blue' },
 ]
 const groups: NavGroup[] = [
   {
     title: 'Main',
     items: [
       { href: '/overview', label: 'Overview', icon: 'overview', tone: 'purple' },
-      { href: '/positions', label: 'Positions', icon: 'positions', tone: 'blue' },
+      { href: '/positions', label: 'Projects', icon: 'positions', tone: 'blue' },
       { href: '/settings', label: 'Settings', icon: 'settings', tone: 'mint' },
     ],
   },

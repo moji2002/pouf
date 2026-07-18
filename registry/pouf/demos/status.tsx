@@ -17,7 +17,7 @@ const PAST_MS = 1
 
 export const statusDemos: Demo[] = [
   { id: 'no-timestamp', render: () => <Status label="Engine off" tone="idle" /> },
-  { id: 'fresh', render: () => <Status label="Trading enabled" tone="up" at={FUTURE_MS} /> },
+  { id: 'fresh', render: () => <Status label="Sync enabled" tone="up" at={FUTURE_MS} /> },
   { id: 'stale', render: () => <Status label="Telegram connected" tone="up" at={PAST_MS} /> },
 ]
 

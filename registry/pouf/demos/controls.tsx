@@ -57,15 +57,15 @@ export const switchDemos: Demo[] = [
   { id: 'on', states: ['hover', 'focus'], render: () => (
       <span data-subject>
         <Row gap={2} wrap={false}>
-          <Switch checked onChange={() => {}} label="Live trading" />
-          <Text size="sm">Live trading</Text>
+          <Switch checked onChange={() => {}} label="Notifications" />
+          <Text size="sm">Notifications</Text>
         </Row>
       </span>
     ) },
   { id: 'off', render: () => (
       <Row gap={2} wrap={false}>
-        <Switch checked={false} onChange={() => {}} label="Live trading" />
-        <Text size="sm">Live trading</Text>
+        <Switch checked={false} onChange={() => {}} label="Notifications" />
+        <Text size="sm">Notifications</Text>
       </Row>
     ) },
   { id: 'disabled', render: () => (

@@ -9,12 +9,19 @@
 
 export type StyleSnapshot = Record<string, Record<string, string>>
 
+/** Radix portals (open dialogs, dropdowns, popovers, toasts) append to
+ *  document.body, OUTSIDE [data-demo-root] — walking only the demo root made
+ *  every overlay invisible to the gate. So: walk the whole body, skipping
+ *  non-rendered machinery (scripts, styles, Vite's HMR/error nodes). */
+const SKIP_TAGS = new Set(['SCRIPT', 'STYLE', 'LINK', 'VITE-ERROR-OVERLAY'])
+
 export function captureComputedStyles(): StyleSnapshot {
-  const root = document.querySelector('[data-demo-root]')
-  if (!root) throw new Error('captureComputedStyles: no [data-demo-root] on the page')
+  if (!document.querySelector('[data-demo-root]'))
+    throw new Error('captureComputedStyles: no [data-demo-root] on the page')
   const out: StyleSnapshot = {}
   let i = 0
   const walk = (el: Element) => {
+    if (SKIP_TAGS.has(el.tagName)) return
     const key = `${i++}:${el.tagName.toLowerCase()}`
     const styles: Record<string, string> = {}
     for (const pseudo of [null, '::before', '::after'] as const) {
@@ -29,7 +36,7 @@ export function captureComputedStyles(): StyleSnapshot {
     out[key] = styles
     for (const child of el.children) walk(child)
   }
-  walk(root)
+  for (const child of document.body.children) walk(child)
   return out
 }
 
