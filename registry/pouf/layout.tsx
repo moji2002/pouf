@@ -1,4 +1,4 @@
-import clsx from 'clsx'
+import { cva } from 'class-variance-authority'
 import type { ReactNode } from 'react'
 
 /** Layout primitives exist so a screen never writes `display:flex` itself.
@@ -9,9 +9,8 @@ type Gap = 1 | 2 | 3 | 4 | 5 | 6
 
 /* The --gap indirection is kept from the original: children may not read it,
  * but emitting the same custom property keeps the computed-style contract
- * byte-identical, and it remains the single knob a wrapper can retune.
- * Static strings per value — Tailwind's scanner cannot see computed names. */
-const GAP = {
+ * byte-identical, and it remains the single knob a wrapper can retune. */
+const gapVariant = {
   1: '[--gap:var(--s1)] gap-[var(--gap,var(--s4))]',
   2: '[--gap:var(--s2)] gap-[var(--gap,var(--s4))]',
   3: '[--gap:var(--s3)] gap-[var(--gap,var(--s4))]',
@@ -33,14 +32,29 @@ const GAP = {
  * on every wrapper" is exactly the kind of rule that gets forgotten once and
  * then looks like a mysterious layout bug. */
 
+const stack = cva('pouf-stack flex flex-col min-w-0', {
+  variants: { gap: gapVariant },
+  defaultVariants: { gap: 4 },
+})
+
 interface StackProps {
   children: ReactNode
   gap?: Gap
 }
 
-export function Stack({ children, gap = 4 }: StackProps) {
-  return <div className={clsx('pouf-stack flex flex-col min-w-0', GAP[gap])}>{children}</div>
+export function Stack({ children, gap }: StackProps) {
+  return <div className={stack({ gap })}>{children}</div>
 }
+
+const row = cva('pouf-row flex flex-row min-w-0', {
+  variants: {
+    gap: gapVariant,
+    align: { center: 'items-center', top: 'items-start' },
+    justify: { start: '', center: 'justify-center', between: 'justify-between', end: 'justify-end' },
+    wrap: { true: 'flex-wrap', false: 'flex-nowrap' },
+  },
+  defaultVariants: { gap: 4, align: 'center', justify: 'start', wrap: true },
+})
 
 interface RowProps {
   children: ReactNode
@@ -53,27 +67,29 @@ interface RowProps {
   wrap?: boolean
 }
 
-export function Row({ children, gap = 4, align = 'center', justify = 'start', wrap = true }: RowProps) {
-  return (
-    <div
-      className={clsx(
-        'pouf-row flex flex-row min-w-0',
-        GAP[gap],
-        align === 'top' ? 'items-start' : 'items-center',
-        justify === 'center' && 'justify-center',
-        justify === 'between' && 'justify-between',
-        justify === 'end' && 'justify-end',
-        wrap ? 'flex-wrap' : 'flex-nowrap',
-      )}
-    >
-      {children}
-    </div>
-  )
+export function Row({ children, gap, align, justify, wrap }: RowProps) {
+  return <div className={row({ gap, align, justify, wrap })}>{children}</div>
 }
 
 export function Spacer() {
   return <div className="pouf-spacer flex-auto min-w-0" />
 }
+
+/* Column counts are variants, not a --cols override, so a screen never needs an
+ * inline style to lay out. Every variant collapses to one column under 900px. */
+const grid = cva('pouf-grid grid', {
+  variants: {
+    cols: {
+      2: 'grid-cols-2 max-[900px]:grid-cols-1',
+      3: 'grid-cols-3 max-[900px]:grid-cols-1',
+      4: 'grid-cols-4 max-[900px]:grid-cols-1',
+      sidebar:
+        '[grid-template-columns:minmax(0,2fr)_minmax(0,1fr)] max-[900px]:[grid-template-columns:minmax(0,1fr)]',
+    },
+    gap: gapVariant,
+  },
+  defaultVariants: { cols: 2, gap: 4 },
+})
 
 interface GridProps {
   children: ReactNode
@@ -81,29 +97,20 @@ interface GridProps {
   gap?: Gap
 }
 
-/* Column counts are variants, not a --cols override, so a screen never needs an
- * inline style to lay out. Every variant collapses to one column under 900px. */
-const COLS = {
-  2: 'grid-cols-2 max-[900px]:grid-cols-1',
-  3: 'grid-cols-3 max-[900px]:grid-cols-1',
-  4: 'grid-cols-4 max-[900px]:grid-cols-1',
-  sidebar: '[grid-template-columns:minmax(0,2fr)_minmax(0,1fr)] max-[900px]:[grid-template-columns:minmax(0,1fr)]',
-} as const
-
-export function Grid({ children, cols = 2, gap = 4 }: GridProps) {
-  return <div className={clsx('pouf-grid grid', COLS[cols], GAP[gap])}>{children}</div>
+export function Grid({ children, cols, gap }: GridProps) {
+  return <div className={grid({ cols, gap })}>{children}</div>
 }
 
 export function Shell({ children }: { children: ReactNode }) {
   return (
     <div
-      className={clsx(
+      className={[
         'pouf-shell grid [grid-template-columns:260px_minmax(0,1fr)] gap-(--s6) p-(--s8) max-w-[1440px] mx-auto [align-items:start]',
         /* Below 900px: single column, tighter padding, and clearance for the
          * fixed bottom bar plus the home-indicator inset on iOS. */
         'max-[900px]:[grid-template-columns:minmax(0,1fr)] max-[900px]:p-(--s4)',
         'max-[900px]:pb-[calc(96px+env(safe-area-inset-bottom,0px))]',
-      )}
+      ].join(' ')}
     >
       {children}
     </div>

@@ -1,5 +1,19 @@
-import clsx from 'clsx'
+import { cva } from 'class-variance-authority'
 import type { ReactNode } from 'react'
+
+/* Vertical padding is biased by half the lip on every padded variant: the
+ * cushion's floor inset paints INSIDE the box, so symmetric padding reads
+ * bottom-heavy. Same total height, optically centred content. */
+const card = cva('pouf-card bg-surface rounded-card cushion-card', {
+  variants: {
+    variant: {
+      default: 'px-(--s7) pt-[calc(var(--s7)-var(--lip)/2)] pb-[calc(var(--s7)+var(--lip)/2)]',
+      flush: 'p-0',
+      tight: 'px-(--s4) pt-[calc(var(--s4)-var(--lip)/2)] pb-[calc(var(--s4)+var(--lip)/2)]',
+    },
+  },
+  defaultVariants: { variant: 'default' },
+})
 
 interface CardProps {
   children: ReactNode
@@ -8,18 +22,8 @@ interface CardProps {
   variant?: 'default' | 'flush' | 'tight'
 }
 
-export function Card({ children, variant = 'default' }: CardProps) {
-  return (
-    <div
-      className={clsx(
-        'pouf-card',
-        variant === 'flush' && 'pouf-card--flush',
-        variant === 'tight' && 'pouf-card--tight',
-      )}
-    >
-      {children}
-    </div>
-  )
+export function Card({ children, variant }: CardProps) {
+  return <div className={card({ variant })}>{children}</div>
 }
 
 interface RowCardProps {
@@ -29,7 +33,41 @@ interface RowCardProps {
   selected?: boolean
 }
 
-/** "Every row a cushion" — one puffy surface per position / trade / message.
+/* Interactivity and selection are cva variants rather than cascading selector
+ * overrides: a selected row simply never emits the hover/active utilities, so
+ * it cannot flicker back to a white cushion under the pointer. [font:inherit]
+ * keeps the button voice identical to the div voice (the shorthand also
+ * resets line-height to inherit, which the button base compensation set to
+ * normal). */
+const rowCard = cva(
+  [
+    'pouf-rowcard block w-full text-left [font:inherit] text-inherit border-none',
+    'rounded-control px-(--s4) pt-[calc(var(--s4)-var(--lip-row)/2)] pb-[calc(var(--s4)+var(--lip-row)/2)]',
+    '[transition:box-shadow_140ms_ease,transform_140ms_ease]',
+  ],
+  {
+    variants: {
+      interactive: { true: 'cursor-pointer' },
+      selected: {
+        /* The same words navlink--active speaks for "the active one of a set":
+         * a tone fill on the whole cushion. Ink on --purple is 6.10:1. */
+        true: 'bg-purple cushion-control',
+        false: 'bg-surface cushion-row',
+      },
+    },
+    compoundVariants: [
+      {
+        interactive: true,
+        selected: false,
+        className:
+          'hover:cushion-row-hover hover:[transform:translateY(-1px)] active:[transform:translateY(1px)] active:cushion-control-active',
+      },
+    ],
+    defaultVariants: { selected: false },
+  },
+)
+
+/** "Every row a cushion" — one puffy surface per position / item / message.
  *
  * No tonal-edge prop. It was tried as a border and as an inset bar and read as
  * an artifact against the cushion's rounded silhouette both times. Rows convey
@@ -37,7 +75,7 @@ interface RowCardProps {
  * regardless — so the prop is gone rather than left as a tempting no-op.
  */
 export function RowCard({ children, onClick, selected }: RowCardProps) {
-  const className = clsx('pouf-rowcard', onClick && 'pouf-rowcard--interactive', selected && 'pouf-rowcard--selected')
+  const className = rowCard({ interactive: !!onClick, selected: !!selected })
 
   if (onClick) {
     return (

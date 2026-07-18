@@ -3,7 +3,7 @@ import type { ReactNode } from 'react'
 
 export function AspectRatio({ ratio = 16 / 9, children }: { ratio?: number; children: ReactNode }) {
   return (
-    <div className="pouf-aspect">
+    <div className="pouf-aspect w-full rounded-control overflow-hidden bg-bg cushion-field">
       <RAspect.Root ratio={ratio}>{children}</RAspect.Root>
     </div>
   )
