@@ -38,7 +38,7 @@ export function Select({ value, onChange, options, id, describedBy, placeholder,
     <RSelect.Root value={value} onValueChange={onChange} disabled={disabled}>
       <RSelect.Trigger
         id={id}
-        className="pouf-input pouf-row pouf-row--between"
+        className="pouf-input flex flex-row items-center flex-wrap min-w-0 gap-[var(--gap,var(--s4))] justify-between"
         aria-describedby={describedBy}
         aria-label={label}
       >
@@ -369,7 +369,13 @@ export function Combobox({
           role="combobox"
           aria-expanded={open}
           aria-describedby={describedBy}
-          className={clsx('pouf-input', 'pouf-row', 'pouf-row--between', mono && 'pouf-input--mono')}
+          className={clsx(
+            'pouf-input',
+            /* Row's layout, inlined: the trigger borrowed .pouf-row classes,
+             * which no longer exist as CSS rules after layout.tsx migrated. */
+            'flex flex-row items-center flex-wrap min-w-0 gap-[var(--gap,var(--s4))] justify-between',
+            mono && 'pouf-input--mono',
+          )}
         >
           <span className={clsx(!value && 'pouf-combobox__placeholder')}>{value || placeholder}</span>
           <Icon name="expand" size="sm" />
@@ -404,7 +410,7 @@ export function Combobox({
                   // (pouf.css nav-link section) instead of duplicating it.
                   data-highlighted={i === active ? '' : undefined}
                   data-state={o === value ? 'checked' : undefined}
-                  className="pouf-option pouf-row pouf-row--between"
+                  className="pouf-option flex flex-row items-center flex-wrap min-w-0 gap-[var(--gap,var(--s4))] justify-between"
                   onClick={() => commit(o)}
                   onMouseEnter={() => setActive(i)}
                 >

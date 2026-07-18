@@ -7,20 +7,44 @@ interface HeadingProps {
   level?: 1 | 2 | 3
 }
 
+/* Static per-level strings (not template-built class names): Tailwind's
+ * scanner reads source text and cannot see a computed `pouf-h${level}`. */
+const HEADING = {
+  1: 'pouf-h1 font-black text-[48px] tracking-[-1px] leading-[1.1]',
+  2: 'pouf-h2 font-black text-[28px] tracking-[-0.5px] leading-[1.2]',
+  /* h1/h2 set 1.1/1.2; without this h3 inherits the body's 1.5 and its line
+     box towers over the 44px blob it commonly sits beside. */
+  3: 'pouf-h3 font-black text-[19px] tracking-[-0.2px] leading-[1.2]',
+} as const
+
 export function Heading({ children, level = 2 }: HeadingProps) {
   const Tag = `h${level}` as const
-  return <Tag className={`pouf-h${level}`}>{children}</Tag>
+  return <Tag className={HEADING[level]}>{children}</Tag>
 }
 
 /** The reference's yellow highlight-swatch behind a word. */
 export function Highlight({ children, tone = 'yellow' }: { children: ReactNode; tone?: Tone }) {
-  return <span className={clsx('pouf-highlight', toneClass(tone))}>{children}</span>
+  return (
+    <span
+      className={clsx(
+        'pouf-highlight inline-block px-[14px] rounded-control bg-[var(--tone,var(--yellow))]',
+        '[box-shadow:inset_0_-6px_0_rgba(0,0,0,0.08)]',
+        toneClass(tone),
+      )}
+    >
+      {children}
+    </span>
+  )
 }
 
 /** The reference's uppercase section eyebrow. Restricted to white surfaces:
  * --muted measures 3.93:1 on --bg (fails) but 4.64:1 on white (passes). */
 export function Eyebrow({ children }: { children: ReactNode }) {
-  return <div className="pouf-eyebrow">{children}</div>
+  return (
+    <div className="pouf-eyebrow text-[14px] tracking-[2px] uppercase font-extrabold text-muted">
+      {children}
+    </div>
+  )
 }
 
 interface TextProps {
@@ -50,12 +74,12 @@ export function Text({ children, size = 'md', muted, num, mono, truncate }: Text
     <span
       dir="auto"
       className={clsx(
-        'pouf-text',
-        size === 'sm' && 'pouf-text--sm',
-        muted && 'pouf-text--muted',
-        num && 'pouf-text--num',
-        mono && 'pouf-text--mono',
-        truncate && 'pouf-text--truncate',
+        'pouf-text font-bold',
+        size === 'md' ? 'text-[15px]' : 'text-[13px]',
+        muted && 'text-muted',
+        num && '[font-variant-numeric:tabular-nums] [font-feature-settings:"tnum"]',
+        mono && "[font-family:ui-monospace,'SF_Mono',Menlo,monospace] [font-variant-numeric:tabular-nums]",
+        truncate && 'truncate min-w-0',
       )}
     >
       {children}

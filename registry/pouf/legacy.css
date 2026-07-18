@@ -663,46 +663,6 @@
 }
 
 /* ============================================================================
- * TYPOGRAPHY
- * ========================================================================= */
-.pouf-h1 {
-  font-weight: 900;
-  font-size: 48px;
-  letter-spacing: -1px;
-  line-height: 1.1;
-}
-.pouf-h2 {
-  font-weight: 900;
-  font-size: 28px;
-  letter-spacing: -0.5px;
-  line-height: 1.2;
-}
-.pouf-h3 {
-  font-weight: 900;
-  font-size: 19px;
-  letter-spacing: -0.2px;
-  /* h1/h2 set 1.1/1.2; without this h3 inherits the body's 1.5 and its line
-     box towers over the 44px blob it commonly sits beside. */
-  line-height: 1.2;
-}
-/* The reference's section eyebrow. --muted at 14px is 3.93:1 on --bg, so this
- * is only used on white cards (4.64:1). */
-.pouf-eyebrow {
-  font-size: 14px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  font-weight: 800;
-  color: var(--muted);
-}
-.pouf-highlight {
-  display: inline-block;
-  padding: 0 14px;
-  border-radius: var(--r-control);
-  background: var(--tone, var(--yellow));
-  box-shadow: inset 0 -6px 0 rgba(0, 0, 0, 0.08);
-}
-
-/* ============================================================================
  * STAT — a headline figure on its own cushion.
  *
  * The figure is the hero. The old tile centred a 60px saturated blob against a
@@ -740,160 +700,10 @@
   font-variant-numeric: tabular-nums;
   font-feature-settings: 'tnum';
 }
-.pouf-text {
-  font-weight: 700;
-  font-size: 15px;
-}
-.pouf-text--sm {
-  font-size: 13px;
-}
-.pouf-text--muted {
-  color: var(--muted);
-}
-.pouf-text--num {
-  font-variant-numeric: tabular-nums;
-  font-feature-settings: 'tnum';
-}
-.pouf-text--mono {
-  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
-  font-variant-numeric: tabular-nums;
-}
-.pouf-text--truncate {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  min-width: 0;
-}
-
-/* ============================================================================
- * LAYOUT — present so screens never reach for a raw flex rule.
- * ========================================================================= */
-/* min-width: 0 on BOTH layout primitives, everywhere.
- *
- * A flex item defaults to `min-width: auto` — "never shrink below my content" —
- * and that default cascades: `<Text truncate>` can only ellipsis if EVERY
- * ancestor between it and the sized container is allowed to shrink. One Stack
- * without this and a long Telegram channel title (some run 200 characters of
- * Persian) drags the whole row wider than the dialog, producing a horizontal
- * scrollbar and pushing content off-screen.
- *
- * Set on the primitives rather than at call sites, because "remember min-width:0
- * on every wrapper" is exactly the kind of rule that gets forgotten once and
- * then looks like a mysterious layout bug. Same family as the flex `min-height:
- * auto` that stopped the dialog scrolling — same default, other axis. */
-.pouf-stack {
-  display: flex;
-  flex-direction: column;
-  gap: var(--gap, var(--s4));
-  min-width: 0;
-}
-.pouf-row {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: var(--gap, var(--s4));
-  flex-wrap: wrap;
-  min-width: 0;
-}
-.pouf-row--nowrap {
-  flex-wrap: nowrap;
-  min-width: 0;
-}
-.pouf-row--top {
-  align-items: flex-start;
-}
-.pouf-row--between {
-  justify-content: space-between;
-}
-.pouf-row--end {
-  justify-content: flex-end;
-}
-.pouf-row--center {
-  justify-content: center;
-}
-.pouf-spacer {
-  flex: 1 1 auto;
-  min-width: 0;
-}
-/* Column counts are variants, not a --cols override, so a screen never needs an
- * inline style to lay out. */
-.pouf-grid {
-  display: grid;
-  gap: var(--gap, var(--s4));
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-.pouf-grid--2 {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-.pouf-grid--3 {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-.pouf-grid--4 {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-}
-.pouf-grid--sidebar {
-  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
-}
-@media (max-width: 900px) {
-  .pouf-grid,
-  .pouf-grid--2,
-  .pouf-grid--3,
-  .pouf-grid--4,
-  .pouf-grid--sidebar {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
-.pouf-gap-1 {
-  --gap: var(--s1);
-}
-.pouf-gap-2 {
-  --gap: var(--s2);
-}
-.pouf-gap-3 {
-  --gap: var(--s3);
-}
-.pouf-gap-4 {
-  --gap: var(--s4);
-}
-.pouf-gap-5 {
-  --gap: var(--s5);
-}
-.pouf-gap-6 {
-  --gap: var(--s6);
-}
 
 /* ============================================================================
  * APP SHELL
  * ========================================================================= */
-.pouf-shell {
-  display: grid;
-  grid-template-columns: 260px minmax(0, 1fr);
-  gap: var(--s6);
-  padding: var(--s8);
-  max-width: 1440px;
-  margin: 0 auto;
-  align-items: start;
-}
-@media (max-width: 900px) {
-  .pouf-shell {
-    grid-template-columns: minmax(0, 1fr);
-    padding: var(--s4);
-    /* Clear the fixed bottom bar, plus the home-indicator inset on iOS. */
-    padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px));
-  }
-}
-.pouf-sidebar {
-  position: sticky;
-  top: var(--s8);
-  display: flex;
-  flex-direction: column;
-  gap: var(--s2);
-}
-@media (max-width: 900px) {
-  .pouf-sidebar {
-    position: static;
-  }
-}
 .pouf-nav {
   display: flex;
   flex-direction: column;
@@ -2198,16 +2008,6 @@
 }
 .pouf-collapsible__body {
   padding-top: var(--s4);
-}
-
-/* ============================================================================
- * SEPARATOR
- * ========================================================================= */
-.pouf-separator {
-  border: none;
-  height: 1px;
-  background: rgba(201, 168, 255, 0.3);
-  margin: var(--s2) 0;
 }
 
 /* ============================================================================
