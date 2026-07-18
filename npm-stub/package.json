@@ -1,0 +1,12 @@
+{
+  "name": "pouf",
+  "version": "0.0.1",
+  "description": "Pouf — a puffy, pastel, kid-shaped UI kit for React. Claymorphism as a shadcn-style registry. This package reserves the name; install components from https://pouf.dev.",
+  "keywords": ["react", "ui", "components", "tailwind", "claymorphism", "shadcn", "design-system"],
+  "homepage": "https://pouf.dev",
+  "repository": { "type": "git", "url": "https://github.com/pouf-ui/pouf.git" },
+  "license": "MIT",
+  "author": "Mojtaba Beheshti",
+  "files": ["README.md"],
+  "private": false
+}

@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - run: bun install --frozen-lockfile
+      - name: Typecheck
+        run: bunx tsc --noEmit -p registry && bunx tsc --noEmit -p gallery
+      - name: Unit tests
+        run: bun test
+      - name: Install Chromium
+        run: bunx playwright install --with-deps chromium
+      - name: Snapshot gate (computed styles — platform-stable)
+        run: |
+          bun --cwd gallery dev &
+          bunx wait-on http://localhost:4700 -t 60000
+          bun run gate -- --json-only
+      - name: Registry build
+        run: bunx shadcn@latest build registry.json -o www/public/r
+      - name: Site build
+        run: cd www && bun install && bun run build

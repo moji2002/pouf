@@ -20,6 +20,12 @@ const argv = process.argv
 const WRITE = argv.includes('--write-golden')
 const onlyIndex = argv.indexOf('--only')
 const only: string | null = onlyIndex !== -1 ? (argv[onlyIndex + 1] ?? null) : null
+/* --json-only compares computed styles but not pixels. The computed-style
+ * layer is platform-stable; the PNG layer is not (font hinting and
+ * anti-aliasing differ macOS↔linux). CI runs --json-only against the
+ * committed (macOS-captured) goldens so it still catches real regressions
+ * without a per-OS golden set. */
+const JSON_ONLY = argv.includes('--json-only')
 
 const PORT = 4700
 const BASE = `http://localhost:${PORT}`
@@ -232,7 +238,7 @@ async function main(): Promise<number> {
                 continue
               }
               const problems = diffJson(component, jsonFile)
-              const px = diffPixels(component, `${demo.id}.${name}.png`)
+              const px = JSON_ONLY ? 0 : diffPixels(component, `${demo.id}.${name}.png`)
               if (problems.length || px > 0) {
                 failures++
                 /* Var ADDITIONS (…: "undefined" → …) are the inert @theme/--tw
