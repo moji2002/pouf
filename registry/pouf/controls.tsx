@@ -13,8 +13,8 @@ import { Heading, Text } from './text'
 import type { Tone } from './tone'
 
 /* Radix supplies the behaviour (focus traps, typeahead, escape handling,
- * aria wiring); clay.css supplies the skin. We never restyle Radix inline —
- * each part gets a clay class, so a token change reaches inside the overlays
+ * aria wiring); pouf.css supplies the skin. We never restyle Radix inline —
+ * each part gets a pouf class, so a token change reaches inside the overlays
  * exactly like it reaches the page. */
 
 export interface SelectOption {
@@ -38,7 +38,7 @@ export function Select({ value, onChange, options, id, describedBy, placeholder,
     <RSelect.Root value={value} onValueChange={onChange} disabled={disabled}>
       <RSelect.Trigger
         id={id}
-        className="clay-input clay-row clay-row--between"
+        className="pouf-input pouf-row pouf-row--between"
         aria-describedby={describedBy}
         aria-label={label}
       >
@@ -48,10 +48,10 @@ export function Select({ value, onChange, options, id, describedBy, placeholder,
         </RSelect.Icon>
       </RSelect.Trigger>
       <RSelect.Portal>
-        <RSelect.Content className="clay-popover clay-popover--select" position="popper" sideOffset={8}>
+        <RSelect.Content className="pouf-popover pouf-popover--select" position="popper" sideOffset={8}>
           <RSelect.Viewport>
             {options.map((o) => (
-              <RSelect.Item key={o.value} value={o.value} className="clay-option">
+              <RSelect.Item key={o.value} value={o.value} className="pouf-option">
                 <RSelect.ItemText>{o.label}</RSelect.ItemText>
               </RSelect.Item>
             ))}
@@ -75,14 +75,14 @@ export function Switch({ checked, onChange, id, describedBy, disabled, label }: 
   return (
     <RSwitch.Root
       id={id}
-      className="clay-switch"
+      className="pouf-switch"
       checked={checked}
       onCheckedChange={onChange}
       disabled={disabled}
       aria-describedby={describedBy}
       aria-label={label}
     >
-      <RSwitch.Thumb className="clay-switch__thumb" />
+      <RSwitch.Thumb className="pouf-switch__thumb" />
     </RSwitch.Root>
   )
 }
@@ -94,7 +94,7 @@ export function TooltipProvider({ children }: { children: ReactNode }) {
 /** Tooltip owns its anchor rather than asChild-ing onto its child.
  *
  * `asChild` clones the child and merges handlers, aria-* and a ref onto it. No
- * clay primitive can receive any of that: they take closed prop lists and
+ * pouf primitive can receive any of that: they take closed prop lists and
  * forward no ref, which is the same rule that guarantees no primitive accepts a
  * className. So `<RTooltip.Trigger asChild>{children}</RTooltip.Trigger>`
  * dropped every prop on the floor and the tooltip never opened — on anything.
@@ -110,16 +110,16 @@ export function TooltipProvider({ children }: { children: ReactNode }) {
  * controls carry their own accessible names via `label` — but a screen reader
  * focusing the child will not hear the tip. Fixing that properly means opening
  * the primitives' prop surface, which trades a real guarantee for a small win.
- * Covered by e2e/clay.spec.ts, including the disabled case.
+ * Covered by the gallery snapshot gate, including the disabled case.
  */
 export function Tooltip({ tip, children }: { tip: string; children: ReactNode }) {
   return (
     <RTooltip.Root>
       <RTooltip.Trigger asChild>
-        <span className="clay-tip-anchor">{children}</span>
+        <span className="pouf-tip-anchor">{children}</span>
       </RTooltip.Trigger>
       <RTooltip.Portal>
-        <RTooltip.Content className="clay-tooltip" sideOffset={8}>
+        <RTooltip.Content className="pouf-tooltip" sideOffset={8}>
           {tip}
         </RTooltip.Content>
       </RTooltip.Portal>
@@ -157,11 +157,11 @@ export function Dialog({ trigger, title, description, children, open, onOpenChan
             own Presence keeps the node mounted until the [data-state='closed']
             animation finishes, so the close animates without framer — and without
             framer's inline transform, the CSS translate(-50%,-50%) centring holds
-            through both. (prefers-reduced-motion is honoured globally in clay.css.) */}
-        <RDialog.Overlay className="clay-overlay" />
-        <RDialog.Content className={size === 'lg' ? 'clay-dialog clay-dialog--lg' : 'clay-dialog'}>
+            through both. (prefers-reduced-motion is honoured globally in pouf.css.) */}
+        <RDialog.Overlay className="pouf-overlay" />
+        <RDialog.Content className={size === 'lg' ? 'pouf-dialog pouf-dialog--lg' : 'pouf-dialog'}>
           <Stack gap={4}>
-            <div className="clay-dialog__head">
+            <div className="pouf-dialog__head">
               <Stack gap={1}>
                 <RDialog.Title asChild>
                   <div>
@@ -184,7 +184,7 @@ export function Dialog({ trigger, title, description, children, open, onOpenChan
                 </Button>
               </RDialog.Close>
             </div>
-            <div className="clay-dialog__body">{children}</div>
+            <div className="pouf-dialog__body">{children}</div>
           </Stack>
         </RDialog.Content>
       </RDialog.Portal>
@@ -243,8 +243,8 @@ export function Confirm({
       <RAlert.Trigger asChild>{children}</RAlert.Trigger>
       <RAlert.Portal>
         {/* Enter/exit via Radix data-state CSS animations — same reasoning as Dialog. */}
-        <RAlert.Overlay className="clay-overlay" />
-        <RAlert.Content className="clay-dialog">
+        <RAlert.Overlay className="pouf-overlay" />
+        <RAlert.Content className="pouf-dialog">
           <Stack gap={4}>
             <RAlert.Title asChild>
               <div>
@@ -295,7 +295,7 @@ interface ComboboxProps {
 
 /** A typeable select: pick from the provider's list, or type an id it doesn't offer.
  *
- * The one clay primitive with hand-rolled keyboard nav, because Radix ships no
+ * The one pouf primitive with hand-rolled keyboard nav, because Radix ships no
  * combobox and Select cannot take arbitrary text. Radix Popover still supplies the
  * parts that are easy to get wrong — portalling, escape, outside-click, focus return
  * to the trigger — so only the arrow/enter handling is ours.
@@ -369,16 +369,16 @@ export function Combobox({
           role="combobox"
           aria-expanded={open}
           aria-describedby={describedBy}
-          className={clsx('clay-input', 'clay-row', 'clay-row--between', mono && 'clay-input--mono')}
+          className={clsx('pouf-input', 'pouf-row', 'pouf-row--between', mono && 'pouf-input--mono')}
         >
-          <span className={clsx(!value && 'clay-combobox__placeholder')}>{value || placeholder}</span>
+          <span className={clsx(!value && 'pouf-combobox__placeholder')}>{value || placeholder}</span>
           <Icon name="expand" size="sm" />
         </button>
       </RPopover.Trigger>
       <RPopover.Portal>
-        <RPopover.Content className="clay-popover clay-popover--combobox" sideOffset={8} align="start">
+        <RPopover.Content className="pouf-popover pouf-popover--combobox" sideOffset={8} align="start">
           <input
-            className={clsx('clay-input', mono && 'clay-input--mono')}
+            className={clsx('pouf-input', mono && 'pouf-input--mono')}
             value={query}
             onChange={(e) => {
               setQuery(e.target.value)
@@ -389,9 +389,9 @@ export function Combobox({
             aria-label="Search models"
             autoFocus
           />
-          <div className="clay-combobox__list" role="listbox">
-            {loading && <div className="clay-combobox__note">Loading models…</div>}
-            {!loading && error && <div className="clay-combobox__note">{error}</div>}
+          <div className="pouf-combobox__list" role="listbox">
+            {loading && <div className="pouf-combobox__note">Loading models…</div>}
+            {!loading && error && <div className="pouf-combobox__note">{error}</div>}
             {!loading &&
               shown.map((o, i) => (
                 <button
@@ -400,11 +400,11 @@ export function Combobox({
                   role="option"
                   aria-selected={o === value}
                   // Set by hand because these rows are plain buttons, not Radix Select
-                  // items — this is what lets them reuse .clay-option's existing skin
-                  // (clay.css:1011/1024/1028) instead of duplicating it.
+                  // items — this is what lets them reuse .pouf-option's existing skin
+                  // (pouf.css nav-link section) instead of duplicating it.
                   data-highlighted={i === active ? '' : undefined}
                   data-state={o === value ? 'checked' : undefined}
-                  className="clay-option clay-row clay-row--between"
+                  className="pouf-option pouf-row pouf-row--between"
                   onClick={() => commit(o)}
                   onMouseEnter={() => setActive(i)}
                 >
@@ -418,7 +418,7 @@ export function Combobox({
                 role="option"
                 aria-selected={false}
                 data-highlighted={active === createIndex ? '' : undefined}
-                className="clay-option"
+                className="pouf-option"
                 onClick={() => commit(typed)}
                 onMouseEnter={() => setActive(createIndex)}
               >
@@ -426,7 +426,7 @@ export function Combobox({
               </button>
             )}
             {!loading && !error && shown.length === 0 && !canCreate && (
-              <div className="clay-combobox__note">No models offered — type an id.</div>
+              <div className="pouf-combobox__note">No models offered — type an id.</div>
             )}
           </div>
         </RPopover.Content>

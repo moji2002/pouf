@@ -12,7 +12,7 @@ function HoverCardOpen() {
   // HoverCard has no controlled `open` prop, and it opens on a real hover
   // after openDelay (300ms) — dispatching the pointer sequence arms Radix's
   // own timer, but the panel won't actually be visible until that elapses.
-  useEffect(() => { simulateHover(ref.current?.querySelector('.clay-hover__anchor')) }, [])
+  useEffect(() => { simulateHover(ref.current?.querySelector('.pouf-hover__anchor')) }, [])
   return (
     <div ref={ref}>
       <HoverCard content={content}>

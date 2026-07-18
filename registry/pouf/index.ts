@@ -1,9 +1,9 @@
-/** The clay design system — the ONLY styling surface in this app.
+/** The pouf design system — the ONLY styling surface in this app.
  *
  * Screens import from here and nowhere else. No primitive accepts a className
  * or a style prop: appearance is chosen with variants, so every visual decision
  * resolves inside this folder. That is what makes the guarantee hold — change a
- * primitive (or a token in clay.css) and the whole UI changes with it.
+ * primitive (or a token in pouf.css) and the whole UI changes with it.
  */
 export { Stack, Row, Spacer, Grid, Shell, Sidebar } from './layout'
 export { Heading, Highlight, Eyebrow, Text } from './text'

@@ -36,7 +36,7 @@ export function NavLink({ href, currentPath, children, icon, tone = 'purple', li
   return (
     <Link
       href={href}
-      className={clsx('clay-navlink', active && 'clay-navlink--active', active && toneClass(tone))}
+      className={clsx('pouf-navlink', active && 'pouf-navlink--active', active && toneClass(tone))}
       aria-current={active ? 'page' : undefined}
     >
       <Icon name={icon} size="md" />

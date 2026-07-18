@@ -18,7 +18,7 @@ interface SheetProps {
 
 /** A side sheet — NOT a centred dialog.
  *
- * The old Sheet reused .clay-dialog, so "Open sheet" produced something visually
+ * The old Sheet reused .pouf-dialog, so "Open sheet" produced something visually
  * identical to a modal. A sheet reads as a panel that slides in from an edge: the
  * right on desktop, the bottom on a phone (where the thumb is). Enter and exit are
  * CSS animations keyed off Radix's data-state — Radix's Presence keeps the node
@@ -29,10 +29,10 @@ export function Sheet({ trigger, title, description, children, open, onOpenChang
     <RDialog.Root open={open} onOpenChange={onOpenChange}>
       {trigger && <RDialog.Trigger asChild>{trigger}</RDialog.Trigger>}
       <RDialog.Portal>
-        <RDialog.Overlay className="clay-overlay" />
-        <RDialog.Content className="clay-sheet-dialog">
-          <div className="clay-sheet-panel">
-            <div className="clay-dialog__head">
+        <RDialog.Overlay className="pouf-overlay" />
+        <RDialog.Content className="pouf-sheet-dialog">
+          <div className="pouf-sheet-panel">
+            <div className="pouf-dialog__head">
               <Stack gap={1}>
                 <RDialog.Title asChild>
                   <div>
@@ -55,7 +55,7 @@ export function Sheet({ trigger, title, description, children, open, onOpenChang
                 </Button>
               </RDialog.Close>
             </div>
-            <div className="clay-dialog__body">{children}</div>
+            <div className="pouf-dialog__body">{children}</div>
           </div>
         </RDialog.Content>
       </RDialog.Portal>

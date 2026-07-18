@@ -1,4 +1,4 @@
-/** Pure math for the clay NumberInput (spinbutton). String in, string out:
+/** Pure math for the pouf NumberInput (spinbutton). String in, string out:
  * the component keeps the operator's typing verbatim, and stepping must never
  * smuggle float noise ("1.6000000000000001") into the field. Steps are UI
  * increments (0.1, 0.5, 1…) — steps that stringify in scientific notation

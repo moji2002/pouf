@@ -13,7 +13,7 @@ interface SliderProps {
 export function Slider({ value, onChange, min = 0, max = 100, step = 1, disabled, label }: SliderProps) {
   return (
     <RSlider.Root
-      className="clay-slider"
+      className="pouf-slider"
       value={value}
       onValueChange={onChange}
       min={min}
@@ -22,11 +22,11 @@ export function Slider({ value, onChange, min = 0, max = 100, step = 1, disabled
       disabled={disabled}
       aria-label={label}
     >
-      <RSlider.Track className="clay-slider__track">
-        <RSlider.Range className="clay-slider__range" />
+      <RSlider.Track className="pouf-slider__track">
+        <RSlider.Range className="pouf-slider__range" />
       </RSlider.Track>
       {value.map((_, i) => (
-        <RSlider.Thumb key={i} className="clay-slider__thumb" aria-label={label ? `${label} thumb ${i + 1}` : undefined} />
+        <RSlider.Thumb key={i} className="pouf-slider__thumb" aria-label={label ? `${label} thumb ${i + 1}` : undefined} />
       ))}
     </RSlider.Root>
   )

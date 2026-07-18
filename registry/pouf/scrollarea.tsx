@@ -13,12 +13,12 @@ export function ScrollArea({ children, maxHeight = '400px' }: ScrollAreaProps) {
     // resolves (a percentage height needs an explicit parent height), so the old
     // build just clipped and never scrolled. A max-height on the scrolling element
     // directly needs no such resolution.
-    <RScroll.Root className="clay-scroll">
-      <RScroll.Viewport className="clay-scroll__viewport" style={{ maxHeight }}>
+    <RScroll.Root className="pouf-scroll">
+      <RScroll.Viewport className="pouf-scroll__viewport" style={{ maxHeight }}>
         {children}
       </RScroll.Viewport>
-      <RScroll.Scrollbar className="clay-scroll__bar" orientation="vertical">
-        <RScroll.Thumb className="clay-scroll__thumb" />
+      <RScroll.Scrollbar className="pouf-scroll__bar" orientation="vertical">
+        <RScroll.Thumb className="pouf-scroll__thumb" />
       </RScroll.Scrollbar>
     </RScroll.Root>
   )

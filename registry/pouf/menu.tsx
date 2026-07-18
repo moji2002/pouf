@@ -26,30 +26,30 @@ interface DropdownMenuProps {
 export function DropdownMenu({ children, items, label }: DropdownMenuProps) {
   return (
     <RMenu.Root>
-      {/* A span, same trick as Tooltip's clay-tip-anchor: clay primitives take
+      {/* A span, same trick as Tooltip's pouf-tip-anchor: pouf primitives take
           closed props, so asChild has no DOM node to reach inside <Button> —
           but wrapping in a <button> nested the caller's Button inside it,
           which HTML forbids (browsers may reparent, and React logs it as an
           error). Radix's pointer/key handlers sit on the span; events from the
           real Button inside bubble up to them. */}
       <RMenu.Trigger asChild>
-        <span aria-label={label} className="clay-menu__anchor">
+        <span aria-label={label} className="pouf-menu__anchor">
           {children}
         </span>
       </RMenu.Trigger>
       <RMenu.Portal>
-        <RMenu.Content className="clay-menu" sideOffset={8} align="start" asChild>
+        <RMenu.Content className="pouf-menu" sideOffset={8} align="start" asChild>
           <motion.div
             initial={{ opacity: 0, scale: 0.95, y: -4 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.14, ease: 'easeOut' }}
           >
             {items.map((item, i) => {
-              if (item === 'separator') return <RMenu.Separator key={i} className="clay-menu__sep" />
+              if (item === 'separator') return <RMenu.Separator key={i} className="pouf-menu__sep" />
               return (
                 <RMenu.Item
                   key={i}
-                  className={clsx('clay-menu__item', item.tone === 'down' && 'clay-menu__item--down')}
+                  className={clsx('pouf-menu__item', item.tone === 'down' && 'pouf-menu__item--down')}
                   onClick={item.onClick}
                   disabled={item.disabled}
                 >

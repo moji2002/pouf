@@ -13,13 +13,13 @@ interface AvatarProps {
   size?: 'sm' | 'md' | 'lg'
 }
 
-const SIZES = { sm: 'clay-avatar--sm', md: '', lg: 'clay-avatar--lg' } as const
+const SIZES = { sm: 'pouf-avatar--sm', md: '', lg: 'pouf-avatar--lg' } as const
 
 export function Avatar({ src, alt, fallback, icon, tone = 'purple', size = 'md' }: AvatarProps) {
   return (
-    <RAvatar.Root className={clsx('clay-avatar', SIZES[size])}>
-      {src && <RAvatar.Image className="clay-avatar__img" src={src} alt={alt ?? ''} />}
-      <RAvatar.Fallback className={clsx('clay-avatar__fallback', toneClass(tone))}>
+    <RAvatar.Root className={clsx('pouf-avatar', SIZES[size])}>
+      {src && <RAvatar.Image className="pouf-avatar__img" src={src} alt={alt ?? ''} />}
+      <RAvatar.Fallback className={clsx('pouf-avatar__fallback', toneClass(tone))}>
         {icon ? <Icon name={icon} size={size === 'lg' ? 'md' : 'sm'} /> : fallback?.slice(0, 2).toUpperCase()}
       </RAvatar.Fallback>
     </RAvatar.Root>

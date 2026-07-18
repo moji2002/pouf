@@ -1,5 +1,5 @@
 /* ============================================================================
- * CLAY — the single source of truth for the entire admin UI.
+ * POUF — the single source of truth for the entire admin UI.
  *
  * Layering rule, enforced by convention and by the component APIs in this
  * folder: tokens -> primitives -> screens. Screens never style anything; they
@@ -71,34 +71,34 @@
    *    translateY(-2px) on its glyph. ---------------------------------- */
   --lip: 10px;
   --lip-row: 6px;
-  --clay-card:
+  --pouf-card:
     inset 0 calc(-1 * var(--lip)) 0 rgba(201, 168, 255, 0.35),
     inset 0 6px 0 rgba(255, 255, 255, 0.9),
     0 20px 40px rgba(58, 46, 92, 0.15);
-  --clay-control:
+  --pouf-control:
     inset 0 -6px 0 rgba(0, 0, 0, 0.15), inset 0 4px 0 rgba(255, 255, 255, 0.35),
     0 8px 16px rgba(58, 46, 92, 0.2);
-  --clay-control-active:
+  --pouf-control-active:
     inset 0 -3px 0 rgba(0, 0, 0, 0.15), inset 0 2px 0 rgba(255, 255, 255, 0.35),
     0 4px 10px rgba(58, 46, 92, 0.15);
-  --clay-blob:
+  --pouf-blob:
     inset 0 -8px 0 rgba(0, 0, 0, 0.12), inset 0 4px 0 rgba(255, 255, 255, 0.4),
     0 10px 20px rgba(58, 46, 92, 0.15);
-  --clay-field:
+  --pouf-field:
     inset 0 -4px 0 rgba(0, 0, 0, 0.06), inset 0 4px 0 rgba(255, 255, 255, 0.7),
     inset 0 0 0 2px rgba(201, 168, 255, 0.2);
-  --clay-field-focus:
+  --pouf-field-focus:
     inset 0 -4px 0 rgba(0, 0, 0, 0.06), inset 0 4px 0 rgba(255, 255, 255, 0.7),
     inset 0 0 0 3px var(--purple);
 
   /* -- Cushion rows. "Every row a cushion" at 32px padding makes a 50-row
    *    log unnavigable, so rows get their own tighter scale. The shadow
    *    recipe is kept whole -- only the padding tightens. ---------------- */
-  --clay-row:
+  --pouf-row:
     inset 0 calc(-1 * var(--lip-row)) 0 rgba(201, 168, 255, 0.3),
     inset 0 4px 0 rgba(255, 255, 255, 0.9),
     0 8px 18px rgba(58, 46, 92, 0.1);
-  --clay-row-hover:
+  --pouf-row-hover:
     inset 0 calc(-1 * var(--lip-row)) 0 rgba(201, 168, 255, 0.45),
     inset 0 4px 0 rgba(255, 255, 255, 0.95),
     0 12px 24px rgba(58, 46, 92, 0.16);
@@ -143,10 +143,10 @@ body {
 /* Page transition: each screen fades and rises a touch as it mounts. app.tsx
  * keys this on the route path, so it replays on real navigation only (not on a
  * ?query change). Neutralised by the reduced-motion rule above. */
-.clay-page {
-  animation: clay-page-in 260ms cubic-bezier(0.2, 0.9, 0.3, 1);
+.pouf-page {
+  animation: pouf-page-in 260ms cubic-bezier(0.2, 0.9, 0.3, 1);
 }
-@keyframes clay-page-in {
+@keyframes pouf-page-in {
   from {
     opacity: 0;
     transform: translateY(10px);
@@ -194,14 +194,14 @@ body {
 /* ============================================================================
  * CARD
  * ========================================================================= */
-.clay-card {
+.pouf-card {
   background: var(--surface);
   border-radius: var(--r-card);
   padding: var(--s7);
   padding-block: calc(var(--s7) - var(--lip) / 2) calc(var(--s7) + var(--lip) / 2);
-  box-shadow: var(--clay-card);
+  box-shadow: var(--pouf-card);
 }
-.clay-card--flush {
+.pouf-card--flush {
   padding: 0;
 }
 
@@ -313,7 +313,7 @@ body {
   transform: none;
 }
 
-.clay-card--tight {
+.pouf-card--tight {
   padding: var(--s4);
   padding-block: calc(var(--s4) - var(--lip) / 2) calc(var(--s4) + var(--lip) / 2);
 }
@@ -321,7 +321,7 @@ body {
 /* ============================================================================
  * CUSHION ROW — the "every row a cushion" primitive.
  * ========================================================================= */
-.clay-rowcard {
+.pouf-rowcard {
   display: block;
   width: 100%;
   text-align: left;
@@ -332,36 +332,36 @@ body {
   border-radius: var(--r-control);
   padding: var(--s4);
   padding-block: calc(var(--s4) - var(--lip-row) / 2) calc(var(--s4) + var(--lip-row) / 2);
-  box-shadow: var(--clay-row);
+  box-shadow: var(--pouf-row);
   transition:
     box-shadow 140ms ease,
     transform 140ms ease;
 }
-.clay-rowcard--interactive {
+.pouf-rowcard--interactive {
   cursor: pointer;
 }
-.clay-rowcard--interactive:hover {
-  box-shadow: var(--clay-row-hover);
+.pouf-rowcard--interactive:hover {
+  box-shadow: var(--pouf-row-hover);
   transform: translateY(-1px);
 }
-.clay-rowcard--interactive:active {
+.pouf-rowcard--interactive:active {
   transform: translateY(1px);
-  box-shadow: var(--clay-control-active);
+  box-shadow: var(--pouf-control-active);
 }
-.clay-rowcard--selected {
+.pouf-rowcard--selected {
   /* The same words navlink--active speaks for "the active one of a set": a
    * tone fill on the whole cushion. The previous 3px inset ring smeared into
    * the purple floor lip at the bottom edge and read as a glitch, not a
    * choice. Ink on --purple is 6.10:1 (see file header). */
   background: var(--purple);
-  box-shadow: var(--clay-control);
+  box-shadow: var(--pouf-control);
 }
 /* Outranks the --interactive:hover/:active rules above so a selected row does
  * not flicker back to a white cushion under the pointer. */
-.clay-rowcard--selected:hover,
-.clay-rowcard--selected:active {
+.pouf-rowcard--selected:hover,
+.pouf-rowcard--selected:active {
   background: var(--purple);
-  box-shadow: var(--clay-control);
+  box-shadow: var(--pouf-control);
   transform: none;
 }
 /* There is deliberately no tonal left edge.
@@ -378,7 +378,7 @@ body {
 /* ============================================================================
  * BUTTON
  * ========================================================================= */
-.clay-btn {
+.pouf-btn {
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -396,35 +396,35 @@ body {
   padding: 14px 26px;
   min-height: 48px; /* pointer target */
   cursor: pointer;
-  box-shadow: var(--clay-control);
+  box-shadow: var(--pouf-control);
   transition:
     box-shadow 120ms ease,
     transform 120ms ease;
 }
-.clay-btn:active:not(:disabled) {
+.pouf-btn:active:not(:disabled) {
   transform: translateY(2px);
-  box-shadow: var(--clay-control-active);
+  box-shadow: var(--pouf-control-active);
 }
-.clay-btn:disabled {
+.pouf-btn:disabled {
   cursor: not-allowed;
   opacity: 0.5;
   /* A disabled cushion must read as pressed-flat, not merely faded: the
    * affordance is the depth, so removing the depth is the real signal. */
-  box-shadow: var(--clay-control-active);
+  box-shadow: var(--pouf-control-active);
   transform: translateY(2px);
 }
-.clay-btn--sm {
+.pouf-btn--sm {
   font-size: 13px;
   padding: 9px 16px;
   min-height: 38px;
   border-radius: 14px;
 }
-.clay-btn--lg {
+.pouf-btn--lg {
   font-size: 17px;
   padding: 18px 32px;
   min-height: 56px;
 }
-.clay-btn--block {
+.pouf-btn--block {
   display: flex;
   width: 100%;
 }
@@ -433,29 +433,29 @@ body {
  * design system where depth IS the affordance, a shadowless label reads as
  * static text, and "can't tell what's clickable" is the standard, well-earned
  * criticism of this whole aesthetic. Recessed, but unmistakably a control. */
-.clay-btn--quiet {
+.pouf-btn--quiet {
   background: transparent;
   box-shadow: inset 0 0 0 2px rgba(201, 168, 255, 0.55);
   color: var(--ink);
 }
-.clay-btn--quiet:hover:not(:disabled) {
+.pouf-btn--quiet:hover:not(:disabled) {
   background: var(--bg);
-  box-shadow: var(--clay-field);
+  box-shadow: var(--pouf-field);
 }
-.clay-btn--quiet:disabled {
+.pouf-btn--quiet:disabled {
   box-shadow: none;
   transform: none;
 }
 
-.clay-btn__spinner {
+.pouf-btn__spinner {
   width: 15px;
   height: 15px;
   border-radius: 50%;
   border: 3px solid rgba(58, 46, 92, 0.25);
   border-top-color: var(--ink);
-  animation: clay-spin 620ms linear infinite;
+  animation: pouf-spin 620ms linear infinite;
 }
-@keyframes clay-spin {
+@keyframes pouf-spin {
   to {
     transform: rotate(360deg);
   }
@@ -464,12 +464,12 @@ body {
 /* ============================================================================
  * FIELD / INPUT
  * ========================================================================= */
-.clay-field {
+.pouf-field {
   display: flex;
   flex-direction: column;
   gap: var(--s2);
 }
-.clay-label {
+.pouf-label {
   font-size: 13px;
   font-weight: 900;
   letter-spacing: 0.6px;
@@ -477,7 +477,7 @@ body {
   /* --muted fails on --bg at small sizes (3.93:1); labels use ink. */
   color: var(--ink);
 }
-.clay-input {
+.pouf-input {
   font-family: var(--font);
   font-weight: 700;
   font-size: 15px;
@@ -488,36 +488,36 @@ body {
   padding: 16px 20px;
   width: 100%;
   min-height: 52px;
-  box-shadow: var(--clay-field);
+  box-shadow: var(--pouf-field);
 }
-.clay-input::placeholder {
+.pouf-input::placeholder {
   color: var(--muted);
 }
-.clay-input:focus {
+.pouf-input:focus {
   outline: none;
-  box-shadow: var(--clay-field-focus);
+  box-shadow: var(--pouf-field-focus);
 }
-.clay-input:focus-visible {
+.pouf-input:focus-visible {
   outline: none;
 }
-.clay-input:disabled {
+.pouf-input:disabled {
   opacity: 0.55;
   cursor: not-allowed;
 }
-.clay-input--invalid {
+.pouf-input--invalid {
   box-shadow:
-    var(--clay-field),
+    var(--pouf-field),
     inset 0 0 0 3px var(--orange);
 }
-.clay-input--mono {
+.pouf-input--mono {
   font-family: ui-monospace, 'SF Mono', Menlo, monospace;
   font-variant-numeric: tabular-nums;
 }
 /* FIELD-level validation message: a small, compact one-liner under a control.
- * NOT the page alert cushion — that is .clay-error-note below. This one sits
+ * NOT the page alert cushion — that is .pouf-error-note below. This one sits
  * beneath an input and must stay quiet, so it keeps the flat little pill it
  * always was. (Sharing one class with ErrorNote is what ballooned it.) */
-.clay-error {
+.pouf-error {
   font-size: 13px;
   font-weight: 800;
   color: var(--ink);
@@ -536,7 +536,7 @@ body {
  * raised-blob motif applied to a control (variant D, operator-picked over
  * flanking cushions, quiet rings and flat fused zones). One object, and
  * depth still does the "press me" talking. */
-.clay-numberinput {
+.pouf-numberinput {
   display: flex;
   align-items: center;
   gap: 4px;
@@ -544,15 +544,15 @@ body {
   padding: 0 8px;
   border-radius: var(--r-pill);
   background: var(--bg);
-  box-shadow: var(--clay-field);
+  box-shadow: var(--pouf-field);
 }
 /* The capsule carries the field chrome, so the input inside goes bare; its
  * focus ring moves up onto the capsule (focus-within) to wrap the whole
  * control, steppers included. */
-.clay-numberinput:focus-within {
-  box-shadow: var(--clay-field-focus);
+.pouf-numberinput:focus-within {
+  box-shadow: var(--pouf-field-focus);
 }
-.clay-numberinput .clay-input {
+.pouf-numberinput .pouf-input {
   flex: 1;
   min-width: 0;
   min-height: 0;
@@ -561,22 +561,22 @@ body {
   background: transparent;
   box-shadow: none;
 }
-.clay-numberinput .clay-input:focus {
+.pouf-numberinput .pouf-input:focus {
   box-shadow: none;
 }
 /* Invalid and disabled live on the inner input; the capsule mirrors them. */
-.clay-numberinput:has(.clay-input--invalid) {
+.pouf-numberinput:has(.pouf-input--invalid) {
   box-shadow:
-    var(--clay-field),
+    var(--pouf-field),
     inset 0 0 0 3px var(--orange);
 }
-.clay-numberinput:has(.clay-input:disabled) {
+.pouf-numberinput:has(.pouf-input:disabled) {
   opacity: 0.55;
 }
-.clay-numberinput:has(.clay-input:disabled) .clay-input {
+.pouf-numberinput:has(.pouf-input:disabled) .pouf-input {
   opacity: 1; /* the capsule already fades; double-fading blurs the value */
 }
-.clay-numberinput__btn {
+.pouf-numberinput__btn {
   flex: none;
   display: inline-flex;
   align-items: center;
@@ -589,7 +589,7 @@ body {
   background: var(--purple);
   color: var(--ink);
   cursor: pointer;
-  /* A scaled-down control cushion: full --clay-control's 16px drop would
+  /* A scaled-down control cushion: full --pouf-control's 16px drop would
    * bleed past the capsule and read as smudge, not lift. */
   box-shadow:
     inset 0 -5px 0 rgba(0, 0, 0, 0.12),
@@ -605,24 +605,24 @@ body {
 }
 /* Same optical trick as the blob's glyph: the mini's 5px floor lip paints
  * inside the box, so a geometrically centred icon reads low. */
-.clay-numberinput__btn svg {
+.pouf-numberinput__btn svg {
   transform: translateY(-1px);
 }
-.clay-numberinput__btn:active:not(:disabled) {
+.pouf-numberinput__btn:active:not(:disabled) {
   transform: translateY(1px);
-  box-shadow: var(--clay-control-active);
+  box-shadow: var(--pouf-control-active);
 }
-.clay-numberinput__btn:disabled {
+.pouf-numberinput__btn:disabled {
   cursor: not-allowed;
   opacity: 0.5;
-  /* Pressed-flat, not merely faded — same rationale as .clay-btn:disabled. */
-  box-shadow: var(--clay-control-active);
+  /* Pressed-flat, not merely faded — same rationale as .pouf-btn:disabled. */
+  box-shadow: var(--pouf-control-active);
   transform: translateY(1px);
 }
 
 /* PAGE-level alert (the ErrorNote component): a puffy orange cushion with a
  * raised white warning blob — the toast's V2 language, not a flat pill. */
-.clay-error-note {
+.pouf-error-note {
   display: flex;
   align-items: center;
   gap: var(--s3);
@@ -638,7 +638,7 @@ body {
   align-self: start;
   max-width: 100%;
 }
-.clay-error-note__icon {
+.pouf-error-note__icon {
   flex: none;
   display: grid;
   place-items: center;
@@ -650,10 +650,10 @@ body {
   box-shadow:
     inset 0 -3px 0 rgba(0, 0, 0, 0.08), inset 0 2px 0 #fff, 0 3px 6px rgba(58, 46, 92, 0.22);
 }
-.clay-error-note__text {
+.pouf-error-note__text {
   min-width: 0;
 }
-.clay-hint {
+.pouf-hint {
   font-size: 13px;
   font-weight: 700;
   color: var(--muted);
@@ -663,7 +663,7 @@ body {
  * width evenly (a KPI strip), instead of huddling left and leaving the rest of
  * the cushion empty. Content-sized rows (a compact cluster after a Spacer) have
  * no spare width to grow into, so those keep their natural size. */
-.clay-metric {
+.pouf-metric {
   display: flex;
   flex-direction: column;
   gap: var(--s1);
@@ -673,7 +673,7 @@ body {
    * wraps whole metrics to the next line — the figure itself never folds. */
   white-space: nowrap;
 }
-.clay-row > .clay-metric {
+.pouf-row > .pouf-metric {
   flex: 1 1 0;
   /* Divide SPARE width evenly (the KPI strip), but never crush a metric below
    * its one-line content — that is what turned flex-basis 0 into wrapped text. */
@@ -683,7 +683,7 @@ body {
 /* ============================================================================
  * BLOB — the reference's icon tile.
  * ========================================================================= */
-.clay-blob {
+.pouf-blob {
   width: 80px;
   height: 80px;
   border-radius: var(--r-blob);
@@ -694,7 +694,7 @@ body {
   flex: none;
   color: var(--ink);
   background: var(--tone, var(--purple));
-  box-shadow: var(--clay-blob);
+  box-shadow: var(--pouf-blob);
 }
 /* Optically centred, not geometrically centred.
  *
@@ -704,26 +704,26 @@ body {
  * the upper portion — and a mathematically perfect centre (measured: 0.0px
  * offset) sits visibly low in it. Nudging by half the difference, (8-4)/2, puts
  * the glyph in the middle of the face people actually perceive. */
-.clay-blob > svg {
+.pouf-blob > svg {
   transform: translateY(-2px);
 }
-.clay-blob--sm {
+.pouf-blob--sm {
   width: 44px;
   height: 44px;
   border-radius: 14px;
   font-size: 20px;
 }
-.clay-blob--md {
+.pouf-blob--md {
   width: 60px;
   height: 60px;
   border-radius: 18px;
   font-size: 26px;
 }
-/* The Zirkel mark (Logo.tsx). Composes .clay-blob for the tile — the glyph is
+/* The Zirkel mark (Logo.tsx). Composes .pouf-blob for the tile — the glyph is
  * its own inline drawing, not an entry in the icon vocabulary, because the
  * brand mark is not a UI role a screen may borrow. 45% tracks the icon-to-tile
  * ratio the Blob sizes already use (20/44, 26/60, 36/80). */
-.clay-logo > svg {
+.pouf-logo > svg {
   width: 45%;
   height: 45%;
 }
@@ -731,14 +731,14 @@ body {
 /* ============================================================================
  * MEDIA — signal images (the engine OCRs these; the operator must see them)
  * ========================================================================= */
-.clay-figure {
+.pouf-figure {
   display: block;
   max-width: 420px;
   width: 100%;
   height: auto;
   border-radius: var(--r-control);
   background: var(--bg);
-  box-shadow: var(--clay-field);
+  box-shadow: var(--pouf-field);
 }
 
 /* ============================================================================
@@ -752,7 +752,7 @@ body {
  * "interactive" is depth, letting a static label borrow that depth doesn't just
  * mislead on the badge: it devalues the signal for every real button on screen.
  * Depth is reserved for things you can press. */
-.clay-badge {
+.pouf-badge {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -775,7 +775,7 @@ body {
    * width and read as a banner. A badge hugs its own text, wherever it lands. */
   align-self: flex-start;
 }
-.clay-dot {
+.pouf-dot {
   width: 9px;
   height: 9px;
   border-radius: 50%;
@@ -787,19 +787,19 @@ body {
 /* ============================================================================
  * TYPOGRAPHY
  * ========================================================================= */
-.clay-h1 {
+.pouf-h1 {
   font-weight: 900;
   font-size: 48px;
   letter-spacing: -1px;
   line-height: 1.1;
 }
-.clay-h2 {
+.pouf-h2 {
   font-weight: 900;
   font-size: 28px;
   letter-spacing: -0.5px;
   line-height: 1.2;
 }
-.clay-h3 {
+.pouf-h3 {
   font-weight: 900;
   font-size: 19px;
   letter-spacing: -0.2px;
@@ -809,14 +809,14 @@ body {
 }
 /* The reference's section eyebrow. --muted at 14px is 3.93:1 on --bg, so this
  * is only used on white cards (4.64:1). */
-.clay-eyebrow {
+.pouf-eyebrow {
   font-size: 14px;
   letter-spacing: 2px;
   text-transform: uppercase;
   font-weight: 800;
   color: var(--muted);
 }
-.clay-highlight {
+.pouf-highlight {
   display: inline-block;
   padding: 0 14px;
   border-radius: var(--r-control);
@@ -834,18 +834,18 @@ body {
  * label is a compact non-wrapping caption above it, and a 44px icon supports
  * rather than dominates.
  * ========================================================================= */
-.clay-stat {
+.pouf-stat {
   display: flex;
   align-items: center;
   gap: var(--s3);
 }
-.clay-stat__text {
+.pouf-stat__text {
   display: flex;
   flex-direction: column;
   gap: 2px;
   min-width: 0;
 }
-.clay-stat__label {
+.pouf-stat__label {
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 1.4px;
@@ -853,7 +853,7 @@ body {
   color: var(--muted);
   white-space: nowrap;
 }
-.clay-stat__value {
+.pouf-stat__value {
   font-size: 26px;
   font-weight: 900;
   line-height: 1.05;
@@ -862,25 +862,25 @@ body {
   font-variant-numeric: tabular-nums;
   font-feature-settings: 'tnum';
 }
-.clay-text {
+.pouf-text {
   font-weight: 700;
   font-size: 15px;
 }
-.clay-text--sm {
+.pouf-text--sm {
   font-size: 13px;
 }
-.clay-text--muted {
+.pouf-text--muted {
   color: var(--muted);
 }
-.clay-text--num {
+.pouf-text--num {
   font-variant-numeric: tabular-nums;
   font-feature-settings: 'tnum';
 }
-.clay-text--mono {
+.pouf-text--mono {
   font-family: ui-monospace, 'SF Mono', Menlo, monospace;
   font-variant-numeric: tabular-nums;
 }
-.clay-text--truncate {
+.pouf-text--truncate {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -903,13 +903,13 @@ body {
  * on every wrapper" is exactly the kind of rule that gets forgotten once and
  * then looks like a mysterious layout bug. Same family as the flex `min-height:
  * auto` that stopped the dialog scrolling — same default, other axis. */
-.clay-stack {
+.pouf-stack {
   display: flex;
   flex-direction: column;
   gap: var(--gap, var(--s4));
   min-width: 0;
 }
-.clay-row {
+.pouf-row {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -917,77 +917,77 @@ body {
   flex-wrap: wrap;
   min-width: 0;
 }
-.clay-row--nowrap {
+.pouf-row--nowrap {
   flex-wrap: nowrap;
   min-width: 0;
 }
-.clay-row--top {
+.pouf-row--top {
   align-items: flex-start;
 }
-.clay-row--between {
+.pouf-row--between {
   justify-content: space-between;
 }
-.clay-row--end {
+.pouf-row--end {
   justify-content: flex-end;
 }
-.clay-row--center {
+.pouf-row--center {
   justify-content: center;
 }
-.clay-spacer {
+.pouf-spacer {
   flex: 1 1 auto;
   min-width: 0;
 }
 /* Column counts are variants, not a --cols override, so a screen never needs an
  * inline style to lay out. */
-.clay-grid {
+.pouf-grid {
   display: grid;
   gap: var(--gap, var(--s4));
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
-.clay-grid--2 {
+.pouf-grid--2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
-.clay-grid--3 {
+.pouf-grid--3 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
-.clay-grid--4 {
+.pouf-grid--4 {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
-.clay-grid--sidebar {
+.pouf-grid--sidebar {
   grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
 }
 @media (max-width: 900px) {
-  .clay-grid,
-  .clay-grid--2,
-  .clay-grid--3,
-  .clay-grid--4,
-  .clay-grid--sidebar {
+  .pouf-grid,
+  .pouf-grid--2,
+  .pouf-grid--3,
+  .pouf-grid--4,
+  .pouf-grid--sidebar {
     grid-template-columns: minmax(0, 1fr);
   }
 }
-.clay-gap-1 {
+.pouf-gap-1 {
   --gap: var(--s1);
 }
-.clay-gap-2 {
+.pouf-gap-2 {
   --gap: var(--s2);
 }
-.clay-gap-3 {
+.pouf-gap-3 {
   --gap: var(--s3);
 }
-.clay-gap-4 {
+.pouf-gap-4 {
   --gap: var(--s4);
 }
-.clay-gap-5 {
+.pouf-gap-5 {
   --gap: var(--s5);
 }
-.clay-gap-6 {
+.pouf-gap-6 {
   --gap: var(--s6);
 }
 
 /* ============================================================================
  * APP SHELL
  * ========================================================================= */
-.clay-shell {
+.pouf-shell {
   display: grid;
   grid-template-columns: 260px minmax(0, 1fr);
   gap: var(--s6);
@@ -997,14 +997,14 @@ body {
   align-items: start;
 }
 @media (max-width: 900px) {
-  .clay-shell {
+  .pouf-shell {
     grid-template-columns: minmax(0, 1fr);
     padding: var(--s4);
     /* Clear the fixed bottom bar, plus the home-indicator inset on iOS. */
     padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px));
   }
 }
-.clay-sidebar {
+.pouf-sidebar {
   position: sticky;
   top: var(--s8);
   display: flex;
@@ -1012,19 +1012,19 @@ body {
   gap: var(--s2);
 }
 @media (max-width: 900px) {
-  .clay-sidebar {
+  .pouf-sidebar {
     position: static;
   }
 }
-.clay-nav {
+.pouf-nav {
   display: flex;
   flex-direction: column;
   gap: var(--s5);
 }
-/* Links inside a group sit tight; the gap on .clay-nav separates the groups.
+/* Links inside a group sit tight; the gap on .pouf-nav separates the groups.
  * Proximity alone does the grouping — no headings, which read as clutter beside
  * nine short labels. */
-.clay-navgroup {
+.pouf-navgroup {
   display: flex;
   flex-direction: column;
   gap: 2px;
@@ -1033,15 +1033,15 @@ body {
  * navigation. The brand card and ModeBanner above it stay — the operator must
  * never lose sight of paper-vs-live just because they're on a phone.
  *
- * Scoped to .clay-sidebar, and that is load-bearing. Unscoped, this hid EVERY
- * .clay-nav below 900px — including the copy BottomNav renders inside the "All
+ * Scoped to .pouf-sidebar, and that is load-bearing. Unscoped, this hid EVERY
+ * .pouf-nav below 900px — including the copy BottomNav renders inside the "All
  * screens" sheet, which only ever exists below 900px. So the sheet opened onto
  * its title and a Close button with all nine links display:none: the one route
  * to Channels, Signals, Paper, Risk and Configuration on a phone, silently
  * empty. The e2e guarding it passed because toHaveCount() counts DOM nodes and
  * never asks whether they can be seen. */
 @media (max-width: 900px) {
-  .clay-sidebar .clay-nav {
+  .pouf-sidebar .pouf-nav {
     display: none;
   }
 }
@@ -1049,11 +1049,11 @@ body {
 /* ============================================================================
  * BOTTOM NAV (mobile)
  * ========================================================================= */
-.clay-bottomnav {
+.pouf-bottomnav {
   display: none;
 }
 @media (max-width: 900px) {
-  .clay-bottomnav {
+  .pouf-bottomnav {
     position: fixed;
     left: var(--s3);
     right: var(--s3);
@@ -1067,10 +1067,10 @@ body {
     border-radius: var(--r-card);
     padding: var(--s2);
     padding-block: calc(var(--s2) - var(--lip) / 2) calc(var(--s2) + var(--lip) / 2);
-    box-shadow: var(--clay-card);
+    box-shadow: var(--pouf-card);
   }
 }
-.clay-tab {
+.pouf-tab {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1100,7 +1100,7 @@ body {
     box-shadow 140ms ease,
     transform 140ms ease;
 }
-.clay-tab:active {
+.pouf-tab:active {
   transform: translateY(2px);
 }
 /* One colour, always — NOT var(--tone). Every tab used to light up its own
@@ -1109,22 +1109,22 @@ body {
  * semantic palette (--up/--down/--warn) on chrome, so "yellow" meant profit on
  * one screen and "you are here" on another. The active tab answers one question
  * — where am I — and one colour answers it. */
-.clay-tab--active {
+.pouf-tab--active {
   background: var(--purple);
   color: var(--ink);
   font-weight: 800;
   /* The lighter of the two clay recipes: the heavy one turned the active tab
    * into a lozenge that dominated the bar it was supposed to sit inside. */
-  box-shadow: var(--clay-control-active);
+  box-shadow: var(--pouf-control-active);
 }
-.clay-tab__label {
+.pouf-tab__label {
   line-height: 1;
 }
 
 /* ============================================================================
  * SHEET — the mobile "Menu" surface
  * ========================================================================= */
-.clay-sheet {
+.pouf-sheet {
   position: fixed;
   left: 0;
   right: 0;
@@ -1140,20 +1140,20 @@ body {
   /* Pinned to the screen edge, so no re-centring here: instead keep the full
      s6 clearance between the last content and the lip. */
   padding-bottom: calc(var(--s6) + var(--lip) + env(safe-area-inset-bottom, 0px));
-  box-shadow: var(--clay-card);
-  animation: clay-slide-up 220ms cubic-bezier(0.2, 0.9, 0.3, 1.1);
+  box-shadow: var(--pouf-card);
+  animation: pouf-slide-up 220ms cubic-bezier(0.2, 0.9, 0.3, 1.1);
 }
-@keyframes clay-slide-up {
+@keyframes pouf-slide-up {
   from {
     transform: translateY(100%);
   }
 }
-@keyframes clay-slide-down {
+@keyframes pouf-slide-down {
   to {
     transform: translateY(100%);
   }
 }
-.clay-sheet__body {
+.pouf-sheet__body {
   overflow-y: auto;
   min-height: 0;
   padding: 4px;
@@ -1161,7 +1161,7 @@ body {
 }
 /* The grab handle. Purely a signifier that this thing came from the bottom edge
  * and goes back there. */
-.clay-sheet__handle {
+.pouf-sheet__handle {
   width: 44px;
   height: 5px;
   border-radius: 999px;
@@ -1169,7 +1169,7 @@ body {
   margin: 0 auto;
   flex: none;
 }
-.clay-navlink {
+.pouf-navlink {
   display: flex;
   align-items: center;
   gap: var(--s3);
@@ -1180,9 +1180,9 @@ body {
   background: transparent;
   border-radius: var(--r-control);
   padding: 12px 16px;
-  /* Constant bias, not per-state: hover's white cushion wants 3px (--clay-row
+  /* Constant bias, not per-state: hover's white cushion wants 3px (--pouf-row
      floor, top highlight invisible on white), active's pastel wants 1px
-     (--clay-control, both bevels visible). 2px splits them, and because it
+     (--pouf-control, both bevels visible). 2px splits them, and because it
      never changes between states the content cannot jump on hover. At rest
      there is no visible box, so nothing reads as off-centre. */
   padding-block: 10px 14px;
@@ -1192,19 +1192,19 @@ body {
     background 140ms ease,
     transform 140ms ease;
 }
-.clay-navlink:hover {
+.pouf-navlink:hover {
   background: var(--surface);
-  box-shadow: var(--clay-row);
+  box-shadow: var(--pouf-row);
 }
-.clay-navlink--active {
+.pouf-navlink--active {
   background: var(--tone, var(--purple));
-  box-shadow: var(--clay-control);
+  box-shadow: var(--pouf-control);
 }
-.clay-navlink--active:hover {
+.pouf-navlink--active:hover {
   background: var(--tone, var(--purple));
-  box-shadow: var(--clay-control);
+  box-shadow: var(--pouf-control);
 }
-.clay-navlink:active {
+.pouf-navlink:active {
   transform: translateY(2px);
 }
 
@@ -1215,7 +1215,7 @@ body {
  * the shell, so no screen can forget to render it and no scroll position can
  * hide it. Paper mode is quiet; live mode is loud.
  * ========================================================================= */
-.clay-mode {
+.pouf-mode {
   display: flex;
   align-items: center;
   gap: var(--s3);
@@ -1223,15 +1223,15 @@ body {
   padding: var(--s3) var(--s4);
   background: var(--tone, var(--blue));
   color: var(--ink);
-  box-shadow: var(--clay-control);
+  box-shadow: var(--pouf-control);
 }
-.clay-mode--live {
-  animation: clay-live-pulse 2.4s ease-in-out infinite;
+.pouf-mode--live {
+  animation: pouf-live-pulse 2.4s ease-in-out infinite;
 }
-@keyframes clay-live-pulse {
+@keyframes pouf-live-pulse {
   50% {
     box-shadow:
-      var(--clay-control),
+      var(--pouf-control),
       0 0 0 6px rgba(255, 179, 138, 0.35);
   }
 }
@@ -1239,7 +1239,7 @@ body {
 /* ============================================================================
  * FEEDBACK
  * ========================================================================= */
-.clay-empty {
+.pouf-empty {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1247,26 +1247,26 @@ body {
   padding: var(--s8) var(--s5);
   text-align: center;
 }
-.clay-skeleton {
+.pouf-skeleton {
   background: linear-gradient(90deg, var(--bg) 25%, rgba(201, 168, 255, 0.35) 50%, var(--bg) 75%);
   background-size: 200% 100%;
-  animation: clay-shimmer 1.4s ease-in-out infinite;
+  animation: pouf-shimmer 1.4s ease-in-out infinite;
   border-radius: var(--r-control);
-  box-shadow: var(--clay-field);
+  box-shadow: var(--pouf-field);
   height: 64px;
 }
-.clay-skeleton--text {
+.pouf-skeleton--text {
   height: 18px;
   border-radius: 10px;
 }
-.clay-skeleton--row {
+.pouf-skeleton--row {
   height: 64px;
 }
-.clay-skeleton--card {
+.pouf-skeleton--card {
   height: 132px;
   border-radius: var(--r-card);
 }
-@keyframes clay-shimmer {
+@keyframes pouf-shimmer {
   0% {
     background-position: 200% 0;
   }
@@ -1278,7 +1278,7 @@ body {
 /* ============================================================================
  * OVERLAYS — radix-driven (Select, Tooltip, AlertDialog).
  * ========================================================================= */
-.clay-overlay {
+.pouf-overlay {
   position: fixed;
   inset: 0;
   background: rgba(58, 46, 92, 0.35);
@@ -1288,13 +1288,13 @@ body {
  * Presence keeps the node mounted until the [data-state='closed'] animation
  * ends, so the CLOSE animates too — no framer, and no inline transform to fight
  * the centring translate below. (prefers-reduced-motion is neutralised globally.) */
-.clay-overlay[data-state='open'] {
-  animation: clay-fade 160ms ease;
+.pouf-overlay[data-state='open'] {
+  animation: pouf-fade 160ms ease;
 }
-.clay-overlay[data-state='closed'] {
-  animation: clay-fade-out 160ms ease forwards;
+.pouf-overlay[data-state='closed'] {
+  animation: pouf-fade-out 160ms ease forwards;
 }
-.clay-dialog {
+.pouf-dialog {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -1307,15 +1307,15 @@ body {
   border-radius: var(--r-card);
   padding: var(--s7);
   padding-block: calc(var(--s7) - var(--lip) / 2) calc(var(--s7) + var(--lip) / 2);
-  box-shadow: var(--clay-card);
+  box-shadow: var(--pouf-card);
 }
-.clay-dialog[data-state='open'] {
-  animation: clay-pop 180ms cubic-bezier(0.2, 0.9, 0.3, 1.3);
+.pouf-dialog[data-state='open'] {
+  animation: pouf-pop 180ms cubic-bezier(0.2, 0.9, 0.3, 1.3);
 }
-.clay-dialog[data-state='closed'] {
-  animation: clay-pop-out 140ms ease forwards;
+.pouf-dialog[data-state='closed'] {
+  animation: pouf-pop-out 140ms ease forwards;
 }
-.clay-dialog--lg {
+.pouf-dialog--lg {
   width: min(720px, calc(100vw - 32px));
 }
 
@@ -1326,8 +1326,8 @@ body {
  * stay round so it still reads as a surface sliding over the page rather than a
  * navigation to a new one. */
 @media (max-width: 900px) {
-  .clay-dialog,
-  .clay-dialog--lg {
+  .pouf-dialog,
+  .pouf-dialog--lg {
     top: auto;
     bottom: 0;
     left: 0;
@@ -1343,22 +1343,22 @@ body {
   }
   /* On a phone the centred pop is wrong — it rises from and sinks to the bottom
    * edge instead. Overrides the desktop pop for both states. */
-  .clay-dialog[data-state='open'] {
-    animation: clay-slide-up 240ms cubic-bezier(0.2, 0.9, 0.3, 1.05);
+  .pouf-dialog[data-state='open'] {
+    animation: pouf-slide-up 240ms cubic-bezier(0.2, 0.9, 0.3, 1.05);
   }
-  .clay-dialog[data-state='closed'] {
-    animation: clay-slide-down 200ms ease forwards;
+  .pouf-dialog[data-state='closed'] {
+    animation: pouf-slide-down 200ms ease forwards;
   }
 }
 /* The body scrolls, not the page behind it. A 37-row channel list has to live
  * somewhere; making the dialog itself grow would just move the 4000px problem.
  *
- * The whole chain from .clay-dialog down to the scroll container must be allowed
+ * The whole chain from .pouf-dialog down to the scroll container must be allowed
  * to shrink, or none of it works: a flex item's default min-height is `auto`,
  * meaning "never shrink below my content". The Stack between the dialog and this
  * body inherited that default, grew to its content height, and pushed the list
  * straight out of the dialog — max-height was set, and silently powerless. */
-.clay-dialog > .clay-stack {
+.pouf-dialog > .pouf-stack {
   flex: 1 1 auto;
   min-height: 0;
 }
@@ -1366,22 +1366,22 @@ body {
  * title+description block — centred there, a two-line description dragged the
  * X halfway down the card. Top-aligned, then nudged so the 38px quiet button
  * optically centres on the ~23px title line: (38 − 23) / 2 ≈ 8. */
-.clay-dialog__head {
+.pouf-dialog__head {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: var(--s3);
 }
-.clay-dialog__head > .clay-btn {
+.pouf-dialog__head > .pouf-btn {
   flex: none;
   margin-top: -8px;
 }
-.clay-dialog__body {
+.pouf-dialog__body {
   flex: 1 1 auto;
   overflow-y: auto;
   min-height: 0;
   /* Room for the cushions' outer drop shadow, which the scroll container would
-   * otherwise clip. Sized to --clay-row's drop (0 8px 18px): 18px of blur
+   * otherwise clip. Sized to --pouf-row's drop (0 8px 18px): 18px of blur
    * sideways, 8+18 below, 18-8 above. 4px looked like enough until the clipped
    * remainder rendered as a hard grey slab behind the rows — the gutter must
    * reach where the shadow's alpha actually dies, not merely exist. */
@@ -1389,7 +1389,7 @@ body {
   margin: -12px -20px -28px;
 }
 /* Same reason: the picker's own Stack sits between the body and the rows. */
-.clay-dialog__body > .clay-stack {
+.pouf-dialog__body > .pouf-stack {
   min-height: 0;
 }
 
@@ -1398,7 +1398,7 @@ body {
  * it (from the bottom on a phone), so "Open sheet" no longer produces something
  * indistinguishable from a modal. framer animates the slide + its exit; this is
  * only the resting frame. */
-.clay-sheet-dialog {
+.pouf-sheet-dialog {
   position: fixed;
   top: 0;
   right: 0;
@@ -1407,7 +1407,7 @@ body {
   display: flex;
   z-index: 61;
 }
-.clay-sheet-panel {
+.pouf-sheet-panel {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -1415,61 +1415,61 @@ body {
   background: var(--surface);
   border-radius: var(--r-card) 0 0 var(--r-card);
   padding: var(--s6);
-  /* Edge-pinned like .clay-sheet: keep the full s6 clearance above the floor
-     lip rather than re-centring (docs/clay-optical-centering-research.md). */
+  /* Edge-pinned like .pouf-sheet: keep the full s6 clearance above the floor
+     lip rather than re-centring (docs/pouf-optical-centering-research.md). */
   padding-bottom: calc(var(--s6) + var(--lip));
-  box-shadow: var(--clay-card);
+  box-shadow: var(--pouf-card);
   overflow-y: auto;
 }
 /* Slides in from the right edge and back out to it (Radix data-state), so the
  * close animates too. No centring transform here — it lives at right:0 — so a
  * plain translateX is free to move it. */
-.clay-sheet-dialog[data-state='open'] {
-  animation: clay-sheet-in 280ms cubic-bezier(0.2, 0.9, 0.3, 1.05);
+.pouf-sheet-dialog[data-state='open'] {
+  animation: pouf-sheet-in 280ms cubic-bezier(0.2, 0.9, 0.3, 1.05);
 }
-.clay-sheet-dialog[data-state='closed'] {
-  animation: clay-sheet-out 220ms ease forwards;
+.pouf-sheet-dialog[data-state='closed'] {
+  animation: pouf-sheet-out 220ms ease forwards;
 }
 @media (max-width: 900px) {
-  .clay-sheet-dialog {
+  .pouf-sheet-dialog {
     top: auto;
     left: 0;
     width: 100vw;
     max-height: 88vh;
   }
-  .clay-sheet-panel {
+  .pouf-sheet-panel {
     border-radius: var(--r-card) var(--r-card) 0 0;
     padding-bottom: calc(var(--s6) + var(--lip) + env(safe-area-inset-bottom, 0px));
   }
   /* From the bottom edge on a phone. */
-  .clay-sheet-dialog[data-state='open'] {
-    animation: clay-slide-up 280ms cubic-bezier(0.2, 0.9, 0.3, 1.05);
+  .pouf-sheet-dialog[data-state='open'] {
+    animation: pouf-slide-up 280ms cubic-bezier(0.2, 0.9, 0.3, 1.05);
   }
-  .clay-sheet-dialog[data-state='closed'] {
-    animation: clay-slide-down 220ms ease forwards;
+  .pouf-sheet-dialog[data-state='closed'] {
+    animation: pouf-slide-down 220ms ease forwards;
   }
 }
-@keyframes clay-sheet-in {
+@keyframes pouf-sheet-in {
   from {
     transform: translateX(100%);
   }
 }
-@keyframes clay-sheet-out {
+@keyframes pouf-sheet-out {
   to {
     transform: translateX(100%);
   }
 }
-@keyframes clay-fade {
+@keyframes pouf-fade {
   from {
     opacity: 0;
   }
 }
-@keyframes clay-fade-out {
+@keyframes pouf-fade-out {
   to {
     opacity: 0;
   }
 }
-@keyframes clay-pop {
+@keyframes pouf-pop {
   from {
     opacity: 0;
     transform: translate(-50%, -46%) scale(0.96);
@@ -1477,18 +1477,18 @@ body {
 }
 /* Exit mirrors the pop but keeps the centring translate throughout, so the card
  * shrinks toward its own centre rather than drifting. */
-@keyframes clay-pop-out {
+@keyframes pouf-pop-out {
   to {
     opacity: 0;
     transform: translate(-50%, -46%) scale(0.96);
   }
 }
-.clay-popover {
+.pouf-popover {
   background: var(--surface);
   border-radius: var(--r-control);
   padding: var(--s2);
   padding-block: calc(var(--s2) - var(--lip) / 2) calc(var(--s2) + var(--lip) / 2);
-  box-shadow: var(--clay-card);
+  box-shadow: var(--pouf-card);
   z-index: 50;
   /* Scale from the trigger, not the centre — Radix sets this to the corner the
    * popper opened from, so a menu below its field grows downward out of it. */
@@ -1496,31 +1496,31 @@ body {
 }
 /* A small spring pop on open, a quick shrink on close (Radix data-state defers
  * unmount until the close animation ends). Same family as the dialog's pop. */
-.clay-popover[data-state='open'] {
-  animation: clay-overlay-pop 150ms cubic-bezier(0.2, 0.9, 0.3, 1.25);
+.pouf-popover[data-state='open'] {
+  animation: pouf-overlay-pop 150ms cubic-bezier(0.2, 0.9, 0.3, 1.25);
 }
-.clay-popover[data-state='closed'] {
-  animation: clay-overlay-pop-out 110ms ease forwards;
+.pouf-popover[data-state='closed'] {
+  animation: pouf-overlay-pop-out 110ms ease forwards;
 }
 /* Match the trigger exactly. Radix sizes popper content to its own contents by
  * default, so the menu came out narrower than the field it belongs to and read
  * as an unrelated floating card. These two custom properties are set by Radix on
  * the content element when position="popper"; --available-height also keeps a
  * long list inside the viewport instead of running off the bottom. */
-.clay-popover--select {
+.pouf-popover--select {
   width: var(--radix-select-trigger-width);
   max-height: var(--radix-select-content-available-height);
   overflow-y: auto;
 }
 /* A search field stacked on a scrolling list, so it needs a width tied to its
    trigger and a height that can't run off-screen — same reasoning as
-   .clay-popover--select above, but Radix namespaces these custom properties per
+   .pouf-popover--select above, but Radix namespaces these custom properties per
    primitive, so the popover build gets --radix-popover-*, not --radix-select-*.
-   No padding here: .clay-popover already sets it.
+   No padding here: .pouf-popover already sets it.
 
-   The OPTION rows reuse .clay-option verbatim — controls.tsx :: Combobox sets
+   The OPTION rows reuse .pouf-option verbatim — controls.tsx :: Combobox sets
    data-highlighted / data-state by hand so the existing skin applies unchanged. */
-.clay-popover--combobox {
+.pouf-popover--combobox {
   display: flex;
   flex-direction: column;
   gap: var(--s2);
@@ -1528,7 +1528,7 @@ body {
   max-height: var(--radix-popover-content-available-height);
 }
 
-.clay-combobox__list {
+.pouf-combobox__list {
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -1536,19 +1536,19 @@ body {
 }
 
 /* A reason, not an option: "Loading models…", "Check the API key." Matches
-   .clay-hint rather than .clay-option, because it must never look clickable. */
-.clay-combobox__note {
+   .pouf-hint rather than .pouf-option, because it must never look clickable. */
+.pouf-combobox__note {
   font-size: 13px;
   font-weight: 700;
   color: var(--muted);
   padding: var(--s2) var(--s3);
 }
 
-.clay-combobox__placeholder {
+.pouf-combobox__placeholder {
   color: var(--muted);
 }
 
-.clay-seg {
+.pouf-seg {
   display: inline-flex;
   gap: var(--s2);
 }
@@ -1557,23 +1557,23 @@ body {
  * The row of Buttons this replaces marked selection with tone alone — purple
  * for on, blue for off — which SC 1.4.1 forbids and which vanishes in
  * greyscale. Depth is the system's own word for "engaged": this is exactly what
- * .clay-btn:active already does, so the control reads as held down. */
-.clay-seg__item--on {
+ * .pouf-btn:active already does, so the control reads as held down. */
+.pouf-seg__item--on {
   transform: translateY(2px);
-  box-shadow: var(--clay-control-active);
+  box-shadow: var(--pouf-control-active);
 }
 
-/* The element Tooltip hangs its trigger on. It exists because clay primitives
+/* The element Tooltip hangs its trigger on. It exists because pouf primitives
  * take a closed prop list, so Radix's asChild has no DOM node to reach; and
  * because a disabled control fires no pointer events, so the hover has to be
  * carried by something around it.
  *
  * inline-flex, NOT display:contents — contents erases the box, and the box is
  * the whole point: it is what stays hoverable when the child is disabled. */
-.clay-tip-anchor {
+.pouf-tip-anchor {
   display: inline-flex;
 }
-.clay-tooltip {
+.pouf-tooltip {
   background: var(--ink);
   color: var(--bg);
   font-size: 13px;
@@ -1584,25 +1584,25 @@ body {
   z-index: 60;
   transform-origin: var(--radix-tooltip-content-transform-origin);
 }
-.clay-tooltip[data-state='delayed-open'] {
-  animation: clay-overlay-pop 140ms cubic-bezier(0.2, 0.9, 0.3, 1.25);
+.pouf-tooltip[data-state='delayed-open'] {
+  animation: pouf-overlay-pop 140ms cubic-bezier(0.2, 0.9, 0.3, 1.25);
 }
-.clay-tooltip[data-state='closed'] {
-  animation: clay-overlay-pop-out 100ms ease forwards;
+.pouf-tooltip[data-state='closed'] {
+  animation: pouf-overlay-pop-out 100ms ease forwards;
 }
-@keyframes clay-overlay-pop {
+@keyframes pouf-overlay-pop {
   from {
     opacity: 0;
     transform: scale(0.94);
   }
 }
-@keyframes clay-overlay-pop-out {
+@keyframes pouf-overlay-pop-out {
   to {
     opacity: 0;
     transform: scale(0.96);
   }
 }
-.clay-option {
+.pouf-option {
   display: flex;
   align-items: center;
   gap: var(--s2);
@@ -1623,16 +1623,16 @@ body {
   background: none;
   width: 100%;
 }
-.clay-option[data-highlighted] {
+.pouf-option[data-highlighted] {
   background: var(--bg);
-  box-shadow: var(--clay-field);
+  box-shadow: var(--pouf-field);
 }
-.clay-option[data-state='checked'] {
+.pouf-option[data-state='checked'] {
   background: var(--purple);
 }
 
 /* Switch */
-.clay-switch {
+.pouf-switch {
   width: 60px;
   height: 34px;
   border-radius: var(--r-pill);
@@ -1640,18 +1640,18 @@ body {
   border: none;
   padding: 3px;
   cursor: pointer;
-  box-shadow: var(--clay-field);
+  box-shadow: var(--pouf-field);
   flex: none;
   transition: background 160ms ease;
 }
-.clay-switch[data-state='checked'] {
+.pouf-switch[data-state='checked'] {
   background: var(--mint);
 }
-.clay-switch:disabled {
+.pouf-switch:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
-.clay-switch__thumb {
+.pouf-switch__thumb {
   display: block;
   width: 28px;
   height: 28px;
@@ -1663,7 +1663,7 @@ body {
   transition: transform 160ms cubic-bezier(0.2, 0.9, 0.3, 1.3);
   transform: translateX(0);
 }
-.clay-switch[data-state='checked'] .clay-switch__thumb {
+.pouf-switch[data-state='checked'] .pouf-switch__thumb {
   transform: translateX(26px);
 }
 
@@ -1675,7 +1675,7 @@ body {
    Top-right, not bottom: the bottom belongs to BottomNav on mobile (z-index 40),
    and a toast that covers the nav trades one problem for another. Above it in
    stacking order because an alert that renders *behind* the nav is not an alert. */
-.clay-toasts {
+.pouf-toasts {
   position: fixed;
   top: calc(var(--s4) + env(safe-area-inset-top, 0px));
   right: var(--s4);
@@ -1691,7 +1691,7 @@ body {
   pointer-events: none;
 }
 @media (max-width: 900px) {
-  .clay-toasts {
+  .pouf-toasts {
     left: var(--s3);
     right: var(--s3);
     width: auto;
@@ -1700,11 +1700,11 @@ body {
 /* A full pastel cushion, tone-filled — this is the claymorphism the whole app
  * speaks (bold, bright, kid-shaped), and it is deliberately NOT the neutral,
  * semantic-colour-free snackbar that Material 3 and general best-practice would
- * steer you toward. That guidance (docs/clay-components-research.md) fits a
+ * steer you toward. That guidance (docs/pouf-components-research.md) fits a
  * restrained system; here the brief's colourful fill wins, so the tone stays on
  * the whole surface. The icon rides a translucent-white halo — a clay highlight,
  * not a foreign tile — and dark ink on the pastel clears contrast. */
-.clay-toast {
+.pouf-toast {
   pointer-events: auto;
   display: flex;
   /* Centre, not top: a single-line toast (the common case) had its icon pinned
@@ -1726,24 +1726,24 @@ body {
   /* Entrance/exit are owned by framer-motion (a 3D swing-in from the side); the
    * old CSS keyframe was removed so the two don't fight over `transform`. */
 }
-.clay-toast--default {
+.pouf-toast--default {
   background: var(--purple);
 }
-.clay-toast--success {
+.pouf-toast--success {
   background: var(--up);
 }
-.clay-toast--error {
+.pouf-toast--error {
   background: var(--down);
 }
-.clay-toast--warning {
+.pouf-toast--warning {
   background: var(--warn);
 }
-.clay-toast--info {
+.pouf-toast--info {
   background: var(--info);
 }
 /* A RAISED white clay disc, not a flat halo: its own inset light/floor + a small
  * drop make the glyph sit proud of the fill, echoing the cushion it lives on. */
-.clay-toast__icon {
+.pouf-toast__icon {
   flex: none;
   display: grid;
   place-items: center;
@@ -1755,23 +1755,23 @@ body {
   box-shadow:
     inset 0 -3px 0 rgba(0, 0, 0, 0.08), inset 0 2px 0 #fff, 0 3px 6px rgba(58, 46, 92, 0.25);
 }
-.clay-toast__body {
+.pouf-toast__body {
   flex: 1;
   white-space: pre-line;
   overflow-wrap: anywhere;
 }
-.clay-toast__title {
+.pouf-toast__title {
   font-weight: 800;
   line-height: 1.3;
 }
-.clay-toast__desc {
+.pouf-toast__desc {
   margin-top: 2px;
   font-weight: 700;
   font-size: 13px;
   opacity: 0.82;
 }
 /* White-translucent, so both read as recessed highlights on the pastel fill. */
-.clay-toast__action {
+.pouf-toast__action {
   display: inline-flex;
   margin-top: var(--s2);
   font-family: var(--font);
@@ -1787,10 +1787,10 @@ body {
   cursor: pointer;
   transition: background 140ms ease;
 }
-.clay-toast__action:hover {
+.pouf-toast__action:hover {
   background: rgba(255, 255, 255, 0.7);
 }
-.clay-toast__close {
+.pouf-toast__close {
   flex: none;
   display: grid;
   place-items: center;
@@ -1805,10 +1805,10 @@ body {
   box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.06);
   transition: background 140ms ease;
 }
-.clay-toast__close:hover {
+.pouf-toast__close:hover {
   background: rgba(255, 255, 255, 0.85);
 }
-@keyframes clay-toast-in {
+@keyframes pouf-toast-in {
   from {
     opacity: 0;
     transform: translateY(-8px) scale(0.96);
@@ -1818,7 +1818,7 @@ body {
     transform: none;
   }
 }
-@keyframes clay-toast-out {
+@keyframes pouf-toast-out {
   from {
     opacity: 1;
     transform: none;
@@ -1832,17 +1832,17 @@ body {
 /* ============================================================================
    Alert bell + panel — the record behind the toasts
    ============================================================================ */
-.clay-bell {
+.pouf-bell {
   position: relative;
 }
-.clay-bell__button {
+.pouf-bell__button {
   position: relative;
   display: flex;
   align-items: center;
   gap: var(--s3);
   width: 100%;
   padding: var(--s3) var(--s4);
-  /* --clay-control on white: the 6px floor is visible chrome, the white top
+  /* --pouf-control on white: the 6px floor is visible chrome, the white top
      highlight is not — full half-lip bias, same trick as the cards. */
   padding-block: calc(var(--s3) - 3px) calc(var(--s3) + 3px);
   border: 0;
@@ -1853,16 +1853,16 @@ body {
   font-size: 14px;
   font-weight: 800;
   cursor: pointer;
-  box-shadow: var(--clay-control);
+  box-shadow: var(--pouf-control);
 }
-.clay-bell__button:active {
-  box-shadow: var(--clay-control-active);
+.pouf-bell__button:active {
+  box-shadow: var(--pouf-control-active);
 }
-.clay-bell__label {
+.pouf-bell__label {
   flex: 1;
   text-align: left;
 }
-.clay-bell__badge {
+.pouf-bell__badge {
   display: grid;
   place-items: center;
   min-width: 22px;
@@ -1874,7 +1874,7 @@ body {
   font-weight: 800;
   font-variant-numeric: tabular-nums;
 }
-.clay-bell__panel {
+.pouf-bell__panel {
   position: absolute;
   top: calc(100% + var(--s2));
   left: 0;
@@ -1886,25 +1886,25 @@ body {
   padding-block: calc(var(--s3) - var(--lip) / 2) calc(var(--s3) + var(--lip) / 2);
   border-radius: var(--r-card);
   background: var(--surface);
-  box-shadow: var(--clay-card);
+  box-shadow: var(--pouf-card);
 }
 /* The sidebar is narrow; on a phone the panel would be a slot barely wider than
  * the bell. Break it out to something readable. */
 @media (max-width: 900px) {
-  .clay-bell__panel {
+  .pouf-bell__panel {
     position: fixed;
     left: var(--s3);
     right: var(--s3);
     top: auto;
   }
 }
-.clay-bell__offline {
+.pouf-bell__offline {
   padding: var(--s2) var(--s3);
   margin-bottom: var(--s2);
   border-radius: 12px;
   background: var(--warn);
 }
-.clay-bell__list {
+.pouf-bell__list {
   display: flex;
   flex-direction: column;
   gap: var(--s2);
@@ -1912,7 +1912,7 @@ body {
   padding: 0;
   list-style: none;
 }
-.clay-bell__item {
+.pouf-bell__item {
   display: flex;
   align-items: start;
   gap: var(--s3);
@@ -1922,7 +1922,7 @@ body {
    * scanning the history surfaces the breaker trip without reading every line. */
   background: var(--tone, rgba(201, 168, 255, 0.15));
 }
-.clay-bell__itembody {
+.pouf-bell__itembody {
   flex: 1;
   min-width: 0;
   /* Column, not the default inline flow: the message and its timestamp are separate
@@ -1937,12 +1937,12 @@ body {
 /* ============================================================================
  * CHECKBOX
  * ========================================================================= */
-.clay-checkbox-row {
+.pouf-checkbox-row {
   display: inline-flex;
   align-items: center;
   gap: var(--s2);
 }
-.clay-checkbox {
+.pouf-checkbox {
   width: 28px;
   height: 28px;
   border-radius: 9px;
@@ -1950,29 +1950,29 @@ body {
   border: none;
   padding: 0;
   cursor: pointer;
-  box-shadow: var(--clay-field);
+  box-shadow: var(--pouf-field);
   flex: none;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: background 160ms ease, transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
 }
-.clay-checkbox:active:not(:disabled) {
+.pouf-checkbox:active:not(:disabled) {
   transform: scale(0.92);
 }
-.clay-checkbox[data-state='checked'],
-.clay-checkbox--indeterminate {
+.pouf-checkbox[data-state='checked'],
+.pouf-checkbox--indeterminate {
   background: var(--purple);
 }
-.clay-checkbox:disabled {
+.pouf-checkbox:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
-.clay-checkbox__indicator {
+.pouf-checkbox__indicator {
   color: var(--ink);
   display: flex;
 }
-.clay-checkbox__indicator svg {
+.pouf-checkbox__indicator svg {
   width: 20px;
   height: 20px;
 }
@@ -1980,11 +1980,11 @@ body {
  * keyframe entry is correct (there is no prior state to transition from);
  * uncheck unmounts instantly — exit faster than enter, as it should be.
  * pathLength=1 on the glyph normalises the dash math to 0..1. */
-.clay-checkbox__indicator path {
+.pouf-checkbox__indicator path {
   stroke-dasharray: 1;
-  animation: clay-check-draw 250ms cubic-bezier(0.23, 1, 0.32, 1) both;
+  animation: pouf-check-draw 250ms cubic-bezier(0.23, 1, 0.32, 1) both;
 }
-@keyframes clay-check-draw {
+@keyframes pouf-check-draw {
   from {
     stroke-dashoffset: 1;
   }
@@ -1992,18 +1992,18 @@ body {
     stroke-dashoffset: 0;
   }
 }
-@keyframes clay-check-fade {
+@keyframes pouf-check-fade {
   from {
     opacity: 0;
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .clay-checkbox__indicator path {
+  .pouf-checkbox__indicator path {
     /* Keep the state change legible, drop the motion. */
-    animation-name: clay-check-fade;
+    animation-name: pouf-check-fade;
   }
 }
-.clay-checkbox__label {
+.pouf-checkbox__label {
   font-size: 15px;
   font-weight: 700;
   color: var(--ink);
@@ -2013,18 +2013,18 @@ body {
 /* ============================================================================
  * RADIO GROUP
  * ========================================================================= */
-.clay-radio-group {
+.pouf-radio-group {
   display: flex;
   flex-direction: column;
   gap: var(--s2);
 }
-.clay-radio-row {
+.pouf-radio-row {
   display: flex;
   align-items: center;
   gap: var(--s2);
 }
-.clay-radio {
-  /* Sized with .clay-checkbox — they sit in the same forms. */
+.pouf-radio {
+  /* Sized with .pouf-checkbox — they sit in the same forms. */
   width: 28px;
   height: 28px;
   border-radius: 50%;
@@ -2032,31 +2032,31 @@ body {
   border: none;
   padding: 0;
   cursor: pointer;
-  box-shadow: var(--clay-field);
+  box-shadow: var(--pouf-field);
   flex: none;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: background 160ms ease;
 }
-.clay-radio[data-state='checked'] {
+.pouf-radio[data-state='checked'] {
   background: var(--purple);
 }
-.clay-radio:disabled {
+.pouf-radio:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
 /* A white dot on the purple disc, not a dark one. An ink dot on lavender with
  * the recessed field shadow still under it read as a pupil in a puffy eye; a
  * surface-coloured dot with a hairline shadow reads as a clean filled radio. */
-.clay-radio__indicator {
+.pouf-radio__indicator {
   width: 10px;
   height: 10px;
   border-radius: 50%;
   background: var(--surface);
   box-shadow: 0 1px 1px rgba(58, 46, 92, 0.3);
 }
-.clay-radio__label {
+.pouf-radio__label {
   font-size: 15px;
   font-weight: 700;
   color: var(--ink);
@@ -2066,7 +2066,7 @@ body {
 /* ============================================================================
  * TEXTAREA
  * ========================================================================= */
-.clay-textarea {
+.pouf-textarea {
   resize: vertical;
   min-height: 100px;
 }
@@ -2074,7 +2074,7 @@ body {
 /* ============================================================================
  * SLIDER
  * ========================================================================= */
-.clay-slider {
+.pouf-slider {
   position: relative;
   display: flex;
   align-items: center;
@@ -2083,21 +2083,21 @@ body {
   touch-action: none;
   user-select: none;
 }
-.clay-slider[data-disabled] {
+.pouf-slider[data-disabled] {
   opacity: 0.5;
   cursor: not-allowed;
 }
 /* A thicker channel (14px, up from 10) so the thumb no longer dwarfs it, and a
  * filled range that reads as a bead of clay lying in that channel. */
-.clay-slider__track {
+.pouf-slider__track {
   position: relative;
   flex: 1;
   height: 14px;
   border-radius: 999px;
   background: var(--bg);
-  box-shadow: var(--clay-field);
+  box-shadow: var(--pouf-field);
 }
-.clay-slider__range {
+.pouf-slider__range {
   position: absolute;
   height: 100%;
   border-radius: 999px;
@@ -2108,7 +2108,7 @@ body {
  * ties to the range it drags rather than floating over the track as a loose
  * white egg. The ring is the same purple as the fill — one control, not a bead
  * and a separate knob. */
-.clay-slider__thumb {
+.pouf-slider__thumb {
   display: block;
   width: 22px;
   height: 22px;
@@ -2123,35 +2123,35 @@ body {
     box-shadow 140ms ease,
     transform 140ms ease;
 }
-.clay-slider__thumb:hover {
+.pouf-slider__thumb:hover {
   transform: scale(1.08);
 }
-.clay-slider__thumb:active {
+.pouf-slider__thumb:active {
   transform: scale(0.94);
 }
-.clay-slider__thumb:focus-visible {
+.pouf-slider__thumb:focus-visible {
   outline: 3px solid var(--ink);
   outline-offset: 3px;
 }
-.clay-slider__thumb[data-disabled] {
+.pouf-slider__thumb[data-disabled] {
   cursor: not-allowed;
 }
 
 /* ============================================================================
  * TOGGLE GROUP
  * ========================================================================= */
-/* The items are literal .clay-btn/.clay-btn--sm (composed in toggle.tsx), so a
+/* The items are literal .pouf-btn/.pouf-btn--sm (composed in toggle.tsx), so a
  * toggle can never drift from the button it imitates. "On" is pressed IN — the
  * same word Segmented uses for "engaged", because depth is the system's whole
  * vocabulary for state. */
-.clay-toggle {
+.pouf-toggle {
   display: inline-flex;
   flex-wrap: wrap;
   gap: var(--s2);
 }
-.clay-toggle__item[data-state='on'] {
+.pouf-toggle__item[data-state='on'] {
   transform: translateY(2px);
-  box-shadow: var(--clay-control-active);
+  box-shadow: var(--pouf-control-active);
 }
 
 /* ============================================================================
@@ -2164,23 +2164,23 @@ body {
  * boot. Tabs are a row of small clay buttons (composed in disclosure.tsx) and
  * the active one is held down — identical vocabulary to Segmented, which is
  * the same control at a different altitude. */
-.clay-tabs__list {
+.pouf-tabs__list {
   display: flex;
   flex-wrap: wrap;
   gap: var(--s2);
 }
-.clay-tabs__trigger[data-state='active'] {
+.pouf-tabs__trigger[data-state='active'] {
   transform: translateY(2px);
-  box-shadow: var(--clay-control-active);
+  box-shadow: var(--pouf-control-active);
 }
-.clay-tabs__content {
+.pouf-tabs__content {
   padding: var(--s4) 0 0;
 }
 
 /* ============================================================================
  * ACCORDION
  * ========================================================================= */
-.clay-accordion {
+.pouf-accordion {
   display: flex;
   flex-direction: column;
   gap: var(--s2);
@@ -2194,23 +2194,23 @@ body {
  * section washed out into it. One cushion that grows keeps the answer on the
  * same clay as its question. Hover/press are expressed on the item (via :has)
  * because the cushion is what visibly reacts, but only the trigger initiates. */
-.clay-accordion__item {
+.pouf-accordion__item {
   border-radius: var(--r-control);
   background: var(--surface);
-  box-shadow: var(--clay-row);
+  box-shadow: var(--pouf-row);
   transition:
     box-shadow 140ms ease,
     transform 140ms ease;
 }
-.clay-accordion__item:has(.clay-accordion__trigger:hover) {
-  box-shadow: var(--clay-row-hover);
+.pouf-accordion__item:has(.pouf-accordion__trigger:hover) {
+  box-shadow: var(--pouf-row-hover);
   transform: translateY(-1px);
 }
-.clay-accordion__item:has(.clay-accordion__trigger:active) {
+.pouf-accordion__item:has(.pouf-accordion__trigger:active) {
   transform: translateY(1px);
-  box-shadow: var(--clay-control-active);
+  box-shadow: var(--pouf-control-active);
 }
-.clay-accordion__trigger {
+.pouf-accordion__trigger {
   font-family: var(--font);
   font-weight: 900;
   font-size: 15px;
@@ -2231,24 +2231,24 @@ body {
 }
 /* The chevron sits in its own span (Icon renders the svg one level down, so a
  * `> svg` selector never matched and the chevron sat frozen). */
-.clay-accordion__chevron {
+.pouf-accordion__chevron {
   display: flex;
   flex: none;
   transition: transform 200ms ease;
 }
-.clay-accordion__trigger[data-state='open'] .clay-accordion__chevron {
+.pouf-accordion__trigger[data-state='open'] .pouf-accordion__chevron {
   transform: rotate(180deg);
 }
-.clay-accordion__content {
+.pouf-accordion__content {
   overflow: hidden;
 }
-.clay-accordion__content[data-state='open'] {
-  animation: clay-accordion-down 200ms ease;
+.pouf-accordion__content[data-state='open'] {
+  animation: pouf-accordion-down 200ms ease;
 }
-.clay-accordion__content[data-state='closed'] {
-  animation: clay-accordion-up 200ms ease;
+.pouf-accordion__content[data-state='closed'] {
+  animation: pouf-accordion-up 200ms ease;
 }
-@keyframes clay-accordion-down {
+@keyframes pouf-accordion-down {
   from {
     height: 0;
     opacity: 0;
@@ -2258,7 +2258,7 @@ body {
     opacity: 1;
   }
 }
-@keyframes clay-accordion-up {
+@keyframes pouf-accordion-up {
   from {
     height: var(--radix-accordion-content-height);
     opacity: 1;
@@ -2268,7 +2268,7 @@ body {
     opacity: 0;
   }
 }
-.clay-accordion__body {
+.pouf-accordion__body {
   /* On the item's own cushion now: no top padding (the trigger provides the
      gap), and the bottom keeps its clearance above the item's lip. */
   padding: 0 var(--s4) calc(var(--s4) + var(--lip-row));
@@ -2280,7 +2280,7 @@ body {
 /* ============================================================================
  * COLLAPSIBLE
  * ========================================================================= */
-.clay-collapsible__trigger {
+.pouf-collapsible__trigger {
   display: inline-flex;
   background: none;
   border: none;
@@ -2289,16 +2289,16 @@ body {
   font: inherit;
   color: inherit;
 }
-.clay-collapsible__content {
+.pouf-collapsible__content {
   overflow: hidden;
 }
-.clay-collapsible__content[data-state='open'] {
-  animation: clay-collapse-down 200ms ease;
+.pouf-collapsible__content[data-state='open'] {
+  animation: pouf-collapse-down 200ms ease;
 }
-.clay-collapsible__content[data-state='closed'] {
-  animation: clay-collapse-up 200ms ease;
+.pouf-collapsible__content[data-state='closed'] {
+  animation: pouf-collapse-up 200ms ease;
 }
-@keyframes clay-collapse-down {
+@keyframes pouf-collapse-down {
   from {
     height: 0;
     opacity: 0;
@@ -2308,7 +2308,7 @@ body {
     opacity: 1;
   }
 }
-@keyframes clay-collapse-up {
+@keyframes pouf-collapse-up {
   from {
     height: var(--radix-collapsible-content-height);
     opacity: 1;
@@ -2318,14 +2318,14 @@ body {
     opacity: 0;
   }
 }
-.clay-collapsible__body {
+.pouf-collapsible__body {
   padding-top: var(--s4);
 }
 
 /* ============================================================================
  * SEPARATOR
  * ========================================================================= */
-.clay-separator {
+.pouf-separator {
   border: none;
   height: 1px;
   background: rgba(201, 168, 255, 0.3);
@@ -2335,7 +2335,7 @@ body {
 /* ============================================================================
  * DROPDOWN MENU
  * ========================================================================= */
-.clay-menu__anchor {
+.pouf-menu__anchor {
   display: inline-flex;
   background: none;
   border: none;
@@ -2344,17 +2344,17 @@ body {
   font: inherit;
   color: inherit;
 }
-.clay-menu {
+.pouf-menu {
   background: var(--surface);
   border-radius: var(--r-control);
   padding: var(--s2);
   padding-block: calc(var(--s2) - var(--lip) / 2) calc(var(--s2) + var(--lip) / 2);
-  box-shadow: var(--clay-card);
+  box-shadow: var(--pouf-card);
   z-index: 50;
   min-width: 160px;
-  animation: clay-fade 140ms ease;
+  animation: pouf-fade 140ms ease;
 }
-.clay-menu__item {
+.pouf-menu__item {
   display: flex;
   align-items: center;
   gap: var(--s2);
@@ -2372,18 +2372,18 @@ body {
   width: 100%;
   text-align: left;
 }
-.clay-menu__item[data-highlighted] {
+.pouf-menu__item[data-highlighted] {
   background: var(--bg);
-  box-shadow: var(--clay-field);
+  box-shadow: var(--pouf-field);
 }
-.clay-menu__item[data-disabled] {
+.pouf-menu__item[data-disabled] {
   opacity: 0.5;
   cursor: not-allowed;
 }
-.clay-menu__item--down {
+.pouf-menu__item--down {
   color: var(--down);
 }
-.clay-menu__sep {
+.pouf-menu__sep {
   height: 1px;
   background: rgba(201, 168, 255, 0.3);
   margin: var(--s1) var(--s2);
@@ -2392,37 +2392,37 @@ body {
 /* ============================================================================
  * HOVER CARD
  * ========================================================================= */
-.clay-hover__anchor {
+.pouf-hover__anchor {
   display: inline-flex;
 }
-.clay-hover {
+.pouf-hover {
   background: var(--surface);
   border-radius: var(--r-control);
   padding: var(--s4);
   padding-block: calc(var(--s4) - var(--lip) / 2) calc(var(--s4) + var(--lip) / 2);
-  box-shadow: var(--clay-card);
+  box-shadow: var(--pouf-card);
   z-index: 50;
   max-width: 280px;
-  animation: clay-fade 140ms ease;
+  animation: pouf-fade 140ms ease;
 }
 
 /* ============================================================================
  * PROGRESS
  * ========================================================================= */
-.clay-progress {
+.pouf-progress {
   position: relative;
   width: 100%;
   height: 16px;
   border-radius: 999px;
   background: var(--bg);
-  box-shadow: var(--clay-field);
+  box-shadow: var(--pouf-field);
   overflow: hidden;
 }
-.clay-progress__fill {
+.pouf-progress__fill {
   height: 100%;
   border-radius: 999px;
   background: var(--tone, var(--purple));
-  /* The same floor shadow as .clay-dot: the fill is a bead of clay lying in a
+  /* The same floor shadow as .pouf-dot: the fill is a bead of clay lying in a
    * recessed channel, not a flat paint bar. */
   box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.12);
   /* A pill narrower than its own height renders as a squashed ellipse; hold it
@@ -2430,7 +2430,7 @@ body {
    * [data-zero] rather than showing progress that doesn't exist. */
   min-width: 16px;
 }
-.clay-progress__fill[data-zero] {
+.pouf-progress__fill[data-zero] {
   min-width: 0;
 }
 
@@ -2441,7 +2441,7 @@ body {
  * old build put the whole blob recipe on the fallback and lost the drop), but
  * never the element's own. Inner highlight/floor live on the fallback face;
  * a photo supplies its own light, so an image avatar keeps just the drop. */
-.clay-avatar {
+.pouf-avatar {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -2453,21 +2453,21 @@ body {
   background: var(--bg);
   box-shadow: 0 10px 20px rgba(58, 46, 92, 0.15);
 }
-.clay-avatar--sm {
+.pouf-avatar--sm {
   width: 32px;
   height: 32px;
   border-radius: 14px;
 }
-.clay-avatar--lg {
+.pouf-avatar--lg {
   width: 72px;
   height: 72px;
 }
-.clay-avatar__img {
+.pouf-avatar__img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-.clay-avatar__fallback {
+.pouf-avatar__fallback {
   width: 100%;
   height: 100%;
   display: flex;
@@ -2487,21 +2487,21 @@ body {
 }
 /* Initials scale with the face — 15px letters were rattling around the 72px
  * avatar and crowding the 32px one. The soft-shadow recipe is inherited. */
-.clay-avatar--sm .clay-avatar__fallback {
+.pouf-avatar--sm .pouf-avatar__fallback {
   font-size: 12px;
 }
-.clay-avatar--lg .clay-avatar__fallback {
+.pouf-avatar--lg .pouf-avatar__fallback {
   font-size: 22px;
 }
 
 /* ============================================================================
  * SCROLL AREA
  * ========================================================================= */
-.clay-scroll {
+.pouf-scroll {
   overflow: hidden;
   position: relative;
 }
-.clay-scroll__viewport {
+.pouf-scroll__viewport {
   width: 100%;
   /* max-height comes inline (from the component); overflow-y:auto turns that cap
    * into a scroll. No height:100% — it can't resolve against a max-height-only
@@ -2509,7 +2509,7 @@ body {
   overflow-y: auto;
   padding-right: 12px;
 }
-.clay-scroll__bar {
+.pouf-scroll__bar {
   display: flex;
   user-select: none;
   touch-action: none;
@@ -2522,7 +2522,7 @@ body {
   border-radius: 999px;
   background: rgba(201, 168, 255, 0.15);
 }
-.clay-scroll__thumb {
+.pouf-scroll__thumb {
   flex: 1;
   border-radius: 999px;
   background: rgba(201, 168, 255, 0.45);
@@ -2532,58 +2532,58 @@ body {
 /* ============================================================================
  * ASPECT RATIO
  * ========================================================================= */
-.clay-aspect {
+.pouf-aspect {
   width: 100%;
   border-radius: var(--r-control);
   overflow: hidden;
   background: var(--bg);
-  box-shadow: var(--clay-field);
+  box-shadow: var(--pouf-field);
 }
 
 /* ============================================================================
  * TABLE
  * ========================================================================= */
-.clay-table__wrap {
+.pouf-table__wrap {
   width: 100%;
   overflow-x: auto;
 }
-.clay-table {
+.pouf-table {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
 }
-.clay-table th {
+.pouf-table th {
   padding: var(--s2) var(--s3);
   border-bottom: 2px solid rgba(201, 168, 255, 0.3);
   text-align: left;
   font-weight: 800;
 }
-.clay-table__h--right {
+.pouf-table__h--right {
   text-align: right;
 }
-.clay-table td {
+.pouf-table td {
   padding: var(--s3);
 }
-.clay-table__row td {
+.pouf-table__row td {
   border-bottom: 1px solid rgba(201, 168, 255, 0.15);
 }
-.clay-table__cell--right {
+.pouf-table__cell--right {
   text-align: right;
 }
-.clay-table__empty td {
+.pouf-table__empty td {
   padding: var(--s7) var(--s3);
   text-align: center;
 }
 /* Clickable rows (Table onRowClick): the hover fill is the affordance — cells
  * carry no links, so without it nothing says "this opens". Focus ring inset,
  * because the row spans the scroll container and an outset ring would clip. */
-.clay-table__row--click {
+.pouf-table__row--click {
   cursor: pointer;
 }
-.clay-table__row--click:hover td {
+.pouf-table__row--click:hover td {
   background: rgba(201, 168, 255, 0.12);
 }
-.clay-table__row--click:focus-visible {
+.pouf-table__row--click:focus-visible {
   outline: 3px solid var(--focus, rgba(155, 106, 255, 0.55));
   outline-offset: -3px;
   border-radius: 8px;
@@ -2596,7 +2596,7 @@ body {
  * build set muted text (fails contrast on --bg at 13px) and a hover rule that
  * never fired because the colour lived on a child span. The current page is
  * heavier and bare: weight + underline carry the distinction, not hue alone. */
-.clay-breadcrumb {
+.pouf-breadcrumb {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -2606,15 +2606,15 @@ body {
   font-weight: 800;
   color: var(--ink);
 }
-.clay-breadcrumb__item {
+.pouf-breadcrumb__item {
   display: inline-flex;
   align-items: center;
   gap: var(--s2);
 }
-.clay-breadcrumb__sep {
+.pouf-breadcrumb__sep {
   color: var(--muted);
 }
-.clay-breadcrumb__link {
+.pouf-breadcrumb__link {
   color: var(--ink);
   text-decoration: underline;
   text-decoration-color: rgba(201, 168, 255, 0.7);
@@ -2622,80 +2622,80 @@ body {
   text-underline-offset: 3px;
   transition: text-decoration-color 140ms ease;
 }
-.clay-breadcrumb__link:hover {
+.pouf-breadcrumb__link:hover {
   text-decoration-color: var(--purple);
 }
-.clay-breadcrumb__current {
+.pouf-breadcrumb__current {
   font-weight: 900;
 }
 
 /* ============================================================================
  * CHARTS — Recharts theme
  * ========================================================================= */
-.clay-chart {
+.pouf-chart {
   width: 100%;
 }
 /* Ensure the chart SVG takes its container rather than its own computed size.
  * Recharts outputs width/height on the root <svg>; the container sets the
  * responsive width and the SVG inherits it via the class. */
-.clay-chart .recharts-surface {
+.pouf-chart .recharts-surface {
   overflow: visible;
 }
-.clay-chart__tooltip {
+.pouf-chart__tooltip {
   background: var(--surface);
   border-radius: var(--r-control);
   padding: var(--s3) var(--s4);
   padding-block: calc(var(--s3) - var(--lip) / 2) calc(var(--s3) + var(--lip) / 2);
-  box-shadow: var(--clay-card);
+  box-shadow: var(--pouf-card);
   font-family: var(--font);
   font-size: 13px;
   font-weight: 700;
   color: var(--ink);
 }
-.clay-chart__tooltip__label {
+.pouf-chart__tooltip__label {
   font-weight: 900;
   margin-bottom: var(--s1);
 }
-.clay-chart__tooltip__item {
+.pouf-chart__tooltip__item {
   display: flex;
   align-items: center;
   gap: var(--s2);
   color: var(--muted);
 }
-.clay-chart__tooltip__swatch {
+.pouf-chart__tooltip__swatch {
   width: 10px;
   height: 10px;
   border-radius: 3px;
   flex: none;
 }
-.clay-chart__grid line {
+.pouf-chart__grid line {
   stroke: rgba(201, 168, 255, 0.25);
 }
-.clay-chart__grid path {
+.pouf-chart__grid path {
   stroke: none;
 }
-.clay-chart .recharts-text {
+.pouf-chart .recharts-text {
   font-family: var(--font);
   font-size: 12px;
   font-weight: 700;
   fill: var(--muted);
 }
-.clay-chart .recharts-cartesian-axis-tick-value {
+.pouf-chart .recharts-cartesian-axis-tick-value {
   fill: var(--muted);
 }
-.clay-chart .recharts-tooltip-cursor {
+.pouf-chart .recharts-tooltip-cursor {
   stroke: rgba(201, 168, 255, 0.3);
 }
 /* Pie labels */
-.clay-chart .recharts-pie-label-text {
+.pouf-chart .recharts-pie-label-text {
   font-family: var(--font);
   font-size: 12px;
   font-weight: 800;
   fill: var(--ink);
 }
 /* Remove the default Recharts tooltip white background + border — the
- * clay-chart__tooltip class replaces it via the custom `content` render. */
-.clay-chart .recharts-default-tooltip {
+ * pouf-chart__tooltip class replaces it via the custom `content` render. */
+.pouf-chart .recharts-default-tooltip {
   background: none;
   border: none;
   border-radius: 0;

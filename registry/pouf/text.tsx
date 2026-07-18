@@ -9,18 +9,18 @@ interface HeadingProps {
 
 export function Heading({ children, level = 2 }: HeadingProps) {
   const Tag = `h${level}` as const
-  return <Tag className={`clay-h${level}`}>{children}</Tag>
+  return <Tag className={`pouf-h${level}`}>{children}</Tag>
 }
 
 /** The reference's yellow highlight-swatch behind a word. */
 export function Highlight({ children, tone = 'yellow' }: { children: ReactNode; tone?: Tone }) {
-  return <span className={clsx('clay-highlight', toneClass(tone))}>{children}</span>
+  return <span className={clsx('pouf-highlight', toneClass(tone))}>{children}</span>
 }
 
 /** The reference's uppercase section eyebrow. Restricted to white surfaces:
  * --muted measures 3.93:1 on --bg (fails) but 4.64:1 on white (passes). */
 export function Eyebrow({ children }: { children: ReactNode }) {
-  return <div className="clay-eyebrow">{children}</div>
+  return <div className="pouf-eyebrow">{children}</div>
 }
 
 interface TextProps {
@@ -50,12 +50,12 @@ export function Text({ children, size = 'md', muted, num, mono, truncate }: Text
     <span
       dir="auto"
       className={clsx(
-        'clay-text',
-        size === 'sm' && 'clay-text--sm',
-        muted && 'clay-text--muted',
-        num && 'clay-text--num',
-        mono && 'clay-text--mono',
-        truncate && 'clay-text--truncate',
+        'pouf-text',
+        size === 'sm' && 'pouf-text--sm',
+        muted && 'pouf-text--muted',
+        num && 'pouf-text--num',
+        mono && 'pouf-text--mono',
+        truncate && 'pouf-text--truncate',
       )}
     >
       {children}

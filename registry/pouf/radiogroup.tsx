@@ -16,18 +16,18 @@ interface RadioGroupProps {
 export function RadioGroup({ value, onChange, options, label, disabled }: RadioGroupProps) {
   return (
     <RRadio.Root
-      className="clay-radio-group"
+      className="pouf-radio-group"
       value={value}
       onValueChange={onChange}
       disabled={disabled}
       aria-label={label}
     >
       {options.map((o) => (
-        <div key={o.value} className="clay-radio-row">
-          <RRadio.Item id={`radio-${o.value}`} value={o.value} className="clay-radio">
-            <RRadio.Indicator className="clay-radio__indicator" />
+        <div key={o.value} className="pouf-radio-row">
+          <RRadio.Item id={`radio-${o.value}`} value={o.value} className="pouf-radio">
+            <RRadio.Indicator className="pouf-radio__indicator" />
           </RRadio.Item>
-          <label htmlFor={`radio-${o.value}`} className="clay-radio__label">
+          <label htmlFor={`radio-${o.value}`} className="pouf-radio__label">
             {o.label}
           </label>
         </div>

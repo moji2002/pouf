@@ -37,11 +37,11 @@ export function Button({
     <button
       type={type}
       className={clsx(
-        'clay-btn',
-        size === 'sm' && 'clay-btn--sm',
-        size === 'lg' && 'clay-btn--lg',
-        variant === 'quiet' && 'clay-btn--quiet',
-        block && 'clay-btn--block',
+        'pouf-btn',
+        size === 'sm' && 'pouf-btn--sm',
+        size === 'lg' && 'pouf-btn--lg',
+        variant === 'quiet' && 'pouf-btn--quiet',
+        block && 'pouf-btn--block',
         toneClass(tone),
       )}
       onClick={onClick}
@@ -49,7 +49,7 @@ export function Button({
       aria-busy={loading || undefined}
       aria-label={label}
     >
-      {loading && <span className="clay-btn__spinner" aria-hidden="true" />}
+      {loading && <span className="pouf-btn__spinner" aria-hidden="true" />}
       {children}
     </button>
   )

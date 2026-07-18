@@ -65,31 +65,31 @@ export function AlertBell({ alerts, unread, connected, onOpen }: Props) {
   }
 
   return (
-    <div className="clay-bell" ref={root}>
+    <div className="pouf-bell" ref={root}>
       <button
         type="button"
-        className="clay-bell__button"
+        className="pouf-bell__button"
         onClick={toggle}
         aria-expanded={open}
         aria-label={unread > 0 ? `Notifications, ${unread} unread` : 'Notifications'}
       >
         <Icon name="alerts" size="sm" />
-        <span className="clay-bell__label">Alerts</span>
+        <span className="pouf-bell__label">Alerts</span>
         {/* The count is aria-hidden because the button's own label already states it —
             otherwise a screen reader reads the number twice. */}
         {unread > 0 && (
-          <span className="clay-bell__badge" aria-hidden="true">
+          <span className="pouf-bell__badge" aria-hidden="true">
             {unread > 99 ? '99+' : unread}
           </span>
         )}
       </button>
 
       {open && (
-        <div className="clay-bell__panel">
+        <div className="pouf-bell__panel">
           {/* An empty panel is ambiguous: "nothing happened" and "we lost the stream and
               can't tell you" look identical. Say which one it is. */}
           {!connected && (
-            <div className="clay-bell__offline" role="status">
+            <div className="pouf-bell__offline" role="status">
               <Text size="sm">Alert stream disconnected — reconnecting. You may be missing alerts.</Text>
             </div>
           )}
@@ -99,11 +99,11 @@ export function AlertBell({ alerts, unread, connected, onOpen }: Props) {
               Fills, closes, and safety alerts appear here as the engine trades.
             </Empty>
           ) : (
-            <ul className="clay-bell__list">
+            <ul className="pouf-bell__list">
               {alerts.map((a) => (
-                <li key={a.id} className={clsx('clay-bell__item', a.severity === 'critical' && 'tone-down')}>
+                <li key={a.id} className={clsx('pouf-bell__item', a.severity === 'critical' && 'tone-down')}>
                   <Icon name={a.severity === 'critical' ? 'warn' : 'ok'} size="sm" />
-                  <div className="clay-bell__itembody">
+                  <div className="pouf-bell__itembody">
                     <Text size="sm">{emphasise(a.text)}</Text>
                     <Text size="sm" muted num>
                       {new Date(a.at).toLocaleTimeString()}

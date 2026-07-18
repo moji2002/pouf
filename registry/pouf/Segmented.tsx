@@ -27,7 +27,7 @@ interface SegmentedProps<T extends string> {
  * The selected segment is pressed IN — translateY plus the active shadow. That
  * is depth, not hue, so it survives greyscale and any colour vision; and it is
  * the system's existing vocabulary for "engaged", being exactly what every
- * clay-btn already does on :active. RowCard sets the precedent for aria-pressed
+ * pouf-btn already does on :active. RowCard sets the precedent for aria-pressed
  * as the selection signal.
  *
  * Generic in T so `<Segmented value={mode} .../>` keeps the union ('paper' |
@@ -36,14 +36,14 @@ interface SegmentedProps<T extends string> {
  */
 export function Segmented<T extends string>({ value, onChange, options, label, tone = 'blue' }: SegmentedProps<T>) {
   return (
-    <div className="clay-seg" role="group" aria-label={label}>
+    <div className="pouf-seg" role="group" aria-label={label}>
       {options.map((o) => {
         const on = o.value === value
         return (
           <button
             key={o.value}
             type="button"
-            className={clsx('clay-btn', 'clay-btn--sm', toneClass(tone), on && 'clay-seg__item--on')}
+            className={clsx('pouf-btn', 'pouf-btn--sm', toneClass(tone), on && 'pouf-seg__item--on')}
             aria-pressed={on}
             onClick={() => onChange(o.value)}
           >

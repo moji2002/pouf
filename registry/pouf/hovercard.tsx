@@ -13,10 +13,10 @@ export function HoverCard({ children, content, side = 'bottom', align = 'center'
   return (
     <RHover.Root openDelay={300} closeDelay={200}>
       <RHover.Trigger asChild>
-        <span className="clay-hover__anchor">{children}</span>
+        <span className="pouf-hover__anchor">{children}</span>
       </RHover.Trigger>
       <RHover.Portal>
-        <RHover.Content className="clay-hover" sideOffset={8} side={side} align={align} asChild>
+        <RHover.Content className="pouf-hover" sideOffset={8} side={side} align={align} asChild>
           <motion.div
             initial={{ opacity: 0, scale: 0.97, y: 4 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}

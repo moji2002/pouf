@@ -15,18 +15,18 @@ export function Field({ label, children, hint, error }: FieldProps) {
   const id = useId()
   const describedBy = error ? `${id}-err` : hint ? `${id}-hint` : undefined
   return (
-    <div className="clay-field">
-      <label className="clay-label" htmlFor={id}>
+    <div className="pouf-field">
+      <label className="pouf-label" htmlFor={id}>
         {label}
       </label>
       {children(id, describedBy)}
       {hint && !error && (
-        <span className="clay-hint" id={`${id}-hint`}>
+        <span className="pouf-hint" id={`${id}-hint`}>
           {hint}
         </span>
       )}
       {error && (
-        <span className="clay-error" id={`${id}-err`} role="alert">
+        <span className="pouf-error" id={`${id}-err`} role="alert">
           {error}
         </span>
       )}
@@ -62,7 +62,7 @@ export function Input({
   return (
     <input
       id={id}
-      className={clsx('clay-input', mono && 'clay-input--mono', invalid && 'clay-input--invalid')}
+      className={clsx('pouf-input', mono && 'pouf-input--mono', invalid && 'pouf-input--invalid')}
       value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
@@ -107,7 +107,7 @@ export function Textarea({
   return (
     <textarea
       id={id}
-      className={clsx('clay-input', 'clay-textarea', mono && 'clay-input--mono', invalid && 'clay-input--invalid')}
+      className={clsx('pouf-input', 'pouf-textarea', mono && 'pouf-input--mono', invalid && 'pouf-input--invalid')}
       value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}

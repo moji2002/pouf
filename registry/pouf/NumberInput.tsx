@@ -101,10 +101,10 @@ export function NumberInput({
   const atMax = max !== undefined && Number.isFinite(parsed) && parsed >= max
 
   return (
-    <div className="clay-numberinput">
+    <div className="pouf-numberinput">
       <button
         type="button"
-        className="clay-numberinput__btn"
+        className="pouf-numberinput__btn"
         aria-label="Decrease"
         tabIndex={-1}
         disabled={disabled || atMin}
@@ -117,7 +117,7 @@ export function NumberInput({
       </button>
       <input
         id={id}
-        className={clsx('clay-input', 'clay-input--mono', invalid && 'clay-input--invalid')}
+        className={clsx('pouf-input', 'pouf-input--mono', invalid && 'pouf-input--invalid')}
         value={value}
         onChange={(e) => onChange(sanitizeNumeric(e.target.value))}
         onBlur={() => onChange(normalizeOnBlur(value, { min, max }))}
@@ -131,7 +131,7 @@ export function NumberInput({
       />
       <button
         type="button"
-        className="clay-numberinput__btn"
+        className="pouf-numberinput__btn"
         aria-label="Increase"
         tabIndex={-1}
         disabled={disabled || atMax}

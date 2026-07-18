@@ -12,9 +12,9 @@ export function Card({ children, variant = 'default' }: CardProps) {
   return (
     <div
       className={clsx(
-        'clay-card',
-        variant === 'flush' && 'clay-card--flush',
-        variant === 'tight' && 'clay-card--tight',
+        'pouf-card',
+        variant === 'flush' && 'pouf-card--flush',
+        variant === 'tight' && 'pouf-card--tight',
       )}
     >
       {children}
@@ -37,7 +37,7 @@ interface RowCardProps {
  * regardless — so the prop is gone rather than left as a tempting no-op.
  */
 export function RowCard({ children, onClick, selected }: RowCardProps) {
-  const className = clsx('clay-rowcard', onClick && 'clay-rowcard--interactive', selected && 'clay-rowcard--selected')
+  const className = clsx('pouf-rowcard', onClick && 'pouf-rowcard--interactive', selected && 'pouf-rowcard--selected')
 
   if (onClick) {
     return (

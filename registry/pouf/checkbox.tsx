@@ -11,10 +11,10 @@ interface CheckboxProps {
 
 export function Checkbox({ checked, onChange, id, disabled, label }: CheckboxProps) {
   return (
-    <div className="clay-checkbox-row">
+    <div className="pouf-checkbox-row">
       <RCheck.Root
         id={id}
-        className={clsx('clay-checkbox', checked === 'indeterminate' && 'clay-checkbox--indeterminate')}
+        className={clsx('pouf-checkbox', checked === 'indeterminate' && 'pouf-checkbox--indeterminate')}
         // Pass the real tri-state to Radix. Passing `checked === true` collapsed
         // indeterminate to false, so Radix hid the Indicator entirely and the box
         // painted a blank purple blob with no dash. Radix renders the Indicator for
@@ -24,7 +24,7 @@ export function Checkbox({ checked, onChange, id, disabled, label }: CheckboxPro
         disabled={disabled}
         aria-label={label}
       >
-        <RCheck.Indicator className="clay-checkbox__indicator">
+        <RCheck.Indicator className="pouf-checkbox__indicator">
           {/* Inline rather than Icon: the draw-in animation needs pathLength=1
               on the stroke, which the shared icon vocabulary has no reason to
               carry. Geometry and stroke match the Tabler set (24 viewbox, 2.4
@@ -47,7 +47,7 @@ export function Checkbox({ checked, onChange, id, disabled, label }: CheckboxPro
         </RCheck.Indicator>
       </RCheck.Root>
       {label && (
-        <label htmlFor={id} className="clay-checkbox__label">
+        <label htmlFor={id} className="pouf-checkbox__label">
           {label}
         </label>
       )}

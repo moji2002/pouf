@@ -20,22 +20,22 @@ export function Breadcrumb({ items }: BreadcrumbProps) {
 
   return (
     <nav aria-label="Breadcrumb">
-      <ol className="clay-breadcrumb">
+      <ol className="pouf-breadcrumb">
         {items.map((item, i) => {
           const last = i === items.length - 1
           return (
-            <li key={i} className="clay-breadcrumb__item">
+            <li key={i} className="pouf-breadcrumb__item">
               {i > 0 && (
-                <span className="clay-breadcrumb__sep" aria-hidden="true">
+                <span className="pouf-breadcrumb__sep" aria-hidden="true">
                   /
                 </span>
               )}
               {last || !item.href ? (
-                <span className="clay-breadcrumb__current" aria-current={last ? 'page' : undefined}>
+                <span className="pouf-breadcrumb__current" aria-current={last ? 'page' : undefined}>
                   {item.label}
                 </span>
               ) : (
-                <a className="clay-breadcrumb__link" href={item.href}>
+                <a className="pouf-breadcrumb__link" href={item.href}>
                   {item.label}
                 </a>
               )}

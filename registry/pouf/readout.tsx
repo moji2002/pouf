@@ -20,13 +20,13 @@ import type { Tone } from './tone'
 export function Stat({ label, value, icon, tone }: { label: string; value: string; icon: IconName; tone: Tone }) {
   return (
     <Card variant="tight">
-      <div className="clay-stat">
+      <div className="pouf-stat">
         <Blob tone={tone} size="sm" icon={icon} />
-        <div className="clay-stat__text">
-          <span className="clay-stat__label">{label}</span>
+        <div className="pouf-stat__text">
+          <span className="pouf-stat__label">{label}</span>
           {/* dir="auto" for the same reason Text sets it: a value can be a
               non-Latin string (a channel name in a "top source" tile). */}
-          <span className="clay-stat__value" dir="auto">
+          <span className="pouf-stat__value" dir="auto">
             {value}
           </span>
         </div>
@@ -55,10 +55,10 @@ interface MetricProps {
 }
 
 /** A labelled readout: small muted label, value beneath. Carries its own class
- * so a Row of metrics reads as a KPI strip (see .clay-metric in clay.css). */
+ * so a Row of metrics reads as a KPI strip (see .pouf-metric in pouf.css). */
 export function Metric({ label, value, num = true, mono }: MetricProps) {
   return (
-    <div className="clay-metric">
+    <div className="pouf-metric">
       <Text size="sm" muted>
         {label}
       </Text>

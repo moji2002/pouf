@@ -84,17 +84,17 @@ export function Toast({ id, severity, children, onDismiss }: ToastProps) {
 
   return (
     <motion.div
-      className={clsx('clay-toast', critical ? 'tone-down' : 'tone-info')}
+      className={clsx('pouf-toast', critical ? 'tone-down' : 'tone-info')}
       role={critical ? 'alert' : 'status'}
       aria-live={critical ? 'assertive' : 'polite'}
       layout="position"
       {...toastMotion(reduce)}
     >
-      <div className="clay-toast__icon">
+      <div className="pouf-toast__icon">
         <Icon name={critical ? 'warn' : 'ok'} size="sm" />
       </div>
-      <div className="clay-toast__body">{children}</div>
-      <button type="button" className="clay-toast__close" onClick={() => onDismiss(id)} aria-label="Dismiss notification">
+      <div className="pouf-toast__body">{children}</div>
+      <button type="button" className="pouf-toast__close" onClick={() => onDismiss(id)} aria-label="Dismiss notification">
         <Icon name="close" size="sm" />
       </button>
     </motion.div>
@@ -107,7 +107,7 @@ export interface ToastItem {
   text: string
 }
 
-/** Bare items — the shell owns the single .clay-toasts stack and mounts this
+/** Bare items — the shell owns the single .pouf-toasts stack and mounts this
  * inside it, beside the programmatic Toaster. Two components each bringing
  * their own fixed stack meant two overlapping stacks at the same corner. */
 export function ToastViewport({ toasts, onDismiss }: { toasts: ToastItem[]; onDismiss: (id: number) => void }) {

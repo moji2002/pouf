@@ -39,7 +39,7 @@ import type { ComponentType } from 'react'
  *
  * Screens name a ROLE ("the thing that means paper mode"), never an import, so
  * swapping the icon library — or just one glyph — happens here and nowhere else.
- * That is the same rule the rest of clay follows: change a primitive, change the
+ * That is the same rule the rest of pouf follows: change a primitive, change the
  * whole UI.
  *
  * These replaced emoji. Emoji are font-dependent (a ⚡ is a different shape, size

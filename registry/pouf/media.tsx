@@ -19,7 +19,7 @@ interface BlobProps {
 export function Blob({ icon, tone = 'purple', size = 'lg', label }: BlobProps) {
   return (
     <span
-      className={clsx('clay-blob', size === 'sm' && 'clay-blob--sm', size === 'md' && 'clay-blob--md', toneClass(tone))}
+      className={clsx('pouf-blob', size === 'sm' && 'pouf-blob--sm', size === 'md' && 'pouf-blob--md', toneClass(tone))}
       role={label ? 'img' : undefined}
       aria-label={label}
       aria-hidden={label ? undefined : true}
@@ -30,12 +30,12 @@ export function Blob({ icon, tone = 'purple', size = 'lg', label }: BlobProps) {
 }
 
 export function Badge({ children, tone = 'purple' }: { children: ReactNode; tone?: Tone }) {
-  return <span className={clsx('clay-badge', toneClass(tone))}>{children}</span>
+  return <span className={clsx('pouf-badge', toneClass(tone))}>{children}</span>
 }
 
 /** A status dot. Always pair with text — colour alone can't carry state. */
 export function Dot({ tone = 'purple' }: { tone?: Tone }) {
-  return <span className={clsx('clay-dot', toneClass(tone))} aria-hidden="true" />
+  return <span className={clsx('pouf-dot', toneClass(tone))} aria-hidden="true" />
 }
 
 /** An image, framed in clay.
@@ -44,5 +44,5 @@ export function Dot({ tone = 'purple' }: { tone?: Tone }) {
  * unlabelled image of a trade setup is exactly the case alt text exists for.
  * Lazy by default — a channel's history can be dozens of photos. */
 export function Figure({ src, alt }: { src: string; alt: string }) {
-  return <img className="clay-figure" src={src} alt={alt} loading="lazy" />
+  return <img className="pouf-figure" src={src} alt={alt} loading="lazy" />
 }

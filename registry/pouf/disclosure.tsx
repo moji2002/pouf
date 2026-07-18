@@ -31,13 +31,13 @@ interface TabsProps {
  * claim they were different things. */
 export function Tabs({ tabs, value, onChange, tone = 'blue' }: TabsProps) {
   return (
-    <RTabs.Root className="clay-tabs" value={value} onValueChange={onChange}>
-      <RTabs.List className="clay-tabs__list">
+    <RTabs.Root className="pouf-tabs" value={value} onValueChange={onChange}>
+      <RTabs.List className="pouf-tabs__list">
         {tabs.map((t) => (
           <RTabs.Trigger
             key={t.value}
             value={t.value}
-            className={clsx('clay-btn', 'clay-btn--sm', 'clay-tabs__trigger', toneClass(tone))}
+            className={clsx('pouf-btn', 'pouf-btn--sm', 'pouf-tabs__trigger', toneClass(tone))}
           >
             {t.label}
           </RTabs.Trigger>
@@ -50,7 +50,7 @@ export function Tabs({ tabs, value, onChange, tone = 'blue' }: TabsProps) {
               <RTabs.Content
                 key={t.value}
                 value={t.value}
-                className="clay-tabs__content"
+                className="pouf-tabs__content"
                 forceMount
                 asChild
               >
@@ -89,27 +89,27 @@ interface AccordionProps {
  * every panel forceMounted with `animate="open"` hard-coded, so nothing ever
  * told a closed panel to close: all three sat expanded forever. Radix already
  * mounts content on open and holds it through the exit animation — the CSS
- * clay-accordion-down/up keyframes are the whole choreography. */
+ * pouf-accordion-down/up keyframes are the whole choreography. */
 export function Accordion({ items, defaultValue }: AccordionProps) {
   return (
     <RAccordion.Root
-      className="clay-accordion"
+      className="pouf-accordion"
       type="single"
       defaultValue={defaultValue as string}
       collapsible
     >
       {items.map((item) => (
-        <RAccordion.Item key={item.value} value={item.value} className="clay-accordion__item">
+        <RAccordion.Item key={item.value} value={item.value} className="pouf-accordion__item">
           <RAccordion.Header>
-            <RAccordion.Trigger className="clay-accordion__trigger">
-              <span className="clay-accordion__title">{item.title}</span>
-              <span className="clay-accordion__chevron">
+            <RAccordion.Trigger className="pouf-accordion__trigger">
+              <span className="pouf-accordion__title">{item.title}</span>
+              <span className="pouf-accordion__chevron">
                 <Icon name="expand" size="sm" />
               </span>
             </RAccordion.Trigger>
           </RAccordion.Header>
-          <RAccordion.Content className="clay-accordion__content">
-            <div className="clay-accordion__body">{item.children}</div>
+          <RAccordion.Content className="pouf-accordion__content">
+            <div className="pouf-accordion__body">{item.children}</div>
           </RAccordion.Content>
         </RAccordion.Item>
       ))}
@@ -137,18 +137,18 @@ export function Collapsible({ children, trigger, open: controlledOpen, onOpenCha
   return (
     <RCollapse.Root open={open} onOpenChange={setOpen}>
       <RCollapse.Trigger asChild>
-        <button type="button" className="clay-collapsible__trigger">
+        <button type="button" className="pouf-collapsible__trigger">
           {trigger}
         </button>
       </RCollapse.Trigger>
-      <RCollapse.Content className="clay-collapsible__content" forceMount>
+      <RCollapse.Content className="pouf-collapsible__content" forceMount>
         <motion.div
           initial={false}
           animate={{ height: open ? 'auto' : 0, opacity: open ? 1 : 0 }}
           transition={{ duration: 0.2, ease: [0.2, 0.9, 0.3, 1] }}
           style={{ overflow: 'hidden' }}
         >
-          <div className="clay-collapsible__body">{children}</div>
+          <div className="pouf-collapsible__body">{children}</div>
         </motion.div>
       </RCollapse.Content>
     </RCollapse.Root>

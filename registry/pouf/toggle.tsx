@@ -24,16 +24,16 @@ export function ToggleGroup({ value, onChange, options, label, tone = 'purple' }
       type="multiple"
       value={value}
       onValueChange={onChange}
-      className="clay-toggle"
+      className="pouf-toggle"
       aria-label={label}
     >
       {options.map((o) => (
-        // Literal clay-btn classes, like Segmented: an "on" item is pressed in
-        // (clay-toggle__item[data-state='on']), never merely re-coloured.
+        // Literal pouf-btn classes, like Segmented: an "on" item is pressed in
+        // (pouf-toggle__item[data-state='on']), never merely re-coloured.
         <RToggle.Item
           key={o.value}
           value={o.value}
-          className={clsx('clay-btn', 'clay-btn--sm', 'clay-toggle__item', toneClass(tone))}
+          className={clsx('pouf-btn', 'pouf-btn--sm', 'pouf-toggle__item', toneClass(tone))}
         >
           {o.icon && <Icon name={o.icon} size="sm" />}
           {o.label}

@@ -13,13 +13,13 @@ interface ProgressProps {
 export function Progress({ value, max = 100, tone = 'purple', label }: ProgressProps) {
   const pct = Math.min(100, Math.max(0, (value / max) * 100))
   return (
-    <RProgress.Root className="clay-progress" value={value} max={max} aria-label={label}>
+    <RProgress.Root className="pouf-progress" value={value} max={max} aria-label={label}>
       <RProgress.Indicator asChild>
         {/* data-zero releases the fill's min-width floor: the floor keeps a
             low percentage from squashing into an ellipse, but 0 must render
             as nothing, not as a 16px bead of imaginary progress. */}
         <motion.div
-          className={clsx('clay-progress__fill', toneClass(tone))}
+          className={clsx('pouf-progress__fill', toneClass(tone))}
           data-zero={pct === 0 ? '' : undefined}
           animate={{ width: `${pct}%` }}
           transition={{ type: 'spring', stiffness: 200, damping: 24 }}

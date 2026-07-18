@@ -13,7 +13,7 @@ interface StackProps {
 }
 
 export function Stack({ children, gap = 4 }: StackProps) {
-  return <div className={clsx('clay-stack', `clay-gap-${gap}`)}>{children}</div>
+  return <div className={clsx('pouf-stack', `pouf-gap-${gap}`)}>{children}</div>
 }
 
 interface RowProps {
@@ -31,13 +31,13 @@ export function Row({ children, gap = 4, align = 'center', justify = 'start', wr
   return (
     <div
       className={clsx(
-        'clay-row',
-        `clay-gap-${gap}`,
-        align === 'top' && 'clay-row--top',
-        justify === 'center' && 'clay-row--center',
-        justify === 'between' && 'clay-row--between',
-        justify === 'end' && 'clay-row--end',
-        !wrap && 'clay-row--nowrap',
+        'pouf-row',
+        `pouf-gap-${gap}`,
+        align === 'top' && 'pouf-row--top',
+        justify === 'center' && 'pouf-row--center',
+        justify === 'between' && 'pouf-row--between',
+        justify === 'end' && 'pouf-row--end',
+        !wrap && 'pouf-row--nowrap',
       )}
     >
       {children}
@@ -46,7 +46,7 @@ export function Row({ children, gap = 4, align = 'center', justify = 'start', wr
 }
 
 export function Spacer() {
-  return <div className="clay-spacer" />
+  return <div className="pouf-spacer" />
 }
 
 interface GridProps {
@@ -56,13 +56,13 @@ interface GridProps {
 }
 
 export function Grid({ children, cols = 2, gap = 4 }: GridProps) {
-  return <div className={clsx('clay-grid', `clay-grid--${cols}`, `clay-gap-${gap}`)}>{children}</div>
+  return <div className={clsx('pouf-grid', `pouf-grid--${cols}`, `pouf-gap-${gap}`)}>{children}</div>
 }
 
 export function Shell({ children }: { children: ReactNode }) {
-  return <div className="clay-shell">{children}</div>
+  return <div className="pouf-shell">{children}</div>
 }
 
 export function Sidebar({ children }: { children: ReactNode }) {
-  return <aside className="clay-sidebar">{children}</aside>
+  return <aside className="pouf-sidebar">{children}</aside>
 }

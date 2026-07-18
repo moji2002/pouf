@@ -26,14 +26,14 @@ interface TableProps<T> {
 
 export function Table<T>({ columns, rows, getKey, onRowClick }: TableProps<T>) {
   return (
-    <div className="clay-table__wrap">
-      <table className="clay-table">
+    <div className="pouf-table__wrap">
+      <table className="pouf-table">
         <thead>
           <tr>
             {columns.map((col) => (
               <th
                 key={col.key}
-                className={col.align === 'right' ? 'clay-table__h--right' : ''}
+                className={col.align === 'right' ? 'pouf-table__h--right' : ''}
               >
                 <Text size="sm" muted>{col.header}</Text>
               </th>
@@ -43,7 +43,7 @@ export function Table<T>({ columns, rows, getKey, onRowClick }: TableProps<T>) {
         <tbody>
           {rows.length === 0 ? (
             <tr>
-              <td colSpan={columns.length} className="clay-table__empty">
+              <td colSpan={columns.length} className="pouf-table__empty">
                 <Text size="sm" muted>No data.</Text>
               </td>
             </tr>
@@ -51,7 +51,7 @@ export function Table<T>({ columns, rows, getKey, onRowClick }: TableProps<T>) {
             rows.map((row) => (
               <tr
                 key={getKey(row)}
-                className={onRowClick ? 'clay-table__row clay-table__row--click' : 'clay-table__row'}
+                className={onRowClick ? 'pouf-table__row pouf-table__row--click' : 'pouf-table__row'}
                 onClick={onRowClick ? () => onRowClick(row) : undefined}
                 onKeyDown={
                   onRowClick
@@ -70,7 +70,7 @@ export function Table<T>({ columns, rows, getKey, onRowClick }: TableProps<T>) {
                   <td
                     key={col.key}
                     className={
-                      col.align === 'right' ? 'clay-table__cell--right' : ''
+                      col.align === 'right' ? 'pouf-table__cell--right' : ''
                     }
                   >
                     <Text

@@ -32,11 +32,11 @@ function Tab({
   return (
     <Link
       href={item.href}
-      className={clsx('clay-tab', active && 'clay-tab--active')}
+      className={clsx('pouf-tab', active && 'pouf-tab--active')}
       aria-current={active ? 'page' : undefined}
     >
       <Icon name={item.icon} size="md" />
-      <span className="clay-tab__label">{item.label}</span>
+      <span className="pouf-tab__label">{item.label}</span>
     </Link>
   )
 }
@@ -79,7 +79,7 @@ export function BottomNav({ primary, groups, currentPath, link: Link = Anchor }:
   const onPrimary = primary.some((i) => isActivePath(i.href, currentPath))
 
   return (
-    <nav className="clay-bottomnav" aria-label="Main">
+    <nav className="pouf-bottomnav" aria-label="Main">
       {primary.map((item) => (
         <Tab key={item.href} item={item} active={isActivePath(item.href, currentPath)} link={Link} />
       ))}
@@ -88,17 +88,17 @@ export function BottomNav({ primary, groups, currentPath, link: Link = Anchor }:
         <RDialog.Trigger asChild>
           <button
             type="button"
-            className={clsx('clay-tab', !onPrimary && 'clay-tab--active')}
+            className={clsx('pouf-tab', !onPrimary && 'pouf-tab--active')}
             aria-current={!onPrimary ? 'page' : undefined}
           >
             <Icon name="menu" size="md" />
-            <span className="clay-tab__label">Menu</span>
+            <span className="pouf-tab__label">Menu</span>
           </button>
         </RDialog.Trigger>
         <RDialog.Portal>
-          <RDialog.Overlay className="clay-overlay" />
-          <RDialog.Content className="clay-sheet" aria-describedby={undefined}>
-            <div className="clay-sheet__handle" />
+          <RDialog.Overlay className="pouf-overlay" />
+          <RDialog.Content className="pouf-sheet" aria-describedby={undefined}>
+            <div className="pouf-sheet__handle" />
             <RDialog.Title asChild>
               <div>
                 <Heading level={3}>All screens</Heading>
@@ -107,14 +107,14 @@ export function BottomNav({ primary, groups, currentPath, link: Link = Anchor }:
             {/* Grouped by spacing, deliberately unlabelled. The headings read as
                 clutter at this size, and the clusters do the work on their own —
                 proximity groups without adding a word of chrome. */}
-            <div className="clay-sheet__body">
+            <div className="pouf-sheet__body">
               {/* onClick lives here (rather than on each Link) because Link is
                   swappable down to the bare LinkComponent signature, which has
                   no onClick slot — delegating to this wrapper closes the sheet
                   on navigate without widening that type. */}
-              <div className="clay-nav" onClick={() => setOpen(false)}>
+              <div className="pouf-nav" onClick={() => setOpen(false)}>
                 {groups.map((g) => (
-                  <div className="clay-navgroup" key={g.title}>
+                  <div className="pouf-navgroup" key={g.title}>
                     {g.items.map((item) => {
                       const active = isActivePath(item.href, currentPath)
                       return (
@@ -122,8 +122,8 @@ export function BottomNav({ primary, groups, currentPath, link: Link = Anchor }:
                           key={item.href}
                           href={item.href}
                           className={clsx(
-                            'clay-navlink',
-                            active && 'clay-navlink--active',
+                            'pouf-navlink',
+                            active && 'pouf-navlink--active',
                             active && toneClass(item.tone),
                           )}
                           aria-current={active ? 'page' : undefined}
@@ -138,7 +138,7 @@ export function BottomNav({ primary, groups, currentPath, link: Link = Anchor }:
               </div>
             </div>
             <RDialog.Close asChild>
-              <button type="button" className="clay-btn clay-btn--quiet clay-btn--block clay-btn--sm">
+              <button type="button" className="pouf-btn pouf-btn--quiet pouf-btn--block pouf-btn--sm">
                 <Row gap={2} wrap={false}>
                   <Icon name="close" size="sm" />
                   <Text size="sm">Close</Text>

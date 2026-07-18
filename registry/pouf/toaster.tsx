@@ -105,7 +105,7 @@ export function dismissToast(id: string) {
 /** Comes in from the side, tiny, and fades up to full size — a gentle spring,
  * not a bounce (the bouncy version fought the layout reflow and stuttered).
  * Tuned live in docs/toast-anim-playground.html. Under prefers-reduced-motion it
- * collapses to a plain opacity fade — WCAG 2.3.3. (docs/clay-components-research.md) */
+ * collapses to a plain opacity fade — WCAG 2.3.3. (docs/pouf-components-research.md) */
 function toastMotion(reduce: boolean) {
   if (reduce) {
     return {
@@ -135,25 +135,25 @@ function ToastItem({ t, onDismiss }: { t: ToastEntry; onDismiss: (id: string) =>
 
   return (
     <motion.div
-      className={`clay-toast clay-toast--${t.variant}`}
+      className={`pouf-toast pouf-toast--${t.variant}`}
       role={t.variant === 'error' ? 'alert' : 'status'}
       aria-live={t.variant === 'error' ? 'assertive' : 'polite'}
       layout="position"
       {...toastMotion(reduce)}
     >
-      <div className="clay-toast__icon">
+      <div className="pouf-toast__icon">
         <Icon name={ICON[t.variant]} size="sm" />
       </div>
-      <div className="clay-toast__body">
-        <div className="clay-toast__title">{t.title}</div>
-        {t.description && <div className="clay-toast__desc">{t.description}</div>}
+      <div className="pouf-toast__body">
+        <div className="pouf-toast__title">{t.title}</div>
+        {t.description && <div className="pouf-toast__desc">{t.description}</div>}
         {t.action && (
-          <button type="button" className="clay-toast__action" onClick={t.action.onClick}>
+          <button type="button" className="pouf-toast__action" onClick={t.action.onClick}>
             {t.action.label}
           </button>
         )}
       </div>
-      <button type="button" className="clay-toast__close" onClick={() => onDismiss(t.id)} aria-label="Dismiss notification">
+      <button type="button" className="pouf-toast__close" onClick={() => onDismiss(t.id)} aria-label="Dismiss notification">
         <Icon name="close" size="sm" />
       </button>
     </motion.div>
@@ -162,7 +162,7 @@ function ToastItem({ t, onDismiss }: { t: ToastEntry; onDismiss: (id: string) =>
 
 /* -- Toaster component ---------------------------------------------------- */
 
-/** Renders bare items, no positioned wrapper: the shell owns ONE .clay-toasts
+/** Renders bare items, no positioned wrapper: the shell owns ONE .pouf-toasts
  * stack and mounts this beside ToastViewport inside it. When each system
  * carried its own fixed stack they sat at identical coordinates, and a breaker
  * alert could render underneath a routine "saved" toast. */

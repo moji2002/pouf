@@ -33,14 +33,14 @@ interface ChartTooltipEntry {
   value?: ValueType
 }
 
-function ClayTooltip({ active, payload, label }: { active?: boolean; payload?: ChartTooltipEntry[]; label?: string }) {
+function PoufTooltip({ active, payload, label }: { active?: boolean; payload?: ChartTooltipEntry[]; label?: string }) {
   if (!active || !payload?.length) return null
   return (
-    <div className="clay-chart__tooltip">
-      {label && <div className="clay-chart__tooltip__label">{label}</div>}
+    <div className="pouf-chart__tooltip">
+      {label && <div className="pouf-chart__tooltip__label">{label}</div>}
       {payload.map((entry: ChartTooltipEntry, i: number) => (
-        <div key={i} className="clay-chart__tooltip__item">
-          <span className="clay-chart__tooltip__swatch" style={{ background: entry.color }} />
+        <div key={i} className="pouf-chart__tooltip__item">
+          <span className="pouf-chart__tooltip__swatch" style={{ background: entry.color }} />
           <span>{entry.name}: {typeof entry.value === 'number' ? entry.value.toLocaleString() : entry.value}</span>
         </div>
       ))}
@@ -80,13 +80,13 @@ interface AreaChartProps {
 
 export function AreaChart({ data, dataKey, series, height = 300, stacked }: AreaChartProps) {
   return (
-    <div className="clay-chart">
+    <div className="pouf-chart">
       <ResponsiveContainer width="100%" height={height}>
         <RAreaChart data={data} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
-          <CartesianGrid strokeDasharray="3 3" className="clay-chart__grid" />
+          <CartesianGrid strokeDasharray="3 3" className="pouf-chart__grid" />
           <XAxis dataKey={dataKey} tickLine={false} axisLine={false} tickMargin={8} />
           <YAxis tickLine={false} axisLine={false} tickMargin={4} width={40} />
-          <Tooltip content={<ClayTooltip />} />
+          <Tooltip content={<PoufTooltip />} />
           {series.map((s) => (
             <Area
               key={s.key}
@@ -124,13 +124,13 @@ interface BarChartProps {
 
 export function BarChart({ data, dataKey, series, height = 300, stacked, toneKey }: BarChartProps) {
   return (
-    <div className="clay-chart">
+    <div className="pouf-chart">
       <ResponsiveContainer width="100%" height={height}>
         <RBarChart data={data} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
-          <CartesianGrid strokeDasharray="3 3" className="clay-chart__grid" vertical={false} />
+          <CartesianGrid strokeDasharray="3 3" className="pouf-chart__grid" vertical={false} />
           <XAxis dataKey={dataKey} tickLine={false} axisLine={false} tickMargin={8} />
           <YAxis tickLine={false} axisLine={false} tickMargin={4} width={40} />
-          <Tooltip content={<ClayTooltip />} />
+          <Tooltip content={<PoufTooltip />} />
           {series.map((s) => (
             <Bar
               key={s.key}
@@ -164,13 +164,13 @@ interface LineChartProps {
 
 export function LineChart({ data, dataKey, series, height = 300 }: LineChartProps) {
   return (
-    <div className="clay-chart">
+    <div className="pouf-chart">
       <ResponsiveContainer width="100%" height={height}>
         <RLineChart data={data} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
-          <CartesianGrid strokeDasharray="3 3" className="clay-chart__grid" />
+          <CartesianGrid strokeDasharray="3 3" className="pouf-chart__grid" />
           <XAxis dataKey={dataKey} tickLine={false} axisLine={false} tickMargin={8} />
           <YAxis tickLine={false} axisLine={false} tickMargin={4} width={40} />
-          <Tooltip content={<ClayTooltip />} />
+          <Tooltip content={<PoufTooltip />} />
           {series.map((s) => (
             <Line
               key={s.key}
@@ -211,10 +211,10 @@ interface PieChartProps {
 
 export function PieChart({ data, height = 280, donut = true, labelled }: PieChartProps) {
   return (
-    <div className="clay-chart">
+    <div className="pouf-chart">
       <ResponsiveContainer width="100%" height={height}>
         <RPieChart margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
-          <Tooltip content={<ClayTooltip />} />
+          <Tooltip content={<PoufTooltip />} />
           <Pie
             data={data}
             dataKey="value"

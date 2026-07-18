@@ -8,7 +8,7 @@ import type { IconName } from './Icon'
 
 export function Empty({ icon = 'idle', title, children }: { icon?: IconName; title: string; children?: ReactNode }) {
   return (
-    <div className="clay-empty">
+    <div className="pouf-empty">
       <Blob tone="purple" size="md" icon={icon} />
       <Text>{title}</Text>
       {children && (
@@ -24,7 +24,7 @@ export function Skeleton({ variant = 'row', count = 1 }: { variant?: 'text' | 'r
   return (
     <Stack gap={3}>
       {Array.from({ length: count }, (_, i) => (
-        <div key={i} className={clsx('clay-skeleton', `clay-skeleton--${variant}`)} aria-hidden="true" />
+        <div key={i} className={clsx('pouf-skeleton', `pouf-skeleton--${variant}`)} aria-hidden="true" />
       ))}
     </Stack>
   )
@@ -38,11 +38,11 @@ export function Skeleton({ variant = 'row', count = 1 }: { variant?: 'text' | 'r
  * as a toast, not the flat orange slab it used to be. */
 export function ErrorNote({ children }: { children: ReactNode }) {
   return (
-    <div className="clay-error-note" role="alert">
-      <span className="clay-error-note__icon">
+    <div className="pouf-error-note" role="alert">
+      <span className="pouf-error-note__icon">
         <Icon name="warn" size="sm" />
       </span>
-      <span className="clay-error-note__text">{children}</span>
+      <span className="pouf-error-note__text">{children}</span>
     </div>
   )
 }

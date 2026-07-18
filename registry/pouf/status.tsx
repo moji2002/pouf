@@ -117,7 +117,7 @@ export function Freshness({ at, isError }: FreshnessProps) {
 export function ModeBanner({ live }: { live: boolean }) {
   return (
     <div
-      className={clsx('clay-mode', live && 'clay-mode--live', toneClass(live ? 'orange' : 'blue'))}
+      className={clsx('pouf-mode', live && 'pouf-mode--live', toneClass(live ? 'orange' : 'blue'))}
       role="status"
       aria-live="polite"
     >
