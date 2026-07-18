@@ -3,3 +3,4 @@ dist
 .astro
 gallery/harness/.candidate
 *.log
+.DS_Store
