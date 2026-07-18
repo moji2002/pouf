@@ -25,7 +25,7 @@ export function ToggleGroup({ value, onChange, options, label, tone = 'purple' }
       type="multiple"
       value={value}
       onValueChange={onChange}
-      className="pouf-toggle"
+      className="pouf-toggle inline-flex flex-wrap gap-(--s2)"
       aria-label={label}
     >
       {options.map((o) => (
@@ -34,7 +34,7 @@ export function ToggleGroup({ value, onChange, options, label, tone = 'purple' }
         <RToggle.Item
           key={o.value}
           value={o.value}
-          className={clsx(buttonClasses({ size: 'sm', tone }), 'pouf-toggle__item')}
+          className={clsx(buttonClasses({ size: 'sm', tone }), 'pouf-toggle__item data-[state=on]:[transform:translateY(2px)] data-[state=on]:cushion-control-active')}
         >
           {o.icon && <Icon name={o.icon} size="sm" />}
           {o.label}

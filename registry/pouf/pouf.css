@@ -212,3 +212,18 @@
     transform: rotate(360deg);
   }
 }
+
+/* Checkbox check draw-in (reduced-motion falls back to a fade). */
+@keyframes pouf-check-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes pouf-check-fade {
+  from {
+    opacity: 0;
+  }
+}

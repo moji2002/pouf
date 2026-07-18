@@ -11,10 +11,17 @@ interface CheckboxProps {
 
 export function Checkbox({ checked, onChange, id, disabled, label }: CheckboxProps) {
   return (
-    <div className="pouf-checkbox-row">
+    <div className="pouf-checkbox-row inline-flex items-center gap-(--s2)">
       <RCheck.Root
         id={id}
-        className={clsx('pouf-checkbox', checked === 'indeterminate' && 'pouf-checkbox--indeterminate')}
+        className={clsx([
+          'pouf-checkbox w-7 h-7 rounded-[9px] border-none p-0 cursor-pointer cushion-field flex-none',
+          'flex items-center justify-center',
+          '[transition:background_160ms_ease,transform_160ms_cubic-bezier(0.23,1,0.32,1)]',
+          'enabled:active:[transform:scale(0.92)]',
+          'data-[state=checked]:bg-purple disabled:opacity-50 disabled:cursor-not-allowed',
+        ],
+        checked === 'indeterminate' ? 'bg-purple' : 'bg-bg')}
         // Pass the real tri-state to Radix. Passing `checked === true` collapsed
         // indeterminate to false, so Radix hid the Indicator entirely and the box
         // painted a blank purple blob with no dash. Radix renders the Indicator for
@@ -24,7 +31,15 @@ export function Checkbox({ checked, onChange, id, disabled, label }: CheckboxPro
         disabled={disabled}
         aria-label={label}
       >
-        <RCheck.Indicator className="pouf-checkbox__indicator">
+        <RCheck.Indicator className={[
+            'pouf-checkbox__indicator text-ink flex [&_svg]:w-5 [&_svg]:h-5',
+            /* The check draws itself in. Radix mounts the indicator on check, so
+             * a keyframe entry is correct; uncheck unmounts instantly. Reduced
+             * motion keeps the state change legible, drops the drawing. */
+            '[&_path]:[stroke-dasharray:1]',
+            '[&_path]:[animation:pouf-check-draw_250ms_cubic-bezier(0.23,1,0.32,1)_both]',
+            'motion-reduce:[&_path]:[animation-name:pouf-check-fade]',
+          ].join(' ')}>
           {/* Inline rather than Icon: the draw-in animation needs pathLength=1
               on the stroke, which the shared icon vocabulary has no reason to
               carry. Geometry and stroke match the Tabler set (24 viewbox, 2.4
@@ -47,7 +62,7 @@ export function Checkbox({ checked, onChange, id, disabled, label }: CheckboxPro
         </RCheck.Indicator>
       </RCheck.Root>
       {label && (
-        <label htmlFor={id} className="pouf-checkbox__label">
+        <label htmlFor={id} className="pouf-checkbox__label text-[15px] font-bold text-ink cursor-pointer">
           {label}
         </label>
       )}

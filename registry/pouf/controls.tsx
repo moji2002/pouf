@@ -76,14 +76,23 @@ export function Switch({ checked, onChange, id, describedBy, disabled, label }: 
   return (
     <RSwitch.Root
       id={id}
-      className="pouf-switch"
+      className={[
+        'pouf-switch group w-[60px] h-[34px] rounded-pill bg-bg border-none p-[3px] cursor-pointer',
+        'cushion-field flex-none [transition:background_160ms_ease]',
+        'data-[state=checked]:bg-mint disabled:opacity-50 disabled:cursor-not-allowed',
+      ].join(' ')}
       checked={checked}
       onCheckedChange={onChange}
       disabled={disabled}
       aria-describedby={describedBy}
       aria-label={label}
     >
-      <RSwitch.Thumb className="pouf-switch__thumb" />
+      <RSwitch.Thumb className={[
+          'pouf-switch__thumb block w-7 h-7 rounded-[50%] bg-surface',
+          '[box-shadow:inset_0_-3px_0_rgba(0,0,0,0.12),inset_0_2px_0_rgba(255,255,255,0.9),0_4px_8px_rgba(58,46,92,0.2)]',
+          '[transition:transform_160ms_cubic-bezier(0.2,0.9,0.3,1.3)] [transform:translateX(0)]',
+          'group-data-[state=checked]:[transform:translateX(26px)]',
+        ].join(' ')} />
     </RSwitch.Root>
   )
 }
