@@ -1,8 +1,5 @@
 import '@fontsource-variable/nunito'
-/* pouf.css (Tailwind theme + preflight) loads FIRST; legacy.css second so the
- * un-migrated plain-CSS components win ties during the migration. */
 import '../../registry/pouf/pouf.css'
-import '../../registry/pouf/legacy.css'
 import { useSyncExternalStore } from 'react'
 import { createRoot } from 'react-dom/client'
 import { allDemos } from '../../registry/pouf/demos'
