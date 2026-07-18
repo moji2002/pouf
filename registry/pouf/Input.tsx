@@ -1,4 +1,4 @@
-import clsx from 'clsx'
+import { cva } from 'class-variance-authority'
 import { useId, type ReactNode } from 'react'
 
 interface FieldProps {
@@ -15,24 +15,70 @@ export function Field({ label, children, hint, error }: FieldProps) {
   const id = useId()
   const describedBy = error ? `${id}-err` : hint ? `${id}-hint` : undefined
   return (
-    <div className="pouf-field">
-      <label className="pouf-label" htmlFor={id}>
+    <div className="pouf-field flex flex-col gap-(--s2)">
+      {/* --muted fails on --bg at small sizes (3.93:1); labels use ink. */}
+      <label className="pouf-label text-[13px] font-black tracking-[0.6px] uppercase text-ink" htmlFor={id}>
         {label}
       </label>
       {children(id, describedBy)}
       {hint && !error && (
-        <span className="pouf-hint" id={`${id}-hint`}>
+        <span className="pouf-hint text-[13px] font-bold text-muted" id={`${id}-hint`}>
           {hint}
         </span>
       )}
+      {/* FIELD-level validation message: a compact one-liner under a control.
+        * NOT the page alert cushion (ErrorNote) — this one must stay quiet, so
+        * it keeps the flat little pill it always was. self-start: hug the
+        * message rather than stretch to fill a flex/grid cell. */}
       {error && (
-        <span className="pouf-error" id={`${id}-err`} role="alert">
+        <span
+          className="pouf-error text-[13px] font-extrabold text-ink bg-orange rounded-xl py-(--s2) px-(--s3) [align-self:start] max-w-full"
+          id={`${id}-err`}
+          role="alert"
+        >
           {error}
         </span>
       )}
     </div>
   )
 }
+
+/* One cva for every input voice in the system, exported because the Select and
+ * Combobox triggers (and Combobox's search input) wear the same field chrome.
+ * `bare` is the NumberInput-capsule voice: the capsule carries the chrome, so
+ * the input inside goes transparent and shadowless, and even its disabled fade
+ * is suppressed (the capsule already fades; double-fading blurs the value).
+ * Shadow ownership is per-variant because same-property utilities don't
+ * cascade; a focused invalid input shows the focus ring (pseudo specificity),
+ * matching the original selector order. */
+export const inputClasses = cva(
+  'pouf-input font-bold text-[15px] text-ink border-none rounded-control w-full placeholder:text-muted',
+  {
+    variants: {
+      bare: {
+        false: 'bg-bg px-5 py-4 min-h-[52px] focus:outline-none focus-visible:outline-none disabled:opacity-55 disabled:cursor-not-allowed',
+        true: 'bg-transparent flex-1 min-w-0 min-h-0 text-center px-0 py-2 [box-shadow:none] focus:[box-shadow:none] focus:outline-none focus-visible:outline-none disabled:opacity-100 disabled:cursor-not-allowed',
+      },
+      invalid: { true: '', false: '' },
+      /* mono OWNS font-family — a base font-pouf would fight it (same-property
+       * utilities don't cascade; stylesheet order is not the cascade). */
+      mono: {
+        true: "[font-family:ui-monospace,'SF_Mono',Menlo,monospace] [font-variant-numeric:tabular-nums]",
+        false: 'font-pouf',
+      },
+    },
+    compoundVariants: [
+      { bare: false, invalid: false, className: 'cushion-field focus:[box-shadow:var(--pouf-field-focus)]' },
+      {
+        bare: false,
+        invalid: true,
+        className:
+          '[box-shadow:var(--pouf-field),inset_0_0_0_3px_var(--orange)] focus:[box-shadow:var(--pouf-field-focus)]',
+      },
+    ],
+    defaultVariants: { bare: false, invalid: false, mono: false },
+  },
+)
 
 interface InputProps {
   value: string
@@ -45,6 +91,8 @@ interface InputProps {
   invalid?: boolean
   disabled?: boolean
   label?: string
+  /** Internal: the NumberInput capsule carries the chrome. */
+  bare?: boolean
 }
 
 export function Input({
@@ -58,11 +106,12 @@ export function Input({
   invalid,
   disabled,
   label,
+  bare,
 }: InputProps) {
   return (
     <input
       id={id}
-      className={clsx('pouf-input', mono && 'pouf-input--mono', invalid && 'pouf-input--invalid')}
+      className={inputClasses({ bare: !!bare, invalid: !!invalid, mono })}
       value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
@@ -107,7 +156,7 @@ export function Textarea({
   return (
     <textarea
       id={id}
-      className={clsx('pouf-input', 'pouf-textarea', mono && 'pouf-input--mono', invalid && 'pouf-input--invalid')}
+      className={`${inputClasses({ invalid: !!invalid, mono })} pouf-textarea resize-y min-h-[100px]`}
       value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}

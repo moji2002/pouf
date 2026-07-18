@@ -1,4 +1,5 @@
-import clsx from 'clsx'
+import { cva } from 'class-variance-authority'
+import { inputClasses } from './Input'
 import { useEffect, useRef, type KeyboardEvent, type PointerEvent } from 'react'
 import { Icon } from './Icon'
 import { normalizeOnBlur, sanitizeNumeric, stepValue } from './numberinput-math'
@@ -26,6 +27,38 @@ interface NumberInputProps {
  * The buttons are tabIndex={-1}, like the native spinner's arrows: keyboard
  * users already have ArrowUp/Down, PageUp/Down (±10×step) and Home/End on the
  * field itself, so tabbing through them would be two stops of pure noise. */
+/* The capsule carries the field chrome; the input inside goes bare and the
+ * focus ring moves up here (focus-within) to wrap the whole control, steppers
+ * included. Invalid outranks focus-within, matching the original :has() rule's
+ * higher specificity. The capsule fades for disabled; the bare input suppresses
+ * its own fade so the value doesn't double-blur. */
+const capsule = cva('pouf-numberinput flex items-center gap-1 h-14 px-2 py-0 rounded-pill bg-bg', {
+  variants: {
+    invalid: {
+      false: 'cushion-field focus-within:[box-shadow:var(--pouf-field-focus)]',
+      true: '[box-shadow:var(--pouf-field),inset_0_0_0_3px_var(--orange)]',
+    },
+    disabled: { true: 'opacity-55' },
+  },
+  defaultVariants: { invalid: false },
+})
+
+/* A scaled-down control cushion: full --pouf-control's 16px drop would bleed
+ * past the capsule and read as smudge, not lift. The mini's 5px floor lip
+ * paints inside the box, so a geometrically centred icon reads low — same
+ * optical trick as the blob's glyph. touch-action: rapid taps must step, not
+ * double-tap-zoom. */
+const stepper = [
+  'pouf-numberinput__btn flex-none inline-flex items-center justify-center w-10 h-10 p-0 border-none',
+  'rounded-pill bg-purple text-ink cursor-pointer',
+  '[box-shadow:inset_0_-5px_0_rgba(0,0,0,0.12),inset_0_3px_0_rgba(255,255,255,0.4),0_3px_6px_rgba(58,46,92,0.18)]',
+  '[transition:box-shadow_120ms_ease,transform_120ms_ease] [touch-action:manipulation] select-none',
+  '[&_svg]:[transform:translateY(-1px)]',
+  'enabled:active:[transform:translateY(1px)] enabled:active:cushion-control-active',
+  'disabled:cursor-not-allowed disabled:opacity-50 disabled:cushion-control-active disabled:[transform:translateY(1px)]',
+].join(' ')
+
+
 export function NumberInput({
   value,
   onChange,
@@ -101,10 +134,10 @@ export function NumberInput({
   const atMax = max !== undefined && Number.isFinite(parsed) && parsed >= max
 
   return (
-    <div className="pouf-numberinput">
+    <div className={capsule({ invalid: !!invalid, disabled: !!disabled })}>
       <button
         type="button"
-        className="pouf-numberinput__btn"
+        className={stepper}
         aria-label="Decrease"
         tabIndex={-1}
         disabled={disabled || atMin}
@@ -117,7 +150,7 @@ export function NumberInput({
       </button>
       <input
         id={id}
-        className={clsx('pouf-input', 'pouf-input--mono', invalid && 'pouf-input--invalid')}
+        className={inputClasses({ bare: true, mono: true, invalid: !!invalid })}
         value={value}
         onChange={(e) => onChange(sanitizeNumeric(e.target.value))}
         onBlur={() => onChange(normalizeOnBlur(value, { min, max }))}
@@ -131,7 +164,7 @@ export function NumberInput({
       />
       <button
         type="button"
-        className="pouf-numberinput__btn"
+        className={stepper}
         aria-label="Increase"
         tabIndex={-1}
         disabled={disabled || atMax}

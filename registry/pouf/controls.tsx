@@ -8,6 +8,7 @@ import { useMemo, useState, type KeyboardEvent, type ReactNode } from 'react'
 import clsx from 'clsx'
 import { Button } from './Button'
 import { Icon } from './Icon'
+import { inputClasses } from './Input'
 import { Row, Stack } from './layout'
 import { Heading, Text } from './text'
 import type { Tone } from './tone'
@@ -38,7 +39,7 @@ export function Select({ value, onChange, options, id, describedBy, placeholder,
     <RSelect.Root value={value} onValueChange={onChange} disabled={disabled}>
       <RSelect.Trigger
         id={id}
-        className="pouf-input flex flex-row items-center flex-wrap min-w-0 gap-[var(--gap,var(--s4))] justify-between"
+        className={`${inputClasses()} flex flex-row items-center flex-wrap min-w-0 gap-[var(--gap,var(--s4))] justify-between`}
         aria-describedby={describedBy}
         aria-label={label}
       >
@@ -370,11 +371,10 @@ export function Combobox({
           aria-expanded={open}
           aria-describedby={describedBy}
           className={clsx(
-            'pouf-input',
+            inputClasses({ mono }),
             /* Row's layout, inlined: the trigger borrowed .pouf-row classes,
              * which no longer exist as CSS rules after layout.tsx migrated. */
             'flex flex-row items-center flex-wrap min-w-0 gap-[var(--gap,var(--s4))] justify-between',
-            mono && 'pouf-input--mono',
           )}
         >
           <span className={clsx(!value && 'pouf-combobox__placeholder')}>{value || placeholder}</span>
@@ -384,7 +384,7 @@ export function Combobox({
       <RPopover.Portal>
         <RPopover.Content className="pouf-popover pouf-popover--combobox" sideOffset={8} align="start">
           <input
-            className={clsx('pouf-input', mono && 'pouf-input--mono')}
+            className={inputClasses({ mono })}
             value={query}
             onChange={(e) => {
               setQuery(e.target.value)
