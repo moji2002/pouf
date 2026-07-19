@@ -4,9 +4,9 @@ import { Blob } from './media'
 import { Icon } from './Icon'
 import { Stack } from './layout'
 import { Text } from './text'
-import type { IconName } from './Icon'
+import type { IconLike } from './Icon'
 
-export function Empty({ icon = 'idle', title, children }: { icon?: IconName; title: string; children?: ReactNode }) {
+export function Empty({ icon = 'idle', title, children }: { icon?: IconLike; title: string; children?: ReactNode }) {
   return (
     <div className="pouf-empty">
       <Blob tone="purple" size="md" icon={icon} />

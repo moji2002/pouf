@@ -7,6 +7,7 @@ import { Badge } from '../media'
 import { Progress } from '../progress'
 import { Button } from '../Button'
 import { Table } from '../table'
+import { Icon } from '../Icon'
 
 const LEADERS = [
   { id: '1', rank: '1', name: 'PixelWizard', score: '48,210' },
@@ -29,7 +30,7 @@ export function GameBlock() {
             <Eyebrow>Level 7 · Cushion Caverns</Eyebrow>
             <Heading level={1}>Boss fight</Heading>
           </Stack>
-          <Badge tone="yellow">★ 1,240</Badge>
+          <Badge tone="yellow"><Icon name="star" size="sm" /> 1,240</Badge>
         </Row>
 
         <Grid cols={2}>

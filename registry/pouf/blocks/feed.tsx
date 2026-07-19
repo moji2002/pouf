@@ -5,6 +5,7 @@ import { Heading, Text } from '../text'
 import { Avatar } from '../avatar'
 import { Badge, Dot } from '../media'
 import { Button } from '../Button'
+import { Icon } from '../Icon'
 import { Field, Textarea } from '../Input'
 
 interface Post {
@@ -68,9 +69,10 @@ export function FeedBlock() {
                 <Text>{p.text}</Text>
                 <Row gap={2}>
                   <Button size="sm" variant="quiet" tone={isLiked ? 'pink' : 'purple'} onClick={() => setLiked((l) => ({ ...l, [p.id]: !l[p.id] }))}>
-                    ♥ {p.likes + (isLiked ? 1 : 0)}
+                    <Icon name={isLiked ? 'heart-filled' : 'heart'} size="sm" /> {p.likes + (isLiked ? 1 : 0)}
                   </Button>
-                  <Button size="sm" variant="quiet" onClick={() => {}}>💬 {p.comments}</Button>
+                  <Button size="sm" variant="quiet" onClick={() => {}}><Icon name="comment" size="sm" /> {p.comments}</Button>
+                  <Button size="sm" variant="quiet" onClick={() => {}}><Icon name="send" size="sm" /> Share</Button>
                 </Row>
               </Stack>
             </Card>

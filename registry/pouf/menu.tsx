@@ -2,8 +2,7 @@ import * as RMenu from '@radix-ui/react-dropdown-menu'
 import clsx from 'clsx'
 import type { ReactNode } from 'react'
 import { motion } from 'framer-motion'
-import { Icon } from './Icon'
-import type { IconName } from './Icon'
+import { renderIcon, type IconLike } from './Icon'
 
 /* ------------------------------------------------------------------ */
 /* DropdownMenu                                                        */
@@ -11,7 +10,7 @@ import type { IconName } from './Icon'
 
 interface MenuItem {
   label: string
-  icon?: IconName
+  icon?: IconLike
   onClick?: () => void
   disabled?: boolean
   tone?: 'down'
@@ -53,7 +52,7 @@ export function DropdownMenu({ children, items, label }: DropdownMenuProps) {
                   onClick={item.onClick}
                   disabled={item.disabled}
                 >
-                  {item.icon && <Icon name={item.icon} size="sm" />}
+                  {item.icon && renderIcon(item.icon, 'sm')}
                   {item.label}
                 </RMenu.Item>
               )

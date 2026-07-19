@@ -21,30 +21,40 @@ try {
 } catch {}
 ---
 
-<Site title={block.title} description={block.blurb}>
-  <article style="display:flex; flex-direction:column; gap:24px;">
-    <div style="display:flex; flex-direction:column; gap:8px;">
-      <a href="/examples" style="color:var(--purple); font-weight:900; text-decoration:none;">← Examples</a>
-      <h1 style="font-size:40px; font-weight:900; letter-spacing:-1px; margin:0;">{block.title}</h1>
-      <p style="font-size:18px; color:var(--muted); font-weight:700; margin:0;">{block.blurb}</p>
+<Site title={block.title} description={block.blurb} wide>
+  <article style="display:flex; flex-direction:column; gap:28px;">
+    <div style="display:flex; flex-direction:column; gap:10px;">
+      <a href="/examples" style="color:var(--ink); font-weight:900; text-decoration:none; opacity:0.7;">← All templates</a>
+      <h1 class="display" style="font-size:clamp(40px,5vw,68px); margin:0;">{block.title}</h1>
+      <p style="font-size:19px; font-weight:800; color:var(--muted); margin:0;">{block.blurb}</p>
     </div>
 
-    <div>
-      <h2 style="font-size:16px; font-weight:900; letter-spacing:1px; text-transform:uppercase; color:var(--muted); margin:0 0 10px;">Install the whole block</h2>
+    <div style="display:flex; flex-direction:column; gap:10px; max-width:760px;">
+      <span style="font-size:13px; font-weight:900; letter-spacing:1px; text-transform:uppercase; color:var(--muted);">Install the whole screen</span>
       <CopyCommand client:load command={blockInstall(block.slug)} />
       {regDeps.length > 0 && (
-        <p style="margin:10px 0 0; font-size:13px; color:var(--muted); font-weight:700;">Pulls in {regDeps.length} components: {regDeps.join(', ')}.</p>
+        <p style="margin:0; font-size:14px; color:var(--muted); font-weight:800;">Lands with {regDeps.length} components: {regDeps.join(', ')}.</p>
       )}
     </div>
 
-    <div style="border-radius:28px; overflow:hidden; box-shadow: var(--pouf-card); background:var(--bg);">
-      <BlockPreview client:visible slug={block.slug} />
+    <!-- Browser-window frame: makes the centred screen read as a real page in a
+         window, not a floating card in dead space. -->
+    <div class="cushion" style="padding:0; overflow:hidden;">
+      <div style="display:flex; align-items:center; gap:8px; padding:14px 18px; border-bottom:1px solid rgba(201,168,255,0.3);">
+        <span style="width:12px; height:12px; border-radius:999px; background:var(--pink); display:inline-block;"></span>
+        <span style="width:12px; height:12px; border-radius:999px; background:var(--yellow); display:inline-block;"></span>
+        <span style="width:12px; height:12px; border-radius:999px; background:var(--mint); display:inline-block;"></span>
+        <span style="margin-left:12px; flex:1; max-width:340px; background:var(--bg); border-radius:999px; padding:6px 16px; font-size:13px; font-weight:800; color:var(--muted); font-family:ui-monospace, Menlo, monospace;">app.example.com/{block.slug}</span>
+      </div>
+      <div style="background:var(--bg); padding:24px 0; max-height:82vh; overflow:auto;">
+        <BlockPreview client:visible slug={block.slug} />
+      </div>
     </div>
 
     {source && (
       <details>
-        <summary style="cursor:pointer; font-weight:900; font-size:16px; padding:8px 0;">View source</summary>
-        <pre class="code-block" style="margin-top:8px; max-height:560px;">{source}</pre>
+        <summary style="cursor:pointer; font-weight:900; font-size:17px; padding:8px 0;">View source</summary>
+        <pre class="code-block" style="margin-top:8px; max-height:600px;">{source}</pre>
       </details>
     )}
   </article>

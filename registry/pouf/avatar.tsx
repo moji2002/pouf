@@ -1,14 +1,13 @@
 import * as RAvatar from '@radix-ui/react-avatar'
 import { cva, cx } from 'class-variance-authority'
 import { toneClass, type Tone } from './tone'
-import { Icon } from './Icon'
-import type { IconName } from './Icon'
+import { renderIcon, type IconLike } from './Icon'
 
 interface AvatarProps {
   src?: string
   alt?: string
   fallback?: string
-  icon?: IconName
+  icon?: IconLike
   tone?: Tone
   size?: 'sm' | 'md' | 'lg'
 }
@@ -57,7 +56,7 @@ export function Avatar({ src, alt, fallback: fallbackText, icon, tone = 'purple'
     <RAvatar.Root className={avatar({ size })}>
       {src && <RAvatar.Image className="pouf-avatar__img w-full h-full object-cover" src={src} alt={alt ?? ''} />}
       <RAvatar.Fallback className={cx(fallback({ size }), toneClass(tone))}>
-        {icon ? <Icon name={icon} size={size === 'lg' ? 'md' : 'sm'} /> : fallbackText?.slice(0, 2).toUpperCase()}
+        {icon ? renderIcon(icon, size === 'lg' ? 'md' : 'sm') : fallbackText?.slice(0, 2).toUpperCase()}
       </RAvatar.Fallback>
     </RAvatar.Root>
   )

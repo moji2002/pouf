@@ -1,61 +1,140 @@
 /* The site runs on the real Pouf theme — it IS the demo. Importing pouf.css
  * pulls in Tailwind, the @theme tokens, the cushion utilities, and the
- * component chrome. @source scans the site's own markup for utility classes
- * (pouf.css already scans registry/pouf for the components themselves). */
+ * component chrome. @source scans the site's own markup for utility classes. */
 @import '../../../registry/pouf/pouf.css';
 @source '../';
 
-/* Site-chrome helpers layered so component/utility rules still win. */
+/* Display face: Fredoka — chunky, rounded, kid-shaped. The maximalist voice
+ * for headlines; Nunito stays the body/component face. */
+:root {
+  --display: 'Fredoka Variable', 'Nunito', system-ui, sans-serif;
+}
+
 @layer components {
   .site-wrap {
-    max-width: 1200px;
+    max-width: 1180px;
     margin: 0 auto;
     padding: 0 24px;
+    position: relative;
+    z-index: 1;
   }
+  .site-wide {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Chunky rounded display type. */
+  .display {
+    font-family: var(--display);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 0.98;
+    color: var(--ink);
+  }
+
+  /* A decorative field of soft blurred cushion-blobs behind everything —
+   * depth and colour without any content. */
+  .blob-field {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .blob-field span {
+    position: absolute;
+    border-radius: 999px;
+    filter: blur(60px);
+    opacity: 0.5;
+  }
+
+  /* A raised pastel cushion, used all over the site chrome. */
+  .cushion {
+    background: var(--surface);
+    border-radius: 28px;
+    box-shadow: var(--pouf-card);
+  }
+  .cushion-tone {
+    border-radius: 28px;
+    box-shadow: var(--pouf-control);
+    color: var(--ink);
+  }
+
+  /* Sticker: a small tilted pill badge that sits on a corner. */
+  .sticker {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 900;
+    font-size: 13px;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    padding: 6px 14px;
+    border-radius: 999px;
+    box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.08), 0 6px 14px rgba(58, 46, 92, 0.14);
+  }
+
+  /* Header: a floating chunky bar, not a hairline-bordered strip. */
   .site-header {
     position: sticky;
-    top: 0;
+    top: 12px;
     z-index: 50;
-    background: color-mix(in srgb, var(--bg) 88%, transparent);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(201, 168, 255, 0.3);
+  }
+  .site-nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 60px;
+    padding: 0 10px 0 18px;
+    background: color-mix(in srgb, var(--surface) 82%, transparent);
+    backdrop-filter: blur(12px) saturate(1.2);
+    border-radius: 999px;
+    box-shadow: var(--pouf-card);
   }
   .site-link {
     font-weight: 800;
     color: var(--ink);
     text-decoration: none;
-    padding: 8px 12px;
-    border-radius: 12px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    transition: background 140ms ease, transform 140ms ease;
   }
   .site-link:hover {
-    background: rgba(201, 168, 255, 0.2);
+    background: rgba(201, 168, 255, 0.25);
+    transform: translateY(-1px);
   }
   .site-link[aria-current='page'] {
     background: var(--purple);
+    box-shadow: var(--pouf-control);
   }
+
   .docs-grid {
     display: grid;
-    grid-template-columns: 240px minmax(0, 1fr);
-    gap: 40px;
+    grid-template-columns: 250px minmax(0, 1fr);
+    gap: 44px;
     align-items: start;
   }
-  @media (max-width: 860px) {
-    .docs-grid {
-      grid-template-columns: minmax(0, 1fr);
-    }
-    .docs-sidebar {
-      display: none;
-    }
+  @media (max-width: 900px) {
+    .docs-grid { grid-template-columns: minmax(0, 1fr); }
+    .docs-sidebar { display: none; }
   }
   .docs-sidebar {
     position: sticky;
-    top: 88px;
+    top: 92px;
     display: flex;
     flex-direction: column;
     gap: 4px;
-    max-height: calc(100vh - 108px);
+    max-height: calc(100vh - 112px);
     overflow-y: auto;
+    background: color-mix(in srgb, var(--surface) 70%, transparent);
+    border-radius: 24px;
+    padding: 16px 12px;
+    box-shadow: var(--pouf-card);
   }
+
   .code-block {
     background: var(--ink);
     color: #f0e9ff;

@@ -31,9 +31,44 @@ import {
   IconTrash,
   IconTrendingUp,
   IconX,
+  // general vocabulary — added so screens never fall back to emoji
+  IconHeart,
+  IconHeartFilled,
+  IconMessageCircle,
+  IconPlayerPlayFilled,
+  IconPlayerPauseFilled,
+  IconPlayerTrackPrevFilled,
+  IconPlayerTrackNextFilled,
+  IconSun,
+  IconCloud,
+  IconCloudRain,
+  IconStarFilled,
+  IconCalendarEvent,
+  IconClock,
+  IconUser,
+  IconUsers,
+  IconMail,
+  IconLock,
+  IconSend,
+  IconHome,
+  IconTrophy,
+  IconFlame,
+  IconSparkles,
+  IconMusic,
+  IconShoppingBag,
+  IconTag,
+  IconDots,
+  IconSword,
+  IconShield,
+  IconWand,
+  IconMoodSmile,
+  IconCreditCard,
+  IconMapPin,
+  IconWind,
+  IconDroplet,
   type IconProps,
 } from '@tabler/icons-react'
-import type { ComponentType } from 'react'
+import type { ComponentType, ReactElement } from 'react'
 
 /** The icon set, as a closed vocabulary.
  *
@@ -109,6 +144,41 @@ const ICONS = {
   prev: IconChevronLeft,
   next: IconChevronRight,
   photo: IconPhoto,
+  // general vocabulary — a broader set so app screens never reach for emoji.
+  heart: IconHeart,
+  'heart-filled': IconHeartFilled,
+  comment: IconMessageCircle,
+  play: IconPlayerPlayFilled,
+  pause: IconPlayerPauseFilled,
+  rewind: IconPlayerTrackPrevFilled,
+  forward: IconPlayerTrackNextFilled,
+  sun: IconSun,
+  cloud: IconCloud,
+  rain: IconCloudRain,
+  star: IconStarFilled,
+  calendar: IconCalendarEvent,
+  clock: IconClock,
+  user: IconUser,
+  users: IconUsers,
+  mail: IconMail,
+  lock: IconLock,
+  send: IconSend,
+  home: IconHome,
+  trophy: IconTrophy,
+  flame: IconFlame,
+  sparkle: IconSparkles,
+  music: IconMusic,
+  cart: IconShoppingBag,
+  tag: IconTag,
+  dots: IconDots,
+  sword: IconSword,
+  shield: IconShield,
+  wand: IconWand,
+  smile: IconMoodSmile,
+  card: IconCreditCard,
+  pin: IconMapPin,
+  wind: IconWind,
+  drop: IconDroplet,
 } as const
 
 export type IconName = keyof typeof ICONS
@@ -138,4 +208,18 @@ export function Icon({ name, size = 'md', label }: Props) {
       aria-hidden={label ? undefined : true}
     />
   )
+}
+
+/** What every icon-accepting primitive takes. A named role is the convenience
+ * path (Tabler-backed, sizes and colours itself); a React element is the
+ * escape hatch — pass an icon from ANY library (lucide, phosphor, heroicons,
+ * your own SVG) and it renders as-is. The named vocabulary is a default, not a
+ * cage. */
+export type IconLike = IconName | ReactElement
+
+/** Resolve an IconLike to a node. Named roles get the size; custom elements
+ * render untouched (you size them yourself), so they inherit currentColor like
+ * everything else. */
+export function renderIcon(icon: IconLike, size: keyof typeof SIZES = 'md'): ReactElement {
+  return typeof icon === 'string' ? <Icon name={icon} size={size} /> : icon
 }

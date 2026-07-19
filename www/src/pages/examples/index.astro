@@ -1,26 +1,35 @@
 ---
 import Site from '../../layouts/Site.astro'
+import { IconBlob } from '../../components/IconBlob'
 import { BLOCKS } from '../../data/blocks'
 ---
 
-<Site title="Examples" description="Full-page templates composed from Pouf primitives — install a whole block at once.">
-  <section style="display:flex; flex-direction:column; gap:12px; padding-bottom:32px;">
-    <h1 style="font-size:40px; font-weight:900; letter-spacing:-1px; margin:0;">Examples</h1>
-    <p style="font-size:18px; color:var(--muted); font-weight:700; margin:0; max-width:60ch;">
-      Full-page templates, composed entirely from Pouf primitives. Preview them live, then install a whole block with one command — it lands with every component it uses.
+<Site title="Examples" description="Full-page templates composed from Pouf primitives — install a whole screen at once." wide>
+  <section style="display:flex; flex-direction:column; gap:14px; padding:8px 0 40px;">
+    <span class="sticker" style="background:var(--yellow); align-self:flex-start; transform:rotate(-2deg);">{BLOCKS.length} ready-to-copy screens</span>
+    <h1 class="display" style="font-size:clamp(44px,6vw,76px); margin:0;">Templates</h1>
+    <p style="font-size:20px; font-weight:800; color:var(--muted); margin:0; max-width:56ch;">
+      Full-page screens, composed entirely from Pouf primitives. Preview each live, then install the whole thing with one command — it lands with every component it uses.
     </p>
   </section>
 
-  <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:20px;">
-    {BLOCKS.map((b) => (
+  <div style="display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:22px;" class="ex-grid">
+    {BLOCKS.map((b, i) => (
       <a href={`/examples/${b.slug}`} style="text-decoration:none; color:var(--ink);">
-        <div style="background:var(--surface); border-radius:24px; padding:24px; box-shadow: var(--pouf-card); display:flex; flex-direction:column; gap:8px; height:100%;">
-          <span aria-hidden="true" style="font-size:32px; line-height:1;">{b.emoji}</span>
-          <h2 style="margin:4px 0 0; font-weight:900; font-size:20px;">{b.title}</h2>
-          <p style="margin:0; color:var(--muted); font-weight:700; font-size:14px;">{b.blurb}</p>
-          <span style="margin-top:auto; padding-top:8px; font-weight:900; color:var(--purple);">View template →</span>
+        <div class="ex-card" style={`background:var(--${b.tone}); border-radius:28px; padding:26px; box-shadow: var(--pouf-control); display:flex; flex-direction:column; gap:14px; height:100%; transform:rotate(${i % 2 === 0 ? '-0.6' : '0.6'}deg);`}>
+          <IconBlob client:visible icon={b.icon as any} tone="purple" size="md" />
+          <h2 class="display" style="font-size:28px; margin:6px 0 0;">{b.title}</h2>
+          <p style="margin:0; color:var(--ink); opacity:0.72; font-weight:800; font-size:15px;">{b.blurb}</p>
+          <span style="margin-top:auto; padding-top:8px; font-weight:900; color:var(--ink);">Open template →</span>
         </div>
       </a>
     ))}
   </div>
+
+  <style>
+    .ex-card { transition: transform 160ms ease; }
+    .ex-card:hover { transform: rotate(0deg) translateY(-4px) !important; }
+    @media (max-width: 980px) { .ex-grid { grid-template-columns: repeat(2, minmax(0,1fr)) !important; } }
+    @media (max-width: 620px) { .ex-grid { grid-template-columns: minmax(0,1fr) !important; } }
+  </style>
 </Site>

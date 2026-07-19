@@ -7,6 +7,7 @@ import { Badge, Dot } from '../media'
 import { Metric } from '../readout'
 import { Button } from '../Button'
 import { Tabs } from '../disclosure'
+import { Icon } from '../Icon'
 
 /** An example profile page: header with avatar and stats, then tabbed content. */
 export function ProfileBlock() {
@@ -15,13 +16,13 @@ export function ProfileBlock() {
 
   const posts = (
     <Stack gap={3}>
-      {['Shipped the new cushion buttons 🎉', 'Optical centering is a rabbit hole', 'Pastel that passes WCAG — a thread'].map((p, i) => (
+      {['Shipped the new cushion buttons', 'Optical centering is a rabbit hole', 'Pastel that passes WCAG — a thread'].map((p, i) => (
         <Card variant="tight" key={i}>
           <Stack gap={2}>
             <Text>{p}</Text>
-            <Row gap={3}>
-              <Text size="sm" muted>♥ {12 * (i + 1)}</Text>
-              <Text size="sm" muted>💬 {i + 1}</Text>
+            <Row gap={4}>
+              <Row gap={1} wrap={false}><Icon name="heart" size="sm" /><Text size="sm" muted>{12 * (i + 1)}</Text></Row>
+              <Row gap={1} wrap={false}><Icon name="comment" size="sm" /><Text size="sm" muted>{i + 1}</Text></Row>
             </Row>
           </Stack>
         </Card>

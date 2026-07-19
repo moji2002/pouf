@@ -2,7 +2,7 @@ import clsx from 'clsx'
 import { buttonClasses } from './Button'
 import * as RDialog from '@radix-ui/react-dialog'
 import { useState } from 'react'
-import { Icon, type IconName } from './Icon'
+import { Icon, renderIcon, type IconName, type IconLike } from './Icon'
 import { Row } from './layout'
 import { Heading, Text } from './text'
 import { toneClass, type Tone } from './tone'
@@ -13,7 +13,7 @@ const Anchor: LinkComponent = (props) => <a {...props} />
 export interface NavItem {
   href: string
   label: string
-  icon: IconName
+  icon: IconLike
   tone: Tone
 }
 
@@ -36,7 +36,7 @@ function Tab({
       className={clsx('pouf-tab', active && 'pouf-tab--active')}
       aria-current={active ? 'page' : undefined}
     >
-      <Icon name={item.icon} size="md" />
+      {renderIcon(item.icon, 'md')}
       <span className="pouf-tab__label">{item.label}</span>
     </Link>
   )
@@ -129,7 +129,7 @@ export function BottomNav({ primary, groups, currentPath, link: Link = Anchor }:
                           )}
                           aria-current={active ? 'page' : undefined}
                         >
-                          <Icon name={item.icon} size="md" />
+                          {renderIcon(item.icon, 'md')}
                           {item.label}
                         </Link>
                       )

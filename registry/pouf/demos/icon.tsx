@@ -11,6 +11,11 @@ const ICON_ROLES = {
   performance: true, settings: true, database: true, menu: true, up: true, down: true, flat: true, ok: true,
   warn: true, fail: true, info: true, idle: true, off: true, live: true, draft: true, target: true, alerts: true,
   add: true, remove: true, search: true, close: true, expand: true, prev: true, next: true, photo: true,
+  heart: true, 'heart-filled': true, comment: true, play: true, pause: true, rewind: true, forward: true,
+  sun: true, cloud: true, rain: true, star: true, calendar: true, clock: true, user: true, users: true,
+  mail: true, lock: true, send: true, home: true, trophy: true, flame: true, sparkle: true, music: true,
+  cart: true, tag: true, dots: true, sword: true, shield: true, wand: true, smile: true, card: true,
+  pin: true, wind: true, drop: true,
 } satisfies Record<IconName, true>
 const ICON_NAMES = Object.keys(ICON_ROLES) as IconName[]
 

@@ -5,7 +5,8 @@ import { Heading, Text, Eyebrow } from '../text'
 import { RadioGroup } from '../radiogroup'
 import { Button } from '../Button'
 import { Progress } from '../progress'
-import { Badge } from '../media'
+import { Badge, Blob } from '../media'
+import { Icon } from '../Icon'
 
 const QUESTIONS = [
   {
@@ -66,7 +67,8 @@ export function QuizBlock() {
 
           {done ? (
             <Stack gap={3}>
-              <Heading level={2}>Nice! 🎉</Heading>
+              <Blob icon="trophy" tone="yellow" />
+              <Heading level={2}>Nice work</Heading>
               <Text muted>You scored {score} of {QUESTIONS.length}.</Text>
               <Button tone="mint" onClick={() => { setStep(0); setScore(0); setChoice(''); setRevealed(false) }}>Play again</Button>
             </Stack>
@@ -75,7 +77,10 @@ export function QuizBlock() {
               <Heading level={3}>{current.q}</Heading>
               <RadioGroup label="Answer" value={choice} onChange={setChoice} options={current.options} disabled={revealed} />
               {revealed && (
-                <Text muted>{correct ? '✓ Correct!' : `✗ The answer was “${current.options.find((o) => o.value === current.answer)?.label}”.`}</Text>
+                <Row gap={2} wrap={false}>
+                  <Icon name={correct ? 'ok' : 'close'} size="sm" />
+                  <Text muted>{correct ? 'Correct!' : `The answer was "${current.options.find((o) => o.value === current.answer)?.label}".`}</Text>
+                </Row>
               )}
               <Row wrap={false}>
                 <Spacer />

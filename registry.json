@@ -847,7 +847,7 @@
       "name": "chat",
       "type": "registry:block",
       "title": "Chat",
-      "description": "An example messaging UI \u2014 conversation header, bubbles, and a composer.",
+      "description": "An example messaging UI \u2014 a conversation list beside a live thread.",
       "files": [
         {
           "path": "registry/pouf/blocks/chat.tsx",
@@ -859,6 +859,7 @@
         "https://pouf.dev/r/avatar.json",
         "https://pouf.dev/r/base.json",
         "https://pouf.dev/r/button.json",
+        "https://pouf.dev/r/icon.json",
         "https://pouf.dev/r/input.json",
         "https://pouf.dev/r/layout.json",
         "https://pouf.dev/r/media.json",
@@ -881,6 +882,7 @@
       "registryDependencies": [
         "https://pouf.dev/r/base.json",
         "https://pouf.dev/r/button.json",
+        "https://pouf.dev/r/icon.json",
         "https://pouf.dev/r/layout.json",
         "https://pouf.dev/r/media.json",
         "https://pouf.dev/r/progress.json",
@@ -951,6 +953,7 @@
         "https://pouf.dev/r/base.json",
         "https://pouf.dev/r/button.json",
         "https://pouf.dev/r/disclosure.json",
+        "https://pouf.dev/r/icon.json",
         "https://pouf.dev/r/layout.json",
         "https://pouf.dev/r/media.json",
         "https://pouf.dev/r/readout.json",
@@ -994,7 +997,9 @@
       "registryDependencies": [
         "https://pouf.dev/r/base.json",
         "https://pouf.dev/r/button.json",
+        "https://pouf.dev/r/icon.json",
         "https://pouf.dev/r/layout.json",
+        "https://pouf.dev/r/media.json",
         "https://pouf.dev/r/slider.json",
         "https://pouf.dev/r/surface.json",
         "https://pouf.dev/r/text.json"
@@ -1016,6 +1021,7 @@
         "https://pouf.dev/r/avatar.json",
         "https://pouf.dev/r/base.json",
         "https://pouf.dev/r/button.json",
+        "https://pouf.dev/r/icon.json",
         "https://pouf.dev/r/input.json",
         "https://pouf.dev/r/layout.json",
         "https://pouf.dev/r/media.json",
@@ -1074,7 +1080,7 @@
       "name": "weather",
       "type": "registry:block",
       "title": "Weather widget",
-      "description": "An example weather card \u2014 current conditions and a 5-day forecast.",
+      "description": "An example weather card \u2014 current conditions, hourly, and a 5-day forecast.",
       "files": [
         {
           "path": "registry/pouf/blocks/weather.tsx",
@@ -1084,7 +1090,9 @@
       ],
       "registryDependencies": [
         "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/icon.json",
         "https://pouf.dev/r/layout.json",
+        "https://pouf.dev/r/media.json",
         "https://pouf.dev/r/readout.json",
         "https://pouf.dev/r/surface.json",
         "https://pouf.dev/r/text.json"
@@ -1105,6 +1113,7 @@
       "registryDependencies": [
         "https://pouf.dev/r/base.json",
         "https://pouf.dev/r/button.json",
+        "https://pouf.dev/r/icon.json",
         "https://pouf.dev/r/layout.json",
         "https://pouf.dev/r/media.json",
         "https://pouf.dev/r/progress.json",

@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 import { Card } from './surface'
 import { Blob } from './media'
 import { Text } from './text'
-import type { IconName } from './Icon'
+import type { IconLike } from './Icon'
 import type { Tone } from './tone'
 
 /** A headline figure on its own cushion.
@@ -17,7 +17,7 @@ import type { Tone } from './tone'
  * four unadorned numbers on one card, where "0", "0 / 0" and "+$0.00" all
  * carried identical weight and nothing said which answered "am I making money".
  */
-export function Stat({ label, value, icon, tone }: { label: string; value: string; icon: IconName; tone: Tone }) {
+export function Stat({ label, value, icon, tone }: { label: string; value: string; icon: IconLike; tone: Tone }) {
   return (
     <Card variant="tight">
       <div className="pouf-stat flex items-center gap-(--s3)">

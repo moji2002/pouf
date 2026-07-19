@@ -14,7 +14,7 @@ const label = (m: string) => {
 <Site title="Changelog" description="What changed in Pouf, from the registry's git history.">
   <article style="max-width:720px; display:flex; flex-direction:column; gap:28px;">
     <div style="display:flex; flex-direction:column; gap:8px;">
-      <h1 style="font-size:40px; font-weight:900; letter-spacing:-1px; margin:0;">Changelog</h1>
+      <h1 class="display" style="font-size:clamp(40px,5vw,60px); margin:0;">Changelog</h1>
       <p style="font-size:18px; color:var(--muted); font-weight:700; margin:0;">Generated from the commits that shipped the components.</p>
     </div>
     {changelog.length === 0 && <p style="color:var(--muted); font-weight:700;">No history yet.</p>}

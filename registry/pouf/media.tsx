@@ -1,13 +1,13 @@
 import { cva, cx } from 'class-variance-authority'
 import type { ReactNode } from 'react'
 import { toneClass, type Tone } from './tone'
-import { Icon, type IconName } from './Icon'
+import { renderIcon, type IconLike } from './Icon'
 
 interface BlobProps {
-  /** An icon ROLE, not a glyph. Blobs used to take emoji; those rendered at a
-   *  different size, weight and colour on every OS and couldn't inherit the
-   *  tone's ink colour. */
-  icon: IconName
+  /** A named role (Tabler-backed, from Icon) OR any icon element from any
+   *  library — lucide, phosphor, your own SVG. The named set is a convenience,
+   *  not a requirement. */
+  icon: IconLike
   tone?: Tone
   size?: 'sm' | 'md' | 'lg'
   /** Decorative by default — a blob beside a visible label is noise to a
@@ -47,7 +47,7 @@ export function Blob({ icon, tone = 'purple', size = 'lg', label }: BlobProps) {
       aria-label={label}
       aria-hidden={label ? undefined : true}
     >
-      <Icon name={icon} size={size === 'sm' ? 'sm' : size === 'md' ? 'md' : 'lg'} />
+      {renderIcon(icon, size === 'sm' ? 'sm' : size === 'md' ? 'md' : 'lg')}
     </span>
   )
 }

@@ -30,7 +30,7 @@ export function OnboardingBlock() {
 
           {step === 0 && (
             <Stack gap={4}>
-              <Heading level={2}>Welcome 👋</Heading>
+              <Heading level={2}>Welcome to Pouf</Heading>
               <Field label="Your name">
                 {(id, describedBy) => <Input id={id} describedBy={describedBy} value={name} onChange={setName} placeholder="Ada Lovelace" />}
               </Field>

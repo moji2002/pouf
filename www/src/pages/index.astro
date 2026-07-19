@@ -1,54 +1,129 @@
 ---
 import Site from '../layouts/Site.astro'
 import { HeroShowcase } from '../components/HeroShowcase'
+import { ComponentWall } from '../components/ComponentWall'
 import { CopyCommand } from '../components/CopyCommand'
 import { COMPONENTS } from '../data/manifest'
-const count = COMPONENTS.length
+import { BLOCKS } from '../data/blocks'
+
+const TONES = [
+  { name: 'purple', var: '--purple' },
+  { name: 'pink', var: '--pink' },
+  { name: 'blue', var: '--blue' },
+  { name: 'mint', var: '--mint' },
+  { name: 'yellow', var: '--yellow' },
+  { name: 'orange', var: '--orange' },
+]
+const STATS = [
+  { n: String(COMPONENTS.length), label: 'components', tone: '--purple' },
+  { n: String(BLOCKS.length), label: 'templates', tone: '--pink' },
+  { n: '0', label: 'runtime deps', tone: '--mint' },
+  { n: 'MIT', label: 'licensed', tone: '--blue' },
+]
 ---
 
-<Site>
-  <section style="display:grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap:56px; align-items:center; padding:32px 0 64px;" class="hero-grid">
-    <div style="display:flex; flex-direction:column; gap:24px;">
-      <span style="align-self:flex-start; font-size:12px; font-weight:900; letter-spacing:1.5px; text-transform:uppercase; color:var(--ink); background:var(--yellow); padding:6px 14px; border-radius:999px; box-shadow: inset 0 -4px 0 rgba(0,0,0,0.08);">Claymorphism · React</span>
-      <h1 style="font-size:clamp(40px, 6vw, 68px); font-weight:900; letter-spacing:-2px; line-height:1.02; margin:0;">
-        Every surface<br />a cushion.
+<Site wide>
+  <!-- HERO -->
+  <section style="display:grid; grid-template-columns: 1.05fr 0.95fr; gap:48px; align-items:center; padding:24px 0 40px;" class="hero-grid">
+    <div style="display:flex; flex-direction:column; gap:26px;">
+      <span class="sticker" style="background:var(--yellow); align-self:flex-start; transform:rotate(-2deg);">Claymorphism for React</span>
+      <h1 class="display" style="font-size:clamp(52px, 7vw, 92px);">
+        Soft software,<br />
+        <span style="background:var(--purple); border-radius:20px; padding:0 18px; box-shadow: inset 0 -8px 0 rgba(0,0,0,0.08); display:inline-block; transform:rotate(-1.5deg);">seriously</span>
+        built.
       </h1>
-      <p style="font-size:20px; font-weight:700; color:var(--muted); max-width:34ch; margin:0;">
-        Pouf is a puffy, pastel, kid-shaped UI kit for React — bright and chunky, the maximalist answer to flat design. Copy-paste it in, shadcn-style.
+      <p style="font-size:21px; font-weight:800; color:var(--muted); max-width:36ch; margin:0;">
+        Pouf is a puffy, pastel, <strong style="color:var(--ink);">maximalist</strong> UI kit. Every surface a cushion — bright, chunky, tactile. Copy it in shadcn-style and own the source.
       </p>
-      <div style="display:flex; flex-direction:column; gap:10px; max-width:520px;">
+      <div style="max-width:560px;">
         <CopyCommand client:load command="npx shadcn@latest add https://pouf.dev/r/button.json" />
-        <span style="font-size:13px; color:var(--muted); font-weight:700;">or browse the components and copy the source directly.</span>
       </div>
-      <div style="display:flex; gap:12px; flex-wrap:wrap;">
-        <a href="/docs/" style="text-decoration:none; color:var(--ink); font-weight:900; background:var(--purple); padding:14px 26px; border-radius:20px; box-shadow: var(--pouf-control);">Get started</a>
-        <a href="/docs/button" style="text-decoration:none; color:var(--ink); font-weight:900; background:transparent; padding:14px 26px; border-radius:20px; box-shadow: inset 0 0 0 2px rgba(201,168,255,0.55);">Browse {count} components</a>
+      <div style="display:flex; gap:14px; flex-wrap:wrap;">
+        <a href="/docs/" style="text-decoration:none; color:var(--ink); font-weight:900; font-size:17px; background:var(--purple); padding:16px 30px; border-radius:20px; box-shadow: var(--pouf-control);">Get started</a>
+        <a href="/examples" style="text-decoration:none; color:var(--ink); font-weight:900; font-size:17px; background:var(--surface); padding:16px 30px; border-radius:20px; box-shadow: var(--pouf-control);">See {BLOCKS.length} templates</a>
       </div>
     </div>
-    <div>
-      <HeroShowcase client:visible />
+
+    <!-- Layered live collage -->
+    <div style="position:relative;">
+      <span class="sticker" style="background:var(--mint); position:absolute; top:-18px; left:-10px; z-index:3; transform:rotate(-6deg);">Live components ↓</span>
+      <span class="sticker" style="background:var(--pink); position:absolute; bottom:-14px; right:8px; z-index:3; transform:rotate(5deg);">no className, no drift</span>
+      <div style="transform:rotate(1.2deg);">
+        <HeroShowcase client:visible />
+      </div>
     </div>
   </section>
 
-  <section style="display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:20px; padding:24px 0 40px;" class="feature-grid">
-    <div style="background:var(--surface); border-radius:24px; padding:24px; box-shadow: var(--pouf-card);">
-      <h3 style="margin:0 0 8px; font-weight:900; font-size:19px;">Depth is the affordance</h3>
-      <p style="margin:0; color:var(--muted); font-weight:700;">Inner highlight, inner floor, outer drop. Buttons press in; badges stay flat. State you can feel.</p>
+  <!-- STAT STRIP -->
+  <section style="display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:16px; padding:12px 0 56px;" class="stat-strip">
+    {STATS.map((s) => (
+      <div class="cushion-tone" style={`background:var(${s.tone}); padding:26px 24px; display:flex; flex-direction:column; gap:2px;`}>
+        <span class="display" style="font-size:44px;">{s.n}</span>
+        <span style="font-weight:900; text-transform:uppercase; letter-spacing:1.5px; font-size:12px; color:var(--ink); opacity:0.65;">{s.label}</span>
+      </div>
+    ))}
+  </section>
+
+  <!-- COMPONENT WALL -->
+  <section style="padding:24px 0 56px;">
+    <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:16px; margin-bottom:24px; flex-wrap:wrap;">
+      <div>
+        <span class="sticker" style="background:var(--blue); transform:rotate(-2deg);">Everything's live</span>
+        <h2 class="display" style="font-size:clamp(34px,4.5vw,52px); margin:14px 0 0;">A whole toybox.</h2>
+      </div>
+      <a href="/docs/button" style="text-decoration:none; color:var(--ink); font-weight:900; background:var(--surface); padding:12px 22px; border-radius:16px; box-shadow: var(--pouf-control);">Browse all →</a>
     </div>
-    <div style="background:var(--surface); border-radius:24px; padding:24px; box-shadow: var(--pouf-card);">
-      <h3 style="margin:0 0 8px; font-weight:900; font-size:19px;">You own the source</h3>
-      <p style="margin:0; color:var(--muted); font-weight:700;">Install with the shadcn CLI or copy the file. No dependency to version-lock. Tailwind v4 + Radix under the hood.</p>
+    <ComponentWall client:visible />
+  </section>
+
+  <!-- TONE SHOWCASE -->
+  <section style="padding:24px 0 56px;">
+    <h2 class="display" style="font-size:clamp(30px,4vw,44px); margin:0 0 8px;">Six pastels, one system.</h2>
+    <p style="font-weight:800; color:var(--muted); margin:0 0 24px;">Components speak intent — <code>tone="up"</code>, not <code>tone="mint"</code> — so a re-theme is one place.</p>
+    <div style="display:grid; grid-template-columns:repeat(6, minmax(0,1fr)); gap:14px;" class="tone-strip">
+      {TONES.map((t) => (
+        <div style={`aspect-ratio:1; background:var(${t.var}); border-radius:24px; box-shadow: var(--pouf-control); display:flex; align-items:flex-end; padding:16px;`}>
+          <span style="font-weight:900; color:var(--ink); text-transform:capitalize;">{t.name}</span>
+        </div>
+      ))}
     </div>
-    <div style="background:var(--surface); border-radius:24px; padding:24px; box-shadow: var(--pouf-card);">
-      <h3 style="margin:0 0 8px; font-weight:900; font-size:19px;">Variants, not classNames</h3>
-      <p style="margin:0; color:var(--muted); font-weight:700;">Appearance is chosen by props, so your app can't drift off-system. Need an escape hatch? You have the code.</p>
+  </section>
+
+  <!-- FEATURES -->
+  <section style="display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:20px; padding:24px 0 64px;" class="feature-grid">
+    <div class="cushion-tone" style="background:var(--purple); padding:30px;">
+      <h3 class="display" style="font-size:26px; margin:0 0 10px;">Depth is the affordance</h3>
+      <p style="margin:0; font-weight:800; color:var(--ink); opacity:0.75;">Buttons press in. Badges stay flat. State you can feel before you read it.</p>
+    </div>
+    <div class="cushion-tone" style="background:var(--mint); padding:30px;">
+      <h3 class="display" style="font-size:26px; margin:0 0 10px;">You own the source</h3>
+      <p style="margin:0; font-weight:800; color:var(--ink); opacity:0.75;">Install with the shadcn CLI or copy the file. Tailwind v4 + Radix under the hood. No dependency to lock.</p>
+    </div>
+    <div class="cushion-tone" style="background:var(--pink); padding:30px;">
+      <h3 class="display" style="font-size:26px; margin:0 0 10px;">Any icon, any lib</h3>
+      <p style="margin:0; font-weight:800; color:var(--ink); opacity:0.75;">Named roles for convenience, or drop in lucide, phosphor, your own SVG. The vocabulary is a default, not a cage.</p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section style="padding:0 0 32px;">
+    <div class="cushion" style="padding:48px; text-align:center; display:flex; flex-direction:column; align-items:center; gap:18px;">
+      <h2 class="display" style="font-size:clamp(32px,5vw,56px); margin:0;">Go make something puffy.</h2>
+      <p style="font-weight:800; color:var(--muted); margin:0; font-size:18px;">One command drops a component — with its dependencies — into your project.</p>
+      <div style="max-width:520px; width:100%;"><CopyCommand client:load command="npx shadcn@latest add https://pouf.dev/r/dashboard.json" /></div>
     </div>
   </section>
 
   <style>
-    @media (max-width: 860px) {
+    @media (max-width: 900px) {
       .hero-grid { grid-template-columns: minmax(0,1fr) !important; }
+      .stat-strip { grid-template-columns: repeat(2, minmax(0,1fr)) !important; }
       .feature-grid { grid-template-columns: minmax(0,1fr) !important; }
+      .tone-strip { grid-template-columns: repeat(3, minmax(0,1fr)) !important; }
+      .wall { grid-template-columns: repeat(2, minmax(0,1fr)) !important; }
+    }
+    @media (max-width: 560px) {
+      .wall { grid-template-columns: minmax(0,1fr) !important; }
     }
   </style>
 </Site>
