@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "kanban",
+  "title": "Kanban board",
+  "description": "An example task board — columns of cards with priorities and assignees.",
+  "registryDependencies": [
+    "https://pouf.dev/r/avatar.json",
+    "https://pouf.dev/r/base.json",
+    "https://pouf.dev/r/layout.json",
+    "https://pouf.dev/r/media.json",
+    "https://pouf.dev/r/surface.json",
+    "https://pouf.dev/r/text.json"
+  ],
+  "files": [
+    {
+      "path": "registry/pouf/blocks/kanban.tsx",
+      "content": "import { Stack, Row, Grid } from '../layout'\nimport { Heading, Text, Eyebrow } from '../text'\nimport { RowCard } from '../surface'\nimport { Badge } from '../media'\nimport { Avatar } from '../avatar'\n\ninterface Task {\n  id: string\n  title: string\n  priority: 'low' | 'med' | 'high'\n  who: string\n}\n\nconst COLUMNS: { key: string; title: string; tone: 'blue' | 'yellow' | 'mint'; tasks: Task[] }[] = [\n  { key: 'todo', title: 'To do', tone: 'blue', tasks: [\n    { id: '1', title: 'Design the empty states', priority: 'med', who: 'AL' },\n    { id: '2', title: 'Audit colour contrast', priority: 'high', who: 'GH' },\n  ] },\n  { key: 'doing', title: 'In progress', tone: 'yellow', tasks: [\n    { id: '3', title: 'Migrate the table to Tailwind', priority: 'high', who: 'AT' },\n    { id: '4', title: 'Write the changelog script', priority: 'low', who: 'KJ' },\n  ] },\n  { key: 'done', title: 'Done', tone: 'mint', tasks: [\n    { id: '5', title: 'Ship the snapshot gate', priority: 'high', who: 'AL' },\n  ] },\n]\n\nconst PRIORITY_TONE = { low: 'blue', med: 'yellow', high: 'pink' } as const\n\n/** An example kanban board: columns of draggable-looking cards with priority\n * badges and assignees. (Wire your own drag handler.) */\nexport function KanbanBlock() {\n  return (\n    <div style={{ maxWidth: 1000, margin: '0 auto', padding: 24 }}>\n      <Stack gap={5}>\n        <Stack gap={1}>\n          <Eyebrow>Sprint 12</Eyebrow>\n          <Heading level={1}>Board</Heading>\n        </Stack>\n        <Grid cols={3}>\n          {COLUMNS.map((col) => (\n            <Stack gap={3} key={col.key}>\n              <Row justify=\"between\">\n                <Heading level={3}>{col.title}</Heading>\n                <Badge tone={col.tone}>{col.tasks.length}</Badge>\n              </Row>\n              <Stack gap={2}>\n                {col.tasks.map((t) => (\n                  <RowCard key={t.id} onClick={() => {}}>\n                    <Stack gap={2}>\n                      <Text>{t.title}</Text>\n                      <Row justify=\"between\">\n                        <Badge tone={PRIORITY_TONE[t.priority]}>{t.priority}</Badge>\n                        <Avatar fallback={t.who} size=\"sm\" tone=\"purple\" />\n                      </Row>\n                    </Stack>\n                  </RowCard>\n                ))}\n              </Stack>\n            </Stack>\n          ))}\n        </Grid>\n      </Stack>\n    </div>\n  )\n}\n",
+      "type": "registry:block",
+      "target": "components/pouf/blocks/kanban.tsx"
+    }
+  ],
+  "type": "registry:block"
+}

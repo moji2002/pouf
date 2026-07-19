@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pricing",
+  "title": "Pricing",
+  "description": "An example pricing page — three plans with feature checklists.",
+  "registryDependencies": [
+    "https://pouf.dev/r/base.json",
+    "https://pouf.dev/r/button.json",
+    "https://pouf.dev/r/icon.json",
+    "https://pouf.dev/r/layout.json",
+    "https://pouf.dev/r/media.json",
+    "https://pouf.dev/r/surface.json",
+    "https://pouf.dev/r/text.json"
+  ],
+  "files": [
+    {
+      "path": "registry/pouf/blocks/pricing.tsx",
+      "content": "import { Card } from '../surface'\nimport { Stack, Row, Grid } from '../layout'\nimport { Heading, Text, Eyebrow, Highlight } from '../text'\nimport { Badge, Dot } from '../media'\nimport { Button } from '../Button'\nimport { Icon } from '../Icon'\n\ninterface Plan {\n  name: string\n  price: string\n  cadence: string\n  blurb: string\n  features: string[]\n  cta: string\n  tone: 'purple' | 'mint' | 'blue'\n  featured?: boolean\n}\n\nconst PLANS: Plan[] = [\n  { name: 'Free', price: '$0', cadence: '/mo', blurb: 'For weekend projects.', tone: 'blue', cta: 'Start free', features: ['1 project', 'Community support', 'Core components'] },\n  { name: 'Pro', price: '$12', cadence: '/mo', blurb: 'For serious builders.', tone: 'purple', featured: true, cta: 'Go Pro', features: ['Unlimited projects', 'Priority support', 'Every component', 'Example templates', 'Early features'] },\n  { name: 'Team', price: '$40', cadence: '/mo', blurb: 'For the whole studio.', tone: 'mint', cta: 'Start a team', features: ['Everything in Pro', 'Shared workspace', 'SSO & roles', 'Audit log'] },\n]\n\nfunction Feature({ text }: { text: string }) {\n  return (\n    <Row gap={2} wrap={false}>\n      <span style={{ display: 'inline-flex', flex: 'none', width: 22, height: 22, borderRadius: 999, alignItems: 'center', justifyContent: 'center', background: 'var(--mint)', color: 'var(--ink)' }}>\n        <Icon name=\"ok\" size=\"sm\" />\n      </span>\n      <Text size=\"sm\">{text}</Text>\n    </Row>\n  )\n}\n\n/** An example pricing page: three plans, one featured, with feature checklists.\n * All Pouf primitives. */\nexport function PricingBlock() {\n  return (\n    <div style={{ maxWidth: 1000, margin: '0 auto', padding: 24 }}>\n      <Stack gap={6}>\n        <Stack gap={2}>\n          <Eyebrow>Pricing</Eyebrow>\n          <Heading level={1}>Pick a <Highlight>cushion</Highlight></Heading>\n          <Text muted>Simple plans. Cancel anytime.</Text>\n        </Stack>\n\n        <Grid cols={3}>\n          {PLANS.map((p) => (\n            <Card variant={p.featured ? 'default' : 'tight'}>\n              <Stack gap={4}>\n                <Row justify=\"between\">\n                  <Row gap={2} wrap={false}>\n                    <Dot tone={p.tone} />\n                    <Heading level={3}>{p.name}</Heading>\n                  </Row>\n                  {p.featured && <Badge tone=\"yellow\">Popular</Badge>}\n                </Row>\n                <Row gap={1} wrap={false}>\n                  <span style={{ fontSize: 40, fontWeight: 900, letterSpacing: -1, color: 'var(--ink)' }}>{p.price}</span>\n                  <Text muted>{p.cadence}</Text>\n                </Row>\n                <Text size=\"sm\" muted>{p.blurb}</Text>\n                <Stack gap={2}>\n                  {p.features.map((f) => <Feature key={f} text={f} />)}\n                </Stack>\n                <Button block tone={p.tone} variant={p.featured ? 'solid' : 'quiet'} onClick={() => {}}>{p.cta}</Button>\n              </Stack>\n            </Card>\n          ))}\n        </Grid>\n      </Stack>\n    </div>\n  )\n}\n",
+      "type": "registry:block",
+      "target": "components/pouf/blocks/pricing.tsx"
+    }
+  ],
+  "type": "registry:block"
+}

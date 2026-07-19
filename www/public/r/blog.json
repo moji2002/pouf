@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "blog",
+  "title": "Blog",
+  "description": "An example blog index — a featured post and a grid of cards.",
+  "registryDependencies": [
+    "https://pouf.dev/r/avatar.json",
+    "https://pouf.dev/r/base.json",
+    "https://pouf.dev/r/layout.json",
+    "https://pouf.dev/r/media.json",
+    "https://pouf.dev/r/pagination.json",
+    "https://pouf.dev/r/surface.json",
+    "https://pouf.dev/r/text.json"
+  ],
+  "files": [
+    {
+      "path": "registry/pouf/blocks/blog.tsx",
+      "content": "import { useState } from 'react'\nimport { Card } from '../surface'\nimport { Stack, Row, Grid } from '../layout'\nimport { Heading, Text, Eyebrow } from '../text'\nimport { Avatar } from '../avatar'\nimport { Badge } from '../media'\nimport { Pagination } from '../pagination'\n\ninterface Post {\n  id: string\n  category: string\n  title: string\n  excerpt: string\n  author: string\n  date: string\n  tone: 'purple' | 'mint' | 'blue' | 'pink'\n}\n\nconst FEATURED: Post = {\n  id: '0', category: 'Design', tone: 'purple',\n  title: 'Why depth beats flat', excerpt: 'Flat design threw away the one signal users feel before they read: elevation. Here is the case for putting it back — carefully.',\n  author: 'Ada L.', date: 'Jul 18',\n}\n\nconst POSTS: Post[] = [\n  { id: '1', category: 'Engineering', tone: 'blue', title: 'Migrating 2,700 lines of CSS to Tailwind, safely', excerpt: 'A snapshot gate that diffs computed styles let us refactor with zero visual drift.', author: 'Grace H.', date: 'Jul 15' },\n  { id: '2', category: 'Product', tone: 'mint', title: 'Variants, not classNames', excerpt: 'How a strict component API keeps a whole app on-system without anyone policing it.', author: 'Alan T.', date: 'Jul 11' },\n  { id: '3', category: 'Craft', tone: 'pink', title: 'Optical centering, and why math lies', excerpt: 'A perfectly centered glyph looks low on a cushion. The fix is half the floor lip.', author: 'Katherine J.', date: 'Jul 8' },\n  { id: '4', category: 'Design', tone: 'purple', title: 'Pastel that passes WCAG', excerpt: 'Ink on pastel, never white — the one deviation from the reference, and the measurements behind it.', author: 'Ada L.', date: 'Jul 2' },\n]\n\nfunction Byline({ author, date }: { author: string; date: string }) {\n  return (\n    <Row gap={2} wrap={false}>\n      <Avatar fallback={author.slice(0, 2)} size=\"sm\" tone=\"blue\" />\n      <Text size=\"sm\" muted>{author} · {date}</Text>\n    </Row>\n  )\n}\n\n/** An example blog index: a featured post and a grid of cards with categories,\n * bylines, and pagination. */\nexport function BlogBlock() {\n  const [page, setPage] = useState(1)\n  return (\n    <div style={{ maxWidth: 1000, margin: '0 auto', padding: 24 }}>\n      <Stack gap={6}>\n        <Stack gap={2}>\n          <Eyebrow>The Pouf blog</Eyebrow>\n          <Heading level={1}>Notes on soft software</Heading>\n        </Stack>\n\n        <Card>\n          <Grid cols=\"sidebar\">\n            <Stack gap={3}>\n              <Badge tone={FEATURED.tone}>{FEATURED.category}</Badge>\n              <Heading level={2}>{FEATURED.title}</Heading>\n              <Text muted>{FEATURED.excerpt}</Text>\n              <Byline author={FEATURED.author} date={FEATURED.date} />\n            </Stack>\n            <div style={{ borderRadius: 20, background: 'var(--purple)', minHeight: 160, boxShadow: 'var(--pouf-blob)' }} />\n          </Grid>\n        </Card>\n\n        <Grid cols={2}>\n          {POSTS.map((p) => (\n            <Card variant=\"tight\">\n              <Stack gap={3}>\n                <Row><Badge tone={p.tone}>{p.category}</Badge></Row>\n                <Heading level={3}>{p.title}</Heading>\n                <Text size=\"sm\" muted>{p.excerpt}</Text>\n                <Byline author={p.author} date={p.date} />\n              </Stack>\n            </Card>\n          ))}\n        </Grid>\n\n        <Row justify=\"center\">\n          <Pagination page={page} total={5} onChange={setPage} />\n        </Row>\n      </Stack>\n    </div>\n  )\n}\n",
+      "type": "registry:block",
+      "target": "components/pouf/blocks/blog.tsx"
+    }
+  ],
+  "type": "registry:block"
+}

@@ -769,29 +769,6 @@
       ]
     },
     {
-      "name": "login",
-      "type": "registry:block",
-      "title": "Login screen",
-      "description": "An example auth screen \u2014 card, fields, and buttons.",
-      "files": [
-        {
-          "path": "registry/pouf/blocks/login.tsx",
-          "type": "registry:block",
-          "target": "components/pouf/blocks/login.tsx"
-        }
-      ],
-      "registryDependencies": [
-        "https://pouf.dev/r/base.json",
-        "https://pouf.dev/r/button.json",
-        "https://pouf.dev/r/input.json",
-        "https://pouf.dev/r/layout.json",
-        "https://pouf.dev/r/media.json",
-        "https://pouf.dev/r/separator.json",
-        "https://pouf.dev/r/surface.json",
-        "https://pouf.dev/r/text.json"
-      ]
-    },
-    {
       "name": "dashboard",
       "type": "registry:block",
       "title": "Dashboard",
@@ -818,6 +795,29 @@
       ]
     },
     {
+      "name": "login",
+      "type": "registry:block",
+      "title": "Login screen",
+      "description": "An example auth screen \u2014 card, fields, and buttons.",
+      "files": [
+        {
+          "path": "registry/pouf/blocks/login.tsx",
+          "type": "registry:block",
+          "target": "components/pouf/blocks/login.tsx"
+        }
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/button.json",
+        "https://pouf.dev/r/input.json",
+        "https://pouf.dev/r/layout.json",
+        "https://pouf.dev/r/media.json",
+        "https://pouf.dev/r/separator.json",
+        "https://pouf.dev/r/surface.json",
+        "https://pouf.dev/r/text.json"
+      ]
+    },
+    {
       "name": "settings",
       "type": "registry:block",
       "title": "Settings page",
@@ -839,6 +839,276 @@
         "https://pouf.dev/r/radio-group.json",
         "https://pouf.dev/r/separator.json",
         "https://pouf.dev/r/slider.json",
+        "https://pouf.dev/r/surface.json",
+        "https://pouf.dev/r/text.json"
+      ]
+    },
+    {
+      "name": "chat",
+      "type": "registry:block",
+      "title": "Chat",
+      "description": "An example messaging UI \u2014 conversation header, bubbles, and a composer.",
+      "files": [
+        {
+          "path": "registry/pouf/blocks/chat.tsx",
+          "type": "registry:block",
+          "target": "components/pouf/blocks/chat.tsx"
+        }
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/avatar.json",
+        "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/button.json",
+        "https://pouf.dev/r/input.json",
+        "https://pouf.dev/r/layout.json",
+        "https://pouf.dev/r/media.json",
+        "https://pouf.dev/r/surface.json",
+        "https://pouf.dev/r/text.json"
+      ]
+    },
+    {
+      "name": "game",
+      "type": "registry:block",
+      "title": "Game HUD",
+      "description": "An example game interface \u2014 score, health/XP bars, and a leaderboard.",
+      "files": [
+        {
+          "path": "registry/pouf/blocks/game.tsx",
+          "type": "registry:block",
+          "target": "components/pouf/blocks/game.tsx"
+        }
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/button.json",
+        "https://pouf.dev/r/layout.json",
+        "https://pouf.dev/r/media.json",
+        "https://pouf.dev/r/progress.json",
+        "https://pouf.dev/r/readout.json",
+        "https://pouf.dev/r/surface.json",
+        "https://pouf.dev/r/table.json",
+        "https://pouf.dev/r/text.json"
+      ]
+    },
+    {
+      "name": "pricing",
+      "type": "registry:block",
+      "title": "Pricing",
+      "description": "An example pricing page \u2014 three plans with feature checklists.",
+      "files": [
+        {
+          "path": "registry/pouf/blocks/pricing.tsx",
+          "type": "registry:block",
+          "target": "components/pouf/blocks/pricing.tsx"
+        }
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/button.json",
+        "https://pouf.dev/r/icon.json",
+        "https://pouf.dev/r/layout.json",
+        "https://pouf.dev/r/media.json",
+        "https://pouf.dev/r/surface.json",
+        "https://pouf.dev/r/text.json"
+      ]
+    },
+    {
+      "name": "blog",
+      "type": "registry:block",
+      "title": "Blog",
+      "description": "An example blog index \u2014 a featured post and a grid of cards.",
+      "files": [
+        {
+          "path": "registry/pouf/blocks/blog.tsx",
+          "type": "registry:block",
+          "target": "components/pouf/blocks/blog.tsx"
+        }
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/avatar.json",
+        "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/layout.json",
+        "https://pouf.dev/r/media.json",
+        "https://pouf.dev/r/pagination.json",
+        "https://pouf.dev/r/surface.json",
+        "https://pouf.dev/r/text.json"
+      ]
+    },
+    {
+      "name": "profile",
+      "type": "registry:block",
+      "title": "Profile",
+      "description": "An example profile page \u2014 avatar, stats, and tabbed content.",
+      "files": [
+        {
+          "path": "registry/pouf/blocks/profile.tsx",
+          "type": "registry:block",
+          "target": "components/pouf/blocks/profile.tsx"
+        }
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/avatar.json",
+        "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/button.json",
+        "https://pouf.dev/r/disclosure.json",
+        "https://pouf.dev/r/layout.json",
+        "https://pouf.dev/r/media.json",
+        "https://pouf.dev/r/readout.json",
+        "https://pouf.dev/r/surface.json",
+        "https://pouf.dev/r/text.json"
+      ]
+    },
+    {
+      "name": "kanban",
+      "type": "registry:block",
+      "title": "Kanban board",
+      "description": "An example task board \u2014 columns of cards with priorities and assignees.",
+      "files": [
+        {
+          "path": "registry/pouf/blocks/kanban.tsx",
+          "type": "registry:block",
+          "target": "components/pouf/blocks/kanban.tsx"
+        }
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/avatar.json",
+        "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/layout.json",
+        "https://pouf.dev/r/media.json",
+        "https://pouf.dev/r/surface.json",
+        "https://pouf.dev/r/text.json"
+      ]
+    },
+    {
+      "name": "music",
+      "type": "registry:block",
+      "title": "Music player",
+      "description": "An example now-playing screen \u2014 album art, scrubber, and a queue.",
+      "files": [
+        {
+          "path": "registry/pouf/blocks/music.tsx",
+          "type": "registry:block",
+          "target": "components/pouf/blocks/music.tsx"
+        }
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/button.json",
+        "https://pouf.dev/r/layout.json",
+        "https://pouf.dev/r/slider.json",
+        "https://pouf.dev/r/surface.json",
+        "https://pouf.dev/r/text.json"
+      ]
+    },
+    {
+      "name": "feed",
+      "type": "registry:block",
+      "title": "Social feed",
+      "description": "An example feed \u2014 a composer and a stream of posts with reactions.",
+      "files": [
+        {
+          "path": "registry/pouf/blocks/feed.tsx",
+          "type": "registry:block",
+          "target": "components/pouf/blocks/feed.tsx"
+        }
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/avatar.json",
+        "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/button.json",
+        "https://pouf.dev/r/input.json",
+        "https://pouf.dev/r/layout.json",
+        "https://pouf.dev/r/media.json",
+        "https://pouf.dev/r/surface.json",
+        "https://pouf.dev/r/text.json"
+      ]
+    },
+    {
+      "name": "todo",
+      "type": "registry:block",
+      "title": "Todo list",
+      "description": "An example checklist \u2014 add, filter, and check off tasks.",
+      "files": [
+        {
+          "path": "registry/pouf/blocks/todo.tsx",
+          "type": "registry:block",
+          "target": "components/pouf/blocks/todo.tsx"
+        }
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/button.json",
+        "https://pouf.dev/r/checkbox.json",
+        "https://pouf.dev/r/feedback.json",
+        "https://pouf.dev/r/input.json",
+        "https://pouf.dev/r/layout.json",
+        "https://pouf.dev/r/segmented.json",
+        "https://pouf.dev/r/surface.json",
+        "https://pouf.dev/r/text.json"
+      ]
+    },
+    {
+      "name": "onboarding",
+      "type": "registry:block",
+      "title": "Onboarding",
+      "description": "An example setup wizard \u2014 a progress bar and step-by-step forms.",
+      "files": [
+        {
+          "path": "registry/pouf/blocks/onboarding.tsx",
+          "type": "registry:block",
+          "target": "components/pouf/blocks/onboarding.tsx"
+        }
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/button.json",
+        "https://pouf.dev/r/input.json",
+        "https://pouf.dev/r/layout.json",
+        "https://pouf.dev/r/progress.json",
+        "https://pouf.dev/r/radio-group.json",
+        "https://pouf.dev/r/surface.json",
+        "https://pouf.dev/r/text.json"
+      ]
+    },
+    {
+      "name": "weather",
+      "type": "registry:block",
+      "title": "Weather widget",
+      "description": "An example weather card \u2014 current conditions and a 5-day forecast.",
+      "files": [
+        {
+          "path": "registry/pouf/blocks/weather.tsx",
+          "type": "registry:block",
+          "target": "components/pouf/blocks/weather.tsx"
+        }
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/layout.json",
+        "https://pouf.dev/r/readout.json",
+        "https://pouf.dev/r/surface.json",
+        "https://pouf.dev/r/text.json"
+      ]
+    },
+    {
+      "name": "quiz",
+      "type": "registry:block",
+      "title": "Quiz",
+      "description": "An example quiz card \u2014 progress, questions, and inline scoring.",
+      "files": [
+        {
+          "path": "registry/pouf/blocks/quiz.tsx",
+          "type": "registry:block",
+          "target": "components/pouf/blocks/quiz.tsx"
+        }
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/button.json",
+        "https://pouf.dev/r/layout.json",
+        "https://pouf.dev/r/media.json",
+        "https://pouf.dev/r/progress.json",
+        "https://pouf.dev/r/radio-group.json",
         "https://pouf.dev/r/surface.json",
         "https://pouf.dev/r/text.json"
       ]

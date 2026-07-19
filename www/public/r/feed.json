@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "feed",
+  "title": "Social feed",
+  "description": "An example feed — a composer and a stream of posts with reactions.",
+  "registryDependencies": [
+    "https://pouf.dev/r/avatar.json",
+    "https://pouf.dev/r/base.json",
+    "https://pouf.dev/r/button.json",
+    "https://pouf.dev/r/input.json",
+    "https://pouf.dev/r/layout.json",
+    "https://pouf.dev/r/media.json",
+    "https://pouf.dev/r/surface.json",
+    "https://pouf.dev/r/text.json"
+  ],
+  "files": [
+    {
+      "path": "registry/pouf/blocks/feed.tsx",
+      "content": "import { useState } from 'react'\nimport { Card } from '../surface'\nimport { Stack, Row, Spacer } from '../layout'\nimport { Heading, Text } from '../text'\nimport { Avatar } from '../avatar'\nimport { Badge, Dot } from '../media'\nimport { Button } from '../Button'\nimport { Field, Textarea } from '../Input'\n\ninterface Post {\n  id: string\n  who: string\n  handle: string\n  time: string\n  tone: 'purple' | 'mint' | 'blue' | 'pink'\n  text: string\n  likes: number\n  comments: number\n}\n\nconst SEED: Post[] = [\n  { id: '1', who: 'Ada L.', handle: '@ada', time: '2m', tone: 'purple', text: 'The new cushion buttons press in when you click. It should not be this satisfying.', likes: 42, comments: 6 },\n  { id: '2', who: 'Grace H.', handle: '@grace', time: '18m', tone: 'blue', text: 'Migrated 2,700 lines of CSS to Tailwind today with zero visual drift. The snapshot gate earned its keep.', likes: 88, comments: 12 },\n  { id: '3', who: 'Katherine J.', handle: '@kat', time: '1h', tone: 'pink', text: 'Optical centering: a perfectly centered glyph looks low on a cushion. Nudge it up by half the floor lip.', likes: 31, comments: 3 },\n]\n\n/** An example social feed: a composer and a stream of post cards with reactions. */\nexport function FeedBlock() {\n  const [posts, setPosts] = useState(SEED)\n  const [draft, setDraft] = useState('')\n  const [liked, setLiked] = useState<Record<string, boolean>>({})\n\n  function post() {\n    const text = draft.trim()\n    if (!text) return\n    setPosts((p) => [{ id: String(p.length + 1), who: 'You', handle: '@you', time: 'now', tone: 'mint', text, likes: 0, comments: 0 }, ...p])\n    setDraft('')\n  }\n\n  return (\n    <div style={{ maxWidth: 560, margin: '0 auto', padding: 24 }}>\n      <Stack gap={4}>\n        <Card>\n          <Stack gap={3}>\n            <Field label=\"What's on your mind?\">\n              {(id, describedBy) => <Textarea id={id} describedBy={describedBy} value={draft} onChange={setDraft} placeholder=\"Say something puffy…\" rows={2} />}\n            </Field>\n            <Row justify=\"end\"><Button onClick={post}>Post</Button></Row>\n          </Stack>\n        </Card>\n\n        {posts.map((p) => {\n          const isLiked = !!liked[p.id]\n          return (\n            <Card key={p.id}>\n              <Stack gap={3}>\n                <Row gap={2} wrap={false}>\n                  <Avatar fallback={p.who.slice(0, 2)} tone={p.tone} />\n                  <Stack gap={1}>\n                    <Heading level={3}>{p.who}</Heading>\n                    <Row gap={2} wrap={false}>\n                      <Text size=\"sm\" muted>{p.handle}</Text>\n                      <Dot tone={p.tone} />\n                      <Text size=\"sm\" muted>{p.time}</Text>\n                    </Row>\n                  </Stack>\n                </Row>\n                <Text>{p.text}</Text>\n                <Row gap={2}>\n                  <Button size=\"sm\" variant=\"quiet\" tone={isLiked ? 'pink' : 'purple'} onClick={() => setLiked((l) => ({ ...l, [p.id]: !l[p.id] }))}>\n                    ♥ {p.likes + (isLiked ? 1 : 0)}\n                  </Button>\n                  <Button size=\"sm\" variant=\"quiet\" onClick={() => {}}>💬 {p.comments}</Button>\n                </Row>\n              </Stack>\n            </Card>\n          )\n        })}\n      </Stack>\n    </div>\n  )\n}\n",
+      "type": "registry:block",
+      "target": "components/pouf/blocks/feed.tsx"
+    }
+  ],
+  "type": "registry:block"
+}

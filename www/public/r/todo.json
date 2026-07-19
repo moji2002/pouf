@@ -1,0 +1,26 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "todo",
+  "title": "Todo list",
+  "description": "An example checklist — add, filter, and check off tasks.",
+  "registryDependencies": [
+    "https://pouf.dev/r/base.json",
+    "https://pouf.dev/r/button.json",
+    "https://pouf.dev/r/checkbox.json",
+    "https://pouf.dev/r/feedback.json",
+    "https://pouf.dev/r/input.json",
+    "https://pouf.dev/r/layout.json",
+    "https://pouf.dev/r/segmented.json",
+    "https://pouf.dev/r/surface.json",
+    "https://pouf.dev/r/text.json"
+  ],
+  "files": [
+    {
+      "path": "registry/pouf/blocks/todo.tsx",
+      "content": "import { useState } from 'react'\nimport { Card } from '../surface'\nimport { Stack, Row, Spacer } from '../layout'\nimport { Heading, Text, Eyebrow } from '../text'\nimport { Checkbox } from '../checkbox'\nimport { Input } from '../Input'\nimport { Button } from '../Button'\nimport { Segmented } from '../Segmented'\nimport { Empty } from '../feedback'\n\ninterface Item {\n  id: string\n  text: string\n  done: boolean\n}\n\nconst SEED: Item[] = [\n  { id: '1', text: 'Register pouf.dev', done: true },\n  { id: '2', text: 'Push to GitHub', done: false },\n  { id: '3', text: 'Enable Pages', done: false },\n  { id: '4', text: 'Tell everyone', done: false },\n]\n\n/** An example todo list: add, filter, check off. */\nexport function TodoBlock() {\n  const [items, setItems] = useState(SEED)\n  const [draft, setDraft] = useState('')\n  const [filter, setFilter] = useState('all')\n\n  const shown = items.filter((i) => (filter === 'active' ? !i.done : filter === 'done' ? i.done : true))\n  const left = items.filter((i) => !i.done).length\n\n  function add() {\n    const text = draft.trim()\n    if (!text) return\n    setItems((xs) => [...xs, { id: String(xs.length + 1), text, done: false }])\n    setDraft('')\n  }\n\n  return (\n    <div style={{ maxWidth: 480, margin: '0 auto', padding: 24 }}>\n      <Card>\n        <Stack gap={4}>\n          <Stack gap={1}>\n            <Eyebrow>{left} left</Eyebrow>\n            <Heading level={2}>Today</Heading>\n          </Stack>\n\n          <Row gap={2} wrap={false}>\n            <div style={{ flex: 1, minWidth: 0 }}>\n              <Input value={draft} onChange={setDraft} placeholder=\"Add a task…\" label=\"New task\" />\n            </div>\n            <Spacer />\n            <Button onClick={add} label=\"Add\">Add</Button>\n          </Row>\n\n          <Segmented\n            label=\"Filter\"\n            value={filter}\n            onChange={setFilter}\n            options={[\n              { value: 'all', label: 'All' },\n              { value: 'active', label: 'Active' },\n              { value: 'done', label: 'Done' },\n            ]}\n          />\n\n          {shown.length === 0 ? (\n            <Empty icon=\"ok\" title=\"Nothing here\">You're all caught up.</Empty>\n          ) : (\n            <Stack gap={2}>\n              {shown.map((i) => (\n                <Row key={i.id} gap={3} wrap={false}>\n                  <Checkbox\n                    checked={i.done}\n                    onChange={() => setItems((xs) => xs.map((x) => (x.id === i.id ? { ...x, done: !x.done } : x)))}\n                    label={i.text}\n                  />\n                  <Text muted={i.done}>{i.text}</Text>\n                </Row>\n              ))}\n            </Stack>\n          )}\n        </Stack>\n      </Card>\n    </div>\n  )\n}\n",
+      "type": "registry:block",
+      "target": "components/pouf/blocks/todo.tsx"
+    }
+  ],
+  "type": "registry:block"
+}
