@@ -1659,3 +1659,6 @@
   border-radius: 0;
   padding: 0;
 }
+
+/* The right-click surface for ContextMenu — a plain block wrapper. */
+.pouf-context-anchor { display: block; }

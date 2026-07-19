@@ -2,6 +2,7 @@
 import Site from '../layouts/Site.astro'
 import { HeroShowcase } from '../components/HeroShowcase'
 import { ComponentWall } from '../components/ComponentWall'
+import { IconBlob } from '../components/IconBlob'
 import { CopyCommand } from '../components/CopyCommand'
 import { COMPONENTS } from '../data/manifest'
 import { BLOCKS } from '../data/blocks'
@@ -20,42 +21,43 @@ const STATS = [
   { n: '0', label: 'runtime deps', tone: '--mint' },
   { n: 'MIT', label: 'licensed', tone: '--blue' },
 ]
+const FEATURED = BLOCKS.slice(0, 6)
 ---
 
 <Site wide>
   <!-- HERO -->
   <section style="display:grid; grid-template-columns: 1.05fr 0.95fr; gap:48px; align-items:center; padding:24px 0 40px;" class="hero-grid">
     <div style="display:flex; flex-direction:column; gap:26px;">
-      <span class="sticker" style="background:var(--yellow); align-self:flex-start; transform:rotate(-2deg);">Claymorphism for React</span>
-      <h1 class="display" style="font-size:clamp(52px, 7vw, 92px);">
+      <span class="sticker pop" style="background:var(--yellow); align-self:flex-start; transform:rotate(-2deg); animation-delay:60ms;">Claymorphism for React</span>
+      <h1 class="display pop" style="font-size:clamp(52px, 7vw, 92px); animation-delay:120ms;">
         Soft software,<br />
         <span style="background:var(--purple); border-radius:20px; padding:0 18px; box-shadow: inset 0 -8px 0 rgba(0,0,0,0.08); display:inline-block; transform:rotate(-1.5deg);">seriously</span>
         built.
       </h1>
-      <p style="font-size:21px; font-weight:800; color:var(--muted); max-width:36ch; margin:0;">
+      <p class="pop" style="font-size:21px; font-weight:800; color:var(--muted); max-width:36ch; margin:0; animation-delay:200ms;">
         Pouf is a puffy, pastel, <strong style="color:var(--ink);">maximalist</strong> UI kit. Every surface a cushion — bright, chunky, tactile. Copy it in shadcn-style and own the source.
       </p>
-      <div style="max-width:560px;">
+      <div class="pop" style="max-width:560px; animation-delay:280ms;">
         <CopyCommand client:load command="npx shadcn@latest add https://pouf.dev/r/button.json" />
       </div>
-      <div style="display:flex; gap:14px; flex-wrap:wrap;">
+      <div class="pop" style="display:flex; gap:14px; flex-wrap:wrap; animation-delay:360ms;">
         <a href="/docs/" style="text-decoration:none; color:var(--ink); font-weight:900; font-size:17px; background:var(--purple); padding:16px 30px; border-radius:20px; box-shadow: var(--pouf-control);">Get started</a>
         <a href="/examples" style="text-decoration:none; color:var(--ink); font-weight:900; font-size:17px; background:var(--surface); padding:16px 30px; border-radius:20px; box-shadow: var(--pouf-control);">See {BLOCKS.length} templates</a>
       </div>
     </div>
 
     <!-- Layered live collage -->
-    <div style="position:relative;">
+    <div class="pop" style="position:relative; animation-delay:300ms;">
       <span class="sticker" style="background:var(--mint); position:absolute; top:-18px; left:-10px; z-index:3; transform:rotate(-6deg);">Live components ↓</span>
       <span class="sticker" style="background:var(--pink); position:absolute; bottom:-14px; right:8px; z-index:3; transform:rotate(5deg);">no className, no drift</span>
-      <div style="transform:rotate(1.2deg);">
+      <div class="collage" style="transform:rotate(1.2deg);">
         <HeroShowcase client:visible />
       </div>
     </div>
   </section>
 
   <!-- STAT STRIP -->
-  <section style="display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:16px; padding:12px 0 56px;" class="stat-strip">
+  <section class="reveal stat-strip" style="display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:16px; padding:12px 0 56px;">
     {STATS.map((s) => (
       <div class="cushion-tone" style={`background:var(${s.tone}); padding:26px 24px; display:flex; flex-direction:column; gap:2px;`}>
         <span class="display" style="font-size:44px;">{s.n}</span>
@@ -65,19 +67,41 @@ const STATS = [
   </section>
 
   <!-- COMPONENT WALL -->
-  <section style="padding:24px 0 56px;">
+  <section class="reveal" style="padding:24px 0 56px;">
     <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:16px; margin-bottom:24px; flex-wrap:wrap;">
       <div>
         <span class="sticker" style="background:var(--blue); transform:rotate(-2deg);">Everything's live</span>
         <h2 class="display" style="font-size:clamp(34px,4.5vw,52px); margin:14px 0 0;">A whole toybox.</h2>
       </div>
-      <a href="/docs/button" style="text-decoration:none; color:var(--ink); font-weight:900; background:var(--surface); padding:12px 22px; border-radius:16px; box-shadow: var(--pouf-control);">Browse all →</a>
+      <a href="/components" style="text-decoration:none; color:var(--ink); font-weight:900; background:var(--surface); padding:12px 22px; border-radius:16px; box-shadow: var(--pouf-control);">Browse all →</a>
     </div>
     <ComponentWall client:visible />
   </section>
 
+  <!-- TEMPLATES SHOWCASE -->
+  <section class="reveal" style="padding:24px 0 56px;">
+    <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:16px; margin-bottom:24px; flex-wrap:wrap;">
+      <div>
+        <span class="sticker" style="background:var(--pink); transform:rotate(-2deg);">Copy a whole screen</span>
+        <h2 class="display" style="font-size:clamp(34px,4.5vw,52px); margin:14px 0 0;">Templates, not snippets.</h2>
+      </div>
+      <a href="/examples" style="text-decoration:none; color:var(--ink); font-weight:900; background:var(--surface); padding:12px 22px; border-radius:16px; box-shadow: var(--pouf-control);">All {BLOCKS.length} →</a>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:20px;" class="tpl-grid">
+      {FEATURED.map((b, i) => (
+        <a href={`/examples/${b.slug}`} style="text-decoration:none; color:var(--ink);">
+          <div class="ex-card" style={`background:var(--${b.tone}); border-radius:26px; padding:24px; box-shadow: var(--pouf-control); display:flex; flex-direction:column; gap:12px; height:100%; transform:rotate(${i % 2 === 0 ? '-0.5' : '0.5'}deg);`}>
+            <IconBlob client:visible icon={b.icon as any} tone="purple" size="sm" />
+            <h3 class="display" style="font-size:24px; margin:4px 0 0;">{b.title}</h3>
+            <p style="margin:0; color:var(--ink); opacity:0.72; font-weight:800; font-size:14px;">{b.blurb}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
   <!-- TONE SHOWCASE -->
-  <section style="padding:24px 0 56px;">
+  <section class="reveal" style="padding:24px 0 56px;">
     <h2 class="display" style="font-size:clamp(30px,4vw,44px); margin:0 0 8px;">Six pastels, one system.</h2>
     <p style="font-weight:800; color:var(--muted); margin:0 0 24px;">Components speak intent — <code>tone="up"</code>, not <code>tone="mint"</code> — so a re-theme is one place.</p>
     <div style="display:grid; grid-template-columns:repeat(6, minmax(0,1fr)); gap:14px;" class="tone-strip">
@@ -90,7 +114,7 @@ const STATS = [
   </section>
 
   <!-- FEATURES -->
-  <section style="display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:20px; padding:24px 0 64px;" class="feature-grid">
+  <section class="reveal feature-grid" style="display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:20px; padding:24px 0 64px;">
     <div class="cushion-tone" style="background:var(--purple); padding:30px;">
       <h3 class="display" style="font-size:26px; margin:0 0 10px;">Depth is the affordance</h3>
       <p style="margin:0; font-weight:800; color:var(--ink); opacity:0.75;">Buttons press in. Badges stay flat. State you can feel before you read it.</p>
@@ -106,7 +130,7 @@ const STATS = [
   </section>
 
   <!-- CTA -->
-  <section style="padding:0 0 32px;">
+  <section class="reveal" style="padding:0 0 32px;">
     <div class="cushion" style="padding:48px; text-align:center; display:flex; flex-direction:column; align-items:center; gap:18px;">
       <h2 class="display" style="font-size:clamp(32px,5vw,56px); margin:0;">Go make something puffy.</h2>
       <p style="font-weight:800; color:var(--muted); margin:0; font-size:18px;">One command drops a component — with its dependencies — into your project.</p>
@@ -115,11 +139,14 @@ const STATS = [
   </section>
 
   <style>
+    .ex-card { transition: transform 160ms ease; }
+    .ex-card:hover { transform: rotate(0deg) translateY(-4px) !important; }
     @media (max-width: 900px) {
       .hero-grid { grid-template-columns: minmax(0,1fr) !important; }
       .stat-strip { grid-template-columns: repeat(2, minmax(0,1fr)) !important; }
       .feature-grid { grid-template-columns: minmax(0,1fr) !important; }
       .tone-strip { grid-template-columns: repeat(3, minmax(0,1fr)) !important; }
+      .tpl-grid { grid-template-columns: minmax(0,1fr) !important; }
       .wall { grid-template-columns: repeat(2, minmax(0,1fr)) !important; }
     }
     @media (max-width: 560px) {

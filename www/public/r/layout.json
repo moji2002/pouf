@@ -1,7 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "layout",
-  "title": "Layout (Stack, Row, Grid, Shell, Sidebar)",
+  "title": "Layout",
   "dependencies": [
     "class-variance-authority"
   ],

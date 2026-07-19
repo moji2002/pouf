@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "cta",
+  "title": "CTA",
+  "dependencies": [
+    "class-variance-authority"
+  ],
+  "registryDependencies": [
+    "https://pouf.dev/r/base.json"
+  ],
+  "files": [
+    {
+      "path": "registry/pouf/cta.tsx",
+      "content": "import { cva } from 'class-variance-authority'\nimport type { ReactNode } from 'react'\n\nconst cta = cva('pouf-cta rounded-card px-(--s7) py-(--s8) flex flex-col items-center text-center gap-(--s4) cushion-control', {\n  variants: {\n    tone: {\n      purple: 'bg-purple',\n      pink: 'bg-pink',\n      blue: 'bg-blue',\n      mint: 'bg-mint',\n      yellow: 'bg-yellow',\n      surface: 'bg-surface',\n    },\n  },\n  defaultVariants: { tone: 'purple' },\n})\n\ninterface CTAProps {\n  title: string\n  description?: string\n  /** The action(s) — a Button, or two. */\n  action: ReactNode\n  tone?: 'purple' | 'pink' | 'blue' | 'mint' | 'yellow' | 'surface'\n}\n\n/** A call-to-action banner: a big tonal cushion with a headline and an action.\n * The one loud thing at the bottom of a page. */\nexport function CTA({ title, description, action, tone }: CTAProps) {\n  return (\n    <section className={cta({ tone })}>\n      <h2 className=\"m-0 font-black text-[clamp(28px,4vw,44px)] tracking-[-0.02em] leading-[1.05] text-ink\">{title}</h2>\n      {description && <p className=\"m-0 font-bold text-[18px] text-ink/70 max-w-[52ch]\">{description}</p>}\n      <div className=\"flex flex-wrap gap-(--s3) justify-center mt-(--s2)\">{action}</div>\n    </section>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/pouf/cta.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

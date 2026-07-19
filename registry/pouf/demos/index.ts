@@ -24,6 +24,11 @@ import { sliderDemos } from './slider'
 import { tabsDemos, accordionDemos, collapsibleDemos } from './disclosure'
 import { separatorDemos } from './separator'
 import { dropdownMenuDemos } from './dropdown-menu'
+import { contextMenuDemos } from './context-menu'
+import { menubarDemos } from './menubar'
+import { navbarDemos } from './navbar'
+import { footerDemos } from './footer'
+import { ctaDemos } from './cta'
 import { hoverCardDemos } from './hover-card'
 import { progressDemos } from './progress'
 import { avatarDemos } from './avatar'
@@ -83,6 +88,11 @@ export const allDemos: Record<string, Demo[]> = {
   collapsible: collapsibleDemos,
   separator: separatorDemos,
   'dropdown-menu': dropdownMenuDemos,
+  'context-menu': contextMenuDemos,
+  menubar: menubarDemos,
+  navbar: navbarDemos,
+  footer: footerDemos,
+  cta: ctaDemos,
   'hover-card': hoverCardDemos,
   progress: progressDemos,
   avatar: avatarDemos,

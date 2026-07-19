@@ -210,6 +210,24 @@
       ]
     },
     {
+      "name": "cta",
+      "type": "registry:ui",
+      "title": "CTA",
+      "files": [
+        {
+          "path": "registry/pouf/cta.tsx",
+          "type": "registry:ui",
+          "target": "components/pouf/cta.tsx"
+        }
+      ],
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json"
+      ]
+    },
+    {
       "name": "disclosure",
       "type": "registry:ui",
       "title": "Tabs, Accordion, Collapsible",
@@ -277,6 +295,21 @@
       ]
     },
     {
+      "name": "footer",
+      "type": "registry:ui",
+      "title": "Footer",
+      "files": [
+        {
+          "path": "registry/pouf/footer.tsx",
+          "type": "registry:ui",
+          "target": "components/pouf/footer.tsx"
+        }
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json"
+      ]
+    },
+    {
       "name": "hover-card",
       "type": "registry:ui",
       "title": "HoverCard",
@@ -334,7 +367,7 @@
     {
       "name": "layout",
       "type": "registry:ui",
-      "title": "Layout (Stack, Row, Grid, Shell, Sidebar)",
+      "title": "Layout",
       "files": [
         {
           "path": "registry/pouf/layout.tsx",
@@ -372,7 +405,7 @@
     {
       "name": "menu",
       "type": "registry:ui",
-      "title": "DropdownMenu",
+      "title": "DropdownMenu + ContextMenu",
       "files": [
         {
           "path": "registry/pouf/menu.tsx",
@@ -381,7 +414,29 @@
         }
       ],
       "dependencies": [
+        "@radix-ui/react-context-menu",
         "@radix-ui/react-dropdown-menu",
+        "clsx",
+        "framer-motion"
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/icon.json"
+      ]
+    },
+    {
+      "name": "menubar",
+      "type": "registry:ui",
+      "title": "Menubar",
+      "files": [
+        {
+          "path": "registry/pouf/menubar.tsx",
+          "type": "registry:ui",
+          "target": "components/pouf/menubar.tsx"
+        }
+      ],
+      "dependencies": [
+        "@radix-ui/react-menubar",
         "clsx",
         "framer-motion"
       ],
@@ -408,6 +463,24 @@
         "https://pouf.dev/r/base.json",
         "https://pouf.dev/r/icon.json",
         "https://pouf.dev/r/tone.json"
+      ]
+    },
+    {
+      "name": "navbar",
+      "type": "registry:ui",
+      "title": "Navbar",
+      "files": [
+        {
+          "path": "registry/pouf/navbar.tsx",
+          "type": "registry:ui",
+          "target": "components/pouf/navbar.tsx"
+        }
+      ],
+      "dependencies": [
+        "clsx"
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json"
       ]
     },
     {

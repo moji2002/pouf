@@ -2,17 +2,15 @@
 import '@fontsource-variable/nunito'
 import '@fontsource-variable/fredoka'
 import '../styles/site.css'
-import { COMPONENTS, SECTIONS } from '../data/manifest'
+import { ToasterMount } from '../components/ToasterMount'
+
 
 interface Props {
   title?: string
   description?: string
-  docsSlug?: string | null
   wide?: boolean
 }
-const { title = 'Pouf', description = 'A puffy, pastel, maximalist UI kit for React. Claymorphism as a shadcn-style registry — copy it in, own the source.', docsSlug = undefined, wide = false } = Astro.props
-const showSidebar = docsSlug !== undefined
-const bySection = SECTIONS.map((s) => ({ section: s, items: COMPONENTS.filter((c) => c.section === s) })).filter((g) => g.items.length)
+const { title = 'Pouf', description = 'A puffy, pastel, maximalist UI kit for React. Claymorphism as a shadcn-style registry — copy it in, own the source.', wide = false } = Astro.props
 const wrapClass = wide ? 'site-wide' : 'site-wrap'
 ---
 
@@ -30,11 +28,11 @@ const wrapClass = wide ? 'site-wide' : 'site-wrap'
   <body style="background: var(--bg); color: var(--ink); font-family: var(--font); font-weight: 700; min-height: 100vh; margin: 0;">
     <!-- Decorative cushion-blob field: colour and depth behind everything. -->
     <div class="blob-field" aria-hidden="true">
-      <span style="width:520px; height:520px; background:var(--purple); top:-160px; left:-120px;"></span>
-      <span style="width:420px; height:420px; background:var(--pink); top:8%; right:-140px;"></span>
-      <span style="width:380px; height:380px; background:var(--mint); top:52%; left:-120px;"></span>
-      <span style="width:440px; height:440px; background:var(--blue); top:68%; right:-120px;"></span>
-      <span style="width:320px; height:320px; background:var(--yellow); top:120%; left:30%;"></span>
+      <span style="width:520px; height:520px; background:var(--purple); top:-160px; left:-120px; --dur:24s; --del:0s;"></span>
+      <span style="width:420px; height:420px; background:var(--pink); top:8%; right:-140px; --dur:19s; --del:-4s;"></span>
+      <span style="width:380px; height:380px; background:var(--mint); top:52%; left:-120px; --dur:27s; --del:-9s;"></span>
+      <span style="width:440px; height:440px; background:var(--blue); top:68%; right:-120px; --dur:21s; --del:-2s;"></span>
+      <span style="width:320px; height:320px; background:var(--yellow); top:120%; left:30%; --dur:25s; --del:-13s;"></span>
     </div>
 
     <header class="site-header">
@@ -45,36 +43,20 @@ const wrapClass = wide ? 'site-wide' : 'site-wrap'
             <strong class="display" style="font-size:24px;">Pouf</strong>
           </a>
           <a class="site-link" href="/docs/">Docs</a>
-          <a class="site-link" href="/docs/button">Components</a>
+          <a class="site-link" href="/components">Components</a>
           <a class="site-link" href="/examples">Examples</a>
           <a class="site-link" href="/changelog">Changelog</a>
-          <a class="site-link" href="https://github.com/pouf-ui/pouf" style="background:var(--ink); color:var(--bg);">GitHub</a>
+          <a class="site-link" href="https://github.com/pouf-ui/pouf" target="_blank" rel="noopener noreferrer" style="background:var(--ink); color:var(--bg);">GitHub</a>
         </nav>
       </div>
     </header>
 
     <main class={wrapClass} style="padding-top:36px; padding-bottom:96px;">
-      {showSidebar ? (
-        <div class="docs-grid">
-          <aside class="docs-sidebar">
-            <a class="site-link" href="/docs/" style="font-weight:900;">Getting started</a>
-            {bySection.map((g) => (
-              <div style="margin-top:12px;">
-                <div style="font-size:11px; font-weight:900; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); padding:4px 12px;">{g.section}</div>
-                {g.items.map((c) => (
-                  <a class="site-link" href={`/docs/${c.slug}`} aria-current={c.slug === docsSlug ? 'page' : undefined} style="font-size:14px; padding:6px 12px;">{c.title.split(',')[0].split(' (')[0]}</a>
-                ))}
-              </div>
-            ))}
-          </aside>
-          <div style="min-width:0;">
-            <slot />
-          </div>
-        </div>
-      ) : (
-        <slot />
-      )}
+      <slot />
     </main>
+
+    <!-- Global toast stack (fixed, top-right). toast() renders here. -->
+    <ToasterMount client:idle />
 
     <footer style="position:relative; z-index:1; margin-top:40px;">
       <div class={wrapClass} style="padding-bottom:48px;">
@@ -89,11 +71,33 @@ const wrapClass = wide ? 'site-wide' : 'site-wrap'
           <div style="margin-left:auto; display:flex; gap:20px; flex-wrap:wrap; font-weight:800;">
             <a href="/docs/" style="color:var(--ink); text-decoration:none;">Docs</a>
             <a href="/examples" style="color:var(--ink); text-decoration:none;">Examples</a>
-            <a href="https://github.com/pouf-ui/pouf" style="color:var(--ink); text-decoration:none;">GitHub</a>
+            <a href="https://github.com/pouf-ui/pouf" target="_blank" rel="noopener noreferrer" style="color:var(--ink); text-decoration:none;">GitHub</a>
           </div>
         </div>
-        <p style="text-align:center; color:var(--muted); font-weight:700; font-size:13px; margin-top:20px;">Visual language adapted from novusgfx/retro-design-system (MIT).</p>
+        <p style="text-align:center; color:var(--muted); font-weight:700; font-size:13px; margin-top:20px;">Visual language adapted from <a href="https://github.com/novusgfx/retro-design-system" target="_blank" rel="noopener noreferrer" style="color:var(--muted); font-weight:800;">novusgfx/retro-design-system</a> (MIT).</p>
       </div>
     </footer>
+
+    <script>
+      // Scroll-reveal: reveal .reveal sections as they enter the viewport.
+      // No-op under reduced motion (the CSS keeps them visible).
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      if (!reduce && 'IntersectionObserver' in window) {
+        // Only now hide the reveal sections — without this class they stay visible.
+        document.documentElement.classList.add('js')
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (e.isIntersecting) {
+                e.target.classList.add('in')
+                io.unobserve(e.target)
+              }
+            }
+          },
+          { rootMargin: '0px 0px -12% 0px', threshold: 0.08 },
+        )
+        for (const el of document.querySelectorAll('.reveal')) io.observe(el)
+      }
+    </script>
   </body>
 </html>

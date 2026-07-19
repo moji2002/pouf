@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "navbar",
+  "title": "Navbar",
+  "dependencies": [
+    "clsx"
+  ],
+  "registryDependencies": [
+    "https://pouf.dev/r/base.json"
+  ],
+  "files": [
+    {
+      "path": "registry/pouf/navbar.tsx",
+      "content": "import clsx from 'clsx'\nimport type { ReactNode } from 'react'\n\nexport interface NavbarLink {\n  label: string\n  href: string\n  active?: boolean\n}\n\ninterface NavbarProps {\n  /** Your logo/wordmark. */\n  brand: ReactNode\n  links?: NavbarLink[]\n  /** Right-side actions — usually a Button or two. */\n  actions?: ReactNode\n}\n\n/** A top navigation bar on a floating cushion. Brand on the left, links, and\n * right-aligned actions. Links collapse on narrow screens (wire your own menu\n * for mobile — BottomNav or Sheet). */\nexport function Navbar({ brand, links = [], actions }: NavbarProps) {\n  return (\n    <nav className=\"pouf-navbar flex items-center gap-(--s4) h-16 pl-(--s5) pr-(--s3) rounded-pill bg-surface cushion-card\">\n      <div className=\"flex items-center gap-(--s2) font-black text-[20px] text-ink\">{brand}</div>\n      <div className=\"flex items-center gap-[2px] max-[760px]:hidden\">\n        {links.map((l) => (\n          <a\n            key={l.href}\n            href={l.href}\n            aria-current={l.active ? 'page' : undefined}\n            className={clsx(\n              'font-extrabold text-ink no-underline px-(--s3) py-(--s2) rounded-pill transition-colors',\n              l.active ? 'bg-purple' : 'hover:bg-[rgba(201,168,255,0.25)]',\n            )}\n          >\n            {l.label}\n          </a>\n        ))}\n      </div>\n      {actions && <div className=\"flex items-center gap-(--s2) ml-auto\">{actions}</div>}\n    </nav>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/pouf/navbar.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "footer",
+  "title": "Footer",
+  "registryDependencies": [
+    "https://pouf.dev/r/base.json"
+  ],
+  "files": [
+    {
+      "path": "registry/pouf/footer.tsx",
+      "content": "import type { ReactNode } from 'react'\n\nexport interface FooterColumn {\n  title: string\n  links: { label: string; href: string }[]\n}\n\ninterface FooterProps {\n  /** Your logo/wordmark. */\n  brand: ReactNode\n  /** A short line under the brand. */\n  tagline?: string\n  columns?: FooterColumn[]\n  /** The bottom line — copyright, credits. */\n  note?: ReactNode\n}\n\n/** A site footer on one big cushion: brand block plus columns of links, with an\n * optional bottom note. */\nexport function Footer({ brand, tagline, columns = [], note }: FooterProps) {\n  return (\n    <footer className=\"pouf-footer bg-surface rounded-card cushion-card px-(--s7) pt-(--s7) pb-(--s6)\">\n      <div className=\"flex flex-wrap gap-(--s7) justify-between\">\n        <div className=\"flex flex-col gap-(--s2) max-w-[280px]\">\n          <div className=\"flex items-center gap-(--s2) font-black text-[22px] text-ink\">{brand}</div>\n          {tagline && <p className=\"m-0 text-muted font-bold text-[15px]\">{tagline}</p>}\n        </div>\n        <div className=\"flex flex-wrap gap-(--s7)\">\n          {columns.map((col) => (\n            <nav key={col.title} className=\"flex flex-col gap-(--s2)\" aria-label={col.title}>\n              <span className=\"text-[12px] font-black tracking-[1.5px] uppercase text-muted\">{col.title}</span>\n              {col.links.map((l) => (\n                <a key={l.href} href={l.href} className=\"font-extrabold text-ink no-underline hover:text-muted transition-colors\">\n                  {l.label}\n                </a>\n              ))}\n            </nav>\n          ))}\n        </div>\n      </div>\n      {note && (\n        <div className=\"mt-(--s6) pt-(--s5) border-t border-[rgba(201,168,255,0.3)] text-muted font-bold text-[14px]\">\n          {note}\n        </div>\n      )}\n    </footer>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/pouf/footer.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

@@ -6,10 +6,17 @@ import { allDemos } from '../../../registry/pouf/demos'
 export function DemoBox({ component, id }: { component: string; id: string }) {
   const demo = allDemos[component]?.find((d) => d.id === id)
   if (!demo) return <div style={{ color: 'var(--muted)' }}>Demo not found: {component}/{id}</div>
+  /* mobile-viewport demos (BottomNav) render fixed-position chrome; the
+   * transform makes `position: fixed` resolve to THIS box, not the page, so a
+   * fixed bar stays inside the preview instead of sticking to the window. */
+  const contains = demo.viewport === 'mobile'
   return (
     <div
       data-demo-root
       style={{
+        position: 'relative',
+        overflow: 'hidden',
+        transform: contains ? 'translateZ(0)' : undefined,
         padding: 40,
         borderRadius: 'var(--r-card)',
         background: 'var(--bg)',
@@ -18,7 +25,7 @@ export function DemoBox({ component, id }: { component: string; id: string }) {
         flexWrap: 'wrap',
         gap: 16,
         alignItems: 'center',
-        minHeight: 120,
+        minHeight: contains ? 300 : 120,
       }}
     >
       {demo.render()}

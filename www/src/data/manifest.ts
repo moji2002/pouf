@@ -4,7 +4,7 @@
  * (layout.tsx) bundles several exports, so one doc page shows several demos. */
 
 export interface ComponentDoc {
-  /** URL slug and registry-item name (they match). */
+  /** URL slug and anchor id (and registry-item name, unless `install` overrides). */
   slug: string
   /** Display name for nav + page heading. */
   title: string
@@ -12,8 +12,11 @@ export interface ComponentDoc {
   blurb: string
   /** allDemos keys rendered live on the page, in order. */
   demos: string[]
-  /** Section grouping in the sidebar. */
-  section: 'Layout' | 'Typography' | 'Surfaces' | 'Forms' | 'Overlays' | 'Feedback' | 'Navigation' | 'Data'
+  /** Section grouping. */
+  section: 'Layout' | 'Typography' | 'Surfaces' | 'Forms' | 'Overlays' | 'Navigation' | 'Sections' | 'Feedback' | 'Data'
+  /** Registry item to install, when it differs from the slug (e.g. ContextMenu
+   *  ships in the `menu` file alongside DropdownMenu). */
+  install?: string
 }
 
 export const COMPONENTS: ComponentDoc[] = [
@@ -32,7 +35,8 @@ export const COMPONENTS: ComponentDoc[] = [
   { slug: 'segmented', title: 'Segmented', blurb: 'A pressed-in segment marks selection with depth, not colour.', demos: ['segmented'], section: 'Forms' },
   { slug: 'toggle', title: 'ToggleGroup', blurb: 'Multi-select toggles that press in when on.', demos: ['toggle-group'], section: 'Forms' },
   { slug: 'controls', title: 'Select, Switch, Dialog, Confirm, Tooltip, Combobox', blurb: 'The Radix-backed controls, skinned in clay.', demos: ['select', 'switch', 'combobox', 'tooltip', 'dialog', 'confirm'], section: 'Overlays' },
-  { slug: 'menu', title: 'DropdownMenu', blurb: 'A context menu on a cushion.', demos: ['dropdown-menu'], section: 'Overlays' },
+  { slug: 'menu', title: 'DropdownMenu', blurb: 'A click-triggered menu on a cushion.', demos: ['dropdown-menu'], section: 'Overlays' },
+  { slug: 'context-menu', title: 'ContextMenu', blurb: 'A right-click menu, same clay skin.', demos: ['context-menu'], section: 'Overlays', install: 'menu' },
   { slug: 'hover-card', title: 'HoverCard', blurb: 'A card that rises on hover.', demos: ['hover-card'], section: 'Overlays' },
   { slug: 'sheet', title: 'Sheet', blurb: 'A side panel that slides in from the edge.', demos: ['sheet'], section: 'Overlays' },
   { slug: 'status', title: 'Status, Freshness, ModeBanner', blurb: 'Liveness signals and the environment banner.', demos: ['status', 'freshness', 'mode-banner'], section: 'Feedback' },
@@ -45,6 +49,10 @@ export const COMPONENTS: ComponentDoc[] = [
   { slug: 'bottom-nav', title: 'BottomNav', blurb: 'A thumb-reachable mobile tab bar.', demos: ['bottom-nav'], section: 'Navigation' },
   { slug: 'breadcrumb', title: 'Breadcrumb', blurb: 'A trail back up the hierarchy.', demos: ['breadcrumb'], section: 'Navigation' },
   { slug: 'pagination', title: 'Pagination', blurb: 'Page-by-page navigation.', demos: ['pagination'], section: 'Navigation' },
+  { slug: 'menubar', title: 'Menubar', blurb: 'An application menu bar (File / Edit / View).', demos: ['menubar'], section: 'Navigation' },
+  { slug: 'navbar', title: 'Navbar', blurb: 'A top navigation bar: brand, links, actions.', demos: ['navbar'], section: 'Sections' },
+  { slug: 'footer', title: 'Footer', blurb: 'A site footer with link columns.', demos: ['footer'], section: 'Sections' },
+  { slug: 'cta', title: 'CTA', blurb: 'A call-to-action banner — the one loud thing.', demos: ['cta'], section: 'Sections' },
   { slug: 'separator', title: 'Separator', blurb: 'A hairline divider.', demos: ['separator'], section: 'Layout' },
   { slug: 'scroll-area', title: 'ScrollArea', blurb: 'A scroll container with a styled bar.', demos: ['scroll-area'], section: 'Layout' },
   { slug: 'aspect-ratio', title: 'AspectRatio', blurb: 'A framed, ratio-locked box.', demos: ['aspect-ratio'], section: 'Layout' },
@@ -52,7 +60,11 @@ export const COMPONENTS: ComponentDoc[] = [
   { slug: 'charts', title: 'Charts', blurb: 'Area, Bar, Line, and Pie — Recharts, themed.', demos: ['area-chart', 'bar-chart', 'line-chart', 'pie-chart'], section: 'Data' },
 ]
 
-export const SECTIONS = ['Layout', 'Typography', 'Surfaces', 'Forms', 'Overlays', 'Feedback', 'Navigation', 'Data'] as const
+export const SECTIONS = ['Layout', 'Typography', 'Surfaces', 'Forms', 'Overlays', 'Navigation', 'Sections', 'Feedback', 'Data'] as const
+
+export function componentInstall(doc: ComponentDoc): string {
+  return `npx shadcn@latest add https://pouf.dev/r/${doc.install ?? doc.slug}.json`
+}
 
 export function installCommand(slug: string): string {
   return `npx shadcn@latest add https://pouf.dev/r/${slug}.json`

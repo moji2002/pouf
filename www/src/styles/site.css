@@ -11,15 +11,11 @@
 }
 
 @layer components {
-  .site-wrap {
-    max-width: 1180px;
-    margin: 0 auto;
-    padding: 0 24px;
-    position: relative;
-    z-index: 1;
-  }
+  /* ONE width for every page, so the nav, content, and footer never shift
+   * when you navigate. (The `wide` prop is kept as a no-op for compatibility.) */
+  .site-wrap,
   .site-wide {
-    max-width: 1320px;
+    max-width: 1240px;
     margin: 0 auto;
     padding: 0 24px;
     position: relative;
@@ -77,11 +73,13 @@
     box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.08), 0 6px 14px rgba(58, 46, 92, 0.14);
   }
 
-  /* Header: a floating chunky bar, not a hairline-bordered strip. */
+  /* Header: a floating chunky bar, not a hairline-bordered strip. z-index kept
+   * below the component overlays (dialogs/toasts/menus at 50–61) so those
+   * always cover it. */
   .site-header {
     position: sticky;
     top: 12px;
-    z-index: 50;
+    z-index: 40;
   }
   .site-nav {
     display: flex;
@@ -145,4 +143,61 @@
     border-radius: 16px;
     overflow-x: auto;
   }
+}
+
+/* ── Scrollbars ─────────────────────────────────────────────────────────
+ * Chunky, pastel, rounded — the scrollbar is a cushion too. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--purple) transparent;
+}
+::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--purple);
+  border-radius: 999px;
+  border: 4px solid var(--bg);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ink);
+}
+/* Dark code blocks get a matching dark-track thumb. */
+.code-block::-webkit-scrollbar-thumb {
+  border-color: var(--ink);
+}
+
+/* ── Motion ─────────────────────────────────────────────────────────────
+ * Deliberate and springy — the same bouncy easing the components use, so the
+ * page feels like the toys it documents. All of it is gated on
+ * prefers-reduced-motion, so a reduced-motion visitor gets the static layout. */
+@media (prefers-reduced-motion: no-preference) {
+  /* Page-load pop: a spring entrance. Stagger with inline animation-delay. */
+  @keyframes pop-in {
+    0% { opacity: 0; transform: translateY(20px) scale(0.94); }
+    60% { transform: translateY(-3px) scale(1.012); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  .pop { animation: pop-in 640ms cubic-bezier(0.2, 0.9, 0.3, 1.35) both; }
+
+  /* Ambient drift on the decorative blob field — slow, out of sync. */
+  @keyframes drift {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(28px, -32px); }
+  }
+  .blob-field span { animation: drift var(--dur, 22s) ease-in-out infinite; animation-delay: var(--del, 0s); }
+
+  /* Scroll-reveal: sections rise and fade as they enter. The hidden state is
+   * gated on :root.js — set only once the observer is wired — so without JS
+   * (or if it fails) every section stays visible. Never leaves a blank. */
+  :root.js .reveal { opacity: 0; transform: translateY(28px); transition: opacity 620ms ease, transform 620ms cubic-bezier(0.2, 0.9, 0.3, 1.2); }
+  :root.js .reveal.in { opacity: 1; transform: none; }
+
+  /* The hero collage leans toward the pointer. */
+  .collage { transition: transform 300ms cubic-bezier(0.2, 0.9, 0.3, 1.2); }
+  .collage:hover { transform: rotate(0deg) scale(1.015) !important; }
 }
