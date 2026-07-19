@@ -25,6 +25,9 @@ export const BLOCKS: BlockDoc[] = [
   { slug: 'login', title: 'Login', blurb: 'A centered auth card with fields and a magic-link fallback.', tone: 'purple', icon: 'lock' },
   { slug: 'weather', title: 'Weather', blurb: 'Current conditions and a 5-day forecast.', tone: 'blue', icon: 'sun' },
   { slug: 'quiz', title: 'Quiz', blurb: 'Progress, questions, and inline scoring.', tone: 'pink', icon: 'wand' },
+  { slug: 'landing', title: 'Landing page', blurb: 'Navbar, hero, features, CTA, and footer — the section primitives together.', tone: 'purple', icon: 'sparkle' },
+  { slug: 'inbox', title: 'Inbox', blurb: 'An email list beside a reading pane.', tone: 'blue', icon: 'mail' },
+  { slug: 'calendar', title: 'Calendar', blurb: 'A day agenda with working navigation.', tone: 'mint', icon: 'calendar' },
 ]
 
 export function blockInstall(slug: string): string {

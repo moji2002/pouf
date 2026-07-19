@@ -1,14 +1,15 @@
+import { useState } from 'react'
 import { Card } from '../surface'
 import { Stack, Row, Grid } from '../layout'
 import { Heading, Text, Eyebrow, Highlight } from '../text'
 import { Badge, Dot } from '../media'
 import { Button } from '../Button'
+import { Segmented } from '../Segmented'
 import { Icon } from '../Icon'
 
 interface Plan {
   name: string
-  price: string
-  cadence: string
+  monthly: number
   blurb: string
   features: string[]
   cta: string
@@ -17,9 +18,9 @@ interface Plan {
 }
 
 const PLANS: Plan[] = [
-  { name: 'Free', price: '$0', cadence: '/mo', blurb: 'For weekend projects.', tone: 'blue', cta: 'Start free', features: ['1 project', 'Community support', 'Core components'] },
-  { name: 'Pro', price: '$12', cadence: '/mo', blurb: 'For serious builders.', tone: 'purple', featured: true, cta: 'Go Pro', features: ['Unlimited projects', 'Priority support', 'Every component', 'Example templates', 'Early features'] },
-  { name: 'Team', price: '$40', cadence: '/mo', blurb: 'For the whole studio.', tone: 'mint', cta: 'Start a team', features: ['Everything in Pro', 'Shared workspace', 'SSO & roles', 'Audit log'] },
+  { name: 'Free', monthly: 0, blurb: 'For weekend projects.', tone: 'blue', cta: 'Start free', features: ['1 project', 'Community support', 'Core components'] },
+  { name: 'Pro', monthly: 12, blurb: 'For serious builders.', tone: 'purple', featured: true, cta: 'Go Pro', features: ['Unlimited projects', 'Priority support', 'Every component', 'Example templates', 'Early features'] },
+  { name: 'Team', monthly: 40, blurb: 'For the whole studio.', tone: 'mint', cta: 'Start a team', features: ['Everything in Pro', 'Shared workspace', 'SSO & roles', 'Audit log'] },
 ]
 
 function Feature({ text }: { text: string }) {
@@ -36,17 +37,30 @@ function Feature({ text }: { text: string }) {
 /** An example pricing page: three plans, one featured, with feature checklists.
  * All Pouf primitives. */
 export function PricingBlock() {
+  const [cycle, setCycle] = useState('monthly')
+  const annual = cycle === 'annual'
   return (
     <div style={{ maxWidth: 1000, margin: '0 auto', padding: 24 }}>
       <Stack gap={6}>
-        <Stack gap={2}>
+        <Stack gap={3}>
           <Eyebrow>Pricing</Eyebrow>
           <Heading level={1}>Pick a <Highlight>cushion</Highlight></Heading>
           <Text muted>Simple plans. Cancel anytime.</Text>
+          <Row gap={3}>
+            <Segmented
+              label="Billing cycle"
+              value={cycle}
+              onChange={setCycle}
+              options={[{ value: 'monthly', label: 'Monthly' }, { value: 'annual', label: 'Annual' }]}
+            />
+            {annual && <Badge tone="mint">Save 20%</Badge>}
+          </Row>
         </Stack>
 
         <Grid cols={3}>
-          {PLANS.map((p) => (
+          {PLANS.map((p) => {
+            const price = annual ? Math.round(p.monthly * 12 * 0.8) : p.monthly
+            return (
             <Card variant={p.featured ? 'default' : 'tight'}>
               <Stack gap={4}>
                 <Row justify="between">
@@ -57,8 +71,8 @@ export function PricingBlock() {
                   {p.featured && <Badge tone="yellow">Popular</Badge>}
                 </Row>
                 <Row gap={1} wrap={false}>
-                  <span style={{ fontSize: 40, fontWeight: 900, letterSpacing: -1, color: 'var(--ink)' }}>{p.price}</span>
-                  <Text muted>{p.cadence}</Text>
+                  <span style={{ fontSize: 40, fontWeight: 900, letterSpacing: -1, color: 'var(--ink)' }}>${price}</span>
+                  <Text muted>{annual ? '/yr' : '/mo'}</Text>
                 </Row>
                 <Text size="sm" muted>{p.blurb}</Text>
                 <Stack gap={2}>
@@ -67,7 +81,7 @@ export function PricingBlock() {
                 <Button block tone={p.tone} variant={p.featured ? 'solid' : 'quiet'} onClick={() => {}}>{p.cta}</Button>
               </Stack>
             </Card>
-          ))}
+          )})}
         </Grid>
       </Stack>
     </div>

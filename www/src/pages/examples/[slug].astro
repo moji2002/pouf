@@ -2,6 +2,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import Site from '../../layouts/Site.astro'
+import { Code } from 'astro:components'
 import { BlockPreview } from '../../components/BlockPreview'
 import { CopyCommand } from '../../components/CopyCommand'
 import { BLOCKS, blockInstall } from '../../data/blocks'
@@ -54,7 +55,7 @@ try {
     {source && (
       <details>
         <summary style="cursor:pointer; font-weight:900; font-size:17px; padding:8px 0;">View source</summary>
-        <pre class="code-block" style="margin-top:8px; max-height:600px;">{source}</pre>
+        <div style="margin-top:8px;"><Code code={source} lang="tsx" theme="material-theme-palenight" /></div>
       </details>
     )}
   </article>

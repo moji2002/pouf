@@ -983,6 +983,7 @@
         "https://pouf.dev/r/icon.json",
         "https://pouf.dev/r/layout.json",
         "https://pouf.dev/r/media.json",
+        "https://pouf.dev/r/segmented.json",
         "https://pouf.dev/r/surface.json",
         "https://pouf.dev/r/text.json"
       ]
@@ -1167,6 +1168,7 @@
         "https://pouf.dev/r/layout.json",
         "https://pouf.dev/r/media.json",
         "https://pouf.dev/r/readout.json",
+        "https://pouf.dev/r/segmented.json",
         "https://pouf.dev/r/surface.json",
         "https://pouf.dev/r/text.json"
       ]
@@ -1191,6 +1193,76 @@
         "https://pouf.dev/r/media.json",
         "https://pouf.dev/r/progress.json",
         "https://pouf.dev/r/radio-group.json",
+        "https://pouf.dev/r/surface.json",
+        "https://pouf.dev/r/text.json"
+      ]
+    },
+    {
+      "name": "landing",
+      "type": "registry:block",
+      "title": "Landing page",
+      "description": "An example marketing landing page \u2014 navbar, hero, features, CTA, footer.",
+      "files": [
+        {
+          "path": "registry/pouf/blocks/landing.tsx",
+          "type": "registry:block",
+          "target": "components/pouf/blocks/landing.tsx"
+        }
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/button.json",
+        "https://pouf.dev/r/cta.json",
+        "https://pouf.dev/r/footer.json",
+        "https://pouf.dev/r/layout.json",
+        "https://pouf.dev/r/media.json",
+        "https://pouf.dev/r/navbar.json",
+        "https://pouf.dev/r/surface.json",
+        "https://pouf.dev/r/text.json"
+      ]
+    },
+    {
+      "name": "inbox",
+      "type": "registry:block",
+      "title": "Inbox",
+      "description": "An example email inbox \u2014 a message list beside a reading pane.",
+      "files": [
+        {
+          "path": "registry/pouf/blocks/inbox.tsx",
+          "type": "registry:block",
+          "target": "components/pouf/blocks/inbox.tsx"
+        }
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/avatar.json",
+        "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/button.json",
+        "https://pouf.dev/r/icon.json",
+        "https://pouf.dev/r/layout.json",
+        "https://pouf.dev/r/media.json",
+        "https://pouf.dev/r/surface.json",
+        "https://pouf.dev/r/text.json"
+      ]
+    },
+    {
+      "name": "calendar",
+      "type": "registry:block",
+      "title": "Calendar",
+      "description": "An example day agenda with working navigation.",
+      "files": [
+        {
+          "path": "registry/pouf/blocks/calendar.tsx",
+          "type": "registry:block",
+          "target": "components/pouf/blocks/calendar.tsx"
+        }
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/button.json",
+        "https://pouf.dev/r/feedback.json",
+        "https://pouf.dev/r/icon.json",
+        "https://pouf.dev/r/layout.json",
+        "https://pouf.dev/r/media.json",
         "https://pouf.dev/r/surface.json",
         "https://pouf.dev/r/text.json"
       ]

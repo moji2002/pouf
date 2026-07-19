@@ -1,0 +1,26 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "landing",
+  "title": "Landing page",
+  "description": "An example marketing landing page — navbar, hero, features, CTA, footer.",
+  "registryDependencies": [
+    "https://pouf.dev/r/base.json",
+    "https://pouf.dev/r/button.json",
+    "https://pouf.dev/r/cta.json",
+    "https://pouf.dev/r/footer.json",
+    "https://pouf.dev/r/layout.json",
+    "https://pouf.dev/r/media.json",
+    "https://pouf.dev/r/navbar.json",
+    "https://pouf.dev/r/surface.json",
+    "https://pouf.dev/r/text.json"
+  ],
+  "files": [
+    {
+      "path": "registry/pouf/blocks/landing.tsx",
+      "content": "import { Navbar } from '../navbar'\nimport { Footer } from '../footer'\nimport { CTA } from '../cta'\nimport { Card } from '../surface'\nimport { Stack, Row, Grid } from '../layout'\nimport { Heading, Text, Eyebrow, Highlight } from '../text'\nimport { Button } from '../Button'\nimport { Blob, Badge } from '../media'\n\nconst brand = (<><Blob icon=\"target\" tone=\"purple\" size=\"sm\" />Nimbus</>)\n\nconst FEATURES = [\n  { icon: 'live', tone: 'yellow', title: 'Fast by default', body: 'Ships in milliseconds, scales to millions. No config required.' },\n  { icon: 'lock', tone: 'mint', title: 'Secure', body: 'End-to-end encryption and SSO on every plan.' },\n  { icon: 'sparkle', tone: 'pink', title: 'Delightful', body: 'The details your team will actually enjoy using.' },\n] as const\n\n/** An example marketing landing page — Navbar, hero, features, CTA, and Footer,\n * showcasing the section primitives together. */\nexport function LandingBlock() {\n  return (\n    <div style={{ maxWidth: 1040, margin: '0 auto', padding: 24 }}>\n      <Stack gap={6}>\n        <Navbar\n          brand={brand}\n          links={[{ label: 'Features', href: '#', active: true }, { label: 'Pricing', href: '#' }, { label: 'Docs', href: '#' }]}\n          actions={<><Button size=\"sm\" variant=\"quiet\">Log in</Button><Button size=\"sm\">Sign up</Button></>}\n        />\n\n        <Stack gap={4}>\n          <Row justify=\"center\"><Badge tone=\"yellow\">New — v2.0 is here</Badge></Row>\n          <div style={{ textAlign: 'center' }}>\n            <Heading level={1}>Ship <Highlight>faster</Highlight>, sleep better.</Heading>\n          </div>\n          <Row justify=\"center\">\n            <Text muted>The platform your team ships on. Deploy in seconds, scale without thinking.</Text>\n          </Row>\n          <Row justify=\"center\" gap={2}>\n            <Button size=\"lg\">Start free</Button>\n            <Button size=\"lg\" variant=\"quiet\">Book a demo</Button>\n          </Row>\n        </Stack>\n\n        <Grid cols={3}>\n          {FEATURES.map((f) => (\n            <Card key={f.title}>\n              <Stack gap={3}>\n                <Blob icon={f.icon} tone={f.tone} />\n                <Heading level={3}>{f.title}</Heading>\n                <Text size=\"sm\" muted>{f.body}</Text>\n              </Stack>\n            </Card>\n          ))}\n        </Grid>\n\n        <CTA\n          tone=\"purple\"\n          title=\"Ready when you are.\"\n          description=\"Join thousands of teams building on Nimbus.\"\n          action={<><Button size=\"lg\">Get started</Button><Button size=\"lg\" variant=\"quiet\">Talk to sales</Button></>}\n        />\n\n        <Footer\n          brand={brand}\n          tagline=\"The platform your team ships on.\"\n          columns={[\n            { title: 'Product', links: [{ label: 'Features', href: '#' }, { label: 'Pricing', href: '#' }, { label: 'Changelog', href: '#' }] },\n            { title: 'Company', links: [{ label: 'About', href: '#' }, { label: 'Blog', href: '#' }, { label: 'Careers', href: '#' }] },\n            { title: 'Legal', links: [{ label: 'Privacy', href: '#' }, { label: 'Terms', href: '#' }] },\n          ]}\n          note=\"© 2026 Nimbus, Inc.\"\n        />\n      </Stack>\n    </div>\n  )\n}\n",
+      "type": "registry:block",
+      "target": "components/pouf/blocks/landing.tsx"
+    }
+  ],
+  "type": "registry:block"
+}

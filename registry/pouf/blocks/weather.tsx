@@ -1,29 +1,35 @@
+import { useState } from 'react'
 import { Card } from '../surface'
 import { Stack, Row, Grid } from '../layout'
 import { Heading, Text, Eyebrow } from '../text'
 import { Metric } from '../readout'
 import { Blob, Badge } from '../media'
+import { Segmented } from '../Segmented'
 import { Icon } from '../Icon'
 
 const FORECAST = [
-  { day: 'Mon', hi: '24°', lo: '16°', icon: 'sun', tone: 'yellow' as const },
-  { day: 'Tue', hi: '21°', lo: '15°', icon: 'cloud', tone: 'blue' as const },
-  { day: 'Wed', hi: '19°', lo: '14°', icon: 'rain', tone: 'blue' as const },
-  { day: 'Thu', hi: '23°', lo: '15°', icon: 'sun', tone: 'yellow' as const },
-  { day: 'Fri', hi: '26°', lo: '17°', icon: 'sun', tone: 'orange' as const },
+  { day: 'Mon', hi: 24, lo: 16, icon: 'sun', tone: 'yellow' as const },
+  { day: 'Tue', hi: 21, lo: 15, icon: 'cloud', tone: 'blue' as const },
+  { day: 'Wed', hi: 19, lo: 14, icon: 'rain', tone: 'blue' as const },
+  { day: 'Thu', hi: 23, lo: 15, icon: 'sun', tone: 'yellow' as const },
+  { day: 'Fri', hi: 26, lo: 17, icon: 'sun', tone: 'orange' as const },
 ]
 
 const HOURS = [
-  { t: 'Now', temp: '24°', icon: 'sun' },
-  { t: '2pm', temp: '25°', icon: 'sun' },
-  { t: '4pm', temp: '23°', icon: 'cloud' },
-  { t: '6pm', temp: '21°', icon: 'cloud' },
-  { t: '8pm', temp: '19°', icon: 'rain' },
+  { t: 'Now', temp: 24, icon: 'sun' },
+  { t: '2pm', temp: 25, icon: 'sun' },
+  { t: '4pm', temp: 23, icon: 'cloud' },
+  { t: '6pm', temp: 21, icon: 'cloud' },
+  { t: '8pm', temp: 19, icon: 'rain' },
 ]
 
+const toF = (c: number) => Math.round((c * 9) / 5 + 32)
+
 /** An example weather widget: current conditions, an hourly strip, and a
- * five-day forecast. */
+ * five-day forecast, with a °C / °F toggle. */
 export function WeatherBlock() {
+  const [unit, setUnit] = useState('c')
+  const t = (c: number) => (unit === 'f' ? `${toF(c)}°` : `${c}°`)
   return (
     <div style={{ maxWidth: 480, margin: '0 auto', padding: 24 }}>
       <Stack gap={4}>
@@ -37,11 +43,16 @@ export function WeatherBlock() {
                 </Row>
                 <Row gap={3} wrap={false}>
                   <Blob icon="sun" tone="yellow" />
-                  <span style={{ fontSize: 60, fontWeight: 900, letterSpacing: -3, color: 'var(--ink)', lineHeight: 1 }}>24°</span>
+                  <span style={{ fontSize: 60, fontWeight: 900, letterSpacing: -3, color: 'var(--ink)', lineHeight: 1 }}>{t(24)}</span>
                 </Row>
-                <Text muted>Sunny — feels like 26°</Text>
+                <Text muted>Sunny — feels like {t(26)}</Text>
               </Stack>
-              <Badge tone="mint">Clear</Badge>
+              <Segmented
+                label="Units"
+                value={unit}
+                onChange={setUnit}
+                options={[{ value: 'c', label: '°C' }, { value: 'f', label: '°F' }]}
+              />
             </Row>
 
             <Row gap={3}>
@@ -60,7 +71,7 @@ export function WeatherBlock() {
                 <Stack key={h.t} gap={2}>
                   <Text size="sm" muted>{h.t}</Text>
                   <Row justify="center"><Icon name={h.icon as never} /></Row>
-                  <Row justify="center"><Text num>{h.temp}</Text></Row>
+                  <Row justify="center"><Text num>{t(h.temp)}</Text></Row>
                 </Stack>
               ))}
             </Row>
@@ -78,8 +89,8 @@ export function WeatherBlock() {
                     <Text>{f.day}</Text>
                   </Row>
                   <Row gap={3} wrap={false}>
-                    <Text num>{f.hi}</Text>
-                    <Text num muted>{f.lo}</Text>
+                    <Text num>{t(f.hi)}</Text>
+                    <Text num muted>{t(f.lo)}</Text>
                   </Row>
                 </Row>
               ))}

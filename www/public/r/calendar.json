@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "calendar",
+  "title": "Calendar",
+  "description": "An example day agenda with working navigation.",
+  "registryDependencies": [
+    "https://pouf.dev/r/base.json",
+    "https://pouf.dev/r/button.json",
+    "https://pouf.dev/r/feedback.json",
+    "https://pouf.dev/r/icon.json",
+    "https://pouf.dev/r/layout.json",
+    "https://pouf.dev/r/media.json",
+    "https://pouf.dev/r/surface.json",
+    "https://pouf.dev/r/text.json"
+  ],
+  "files": [
+    {
+      "path": "registry/pouf/blocks/calendar.tsx",
+      "content": "import { useState } from 'react'\nimport { Card } from '../surface'\nimport { Stack, Row, Spacer } from '../layout'\nimport { Heading, Text, Eyebrow } from '../text'\nimport { Button } from '../Button'\nimport { Badge } from '../media'\nimport { Empty as EmptyState } from '../feedback'\nimport { Icon } from '../Icon'\n\ninterface Event {\n  time: string\n  title: string\n  who: string\n  tone: 'purple' | 'pink' | 'blue' | 'mint' | 'yellow'\n}\n\nconst DAYS: { weekday: string; date: string; events: Event[] }[] = [\n  { weekday: 'Wednesday', date: 'July 18', events: [\n    { time: '11:00', title: 'Customer call', who: 'Sales', tone: 'blue' },\n    { time: '15:00', title: 'Retro', who: 'Whole team', tone: 'purple' },\n  ] },\n  { weekday: 'Thursday', date: 'July 19', events: [\n    { time: '09:00', title: 'Standup', who: 'Whole team', tone: 'blue' },\n    { time: '10:30', title: 'Design review — cushions', who: 'Maya, Grace', tone: 'purple' },\n    { time: '12:00', title: 'Lunch & learn', who: 'Optional', tone: 'yellow' },\n    { time: '14:00', title: '1:1 with Alan', who: 'Alan T.', tone: 'mint' },\n    { time: '16:00', title: 'Ship review', who: 'Katherine, you', tone: 'pink' },\n  ] },\n  { weekday: 'Friday', date: 'July 20', events: [\n    { time: '13:00', title: 'Deep work', who: 'You', tone: 'mint' },\n  ] },\n]\n\n/** An example day agenda: a header with working navigation and a list of\n * time-slotted event cards. */\nexport function CalendarBlock() {\n  const [i, setI] = useState(1)\n  const day = DAYS[i]!\n  return (\n    <div style={{ maxWidth: 560, margin: '0 auto', padding: 24 }}>\n      <Card>\n        <Stack gap={5}>\n          <Row justify=\"between\">\n            <Stack gap={1}>\n              <Eyebrow>{day.weekday}</Eyebrow>\n              <Heading level={2}>{day.date}</Heading>\n            </Stack>\n            <Row gap={2} wrap={false}>\n              <Button size=\"sm\" variant=\"quiet\" disabled={i === 0} label=\"Previous day\" onClick={() => setI((x) => Math.max(0, x - 1))}><Icon name=\"prev\" size=\"sm\" /></Button>\n              <Button size=\"sm\" variant=\"quiet\" onClick={() => setI(1)}>Today</Button>\n              <Button size=\"sm\" variant=\"quiet\" disabled={i === DAYS.length - 1} label=\"Next day\" onClick={() => setI((x) => Math.min(DAYS.length - 1, x + 1))}><Icon name=\"next\" size=\"sm\" /></Button>\n            </Row>\n          </Row>\n\n          <Stack gap={2}>\n            {day.events.map((e) => (\n              <Row key={e.time} gap={3} wrap={false} align=\"top\">\n                <div style={{ width: 52, flex: 'none', paddingTop: 4 }}>\n                  <Text size=\"sm\" muted num>{e.time}</Text>\n                </div>\n                <div style={{ flex: 1, minWidth: 0, borderRadius: 18, padding: '14px 16px', background: `var(--${e.tone})`, boxShadow: 'var(--pouf-control)' }}>\n                  <Row justify=\"between\" wrap={false}>\n                    <Stack gap={1}>\n                      <Text>{e.title}</Text>\n                      <Text size=\"sm\">{e.who}</Text>\n                    </Stack>\n                    <Spacer />\n                    <Icon name=\"calendar\" size=\"sm\" />\n                  </Row>\n                </div>\n              </Row>\n            ))}\n            {day.events.length === 0 && <EmptyState icon=\"ok\" title=\"Nothing scheduled\">Enjoy the quiet.</EmptyState>}\n          </Stack>\n\n          <Row justify=\"between\">\n            <Badge tone=\"mint\">{day.events.length} {day.events.length === 1 ? 'event' : 'events'}</Badge>\n            <Button size=\"sm\"><Icon name=\"add\" size=\"sm\" /> New event</Button>\n          </Row>\n        </Stack>\n      </Card>\n    </div>\n  )\n}\n",
+      "type": "registry:block",
+      "target": "components/pouf/blocks/calendar.tsx"
+    }
+  ],
+  "type": "registry:block"
+}

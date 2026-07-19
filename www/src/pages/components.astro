@@ -2,6 +2,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import Site from '../layouts/Site.astro'
+import { Code } from 'astro:components'
 import { DemoBox } from '../components/DemoBox'
 import { CopyCommand } from '../components/CopyCommand'
 import { COMPONENTS, SECTIONS, componentInstall } from '../data/manifest'
@@ -81,7 +82,7 @@ const enriched = COMPONENTS.map((c) => ({
           {c.source && (
             <details>
               <summary style="cursor:pointer; font-weight:900; font-size:15px; padding:6px 0; color:var(--ink);">View source</summary>
-              <pre class="code-block" style="margin-top:8px; max-height:480px;">{c.source}</pre>
+              <div style="margin-top:8px;"><Code code={c.source} lang="tsx" theme="material-theme-palenight" /></div>
             </details>
           )}
         </section>

@@ -1,9 +1,10 @@
 ---
 import Site from '../../layouts/Site.astro'
+import { Code } from 'astro:components'
 import { CopyCommand } from '../../components/CopyCommand'
 ---
 
-<Site title="Getting started" docsSlug={null}>
+<Site title="Getting started">
   <article style="max-width:720px; display:flex; flex-direction:column; gap:20px;">
     <h1 class="display" style="font-size:clamp(40px,5vw,60px); margin:0;">Getting started</h1>
     <p style="font-size:18px; color:var(--muted); font-weight:700; margin:0;">
@@ -17,16 +18,16 @@ import { CopyCommand } from '../../components/CopyCommand'
     <p style="margin:0; font-weight:700;">The base ships the theme file (<code>pouf.css</code>) — tokens, cushion utilities, keyframes, and component chrome. Every component depends on it, so it comes along automatically, but you can add it explicitly:</p>
     <CopyCommand client:load command="npx shadcn@latest add https://pouf.dev/r/base.json" />
     <p style="margin:0; font-weight:700;">Then import it once in your app entry, alongside the font:</p>
-    <pre class="code-block">import '@fontsource-variable/nunito'
-import './components/pouf/pouf.css'</pre>
+    <Code code={`import '@fontsource-variable/nunito'
+import './components/pouf/pouf.css'`} lang="ts" theme="material-theme-palenight" />
 
     <h2 style="font-size:24px; font-weight:900; margin:16px 0 0;">3. Add a component</h2>
     <CopyCommand client:load command="npx shadcn@latest add https://pouf.dev/r/button.json" />
-    <pre class="code-block">{`import { Button } from './components/pouf/Button'
+    <Code code={`import { Button } from './components/pouf/Button'
 
 export function Example() {
   return <Button tone="mint">Save</Button>
-}`}</pre>
+}`} lang="tsx" theme="material-theme-palenight" />
 
     <h2 style="font-size:24px; font-weight:900; margin:16px 0 0;">The one rule</h2>
     <p style="margin:0; font-weight:700;">

@@ -145,6 +145,22 @@
   }
 }
 
+/* Shiki output from Astro's <Code>. The theme paints its own background; we
+ * only add the cushion shape and scroll behaviour. */
+.astro-code {
+  border-radius: 18px;
+  padding: 18px 20px;
+  font-size: 13px;
+  line-height: 1.62;
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  overflow: auto;
+  max-height: 520px;
+  box-shadow: var(--pouf-field);
+}
+.astro-code::-webkit-scrollbar-thumb {
+  border-color: #292d3e;
+}
+
 /* ── Scrollbars ─────────────────────────────────────────────────────────
  * Chunky, pastel, rounded — the scrollbar is a cushion too. */
 * {
