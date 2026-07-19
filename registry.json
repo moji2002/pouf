@@ -767,6 +767,81 @@
       "registryDependencies": [
         "https://pouf.dev/r/base.json"
       ]
+    },
+    {
+      "name": "login",
+      "type": "registry:block",
+      "title": "Login screen",
+      "description": "An example auth screen \u2014 card, fields, and buttons.",
+      "files": [
+        {
+          "path": "registry/pouf/blocks/login.tsx",
+          "type": "registry:block",
+          "target": "components/pouf/blocks/login.tsx"
+        }
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/button.json",
+        "https://pouf.dev/r/input.json",
+        "https://pouf.dev/r/layout.json",
+        "https://pouf.dev/r/media.json",
+        "https://pouf.dev/r/separator.json",
+        "https://pouf.dev/r/surface.json",
+        "https://pouf.dev/r/text.json"
+      ]
+    },
+    {
+      "name": "dashboard",
+      "type": "registry:block",
+      "title": "Dashboard",
+      "description": "An example dashboard \u2014 sidebar nav, KPI row, chart, and data table.",
+      "files": [
+        {
+          "path": "registry/pouf/blocks/dashboard.tsx",
+          "type": "registry:block",
+          "target": "components/pouf/blocks/dashboard.tsx"
+        }
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/charts.json",
+        "https://pouf.dev/r/layout.json",
+        "https://pouf.dev/r/media.json",
+        "https://pouf.dev/r/nav-link.json",
+        "https://pouf.dev/r/readout.json",
+        "https://pouf.dev/r/segmented.json",
+        "https://pouf.dev/r/status.json",
+        "https://pouf.dev/r/surface.json",
+        "https://pouf.dev/r/table.json",
+        "https://pouf.dev/r/text.json"
+      ]
+    },
+    {
+      "name": "settings",
+      "type": "registry:block",
+      "title": "Settings page",
+      "description": "An example settings screen \u2014 tabbed sections of form controls.",
+      "files": [
+        {
+          "path": "registry/pouf/blocks/settings.tsx",
+          "type": "registry:block",
+          "target": "components/pouf/blocks/settings.tsx"
+        }
+      ],
+      "registryDependencies": [
+        "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/button.json",
+        "https://pouf.dev/r/controls.json",
+        "https://pouf.dev/r/disclosure.json",
+        "https://pouf.dev/r/input.json",
+        "https://pouf.dev/r/layout.json",
+        "https://pouf.dev/r/radio-group.json",
+        "https://pouf.dev/r/separator.json",
+        "https://pouf.dev/r/slider.json",
+        "https://pouf.dev/r/surface.json",
+        "https://pouf.dev/r/text.json"
+      ]
     }
   ]
 }

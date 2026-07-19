@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "dashboard",
+  "title": "Dashboard",
+  "description": "An example dashboard — sidebar nav, KPI row, chart, and data table.",
+  "registryDependencies": [
+    "https://pouf.dev/r/base.json",
+    "https://pouf.dev/r/charts.json",
+    "https://pouf.dev/r/layout.json",
+    "https://pouf.dev/r/media.json",
+    "https://pouf.dev/r/nav-link.json",
+    "https://pouf.dev/r/readout.json",
+    "https://pouf.dev/r/segmented.json",
+    "https://pouf.dev/r/status.json",
+    "https://pouf.dev/r/surface.json",
+    "https://pouf.dev/r/table.json",
+    "https://pouf.dev/r/text.json"
+  ],
+  "files": [
+    {
+      "path": "registry/pouf/blocks/dashboard.tsx",
+      "content": "import { useState } from 'react'\nimport { Shell, Sidebar, Stack, Row, Grid, Spacer } from '../layout'\nimport { Card } from '../surface'\nimport { Heading, Text, Eyebrow } from '../text'\nimport { Stat } from '../readout'\nimport { Badge, Blob } from '../media'\nimport { NavLink } from '../NavLink'\nimport { Segmented } from '../Segmented'\nimport { AreaChart } from '../charts'\nimport { Table } from '../table'\nimport { Status } from '../status'\n\ninterface Order {\n  id: string\n  customer: string\n  amount: string\n  state: 'paid' | 'pending' | 'failed'\n}\n\nconst ORDERS: Order[] = [\n  { id: '1', customer: 'Apple Inc.', amount: '$1,204.00', state: 'paid' },\n  { id: '2', customer: 'Banana Co.', amount: '$860.50', state: 'pending' },\n  { id: '3', customer: 'Cherry LLC', amount: '$432.00', state: 'paid' },\n  { id: '4', customer: 'Date & Sons', amount: '$98.25', state: 'failed' },\n]\n\nconst STATE_TONE = { paid: 'mint', pending: 'yellow', failed: 'pink' } as const\n\nconst REVENUE = [\n  { day: 'Mon', total: 40 },\n  { day: 'Tue', total: 55 },\n  { day: 'Wed', total: 70 },\n  { day: 'Thu', total: 52 },\n  { day: 'Fri', total: 85 },\n  { day: 'Sat', total: 60 },\n  { day: 'Sun', total: 92 },\n]\n\n/** An example dashboard: sidebar nav, a KPI row, a chart, and a data table —\n * all Pouf primitives. Swap the data for yours; edit the source to reshape. */\nexport function DashboardBlock() {\n  const [range, setRange] = useState('week')\n\n  return (\n    <Shell>\n      <Sidebar>\n        <Row gap={2} wrap={false}>\n          <Blob icon=\"target\" tone=\"purple\" size=\"sm\" />\n          <Heading level={3}>Acme</Heading>\n        </Row>\n        <NavLink href=\"/\" currentPath=\"/\" icon=\"overview\">Overview</NavLink>\n        <NavLink href=\"/orders\" currentPath=\"/\" icon=\"log\" tone=\"blue\">Orders</NavLink>\n        <NavLink href=\"/customers\" currentPath=\"/\" icon=\"channels\" tone=\"mint\">Customers</NavLink>\n        <NavLink href=\"/settings\" currentPath=\"/\" icon=\"settings\" tone=\"pink\">Settings</NavLink>\n      </Sidebar>\n\n      <Stack gap={5}>\n        <Row justify=\"between\">\n          <Stack gap={1}>\n            <Eyebrow>Dashboard</Eyebrow>\n            <Heading level={1}>Good morning</Heading>\n          </Stack>\n          <Status label=\"All systems go\" tone=\"up\" at={Date.now()} />\n        </Row>\n\n        <Grid cols={3}>\n          <Stat label=\"Revenue\" value=\"$48.2k\" icon=\"ok\" tone=\"mint\" />\n          <Stat label=\"Orders\" value=\"1,204\" icon=\"add\" tone=\"blue\" />\n          <Stat label=\"Refunds\" value=\"12\" icon=\"down\" tone=\"pink\" />\n        </Grid>\n\n        <Card>\n          <Stack gap={4}>\n            <Row justify=\"between\">\n              <Heading level={3}>Revenue</Heading>\n              <Segmented\n                label=\"Range\"\n                value={range}\n                onChange={setRange}\n                options={[\n                  { value: 'day', label: 'Day' },\n                  { value: 'week', label: 'Week' },\n                  { value: 'month', label: 'Month' },\n                ]}\n              />\n            </Row>\n            <AreaChart data={REVENUE} dataKey=\"day\" height={220} series={[{ key: 'total', label: 'Revenue', tone: 'purple' }]} />\n          </Stack>\n        </Card>\n\n        <Card>\n          <Stack gap={4}>\n            <Row justify=\"between\">\n              <Heading level={3}>Recent orders</Heading>\n              <Badge tone=\"blue\">{ORDERS.length} new</Badge>\n            </Row>\n            <Table\n              rows={ORDERS}\n              getKey={(o) => o.id}\n              columns={[\n                { key: 'customer', header: 'Customer', render: (o) => <Text>{o.customer}</Text> },\n                { key: 'amount', header: 'Amount', align: 'right', mono: true, render: (o) => <Text num>{o.amount}</Text> },\n                { key: 'state', header: 'Status', align: 'right', render: (o) => <Badge tone={STATE_TONE[o.state]}>{o.state}</Badge> },\n              ]}\n            />\n          </Stack>\n        </Card>\n        <Spacer />\n      </Stack>\n    </Shell>\n  )\n}\n",
+      "type": "registry:block",
+      "target": "components/pouf/blocks/dashboard.tsx"
+    }
+  ],
+  "type": "registry:block"
+}

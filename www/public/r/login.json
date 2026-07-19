@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "login",
+  "title": "Login screen",
+  "description": "An example auth screen — card, fields, and buttons.",
+  "registryDependencies": [
+    "https://pouf.dev/r/base.json",
+    "https://pouf.dev/r/button.json",
+    "https://pouf.dev/r/input.json",
+    "https://pouf.dev/r/layout.json",
+    "https://pouf.dev/r/media.json",
+    "https://pouf.dev/r/separator.json",
+    "https://pouf.dev/r/surface.json",
+    "https://pouf.dev/r/text.json"
+  ],
+  "files": [
+    {
+      "path": "registry/pouf/blocks/login.tsx",
+      "content": "import { useState } from 'react'\nimport { Card } from '../surface'\nimport { Stack, Row } from '../layout'\nimport { Heading, Text } from '../text'\nimport { Field, Input } from '../Input'\nimport { Button } from '../Button'\nimport { Separator } from '../separator'\nimport { Blob } from '../media'\n\n/** An example auth screen composed entirely from Pouf primitives. Drop it in,\n * wire `onSubmit` to your backend, and restyle by editing — it's yours. */\nexport function LoginBlock() {\n  const [email, setEmail] = useState('')\n  const [password, setPassword] = useState('')\n\n  return (\n    <div style={{ display: 'grid', placeItems: 'center', minHeight: '70vh', padding: 24 }}>\n      <div style={{ width: '100%', maxWidth: 420 }}>\n        <Card>\n          <Stack gap={5}>\n            <Stack gap={3}>\n              <Blob icon=\"target\" tone=\"purple\" />\n              <Stack gap={1}>\n                <Heading level={2}>Welcome back</Heading>\n                <Text size=\"sm\" muted>Sign in to your Pouf account.</Text>\n              </Stack>\n            </Stack>\n\n            <Field label=\"Email\">\n              {(id, describedBy) => (\n                <Input id={id} describedBy={describedBy} type=\"text\" value={email} onChange={setEmail} placeholder=\"you@example.com\" />\n              )}\n            </Field>\n            <Field label=\"Password\">\n              {(id, describedBy) => (\n                <Input id={id} describedBy={describedBy} type=\"password\" value={password} onChange={setPassword} placeholder=\"••••••••\" />\n              )}\n            </Field>\n\n            <Button block onClick={() => {}}>Sign in</Button>\n            <Separator />\n            <Button block variant=\"quiet\" onClick={() => {}}>Continue with a magic link</Button>\n            <Row justify=\"center\">\n              <Text size=\"sm\" muted>New here? Create an account.</Text>\n            </Row>\n          </Stack>\n        </Card>\n      </div>\n    </div>\n  )\n}\n",
+      "type": "registry:block",
+      "target": "components/pouf/blocks/login.tsx"
+    }
+  ],
+  "type": "registry:block"
+}

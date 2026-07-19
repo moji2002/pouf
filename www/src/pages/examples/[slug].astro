@@ -1,0 +1,51 @@
+---
+import fs from 'node:fs'
+import path from 'node:path'
+import Site from '../../layouts/Site.astro'
+import { BlockPreview } from '../../components/BlockPreview'
+import { CopyCommand } from '../../components/CopyCommand'
+import { BLOCKS, blockInstall } from '../../data/blocks'
+
+export function getStaticPaths() {
+  return BLOCKS.map((b) => ({ params: { slug: b.slug }, props: { block: b } }))
+}
+
+const { block } = Astro.props
+const regPath = path.resolve(process.cwd(), 'public/r', `${block.slug}.json`)
+let source = ''
+let regDeps: string[] = []
+try {
+  const reg = JSON.parse(fs.readFileSync(regPath, 'utf8'))
+  source = reg.files?.[0]?.content ?? ''
+  regDeps = (reg.registryDependencies ?? []).map((u: string) => u.replace('https://pouf.dev/r/', '').replace('.json', '')).filter((n: string) => n !== 'base')
+} catch {}
+---
+
+<Site title={block.title} description={block.blurb}>
+  <article style="display:flex; flex-direction:column; gap:24px;">
+    <div style="display:flex; flex-direction:column; gap:8px;">
+      <a href="/examples" style="color:var(--purple); font-weight:900; text-decoration:none;">← Examples</a>
+      <h1 style="font-size:40px; font-weight:900; letter-spacing:-1px; margin:0;">{block.title}</h1>
+      <p style="font-size:18px; color:var(--muted); font-weight:700; margin:0;">{block.blurb}</p>
+    </div>
+
+    <div>
+      <h2 style="font-size:16px; font-weight:900; letter-spacing:1px; text-transform:uppercase; color:var(--muted); margin:0 0 10px;">Install the whole block</h2>
+      <CopyCommand client:load command={blockInstall(block.slug)} />
+      {regDeps.length > 0 && (
+        <p style="margin:10px 0 0; font-size:13px; color:var(--muted); font-weight:700;">Pulls in {regDeps.length} components: {regDeps.join(', ')}.</p>
+      )}
+    </div>
+
+    <div style="border-radius:28px; overflow:hidden; box-shadow: var(--pouf-card); background:var(--bg);">
+      <BlockPreview client:visible slug={block.slug} />
+    </div>
+
+    {source && (
+      <details>
+        <summary style="cursor:pointer; font-weight:900; font-size:16px; padding:8px 0;">View source</summary>
+        <pre class="code-block" style="margin-top:8px; max-height:560px;">{source}</pre>
+      </details>
+    )}
+  </article>
+</Site>

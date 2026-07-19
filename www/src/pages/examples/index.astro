@@ -1,0 +1,25 @@
+---
+import Site from '../../layouts/Site.astro'
+import { BLOCKS } from '../../data/blocks'
+---
+
+<Site title="Examples" description="Full-page templates composed from Pouf primitives — install a whole block at once.">
+  <section style="display:flex; flex-direction:column; gap:12px; padding-bottom:32px;">
+    <h1 style="font-size:40px; font-weight:900; letter-spacing:-1px; margin:0;">Examples</h1>
+    <p style="font-size:18px; color:var(--muted); font-weight:700; margin:0; max-width:60ch;">
+      Full-page templates, composed entirely from Pouf primitives. Preview them live, then install a whole block with one command — it lands with every component it uses.
+    </p>
+  </section>
+
+  <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:20px;">
+    {BLOCKS.map((b) => (
+      <a href={`/examples/${b.slug}`} style="text-decoration:none; color:var(--ink);">
+        <div style="background:var(--surface); border-radius:24px; padding:24px; box-shadow: var(--pouf-card); display:flex; flex-direction:column; gap:8px; height:100%;">
+          <h2 style="margin:0; font-weight:900; font-size:22px;">{b.title}</h2>
+          <p style="margin:0; color:var(--muted); font-weight:700;">{b.blurb}</p>
+          <span style="margin-top:8px; font-weight:900; color:var(--purple);">View template →</span>
+        </div>
+      </a>
+    ))}
+  </div>
+</Site>
