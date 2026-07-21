@@ -123,6 +123,20 @@
     background: rgba(201, 168, 255, 0.25);
   }
 
+  /* Author byline, sitting under the licence line rather than beside it — the
+   * licence is about the project, this is about the person, and merging them
+   * onto one row wraps badly on a phone. */
+  .site-byline {
+    color: var(--muted);
+    font-weight: 700;
+    font-size: 13px;
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+
   /* "← All templates" / "← All blocks" on the detail pages. Was a bare anchor
    * at 23px; it stretched the full column width, so only the height was short. */
   .back-link {

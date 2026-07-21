@@ -10,12 +10,12 @@ you can do — they need your accounts and a domain purchase. Do them in order.
 - Don't point DNS yet — wait until GitHub Pages is live (step 4) so you have the
   target records.
 
-## 2. Create the GitHub org and repo
+## 2. Create the GitHub repo
 
 ```bash
-# create the org "pouf-ui" and an empty repo "pouf" in the GitHub UI, then:
+# create an empty repo "pouf" under github.com/moji2002 in the GitHub UI, then:
 cd ~/Documents/pouf
-git remote add origin git@github.com:pouf-ui/pouf.git
+git remote add origin git@github.com:moji2002/pouf.git
 git push -u origin main          # ← run this yourself; I never push for you
 ```
 
@@ -38,7 +38,7 @@ Per [GitHub's apex-domain docs](https://docs.github.com/pages/configuring-a-cust
   `185.199.110.153`, `185.199.111.153`
 - `AAAA` records → `2606:50c0:8000::153`, `2606:50c0:8001::153`,
   `2606:50c0:8002::153`, `2606:50c0:8003::153`
-- (If you use `www`, add a `CNAME` → `pouf-ui.github.io`.)
+- (If you use `www`, add a `CNAME` → `moji2002.github.io`.)
 - Back in Settings → Pages, set the custom domain to `pouf.dev` and enable
   **Enforce HTTPS** once the cert provisions.
 
