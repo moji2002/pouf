@@ -2,7 +2,7 @@
 
 **Date:** 2026-07-21
 **Repo:** `~/Documents/pouf` (separate from `~/Documents/zirkel`)
-**Branch:** `main`, last commit `aee9232`. **Nothing in this session is committed yet.**
+**Branch:** `main`, last commit `fb82b75` — this session's work is **committed but not pushed**.
 
 ---
 
@@ -577,19 +577,22 @@ Viewport-scoped, not `fullPage`: full-page shots exceed the 2000px image limit.
 - Optimistic UI: Zustand + immer, never React Query cache surgery.
 - Research before building; write findings to `docs/<topic>-research.md`.
 
-### Before the commit
+### The commit
 
-Nothing is committed yet. Three things to decide first:
+Everything above is in `fb82b75` on `main`, **not pushed** — pushing needs explicit
+confirmation per CLAUDE.md.
 
-1. `gallery/shoot-pouf.mjs` — keep (move under `gallery/scripts/`) or delete. It is
-   now portable rather than pinned to a dead scratchpad path, so keeping it is
-   cheaper than it was.
-2. **A concurrent AI session edited `www/src/pages/{index,changelog,examples/index,docs/index}.astro`**
-   with marketing copy ("Absurdly built", "screens, ready to steal"). Those edits are
-   still in the tree, untouched except where they overlapped template/blocks work.
-   Confirm with the user whether to include them.
-3. `@dnd-kit/core@6.3.1` was added to `registry/package.json` for kanban, so
-   `bun.lock` is part of the diff.
+Two things folded into it that were previously open questions:
+
+1. `gallery/shoot-pouf.mjs` was kept rather than deleted. It is now portable
+   (`SHOOT_OUT`, defaulting to a gitignored `.shots/`) instead of pinned to a dead
+   session path, and it sits alongside the other `gallery/scripts/` tooling.
+2. **A concurrent session's marketing copy edits** to
+   `www/src/pages/{index,changelog,examples/index,docs/index}.astro` went in with it.
+   By the time this session finished, those files had been substantially rewritten on
+   top of those edits — `docs/index.astro` completely, `index.astro`'s stat strip and
+   `.wall` rules — so the two were no longer separable into distinct commits. The
+   commit message says so explicitly.
 
 ### Fixed: the "0 runtime deps" claim ✅
 
