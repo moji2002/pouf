@@ -10,6 +10,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # The site build runs www/scripts/changelog.mjs, which reads
+          # `git log -- registry/`. A shallow clone yields one commit, so CI
+          # would go green while building a changelog the deploy never
+          # produces. deploy.yml already sets this; CI has to match or it is
+          # not actually checking the deployed build.
+          fetch-depth: 0
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
@@ -18,13 +25,20 @@ jobs:
         run: bunx tsc --noEmit -p registry && bunx tsc --noEmit -p gallery
       - name: Unit tests
         run: bun test
+      - name: Block dependency check
+        # An undeclared import is invisible locally — it resolves fine inside
+        # the monorepo — but ships a file that will not compile into the
+        # user's project. Nothing else in this pipeline can catch it.
+        run: bun run check:deps
       - name: Install Chromium
         run: bunx playwright install --with-deps chromium
       - name: Snapshot gate (computed styles — platform-stable)
-        run: |
-          bun --cwd gallery dev &
-          bunx wait-on http://localhost:4700 -t 60000
-          bun run gate -- --json-only
+        # gate.ts spawns and tears down its own Vite server. This step used to
+        # start one first (`bun --cwd gallery dev &` + wait-on); the gate then
+        # spawned a second on the same --strictPort, which lost the bind and
+        # exited — leaving the run silently dependent on the manual server and
+        # racing its shutdown. One owner of the port, no race.
+        run: bun run gate -- --json-only
       - name: Registry build
         run: bunx shadcn@latest build registry.json -o www/public/r
       - name: Site build
