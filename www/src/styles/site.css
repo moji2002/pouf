@@ -192,10 +192,6 @@
     gap: 44px;
     align-items: start;
   }
-  @media (max-width: 900px) {
-    .docs-grid { grid-template-columns: minmax(0, 1fr); }
-    .docs-sidebar { display: none; }
-  }
   .docs-sidebar {
     position: sticky;
     top: 92px;
@@ -208,6 +204,15 @@
     border-radius: 24px;
     padding: 16px 12px;
     box-shadow: var(--pouf-card);
+  }
+  /* MUST stay after the base rule above. This block used to sit before it, and
+   * since both selectors have the same specificity the later `display: flex`
+   * simply won — so the TOC never hid on a phone. The grid still collapsed, so
+   * the sidebar stacked into the flow and, being sticky, then floated over the
+   * body text while scrolling. */
+  @media (max-width: 900px) {
+    .docs-grid { grid-template-columns: minmax(0, 1fr); }
+    .docs-sidebar { display: none; }
   }
 
   .code-block {

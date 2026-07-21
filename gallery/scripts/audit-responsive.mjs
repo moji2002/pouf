@@ -110,6 +110,46 @@ for (const [vpName, width, height] of VIEWPORTS) {
           })
         }
       }
+      /* Sticky/fixed panels covering body text. Overflow and target-size checks
+       * both miss this: a sticky sidebar whose `display:none` breakpoint was
+       * defeated by source order still measures fine — it just sits on top of
+       * the article. Compares against text-bearing elements that are neither
+       * its ancestors nor its descendants. */
+      const overlaps = []
+      const floats = [...document.querySelectorAll('body *')].filter((el) => {
+        const cs = getComputedStyle(el)
+        if (cs.position !== 'sticky' && cs.position !== 'fixed') return false
+        /* Decorative layers sit BEHIND the text and cannot obscure it — the
+         * blurred blob field is fixed inset:0 across every page and would
+         * otherwise report an overlap on all of them. */
+        if (cs.pointerEvents === 'none') return false
+        if (el.getAttribute('aria-hidden') === 'true') return false
+        return el.getBoundingClientRect().height > 40
+      })
+      const texts = [...document.querySelectorAll('p, li, h1, h2, h3, pre, td')].filter(
+        (el) => (el.textContent || '').trim().length > 20,
+      )
+      for (const f of floats) {
+        const fr = f.getBoundingClientRect()
+        if (fr.height === 0) continue
+        for (const t of texts) {
+          if (f.contains(t) || t.contains(f)) continue
+          const tr = t.getBoundingClientRect()
+          if (tr.height === 0) continue
+          const ox = Math.min(fr.right, tr.right) - Math.max(fr.left, tr.left)
+          const oy = Math.min(fr.bottom, tr.bottom) - Math.max(fr.top, tr.top)
+          if (ox > 40 && oy > 20) {
+            overlaps.push({
+              floatCls: (f.className || '').toString().slice(0, 40),
+              over: (t.textContent || '').trim().slice(0, 34),
+              area: Math.round(ox * oy),
+            })
+            break
+          }
+        }
+      }
+      out.overlaps = overlaps.slice(0, 4)
+
       out.overflowers = out.overflowers.slice(0, 6)
       out.tinyTargets = out.tinyTargets.slice(0, 6)
       return out
@@ -121,6 +161,9 @@ for (const [vpName, width, height] of VIEWPORTS) {
     }
     if (report.tinyTargets.length) {
       issues.push({ page: name, vp: vpName, kind: 'small-target', who: report.tinyTargets })
+    }
+    if (report.overlaps?.length) {
+      issues.push({ page: name, vp: vpName, kind: 'overlap', who: report.overlaps })
     }
 
     await page.screenshot({ path: `${OUT}/${vpName}-${name}-top.png` })
@@ -134,7 +177,8 @@ for (const [vpName, width, height] of VIEWPORTS) {
     console.log(
       `${vpName.padEnd(7)} ${name.padEnd(14)} h=${String(report.scrollHeight).padStart(5)} ` +
       `overflow=${overflow > 1 ? `${overflow}px ⚠` : 'none'}` +
-      `${report.tinyTargets.length ? `  small-targets=${report.tinyTargets.length} ⚠` : ''}`,
+      `${report.tinyTargets.length ? `  small-targets=${report.tinyTargets.length} ⚠` : ''}` +
+      `${report.overlaps?.length ? `  overlaps=${report.overlaps.length} ⚠` : ''}`,
     )
     await page.close()
   }
