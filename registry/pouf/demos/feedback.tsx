@@ -13,5 +13,5 @@ export const skeletonDemos: Demo[] = [
 ]
 
 export const errorNoteDemos: Demo[] = [
-  { id: 'default', render: () => <ErrorNote>Exchange rejected the request: insufficient margin.</ErrorNote> },
+  { id: 'default', render: () => <ErrorNote>Couldn’t save your changes — check your connection and try again.</ErrorNote> },
 ]

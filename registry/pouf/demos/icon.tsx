@@ -7,7 +7,7 @@ import type { Demo } from './types'
 /** `satisfies Record<IconName, true>` keeps this exhaustive: add a glyph to
  * Icon.tsx's ICONS and omit it here and this file stops compiling. */
 const ICON_ROLES = {
-  overview: true, positions: true, log: true, channels: true, signals: true, paper: true, backtest: true,
+  overview: true, chart: true, log: true, channels: true, activity: true, lab: true, history: true,
   performance: true, settings: true, database: true, menu: true, up: true, down: true, flat: true, ok: true,
   warn: true, fail: true, info: true, idle: true, off: true, live: true, draft: true, target: true, alerts: true,
   add: true, remove: true, search: true, close: true, expand: true, prev: true, next: true, photo: true,

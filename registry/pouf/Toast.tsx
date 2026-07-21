@@ -4,19 +4,19 @@ import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import type { ReactNode } from 'react'
 import { Icon } from './Icon'
 
-/** How long a routine alert stays. Long enough to read a fill line without hurrying;
+/** How long a routine alert stays. Long enough to read one line without hurrying;
  *  NN/g's guidance on transient messages puts the floor around 5s, and every alert
  *  here also survives in the panel, so erring short costs nothing. */
 const AUTO_DISMISS_MS = 6_000
 
 export type ToastSeverity = 'critical' | 'info'
 
-/** Render Telegram's `*bold*` markers as emphasis.
+/** Render `*bold*` markers as emphasis.
  *
- * The alert text is written once and sent to both sinks, so it carries Telegram's
- * markdown. Rendering it raw would put literal asterisks on screen ("*Order placed*");
- * re-writing every call site to strip them would fork the message per sink. Splitting on
- * the delimiter keeps one string and no HTML injection: the parts are React children,
+ * When the same message string is reused across surfaces it may carry lightweight
+ * markdown. Rendering it raw would put literal asterisks on screen ("*Saved*");
+ * re-writing every call site to strip them would fork the message per surface. Splitting
+ * on the delimiter keeps one string and no HTML injection: the parts are React children,
  * never innerHTML.
  */
 function emphasise(text: string): ReactNode[] {
@@ -39,10 +39,10 @@ interface ToastProps {
  * One alert.
  *
  * Critical toasts do NOT auto-dismiss. That is the entire point of the severity split:
- * these are the `force: true` alerts — breaker tripped, order failed, position opened
- * with no stop — and a message that fades after six seconds can be missed by an operator
- * who looked away, which is exactly the failure `force` was invented to prevent. Routine
- * alerts fade, because a fill you missed is still in the panel and costs nothing.
+ * these are the `force: true` alerts — payment declined, upload failed, a job that died
+ * halfway — and a message that fades after six seconds can be missed by someone who
+ * looked away, which is exactly the failure `force` was invented to prevent. Routine
+ * alerts fade, because a "saved" you missed is still true and costs nothing.
  */
 /* Shared with toaster.tsx's programmatic toasts: comes in from the side, tiny,
  * and fades up to full size on a gentle spring, collapsing to a plain fade under
@@ -72,7 +72,7 @@ export function Toast({ id, severity, children, onDismiss }: ToastProps) {
   //
   // This effect re-runs whenever a dep changes, and re-running clears the pending
   // timeout and starts a new one. `onDismiss` used to be an inline arrow built fresh on
-  // each render of the viewport — and the shell polls trading status every 5s, which
+  // each render of the viewport — and if the app polls on an interval (say every 5s), it
   // re-renders App and therefore the viewport. A 6s timer reset every 5s never reaches
   // 6s: routine toasts hung around forever, and only a real browser with a real clock
   // showed it. That is why onDismiss takes an id instead of closing over one.

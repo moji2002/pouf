@@ -5,8 +5,8 @@ import {
   IconArrowUp,
   IconBell,
   IconBolt,
-  IconBrandTelegram,
-  IconChartCandle,
+  IconSpeakerphone,
+  IconChartBar,
   IconCheck,
   IconChevronDown,
   IconChevronLeft,
@@ -70,50 +70,34 @@ import {
 } from '@tabler/icons-react'
 import type { ComponentType, ReactElement } from 'react'
 
-/** The icon set, as a closed vocabulary.
+/** The icon set, as a named vocabulary.
  *
- * Screens name a ROLE ("the thing that means paper mode"), never an import, so
- * swapping the icon library — or just one glyph — happens here and nowhere else.
- * That is the same rule the rest of pouf follows: change a primitive, change the
- * whole UI.
+ * Components name a ROLE, never an import, so swapping the icon library — or
+ * just one glyph — happens here and nowhere else. (Need a role that isn't here?
+ * Every icon-accepting prop also takes any React element — see IconLike below —
+ * so you're never limited to this list.)
  *
- * These replaced emoji. Emoji are font-dependent (a ⚡ is a different shape, size
- * and colour on every OS, and some render as full-colour images that fight a
- * pastel palette), they can't inherit currentColor, and their accessible name
+ * These replaced emoji. Emoji are font-dependent (a ⚡ is a different shape,
+ * size and colour on every OS, and some render as full-colour images that fight
+ * a pastel palette), they can't inherit currentColor, and their accessible name
  * varies by platform. A stroked SVG set is consistent, colourable, and sizes
  * predictably against text.
  *
- * ONE GLYPH, ONE ROLE. Two roles sharing a glyph is a bug, not a saving: it
- * makes the UI claim two things are the same when they aren't, and it booby-traps
- * the next edit (changing the glyph for one role silently changes the other).
- * Both instances that existed here were exactly that: `positions` and `live`
- * both drew a bolt, and `expand` was the Select's chevron AND the Menu tab. Keep
- * this map injective — if two roles want one picture, they are probably one role.
+ * ONE GLYPH, ONE ROLE. Keep this map injective — if two roles want one picture,
+ * they are probably one role.
  */
 const ICONS = {
   // nav
   overview: IconGauge,
-  // A candlestick, not a bolt: these are open trades, not speed. It shares the
-  // chart family with `performance`, which is survivable — bars vs. an arrow —
-  // and it frees the bolt for `live`, where "energised" is what a bolt means.
-  positions: IconChartCandle,
+  chart: IconChartBar,
   log: IconClipboardList,
-  // The sources genuinely are Telegram channels, and this is the glyph a reader
-  // decodes instantly. It is deliberately literal: the day a signal arrives from
-  // Discord, this icon is a lie and should become a speakerphone.
-  channels: IconBrandTelegram,
-  // Antenna bars mean "signal" with no learning required. A hash meant "tag".
-  signals: IconAntennaBars5,
-  paper: IconFlask,
-  backtest: IconHistory,
+  channels: IconSpeakerphone,
+  activity: IconAntennaBars5,
+  lab: IconFlask,
+  history: IconHistory,
   performance: IconTrendingUp,
   settings: IconSettings,
-  // The raw-storage admin. A database cylinder, not a settings cog: this screen
-  // shows what is on disk, not what the operator configured.
   database: IconDatabase,
-  // The sheet this opens is titled "All screens" — a grid says that; a hamburger
-  // says the vaguer "more stuff". Its own role, NOT `expand`: that one belongs to
-  // Select's chevron, and sharing it would put a grid inside every dropdown.
   menu: IconLayoutGrid,
   // state
   up: IconArrowUp,
@@ -121,11 +105,9 @@ const ICONS = {
   flat: IconMinus,
   ok: IconCheck,
   warn: IconAlertTriangle,
-  // An error is not a warning wearing a different background. Toasts used the
-  // triangle for both, so "order failed" and "approaching loss limit" were
-  // visually the same claim — only the X-in-a-circle says something DID break.
+  // An error is not a warning wearing a different background — the X-in-a-circle
+  // says something DID break, where the triangle only cautions.
   fail: IconCircleX,
-  // Informational, calmly: idle's circle-dot means "engine state", not "FYI".
   info: IconInfoCircle,
   idle: IconCircleDot,
   off: IconCircleOff,
@@ -139,8 +121,8 @@ const ICONS = {
   search: IconSearch,
   close: IconX,
   expand: IconChevronDown,
-  // Pagination steps sideways. It borrowed `up`/`down` — but those arrows mean
-  // price direction in this app, and "previous page" is not a falling market.
+  // Pagination steps sideways — chevrons, not the up/down arrows (those carry
+  // direction/trend meaning elsewhere).
   prev: IconChevronLeft,
   next: IconChevronRight,
   photo: IconPhoto,

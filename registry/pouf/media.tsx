@@ -23,7 +23,7 @@ interface BlobProps {
  * of the face people actually perceive. */
 const blob = cva(
   [
-    'pouf-blob inline-flex items-center justify-center flex-none text-ink',
+    'pouf-blob inline-flex items-center justify-center flex-none text-[var(--on-accent)]',
     'bg-[var(--tone,var(--purple))] cushion-blob [&>svg]:[transform:translateY(-2px)]',
   ],
   {
@@ -63,7 +63,7 @@ export function Badge({ children, tone = 'purple' }: { children: ReactNode; tone
     <span
       className={cx(
         'pouf-badge inline-flex items-center gap-[6px] text-[12px] font-black tracking-[0.4px] uppercase',
-        'text-ink bg-[var(--tone,var(--purple))] rounded-pill px-3 py-[5px] [box-shadow:none]',
+        'text-[var(--on-accent)] bg-[var(--tone,var(--purple))] rounded-pill px-3 py-[5px] [box-shadow:none]',
         'flex-none whitespace-nowrap self-start',
         toneClass(tone),
       )}

@@ -56,6 +56,16 @@
   --r-blob: var(--radius-blob);
   --r-pill: var(--radius-pill);
 
+  /* -- Ink that sits ON a pastel accent fill (a solid Button, a Badge, a Blob,
+   *    an active NavLink) rather than on the page.
+   *
+   *    It is a separate token ONLY because of dark mode. The accents stay
+   *    pastel in both themes — they are the brand — so text on them must stay
+   *    dark, while --ink flips to near-white for the page. Collapsing the two
+   *    puts #efe9ff on #c9a8ff, which is unreadable. In light mode this
+   *    resolves to exactly --ink, so every computed colour is unchanged. --- */
+  --on-accent: var(--ink);
+
   /* -- Semantic aliases. Screens speak intent ("this is a loss"), never
    *    colour ("this is pink"), so a re-theme is a change here alone. ---- */
   --up: var(--mint);
@@ -119,6 +129,93 @@
 }
 
 /* ============================================================================
+ * DARK
+ *
+ * Opt-in via <html data-theme="dark">. Nothing here touches the light values,
+ * so the snapshot goldens (which capture the default theme) cannot move.
+ *
+ * The palette is the easy half. The hard half is that a cushion is a claim
+ * about light: an inner top highlight (light from above), an inner floor
+ * shadow (the slab's own thickness), and an outer drop (its cast on the page).
+ * Those cannot simply be recoloured, because the surfaces they describe do not
+ * all change:
+ *
+ *   - CARD / ROW / FIELD wrap a --surface that goes from white to near-black.
+ *     A 0.9-alpha white top highlight there reads as a blown-out chrome rim,
+ *     so it drops to ~0.06 and the floor does the work instead.
+ *   - CONTROL / BLOB sit on a PASTEL accent that is identical in both themes.
+ *     Their inner highlight and floor are therefore left almost untouched —
+ *     changing them would flatten a button that never changed colour. Only the
+ *     outer drop deepens, because that is the part cast onto the dark page.
+ *
+ * Get that distinction wrong and everything reads flat, which is the usual way
+ * a claymorphism dark mode fails.
+ * ========================================================================= */
+[data-theme='dark'] {
+  --color-bg: #17122a;
+  --color-surface: #241d3f;
+  --color-ink: #efe9ff;
+  --color-muted: #a596cf;
+  /* Accents deliberately unchanged: they are the brand, they carry
+   * --on-accent text, and re-tinting them would be a different product. */
+
+  --bg: var(--color-bg);
+  --surface: var(--color-surface);
+  --ink: var(--color-ink);
+  --muted: var(--color-muted);
+
+  /* Pinned, not inherited: --ink is light here, and this must stay dark. */
+  --on-accent: #2a2145;
+
+  /* Surface cushions — re-derived, per the note above. */
+  --pouf-card:
+    inset 0 calc(-1 * var(--lip)) 0 rgba(0, 0, 0, 0.34),
+    inset 0 6px 0 rgba(255, 255, 255, 0.06),
+    0 20px 40px rgba(0, 0, 0, 0.5);
+  --pouf-row:
+    inset 0 calc(-1 * var(--lip-row)) 0 rgba(0, 0, 0, 0.3),
+    inset 0 4px 0 rgba(255, 255, 255, 0.05),
+    0 8px 18px rgba(0, 0, 0, 0.42);
+  --pouf-row-hover:
+    inset 0 calc(-1 * var(--lip-row)) 0 rgba(0, 0, 0, 0.38),
+    inset 0 4px 0 rgba(255, 255, 255, 0.08),
+    0 12px 24px rgba(0, 0, 0, 0.5);
+  --pouf-field:
+    inset 0 -4px 0 rgba(0, 0, 0, 0.3), inset 0 4px 0 rgba(255, 255, 255, 0.04),
+    inset 0 0 0 2px rgba(201, 168, 255, 0.18);
+  --pouf-field-focus:
+    inset 0 -4px 0 rgba(0, 0, 0, 0.3), inset 0 4px 0 rgba(255, 255, 255, 0.04),
+    inset 0 0 0 3px var(--purple);
+
+  /* Accent cushions — inner recipe kept, outer drop deepened only. */
+  --pouf-control:
+    inset 0 -6px 0 rgba(0, 0, 0, 0.18), inset 0 4px 0 rgba(255, 255, 255, 0.35),
+    0 8px 16px rgba(0, 0, 0, 0.5);
+  --pouf-control-active:
+    inset 0 -3px 0 rgba(0, 0, 0, 0.18), inset 0 2px 0 rgba(255, 255, 255, 0.35),
+    0 4px 10px rgba(0, 0, 0, 0.42);
+  --pouf-blob:
+    inset 0 -8px 0 rgba(0, 0, 0, 0.15), inset 0 4px 0 rgba(255, 255, 255, 0.4),
+    0 10px 20px rgba(0, 0, 0, 0.45);
+}
+
+/* Dark is opt-in via the attribute ONLY — there is deliberately no
+ * `@media (prefers-color-scheme: dark)` rule here.
+ *
+ * Reading the OS preference in CSS would make the theme a property of the
+ * visitor's machine rather than of the document, which (a) makes every
+ * screenshot test environment-dependent, including this repo's own 168-demo
+ * gate, and (b) takes the choice away from the host app, which usually already
+ * owns a theme toggle. Deciding from the OS is a one-line job for whoever
+ * mounts the app — see the inline script in the site's Site.astro for the
+ * standard no-flash version:
+ *
+ *   <html data-theme={prefersDark ? 'dark' : 'light'}>
+ */
+[data-theme='dark'] { color-scheme: dark; }
+[data-theme='light'] { color-scheme: light; }
+
+/* ============================================================================
  * Base. Tailwind preflight supplies box-sizing/margin/padding resets; what
  * remains here is pouf's own base voice, kept identical to the fork.
  * ========================================================================= */
@@ -154,7 +251,7 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* The reference ships `:focus` only. A keyboard operator needs a visible
+  /* The reference ships `:focus` only. A keyboard user needs a visible
    * ring that does not fire on mouse click. */
   :focus-visible {
     outline: 3px solid var(--ink);
@@ -281,7 +378,7 @@
 }
 
 /* On a phone a centred modal is the wrong shape: it wastes the edges, and its
- * content (a 37-row channel list, a credential form) wants the full height. So
+ * content (a 37-row list, a credential form) wants the full height. So
  * dialogs become full-screen sheets that rise from the bottom edge — where the
  * thumb is, and where the platform convention already points. The top corners
  * stay round so it still reads as a surface sliding over the page rather than a
@@ -311,7 +408,7 @@
     animation: pouf-slide-down 200ms ease forwards;
   }
 }
-/* The body scrolls, not the page behind it. A 37-row channel list has to live
+/* The body scrolls, not the page behind it. A 37-row list has to live
  * somewhere; making the dialog itself grow would just move the 4000px problem.
  *
  * The whole chain from .pouf-dialog down to the scroll container must be allowed
@@ -747,7 +844,7 @@
   gap: var(--s3);
   font-size: 14px;
   font-weight: 700;
-  color: var(--ink);
+  color: var(--on-accent);
   background: var(--orange);
   border-radius: 20px;
   padding: 14px var(--s4);
@@ -764,7 +861,7 @@
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  color: var(--ink);
+  color: var(--on-accent);
   background: #fff;
   box-shadow:
     inset 0 -3px 0 rgba(0, 0, 0, 0.08), inset 0 2px 0 #fff, 0 3px 6px rgba(58, 46, 92, 0.22);
@@ -790,16 +887,16 @@
   gap: 2px;
 }
 /* The SIDEBAR's link list is desktop-only; on mobile the bottom bar owns
- * navigation. The brand card and ModeBanner above it stay — the operator must
- * never lose sight of paper-vs-live just because they're on a phone.
+ * navigation. The brand card and ModeBanner above it stay — a mode indicator is
+ * exactly the thing you must not lose sight of just because you're on a phone.
  *
  * Scoped to .pouf-sidebar, and that is load-bearing. Unscoped, this hid EVERY
  * .pouf-nav below 900px — including the copy BottomNav renders inside the "All
  * screens" sheet, which only ever exists below 900px. So the sheet opened onto
- * its title and a Close button with all nine links display:none: the one route
- * to Channels, Signals, Paper, Risk and Configuration on a phone, silently
- * empty. The e2e guarding it passed because toHaveCount() counts DOM nodes and
- * never asks whether they can be seen. */
+ * its title and a Close button with every link display:none: the one route to
+ * the secondary pages on a phone, silently empty. The e2e guarding it passed
+ * because toHaveCount() counts DOM nodes and never asks whether they can be
+ * seen. */
 @media (max-width: 900px) {
   .pouf-sidebar .pouf-nav {
     display: none;
@@ -871,7 +968,7 @@
  * — where am I — and one colour answers it. */
 .pouf-tab--active {
   background: var(--purple);
-  color: var(--ink);
+  color: var(--on-accent);
   font-weight: 800;
   /* The lighter of the two clay recipes: the heavy one turned the active tab
    * into a lozenge that dominated the bar it was supposed to sit inside. */
@@ -959,6 +1056,9 @@
 .pouf-navlink--active {
   background: var(--tone, var(--purple));
   box-shadow: var(--pouf-control);
+  /* The base rule is --ink on a transparent row; once filled with an accent
+   * the label has to follow the accent's ink instead. */
+  color: var(--on-accent);
 }
 .pouf-navlink--active:hover {
   background: var(--tone, var(--purple));
@@ -969,11 +1069,11 @@
 }
 
 /* ============================================================================
- * MODE BANNER — "am I about to spend real money?"
+ * MODE BANNER — "is this the real one?"
  *
  * Persistent and unmissable by construction, not by discipline: it is part of
  * the shell, so no screen can forget to render it and no scroll position can
- * hide it. Paper mode is quiet; live mode is loud.
+ * hide it. The safe mode is quiet; the live one is loud.
  * ========================================================================= */
 .pouf-mode {
   display: flex;
@@ -982,7 +1082,7 @@
   border-radius: var(--r-control);
   padding: var(--s3) var(--s4);
   background: var(--tone, var(--blue));
-  color: var(--ink);
+  color: var(--on-accent);
   box-shadow: var(--pouf-control);
 }
 .pouf-mode--live {
@@ -1036,7 +1136,7 @@
 }
 
 /* ============================================================================
-   Toasts — pushed operator alerts
+   Toasts — pushed alerts
    ============================================================================
    Fixed to the viewport, so the shell mounts these, never a screen.
 
@@ -1054,8 +1154,8 @@
   /* Width is capped, not stretched: an alert line is prose, and prose past ~40em
    * is hard to scan. */
   width: min(380px, calc(100vw - var(--s4) * 2));
-  /* The stack must not eat clicks in the gaps between toasts — the operator is
-   * trying to trade underneath it. Each toast re-enables pointers for itself. */
+  /* The stack must not eat clicks in the gaps between toasts — someone is
+   * trying to work underneath it. Each toast re-enables pointers for itself. */
   pointer-events: none;
 }
 @media (max-width: 900px) {
@@ -1083,7 +1183,7 @@
   padding: 15px var(--s4);
   border-radius: 22px;
   background: var(--tone);
-  color: var(--ink);
+  color: var(--on-accent);
   font-size: 14px;
   font-weight: 700;
   /* A real clay cushion, not a flat sticker: its own inset top light + floor
@@ -1118,7 +1218,7 @@
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  color: var(--ink);
+  color: var(--on-accent);
   background: #fff;
   box-shadow:
     inset 0 -3px 0 rgba(0, 0, 0, 0.08), inset 0 2px 0 #fff, 0 3px 6px rgba(58, 46, 92, 0.25);
@@ -1147,7 +1247,7 @@
   font-size: 12px;
   letter-spacing: 0.3px;
   text-transform: uppercase;
-  color: var(--ink);
+  color: var(--on-accent);
   background: rgba(255, 255, 255, 0.45);
   border: none;
   border-radius: 10px;
@@ -1168,7 +1268,7 @@
   border: 0;
   border-radius: var(--r-pill);
   background: rgba(255, 255, 255, 0.55);
-  color: var(--ink);
+  color: var(--on-accent);
   cursor: pointer;
   box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.06);
   transition: background 140ms ease;
@@ -1287,14 +1387,15 @@
   padding: var(--s3);
   border-radius: 12px;
   /* Routine alerts stay quiet; a critical one keeps its tone in the list, so
-   * scanning the history surfaces the breaker trip without reading every line. */
+   * scanning the history surfaces the one that mattered without reading every
+   * line. */
   background: var(--tone, rgba(201, 168, 255, 0.15));
 }
 .pouf-bell__itembody {
   flex: 1;
   min-width: 0;
   /* Column, not the default inline flow: the message and its timestamp are separate
-   * facts and ran together as "+18.40 USDT2:59:00 PM" without this. */
+   * facts and ran together as "Backup finished2:59:00 PM" without this. */
   display: flex;
   flex-direction: column;
   gap: var(--s1);
@@ -1430,9 +1531,14 @@
  * ========================================================================= */
 .pouf-collapsible__trigger {
   display: inline-flex;
+  align-items: center;
   background: none;
   border: none;
-  padding: 0;
+  /* Was padding:0, which left a 23px-tall target — one pixel under WCAG 2.2 AA
+   * (2.5.8). The negative margin keeps the disclosure flush where it was. */
+  min-height: 24px;
+  padding: 3px 4px;
+  margin: -3px -4px;
   cursor: pointer;
   font: inherit;
   color: inherit;
@@ -1547,6 +1653,53 @@
   border-radius: 8px;
 }
 
+/* Sortable headers (Table column `sort`). A bare button rather than a cushion:
+ * the header row is chrome, and five pressable pills across the top would
+ * outweigh the data underneath. The caret is the whole affordance. */
+.pouf-table__sort {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  background: none;
+  border: none;
+  /* Vertical padding, not just the text's own height: the header text is 13px,
+   * which left a ~20px tap target — under the 24px WCAG 2.2 AA minimum. The
+   * <th> already carries its own padding, so this grows the hit area without
+   * moving anything visually. */
+  padding: var(--s1) 0;
+  margin: calc(-1 * var(--s1)) 0;
+  min-height: 24px;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+.pouf-table__h--right .pouf-table__sort {
+  flex-direction: row-reverse;
+}
+.pouf-table__sort:hover .pouf-table__caret,
+.pouf-table__sort:focus-visible .pouf-table__caret {
+  opacity: 1;
+}
+.pouf-table__sort:focus-visible {
+  outline: 3px solid var(--focus, rgba(155, 106, 255, 0.55));
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+/* Reserved width so toggling ⇅ → ▴ → ▾ never reflows the header. */
+.pouf-table__caret {
+  width: 1ch;
+  flex: none;
+  font-size: 12px;
+  line-height: 1;
+  opacity: 0.55;
+  color: var(--muted);
+}
+th[aria-sort='ascending'] .pouf-table__caret,
+th[aria-sort='descending'] .pouf-table__caret {
+  opacity: 1;
+  color: var(--ink);
+}
+
 /* ============================================================================
  * BREADCRUMB
  * ========================================================================= */
@@ -1574,6 +1727,15 @@
 }
 .pouf-breadcrumb__link {
   color: var(--ink);
+  /* 20px tall as bare inline text, under the WCAG 2.2 AA target minimum. These
+   * are standalone navigation links, not links inside a sentence, so the SC's
+   * "inline" exemption does not apply. Padding grows the target; the matching
+   * negative margin keeps the crumb row visually unchanged. */
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 2px 4px;
+  margin: -2px -4px;
   text-decoration: underline;
   text-decoration-color: rgba(201, 168, 255, 0.7);
   text-decoration-thickness: 2px;

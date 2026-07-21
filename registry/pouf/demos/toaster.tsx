@@ -14,11 +14,11 @@ import type { Demo } from './types'
 function ToasterOpen({ variant }: { variant: ToastVariant }) {
   useEffect(() => {
     if (variant === 'default') toast('Saved — sample note')
-    else if (variant === 'success') toast.success('Order filled at 64,201', { description: 'Apple · 0.4 · Limit' })
+    else if (variant === 'success') toast.success('Payment received', { description: '$48.00 · Visa ending 4242' })
     else if (variant === 'error') toast.error('API connection lost', { description: 'Retrying…' })
     else if (variant === 'warning')
-      toast.warning('Approaching daily limit', { description: '2.1% remaining. Consider pausing.' })
-    else toast.info('New signal from #apple-signals', { description: 'Long entry at 64,200 · TP 64,500 · SL 64,000' })
+      toast.warning('Storage almost full', { description: '92% used. Consider upgrading.' })
+    else toast.info('Maya replied to your thread', { description: '“depth is the whole personality”' })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return <Toaster />
@@ -26,11 +26,16 @@ function ToasterOpen({ variant }: { variant: ToastVariant }) {
 
 export const toasterDemos: Demo[] = [
   { id: 'trigger', states: ['hover', 'focus'], render: () => (
-      <span data-subject>
-        <Row>
-          <Button size="sm" tone="purple" onClick={() => toast('Saved')}>Show toast</Button>
-        </Row>
-      </span>
+      <Row gap={2}>
+        <span data-subject>
+          <Button size="sm" tone="purple" onClick={() => toast('Saved — sample note')}>Default</Button>
+        </span>
+        <Button size="sm" tone="mint" onClick={() => toast.success('Payment received', { description: '$48.00 · Visa ending 4242' })}>Success</Button>
+        <Button size="sm" tone="pink" onClick={() => toast.error('API connection lost', { description: 'Retrying…' })}>Error</Button>
+        <Button size="sm" tone="yellow" onClick={() => toast.warning('Storage almost full', { description: '92% used. Consider upgrading.' })}>Warning</Button>
+        <Button size="sm" tone="blue" onClick={() => toast.info('Maya replied to your thread', { description: '“depth is the whole personality”' })}>Info</Button>
+        <Button size="sm" variant="quiet" onClick={() => toast('Note deleted', { action: { label: 'Undo', onClick: () => toast.success('Restored') } })}>With action</Button>
+      </Row>
     ) },
   { id: 'default-open', render: () => <ToasterOpen variant="default" /> },
   { id: 'success-open', render: () => <ToasterOpen variant="success" /> },

@@ -5,6 +5,8 @@ import { Heading, Text, Eyebrow } from '../text'
 import { Avatar } from '../avatar'
 import { Badge } from '../media'
 import { Pagination } from '../pagination'
+import { Segmented } from '../Segmented'
+import { Empty } from '../feedback'
 
 interface Post {
   id: string
@@ -29,6 +31,10 @@ const POSTS: Post[] = [
   { id: '4', category: 'Design', tone: 'purple', title: 'Pastel that passes WCAG', excerpt: 'Ink on pastel, never white — the one deviation from the reference, and the measurements behind it.', author: 'Ada L.', date: 'Jul 2' },
 ]
 
+// 'All' plus every category the grid actually has — never hand-maintained
+// against POSTS, so a new post's category shows up in the filter for free.
+const CATEGORIES = ['All', ...Array.from(new Set(POSTS.map((p) => p.category)))]
+
 function Byline({ author, date }: { author: string; date: string }) {
   return (
     <Row gap={2} wrap={false}>
@@ -38,10 +44,13 @@ function Byline({ author, date }: { author: string; date: string }) {
   )
 }
 
-/** An example blog index: a featured post and a grid of cards with categories,
- * bylines, and pagination. */
+/** An example blog index: a featured post, a category filter that narrows the
+ * grid, and pagination. */
 export function BlogBlock() {
   const [page, setPage] = useState(1)
+  const [category, setCategory] = useState('All')
+  const shown = category === 'All' ? POSTS : POSTS.filter((p) => p.category === category)
+
   return (
     <div style={{ maxWidth: 1000, margin: '0 auto', padding: 24 }}>
       <Stack gap={6}>
@@ -62,18 +71,32 @@ export function BlogBlock() {
           </Grid>
         </Card>
 
-        <Grid cols={2}>
-          {POSTS.map((p) => (
-            <Card variant="tight">
-              <Stack gap={3}>
-                <Row><Badge tone={p.tone}>{p.category}</Badge></Row>
-                <Heading level={3}>{p.title}</Heading>
-                <Text size="sm" muted>{p.excerpt}</Text>
-                <Byline author={p.author} date={p.date} />
-              </Stack>
-            </Card>
-          ))}
-        </Grid>
+        <Segmented
+          label="Filter by category"
+          value={category}
+          onChange={(c) => {
+            setCategory(c)
+            setPage(1) // a stale page number under a shorter filtered list reads as broken pagination
+          }}
+          options={CATEGORIES.map((c) => ({ value: c, label: c }))}
+        />
+
+        {shown.length === 0 ? (
+          <Empty icon="search" title="No posts in this category">Try a different filter.</Empty>
+        ) : (
+          <Grid cols={2}>
+            {shown.map((p) => (
+              <Card variant="tight" key={p.id}>
+                <Stack gap={3}>
+                  <Row><Badge tone={p.tone}>{p.category}</Badge></Row>
+                  <Heading level={3}>{p.title}</Heading>
+                  <Text size="sm" muted>{p.excerpt}</Text>
+                  <Byline author={p.author} date={p.date} />
+                </Stack>
+              </Card>
+            ))}
+          </Grid>
+        )}
 
         <Row justify="center">
           <Pagination page={page} total={5} onChange={setPage} />

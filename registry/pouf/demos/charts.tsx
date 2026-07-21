@@ -57,11 +57,11 @@ export const barChartDemos: Demo[] = [
   { id: 'tone-key', render: () => (
       <BarChart
         data={[
-          { channel: 'alpha', total: 91, tone: 'up' },
-          { channel: 'beta', total: -24, tone: 'down' },
-          { channel: 'gamma', total: 3, tone: 'up' },
+          { source: 'alpha', total: 91, tone: 'up' },
+          { source: 'beta', total: -24, tone: 'down' },
+          { source: 'gamma', total: 3, tone: 'up' },
         ]}
-        dataKey="channel"
+        dataKey="source"
         toneKey="tone"
         height={220}
         series={[{ key: 'total', label: 'Total' }]}

@@ -15,9 +15,9 @@ const FUTURE_MS = 4_102_444_800_000 // 2100-01-01T00:00:00Z
 const STALE_3H = () => Date.now() - 3 * 60 * 60 * 1000
 
 export const statusDemos: Demo[] = [
-  { id: 'no-timestamp', render: () => <Status label="Engine off" tone="idle" /> },
+  { id: 'no-timestamp', render: () => <Status label="Service offline" tone="idle" /> },
   { id: 'fresh', render: () => <Status label="Sync enabled" tone="up" at={FUTURE_MS} /> },
-  { id: 'stale', render: () => <Status label="Telegram connected" tone="up" at={STALE_3H()} /> },
+  { id: 'stale', render: () => <Status label="Sync connected" tone="up" at={STALE_3H()} /> },
 ]
 
 export const freshnessDemos: Demo[] = [
@@ -34,6 +34,6 @@ export const freshnessDemos: Demo[] = [
 ]
 
 export const modeBannerDemos: Demo[] = [
-  { id: 'paper', render: () => <ModeBanner live={false} /> },
+  { id: 'draft', render: () => <ModeBanner live={false} /> },
   { id: 'live', render: () => <ModeBanner live /> },
 ]

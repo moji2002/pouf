@@ -1,5 +1,5 @@
 /** Pure math for the pouf NumberInput (spinbutton). String in, string out:
- * the component keeps the operator's typing verbatim, and stepping must never
+ * the component keeps the user's typing verbatim, and stepping must never
  * smuggle float noise ("1.6000000000000001") into the field. Steps are UI
  * increments (0.1, 0.5, 1…) — steps that stringify in scientific notation
  * (< 1e-6) are out of scope. */
@@ -20,7 +20,7 @@ const decimalsOf = (n: number): number => {
   return i === -1 ? 0 : s.length - i - 1
 }
 
-/** Decimals the operator has actually typed ("1.55" → 2, "1." → 0). */
+/** Decimals the user has actually typed ("1.55" → 2, "1." → 0). */
 const typedDecimals = (raw: string): number => {
   const i = raw.indexOf('.')
   return i === -1 ? 0 : raw.length - i - 1

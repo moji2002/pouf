@@ -18,7 +18,7 @@ export const blobDemos: Demo[] = [
       <Row>
         <Blob tone="pink" icon="up" />
         <Blob tone="purple" icon="channels" />
-        <Blob tone="blue" icon="signals" />
+        <Blob tone="blue" icon="activity" />
         <Blob tone="mint" icon="ok" />
         <Blob tone="yellow" icon="overview" />
         <Blob tone="orange" icon="live" />
@@ -37,10 +37,10 @@ export const blobDemos: Demo[] = [
 export const badgeDemos: Demo[] = [
   { id: 'tones', render: () => (
       <Row>
-        <Badge tone="up">Long</Badge>
-        <Badge tone="down">Short</Badge>
-        <Badge tone="warn">Breaker</Badge>
-        <Badge tone="info">Paper</Badge>
+        <Badge tone="up">Shipped</Badge>
+        <Badge tone="down">Blocked</Badge>
+        <Badge tone="warn">At risk</Badge>
+        <Badge tone="info">Draft</Badge>
       </Row>
     ) },
 ]

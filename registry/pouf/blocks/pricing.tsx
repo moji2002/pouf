@@ -34,10 +34,13 @@ function Feature({ text }: { text: string }) {
   )
 }
 
-/** An example pricing page: three plans, one featured, with feature checklists.
- * All Pouf primitives. */
+/** An example pricing page: three plans, one featured, each with its own
+ * feature checklist. The monthly/annual Segmented toggle recomputes every
+ * displayed price (and the per-plan savings line) rather than just relabeling
+ * them, and picking a plan's CTA marks it as the current one. */
 export function PricingBlock() {
   const [cycle, setCycle] = useState('monthly')
+  const [selected, setSelected] = useState<string | null>(null)
   const annual = cycle === 'annual'
   return (
     <div style={{ maxWidth: 1000, margin: '0 auto', padding: 24 }}>
@@ -60,8 +63,10 @@ export function PricingBlock() {
         <Grid cols={3}>
           {PLANS.map((p) => {
             const price = annual ? Math.round(p.monthly * 12 * 0.8) : p.monthly
+            const savings = p.monthly * 12 - price
+            const isCurrent = selected === p.name
             return (
-            <Card variant={p.featured ? 'default' : 'tight'}>
+            <Card key={p.name} variant={p.featured ? 'default' : 'tight'}>
               <Stack gap={4}>
                 <Row justify="between">
                   <Row gap={2} wrap={false}>
@@ -74,11 +79,22 @@ export function PricingBlock() {
                   <span style={{ fontSize: 40, fontWeight: 900, letterSpacing: -1, color: 'var(--ink)' }}>${price}</span>
                   <Text muted>{annual ? '/yr' : '/mo'}</Text>
                 </Row>
+                {annual && savings > 0 && (
+                  <Text size="sm" muted>Save ${savings}/yr versus paying monthly</Text>
+                )}
                 <Text size="sm" muted>{p.blurb}</Text>
                 <Stack gap={2}>
                   {p.features.map((f) => <Feature key={f} text={f} />)}
                 </Stack>
-                <Button block tone={p.tone} variant={p.featured ? 'solid' : 'quiet'} onClick={() => {}}>{p.cta}</Button>
+                <Button
+                  block
+                  tone={p.tone}
+                  variant={isCurrent ? 'quiet' : p.featured ? 'solid' : 'quiet'}
+                  disabled={isCurrent}
+                  onClick={() => setSelected(p.name)}
+                >
+                  {isCurrent ? 'Current plan' : p.cta}
+                </Button>
               </Stack>
             </Card>
           )})}

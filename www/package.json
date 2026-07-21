@@ -3,10 +3,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "astro dev --port 4321",
-    "build": "node scripts/changelog.mjs && astro build",
-    "preview": "astro preview",
-    "prebuild": "node scripts/changelog.mjs"
+    "dev": "bunx --bun astro dev --port 4321",
+    "build": "node scripts/changelog.mjs && bun ../scripts/extract-props.ts && bunx --bun astro build",
+    "preview": "bunx --bun astro preview",
+    "prebuild": "node scripts/changelog.mjs && bun ../scripts/extract-props.ts"
   },
   "dependencies": {
     "@astrojs/mdx": "^7.0.3",
@@ -15,6 +15,7 @@
     "@fontsource-variable/nunito": "^5.2.7",
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.1.1",
+    "clsx": "^2.1.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "tailwindcss": "^4.3.3"

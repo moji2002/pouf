@@ -7,9 +7,15 @@ interface CheckboxProps {
   id?: string
   disabled?: boolean
   label?: string
+  /** Keep `label` as the accessible name but stop rendering it visibly.
+   *  For rows that already display the text themselves — without this, the
+   *  only way to give the box an accessible name was to also print a second
+   *  copy of the text next to it. Opt-in, so existing call sites are
+   *  unchanged. */
+  hideLabel?: boolean
 }
 
-export function Checkbox({ checked, onChange, id, disabled, label }: CheckboxProps) {
+export function Checkbox({ checked, onChange, id, disabled, label, hideLabel }: CheckboxProps) {
   return (
     <div className="pouf-checkbox-row inline-flex items-center gap-(--s2)">
       <RCheck.Root
@@ -61,7 +67,7 @@ export function Checkbox({ checked, onChange, id, disabled, label }: CheckboxPro
           </svg>
         </RCheck.Indicator>
       </RCheck.Root>
-      {label && (
+      {label && !hideLabel && (
         <label htmlFor={id} className="pouf-checkbox__label text-[15px] font-bold text-ink cursor-pointer">
           {label}
         </label>

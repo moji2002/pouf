@@ -33,7 +33,11 @@ interface ButtonProps {
 const button = cva(
   [
     'pouf-btn relative items-center justify-center gap-(--s2) font-pouf font-black leading-none',
-    'text-ink border-none cursor-pointer',
+    /* Colour lives on the variants, not here: `solid` sits on a pastel accent
+     * and must follow --on-accent (which stays dark in dark mode), while
+     * `quiet` is transparent on the page and follows --ink. In light mode both
+     * resolve to the same value, so this is a no-op for the goldens. */
+    'border-none cursor-pointer',
     '[transition:box-shadow_120ms_ease,transform_120ms_ease]',
     'enabled:active:[transform:translateY(2px)] enabled:active:cushion-control-active',
     'disabled:cursor-not-allowed disabled:opacity-50',
@@ -47,9 +51,9 @@ const button = cva(
       },
       variant: {
         solid:
-          'bg-[var(--tone,var(--purple))] cushion-control disabled:cushion-control-active disabled:[transform:translateY(2px)]',
+          'text-[var(--on-accent)] bg-[var(--tone,var(--purple))] cushion-control disabled:cushion-control-active disabled:[transform:translateY(2px)]',
         quiet:
-          'bg-transparent [box-shadow:inset_0_0_0_2px_rgba(201,168,255,0.55)] enabled:hover:bg-bg enabled:hover:cushion-field disabled:[box-shadow:none]',
+          'text-ink bg-transparent [box-shadow:inset_0_0_0_2px_rgba(201,168,255,0.55)] enabled:hover:bg-bg enabled:hover:cushion-field disabled:[box-shadow:none]',
       },
       block: {
         true: 'flex w-full',

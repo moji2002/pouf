@@ -24,7 +24,7 @@ const gapVariant = {
  * A flex item defaults to `min-width: auto` — "never shrink below my content" —
  * and that default cascades: `<Text truncate>` can only ellipsis if EVERY
  * ancestor between it and the sized container is allowed to shrink. One Stack
- * without this and a long channel title (some run 200 characters of Persian)
+ * without this and a long title (some run 200 characters of Persian)
  * drags the whole row wider than the dialog, producing a horizontal scrollbar
  * and pushing content off-screen.
  *

@@ -13,7 +13,13 @@ export function ScrollArea({ children, maxHeight = '400px' }: ScrollAreaProps) {
     // resolves (a percentage height needs an explicit parent height), so the old
     // build just clipped and never scrolled. A max-height on the scrolling element
     // directly needs no such resolution.
-    <RScroll.Root className="pouf-scroll">
+    // type="auto" rather than Radix's default "hover": the bar is then present
+    // whenever the content actually overflows, instead of only once a pointer is
+    // already inside. With the default, a capped area reads as CONTENT THAT JUST
+    // ENDS — the last line is sliced in half with nothing on screen saying it
+    // scrolls, which is exactly how it looked in the gallery. Touch and
+    // keyboard users never hover at all.
+    <RScroll.Root className="pouf-scroll" type="auto">
       <RScroll.Viewport className="pouf-scroll__viewport" style={{ maxHeight }}>
         {children}
       </RScroll.Viewport>

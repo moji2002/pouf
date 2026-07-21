@@ -1,0 +1,63 @@
+---
+import Site from '../layouts/Site.astro'
+import { ThemeCustomizer } from '../components/ThemeCustomizer'
+---
+
+<Site
+  title="Theme"
+  description="Tune the Pouf palette, radii and cushion depth, then copy the tokens into your own pouf.css."
+  wide
+>
+  <article style="display:flex; flex-direction:column; gap:26px;">
+    <div style="display:flex; flex-direction:column; gap:10px;">
+      <h1 class="display" style="font-size:clamp(40px,5vw,68px); margin:0;">Theme</h1>
+      <p style="font-size:19px; font-weight:800; color:var(--muted); margin:0; max-width:70ch;">
+        Every colour, radius and shadow in Pouf is a CSS custom property. Move a
+        control and the components below re-theme live — they are the real
+        components, unmodified, reading the same tokens they always read. Copy the
+        result into your installed <code>pouf.css</code>.
+      </p>
+    </div>
+
+    <ThemeCustomizer client:load />
+  </article>
+
+  <style is:global>
+    .tc-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
+      gap: 28px;
+      align-items: start;
+    }
+    .tc-controls {
+      position: sticky;
+      top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      min-width: 0;
+    }
+    /* Below 900px the controls stack above the preview and stop sticking —
+       a sticky control column on a phone just covers the thing it drives. */
+    @media (max-width: 900px) {
+      .tc-grid { grid-template-columns: minmax(0, 1fr); }
+      .tc-controls { position: static; }
+    }
+    /* The colour rows are a label + swatch + hex; the hex can wrap rather than
+       force the card wider than the viewport. */
+    .tc-grid code { overflow-wrap: anywhere; }
+    /* A native range input is ~16px tall, under the 24px WCAG 2.2 AA target
+       minimum and genuinely fiddly on a phone. Padding grows the hit area
+       without changing the drawn track. */
+    .tc-grid input[type='range'] {
+      height: 28px;
+      padding: 6px 0;
+      box-sizing: content-box;
+    }
+    /* Native colour swatches are the other small target here. */
+    .tc-grid input[type='color'] {
+      min-width: 34px;
+      min-height: 34px;
+    }
+  </style>
+</Site>

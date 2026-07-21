@@ -3,7 +3,7 @@ import { Text } from '../text'
 import type { Demo } from './types'
 
 function Boom(): never {
-  throw new Error('Exchange rejected the request: insufficient margin.')
+  throw new Error('Something went wrong rendering this widget.')
 }
 
 export const errorBoundaryDemos: Demo[] = [

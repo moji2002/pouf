@@ -3,7 +3,7 @@ import { allDemos } from '../../../registry/pouf/demos'
 /** Renders one live demo by key/id inside a padded surface. A React island —
  * only the demos ship JS, the rest of the page is static Astro HTML. The demo
  * `render()` returns real Pouf components against the real pouf.css theme. */
-export function DemoBox({ component, id }: { component: string; id: string }) {
+export function DemoBox({ component, id, compact = false }: { component: string; id: string; compact?: boolean }) {
   const demo = allDemos[component]?.find((d) => d.id === id)
   if (!demo) return <div style={{ color: 'var(--muted)' }}>Demo not found: {component}/{id}</div>
   /* mobile-viewport demos (BottomNav) render fixed-position chrome; the
@@ -17,15 +17,16 @@ export function DemoBox({ component, id }: { component: string; id: string }) {
         position: 'relative',
         overflow: 'hidden',
         transform: contains ? 'translateZ(0)' : undefined,
-        padding: 40,
+        padding: compact ? 22 : 40,
         borderRadius: 'var(--r-card)',
         background: 'var(--bg)',
         boxShadow: 'var(--pouf-field)',
         display: 'flex',
         flexWrap: 'wrap',
-        gap: 16,
+        gap: compact ? 12 : 16,
         alignItems: 'center',
-        minHeight: contains ? 300 : 120,
+        justifyContent: 'center',
+        minHeight: contains ? 300 : compact ? 84 : 120,
       }}
     >
       {demo.render()}

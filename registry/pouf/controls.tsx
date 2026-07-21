@@ -108,7 +108,7 @@ export function TooltipProvider({ children }: { children: ReactNode }) {
  * forward no ref, which is the same rule that guarantees no primitive accepts a
  * className. So `<RTooltip.Trigger asChild>{children}</RTooltip.Trigger>`
  * dropped every prop on the floor and the tooltip never opened — on anything.
- * It looked fine because the one call site that mattered (channels.tsx) had
+ * It looked fine because the one call site that mattered had
  * hand-wrapped its Switch in a raw <span>, which is what actually made it work.
  *
  * Anchoring here instead of forwarding props in Button/Switch also handles the
@@ -155,8 +155,8 @@ interface DialogProps {
  * The distinction is behavioural, not cosmetic: an alert dialog is for a
  * decision with consequences — it takes focus assertively and cannot be
  * dismissed by clicking outside. This one is for browsing, so it dismisses
- * easily. Using AlertDialog to show a channel list would train the operator to
- * dismiss the same chrome that later asks them to close a live position.
+ * easily. Using AlertDialog to show a plain list would train the user to
+ * dismiss the same chrome that later asks them to confirm something destructive.
  */
 export function Dialog({ trigger, title, description, children, open, onOpenChange, size = 'md' }: DialogProps) {
   return (
@@ -220,22 +220,21 @@ interface ConfirmProps {
   details?: ReactNode
 }
 
-/** Every irreversible action in this admin routes through here — flatten a
- * position, reset the paper ledger, delete a signal channel, disconnect the
- * Telegram session. Radix gives the focus trap and escape handling.
+/** Every irreversible action routes through here — delete an account, empty a
+ * trash, revoke a key, disconnect an integration. Radix gives the focus trap
+ * and escape handling.
  *
  * The API is shaped by NN/g's confirmation-dialog guidance, which is why it
  * looks stricter than a typical confirm:
  *   - Yes/No is banned by construction: both labels are required strings, so a
  *     caller cannot ship "Are you sure? [Yes] [No]" without deliberately typing
  *     something worse than the alternative.
- *   - `details` exists because "Close all positions?" is not answerable. "Close
- *     BTCUSDT (0.4, +$31.20) and ETHUSDT (2.1, −$8.05)" is.
+ *   - `details` exists because "Delete all items?" is not answerable. "Delete
+ *     Invoice #1042 and Invoice #1043 (both paid)" is.
  *   - Cancel is the default focus and sits away from confirm (Fitts, inverted):
  *     the safe option should be the easy one to hit.
- * Confirmation is used here only because undo is genuinely impossible — a
- * closed position cannot be reopened at the same price. Overusing it would
- * train the operator to click through, which is the failure mode NN/g warns of.
+ * Confirmation is used here only because undo is genuinely impossible. Overusing
+ * it would train the user to click through, which is the failure mode NN/g warns of.
  */
 export function Confirm({
   children,
@@ -310,10 +309,10 @@ interface ComboboxProps {
  * parts that are easy to get wrong — portalling, escape, outside-click, focus return
  * to the trigger — so only the arrow/enter handling is ours.
  *
- * Typing is not a fallback bolted on for the `custom` provider; it is the contract.
- * An endpoint may not implement /models, may 404, may be unreachable, or may simply
- * not list a model the operator is entitled to use. In every one of those cases this
- * degrades to the free-text input it replaced, which is why `error` never disables it.
+ * Typing is not a fallback bolted on for one edge case; it is the contract.
+ * A source of options may not exist yet, may 404, may be unreachable, or may simply
+ * not include the value the user needs. In every one of those cases this degrades
+ * to the free-text input it replaced, which is why `error` never disables it.
  */
 export function Combobox({
   value,

@@ -9,9 +9,9 @@ interface PaginationProps {
   onChange: (page: number) => void
 }
 
-/** Chevrons, not arrows: `up`/`down` are price direction in this app, and the
- * first build used them here — a "previous page" that read as a falling
- * market. The indicator is plain ink; muted fails contrast on --bg at 13px. */
+/** Chevrons, not arrows: `up`/`down` carry trend meaning in this system, and the
+ * first build used them here — a "previous page" that read as a value falling.
+ * The indicator is plain ink; muted fails contrast on --bg at 13px. */
 export function Pagination({ page, total, onChange }: PaginationProps) {
   if (total <= 1) return null
 

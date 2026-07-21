@@ -9,10 +9,14 @@ import { Button } from '../Button'
 import { Tabs } from '../disclosure'
 import { Icon } from '../Icon'
 
-/** An example profile page: header with avatar and stats, then tabbed content. */
+/** An example profile page: header with avatar and stats, a follow button
+ * that moves the follower count, and tabbed content. */
 export function ProfileBlock() {
   const [tab, setTab] = useState('posts')
   const [following, setFollowing] = useState(false)
+  // Derived, not separate state: following IS the +1 follower, so there's
+  // nothing to keep in sync — unfollowing can't leave the count stale.
+  const followers = 4201 + (following ? 1 : 0)
 
   const posts = (
     <Stack gap={3}>
@@ -64,7 +68,7 @@ export function ProfileBlock() {
 
           <Grid cols={3}>
             <Metric label="Posts" value="128" />
-            <Metric label="Followers" value="4,201" />
+            <Metric label="Followers" value={followers.toLocaleString()} />
             <Metric label="Following" value="312" />
           </Grid>
 

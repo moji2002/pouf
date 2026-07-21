@@ -29,8 +29,17 @@ export function Navbar({ brand, links = [], actions }: NavbarProps) {
             href={l.href}
             aria-current={l.active ? 'page' : undefined}
             className={clsx(
-              'font-extrabold text-ink no-underline px-(--s3) py-(--s2) rounded-pill transition-colors',
-              l.active ? 'bg-purple' : 'hover:bg-[rgba(201,168,255,0.25)]',
+              /* inline-flex + min-h so the 8px padding actually yields a 24px
+               * target: as a bare inline anchor these measured 23px, just under
+               * the WCAG 2.2 AA minimum (2.5.8), and they are standalone nav
+               * links so the "inline" exemption does not apply. */
+              'font-extrabold no-underline px-(--s3) py-(--s2) rounded-pill transition-colors',
+              'inline-flex items-center min-h-[24px]',
+              /* Active is an accent fill, so its label follows --on-accent —
+               * --ink goes near-white in dark mode and would vanish on purple. */
+              l.active
+                ? 'bg-purple text-[var(--on-accent)]'
+                : 'text-ink hover:bg-[rgba(201,168,255,0.25)]',
             )}
           >
             {l.label}

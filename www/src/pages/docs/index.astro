@@ -2,38 +2,237 @@
 import Site from '../../layouts/Site.astro'
 import { Code } from 'astro:components'
 import { CopyCommand } from '../../components/CopyCommand'
+
+const TOC = [
+  { id: 'prerequisites', label: 'Prerequisites' },
+  { id: 'stylesheet', label: 'The stylesheet' },
+  { id: 'quick-start', label: 'Quick start' },
+  { id: 'theming', label: 'Theming' },
+  { id: 'dark-mode', label: 'Dark mode' },
+  { id: 'conventions', label: 'Conventions' },
+  { id: 'accessibility', label: 'Accessibility' },
+  { id: 'blocks-vs-templates', label: 'Blocks vs. templates' },
+]
 ---
 
-<Site title="Getting started">
-  <article style="max-width:720px; display:flex; flex-direction:column; gap:20px;">
+<Site title="Getting started" description="Everything you need before the first install: prerequisites, the theme file, dark mode, and the conventions every Pouf component follows." wide>
+  <section style="display:flex; flex-direction:column; gap:14px; padding:8px 0 32px; max-width:760px;">
+    <span class="sticker" style="background:var(--mint); align-self:flex-start; transform:rotate(-2deg);">You own the source</span>
     <h1 class="display" style="font-size:clamp(40px,5vw,60px); margin:0;">Getting started</h1>
     <p style="font-size:18px; color:var(--muted); font-weight:700; margin:0;">
-      Pouf is distributed as a shadcn-style registry. You install components into your own codebase and own the source — there is no runtime dependency to lock.
+      Pouf is distributed as a shadcn-style registry. You install components into your own codebase and own the source — there is no runtime dependency to lock, nothing to update, nothing to break.
     </p>
+    <p style="font-size:15px; color:var(--muted); font-weight:700; margin:0;">
+      This page covers what you need before the first <code>add</code>, the two-layer token system, dark mode, and the conventions every component follows.
+    </p>
+  </section>
 
-    <h2 style="font-size:24px; font-weight:900; margin:16px 0 0;">1. Prerequisites</h2>
-    <p style="margin:0; font-weight:700;">A React app with <strong>Tailwind CSS v4</strong> and the <strong>shadcn CLI</strong> configured (a <code>components.json</code>). Pouf's components use Radix primitives, <code>class-variance-authority</code>, and <code>clsx</code> — the CLI installs these for you.</p>
+  <div class="docs-grid">
+    <aside class="docs-sidebar">
+      {TOC.map((t) => (
+        <a class="docs-toc-link" href={`#${t.id}`}>{t.label}</a>
+      ))}
+    </aside>
 
-    <h2 style="font-size:24px; font-weight:900; margin:16px 0 0;">2. Install the base</h2>
-    <p style="margin:0; font-weight:700;">The base ships the theme file (<code>pouf.css</code>) — tokens, cushion utilities, keyframes, and component chrome. Every component depends on it, so it comes along automatically, but you can add it explicitly:</p>
-    <CopyCommand client:load command="npx shadcn@latest add https://pouf.dev/r/base.json" />
-    <p style="margin:0; font-weight:700;">Then import it once in your app entry, alongside the font:</p>
-    <Code code={`import '@fontsource-variable/nunito'
+    <article style="max-width:760px; display:flex; flex-direction:column; gap:20px; min-width:0;">
+      <section id="prerequisites" class="docs-section" style="display:flex; flex-direction:column; gap:12px;">
+        <h2 style="font-size:24px; font-weight:900; margin:16px 0 0;">1. Prerequisites</h2>
+        <p style="margin:0; font-weight:700;">Before your first <code>add</code>, you need three things in place:</p>
+        <ul style="margin:0; padding-left:22px; display:flex; flex-direction:column; gap:10px; font-weight:700;">
+          <li><strong>A React 19 app.</strong> Every registry item targets React 19 (Pouf's own <code>react</code>/<code>react-dom</code> are pinned to <code>^19</code>) — Vite, Next, Astro with the React integration, whatever you already run.</li>
+          <li><strong>Tailwind CSS v4.</strong> Pouf's stylesheet is CSS-first — no <code>tailwind.config.js</code>, just <code>@theme</code> and <code>@import</code> in a <code>.css</code> file. You still need Tailwind's v4 build plugin wired into your bundler: <code>@tailwindcss/vite</code> for a Vite-based app (that's what pouf.dev itself runs — an Astro site on Vite), or <code>@tailwindcss/postcss</code> for a plain PostCSS pipeline.</li>
+          <li><strong>The shadcn CLI, initialized.</strong> Run <code>init</code> once to create a <code>components.json</code>. Pouf doesn't need special aliases: every file in the registry declares an explicit target path (<code>components/pouf/…</code>), so it lands in the same place no matter how your aliases are configured.</li>
+        </ul>
+        <CopyCommand client:load command="npx shadcn@latest init" />
+        <p style="margin:0; font-weight:700;">
+          Everything past that rides along automatically. Radix UI primitives, <code>class-variance-authority</code>, <code>clsx</code>, and — for a handful of components — <code>framer-motion</code> are declared as npm dependencies on the individual registry items that need them, so the CLI installs exactly what a given component uses the moment you <code>add</code> it. Nothing to pre-install by hand.
+        </p>
+      </section>
+
+      <hr style="border:none; height:2px; background:var(--purple); opacity:0.2; margin:4px 0;" />
+
+      <section id="stylesheet" class="docs-section" style="display:flex; flex-direction:column; gap:12px;">
+        <h2 style="font-size:24px; font-weight:900; margin:16px 0 0;">2. The stylesheet</h2>
+        <p style="margin:0; font-weight:700;">
+          The <code>base</code> registry item ships one file — <code>pouf.css</code> — the theme: every design token, the cushion box-shadow recipes, keyframes, and the chrome for multi-part components (dialogs, menus, the mobile sheet). Every other component depends on it, so it always comes along, but you can install it explicitly:
+        </p>
+        <CopyCommand client:load command="npx shadcn@latest add https://pouf.dev/r/base.json" />
+        <p style="margin:0; font-weight:700;">It lands at <code>components/pouf/pouf.css</code>. Import it once, at your app root, alongside the font:</p>
+        <Code code={`import '@fontsource-variable/nunito'
 import './components/pouf/pouf.css'`} lang="ts" theme="material-theme-palenight" />
+        <p style="margin:0; font-weight:700;">
+          Two details worth knowing before you go looking for a Tailwind entry file elsewhere: <code>pouf.css</code> <em>is</em> your Tailwind entry. Its first line is <code>@import 'tailwindcss'</code> — importing <code>pouf.css</code> is what pulls Tailwind itself into your build. Don't add a second <code>@import 'tailwindcss'</code> anywhere.
+        </p>
+        <p style="margin:0; font-weight:700;">
+          Its second line is <code>@source './'</code> — Tailwind v4's automatic content scanner normally only looks at your own app's files. This directive tells it to also scan everything next to <code>pouf.css</code> itself, which is where the components you install actually live. Skip it (say, by copying only pieces of the file) and Tailwind never sees the utility classes baked into the <code>.tsx</code> sources you just installed — every cushion renders unstyled.
+        </p>
+      </section>
 
-    <h2 style="font-size:24px; font-weight:900; margin:16px 0 0;">3. Add a component</h2>
-    <CopyCommand client:load command="npx shadcn@latest add https://pouf.dev/r/button.json" />
-    <Code code={`import { Button } from './components/pouf/Button'
+      <hr style="border:none; height:2px; background:var(--purple); opacity:0.2; margin:4px 0;" />
+
+      <section id="quick-start" class="docs-section" style="display:flex; flex-direction:column; gap:12px;">
+        <h2 style="font-size:24px; font-weight:900; margin:16px 0 0;">3. Quick start</h2>
+        <p style="margin:0; font-weight:700;">With the base in place, add a component:</p>
+        <CopyCommand client:load command="npx shadcn@latest add https://pouf.dev/r/button.json" />
+        <Code code={`import { Button } from './components/pouf/Button'
 
 export function Example() {
   return <Button tone="mint">Save</Button>
 }`} lang="tsx" theme="material-theme-palenight" />
+      </section>
 
-    <h2 style="font-size:24px; font-weight:900; margin:16px 0 0;">The one rule</h2>
-    <p style="margin:0; font-weight:700;">
-      No component takes a <code>className</code> or <code>style</code> prop. Appearance is chosen with variants (<code>tone</code>, <code>size</code>, <code>variant</code>), so your UI can't quietly drift off-system. When you genuinely need an escape hatch, you own the file — edit it. That is the whole trade Pouf makes: a strong default that holds, with the source in your hands when it shouldn't.
-    </p>
+      <hr style="border:none; height:2px; background:var(--purple); opacity:0.2; margin:4px 0;" />
 
-    <p style="margin:16px 0 0; font-weight:800;">Next: browse <a href="/components" style="color:var(--ink);">every component</a> live on one page — copy an install command, or read the source. Or jump to the <a href="/examples" style="color:var(--ink);">templates</a>.</p>
-  </article>
+      <section id="theming" class="docs-section" style="display:flex; flex-direction:column; gap:12px;">
+        <h2 style="font-size:24px; font-weight:900; margin:16px 0 0;">4. Theming</h2>
+        <p style="margin:0; font-weight:700;">
+          Every token in <code>pouf.css</code> is a plain CSS custom property, in two layers.
+        </p>
+        <h3 style="font-size:17px; font-weight:900; margin:8px 0 0;"><code>@theme</code> — the Tailwind-facing layer</h3>
+        <p style="margin:0; font-weight:700;">
+          This is what Tailwind reads to generate utility classes (<code>bg-purple</code>, <code>rounded-card</code>, …). It's the palette and radii, verbatim from the reference design:
+        </p>
+        <Code code={`@theme {
+  --color-bg: #f0e9ff;
+  --color-ink: #3a2e5c;
+  --color-purple: #c9a8ff;
+  --color-mint: #a8f0d0;
+  /* …pink, blue, yellow, orange, muted, surface */
+
+  --radius-card: 32px;
+  --radius-control: 20px;
+  --radius-blob: 24px;
+}`} lang="css" theme="material-theme-palenight" />
+        <h3 style="font-size:17px; font-weight:900; margin:8px 0 0;"><code>:root</code> — the layer components actually speak</h3>
+        <p style="margin:0; font-weight:700;">
+          Short aliases that resolve to the same values (<code>--bg</code>, <code>--ink</code>, <code>--surface</code>, <code>--purple</code>, …), a spacing scale (<code>--s1</code> through <code>--s8</code>), and the clay recipe itself — the layered box-shadows every cushion is built from: <code>--pouf-card</code>, <code>--pouf-control</code>, <code>--pouf-field</code>, <code>--pouf-row</code> (each with hover/active/focus siblings). Components read these names, not <code>@theme</code>'s, and not a hard-coded colour anywhere.
+        </p>
+        <p style="margin:0; font-weight:700;">
+          <strong>To re-theme the palette</strong>, override the <code>@theme</code> values in your own stylesheet, after importing <code>pouf.css</code>. Because <code>:root</code>'s aliases are written as <code>var(--color-purple)</code> — a live reference, not a copied value — one change reaches everything: the <code>:root</code> aliases, the clay recipe, and the handful of components that use a compiled Tailwind utility (like <code>bg-purple</code>) directly.
+        </p>
+        <Code code={`/* your own stylesheet, imported after pouf.css */
+@theme {
+  --color-purple: #7c5cff;
+  --radius-card: 20px;
+}`} lang="css" theme="material-theme-palenight" />
+        <p style="margin:0; font-weight:700;">
+          <strong>To remap what a tone means</strong> rather than its hue, override the semantic alias directly — screens speak intent (<code>--up</code>, <code>--down</code>, <code>--warn</code>, <code>--info</code>, <code>--idle</code>), never colour, so a re-theme of meaning happens in exactly one place:
+        </p>
+        <Code code={`:root {
+  --down: var(--orange); /* was --pink */
+}`} lang="css" theme="material-theme-palenight" />
+      </section>
+
+      <hr style="border:none; height:2px; background:var(--purple); opacity:0.2; margin:4px 0;" />
+
+      <section id="dark-mode" class="docs-section" style="display:flex; flex-direction:column; gap:12px;">
+        <h2 style="font-size:24px; font-weight:900; margin:16px 0 0;">5. Dark mode</h2>
+        <p style="margin:0; font-weight:700;">
+          Dark is opt-in via an attribute on the document, not a media query: set <code>data-theme="dark"</code> on <code>&lt;html&gt;</code> and every token in <code>pouf.css</code>'s <code>[data-theme='dark']</code> block takes over. Leave the attribute off (or set it to <code>"light"</code>) and nothing changes.
+        </p>
+        <p style="margin:0; font-weight:700;">
+          There is deliberately no <code>@media (prefers-color-scheme: dark)</code> rule in the stylesheet. Reading the OS preference in CSS would make the theme a property of the visitor's machine rather than of the document — every screenshot test would become environment-dependent, and the choice would be taken away from your app, which usually already owns a theme toggle. Deciding from the OS preference is a one-line job for whoever mounts the app, done once, in script — not baked into the library.
+        </p>
+        <p style="margin:0; font-weight:700;">Here's the standard no-flash version — synchronous and inline in <code>&lt;head&gt;</code>, so it runs before first paint (a deferred script, or a React effect, both run after the browser has already painted the wrong theme):</p>
+        <Code code={`<script>
+  (function () {
+    try {
+      var saved = localStorage.getItem('theme')
+      var theme =
+        saved === 'light' || saved === 'dark'
+          ? saved
+          : window.matchMedia('(prefers-color-scheme: dark)').matches
+            ? 'dark'
+            : 'light'
+      document.documentElement.setAttribute('data-theme', theme)
+    } catch (e) {
+      document.documentElement.setAttribute('data-theme', 'light')
+    }
+  })()
+</script>`} lang="html" theme="material-theme-palenight" />
+        <p style="margin:0; font-weight:700;">
+          Toggling later is one line — <code>document.documentElement.setAttribute('data-theme', next)</code> — plus whatever persistence you want (pouf.dev's own toggle writes the choice to <code>localStorage</code> so it survives a reload).
+        </p>
+        <p style="margin:0; font-weight:700;">
+          One token needs a closer look across the swap: <code>--on-accent</code> — the ink colour that sits <em>on</em> a pastel accent fill (a solid Button, a filled Badge, an active NavLink, a Blob). The accents themselves never change between themes — they're the brand — while <code>--ink</code> flips from near-black to near-white for the page. Collapse the two and dark mode puts near-white text on a fill that's still pastel purple, which fails contrast outright. <code>--on-accent</code> is pinned separately for dark (it stays dark, because the fill it sits on stays pastel); in light mode it resolves to exactly <code>--ink</code>, so nothing about the light theme changes.
+        </p>
+      </section>
+
+      <hr style="border:none; height:2px; background:var(--purple); opacity:0.2; margin:4px 0;" />
+
+      <section id="conventions" class="docs-section" style="display:flex; flex-direction:column; gap:12px;">
+        <h2 style="font-size:24px; font-weight:900; margin:16px 0 0;">6. Conventions</h2>
+        <p style="margin:0; font-weight:700;">
+          No component takes a <code>className</code> or <code>style</code> prop. Appearance is chosen with variants — <code>tone</code>, <code>size</code>, <code>variant</code> — so your UI can't quietly drift off-system one utility class at a time. Tones are <code>purple, pink, blue, mint, yellow, orange</code>, plus five semantic aliases that speak intent instead of colour: <code>up, down, warn, info, idle</code> (see Theming above for what they map to, and how to remap them).
+        </p>
+        <p style="margin:0; font-weight:700;">
+          When you genuinely need an escape hatch that no variant covers, you own the file — edit it. That is the whole trade Pouf makes: a strong default that holds, with the source in your hands when it shouldn't.
+        </p>
+      </section>
+
+      <hr style="border:none; height:2px; background:var(--purple); opacity:0.2; margin:4px 0;" />
+
+      <section id="accessibility" class="docs-section" style="display:flex; flex-direction:column; gap:12px;">
+        <h2 style="font-size:24px; font-weight:900; margin:16px 0 0;">7. Accessibility</h2>
+        <p style="margin:0; font-weight:700;">
+          Overlay behaviour — focus trapping, keyboard nav, ARIA state — comes from Radix, for free. Two conventions worth knowing before you build a form or a toolbar:
+        </p>
+        <p style="margin:0; font-weight:700;">
+          <strong>Field</strong> wires a real <code>&lt;label for&gt;</code>, hint text, and an error message together, and hands the ids back to you rather than making you guess them. It takes a render-prop child — a function, not plain JSX — because the same wrapper serves Input, Select, and Switch without duplicating the <code>aria-describedby</code> plumbing per control:
+        </p>
+        <Code code={`<Field label="Email" hint="We'll never share it.">
+  {(id, describedBy) => (
+    <Input id={id} describedBy={describedBy} value={email} onChange={setEmail} />
+  )}
+</Field>`} lang="tsx" theme="material-theme-palenight" />
+        <p style="margin:0; font-weight:700;">
+          <strong>Icon-only controls need a <code>label</code> prop.</strong> A Button (or a NumberInput stepper, a Checkbox, a chart legend, …) with only a glyph inside has no accessible name unless you supply one — it renders as <code>aria-label</code>:
+        </p>
+        <Code code={`<Button label="Delete row" size="sm" variant="quiet">
+  <Icon name="remove" />
+</Button>`} lang="tsx" theme="material-theme-palenight" />
+        <p style="margin:0; font-weight:700;">
+          Don't also pass a <code>label</code> to the <code>Icon</code> in that case — <code>Icon</code>'s own <code>label</code> exists for when the glyph is the <em>sole</em> carrier of meaning with nothing else naming it. Set both and a screen reader announces the description twice.
+        </p>
+      </section>
+
+      <hr style="border:none; height:2px; background:var(--purple); opacity:0.2; margin:4px 0;" />
+
+      <section id="blocks-vs-templates" class="docs-section" style="display:flex; flex-direction:column; gap:12px;">
+        <h2 style="font-size:24px; font-weight:900; margin:16px 0 0;">8. Blocks vs. templates</h2>
+        <p style="margin:0; font-weight:700;">
+          Past a single component, Pouf ships two tiers of copy-pasteable composition. Both install exactly like a component — a registry item that lands with its own dependencies — but they promise different things:
+        </p>
+        <ul style="margin:0; padding-left:22px; display:flex; flex-direction:column; gap:10px; font-weight:700;">
+          <li><strong>Blocks are sections.</strong> A pricing table, a login card, a music player — you drop one into a page you already have.</li>
+          <li><strong>Templates are screens.</strong> Global chrome (an app shell with navigation, or a marketing page with a navbar and footer) plus the content inside it — you ship one as a route.</li>
+        </ul>
+        <CopyCommand client:load command="npx shadcn@latest add https://pouf.dev/r/dashboard.json" />
+        <p style="margin:0; font-weight:700;">
+          Browse every block on <a href="/blocks" style="color:var(--ink);">/blocks</a>, and every template on <a href="/examples" style="color:var(--ink);">/examples</a>.
+        </p>
+      </section>
+
+      <p style="margin:16px 0 0; font-weight:800;">Next: browse <a href="/components" style="color:var(--ink);">every component</a> live on one page — copy an install command, or read the source.</p>
+    </article>
+  </div>
 </Site>
+
+<style>
+  .docs-toc-link {
+    display: block;
+    font-weight: 800;
+    font-size: 14px;
+    color: var(--ink);
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 12px;
+    transition: background 140ms ease;
+  }
+  .docs-toc-link:hover {
+    background: rgba(201, 168, 255, 0.25);
+  }
+  .docs-section {
+    scroll-margin-top: 92px;
+  }
+</style>

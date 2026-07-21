@@ -29,7 +29,7 @@ export const rowCardDemos: Demo[] = [
           <Row gap={3} wrap={false}>
             <Blob tone="up" size="sm" icon="up" />
             <Text>Apple</Text>
-            <Badge tone="up">Long</Badge>
+            <Badge tone="up">Trending</Badge>
           </Row>
           <Text num>+2.41%</Text>
         </Row>

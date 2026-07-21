@@ -30,9 +30,9 @@ export function Skeleton({ variant = 'row', count = 1 }: { variant?: 'text' | 'r
   )
 }
 
-/** Failure is a first-class state here: this admin talks to exchanges, so a
- * request that dies must say so rather than render an empty list that reads as
- * "no open positions".
+/** Failure is a first-class state here: an app that talks to a network must say
+ * when a request died, rather than render an empty list that reads as
+ * "you have nothing".
  *
  * A puffy clay cushion with a raised warning blob — the same physical language
  * as a toast, not the flat orange slab it used to be. */

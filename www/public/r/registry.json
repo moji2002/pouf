@@ -855,6 +855,7 @@
       ],
       "registryDependencies": [
         "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/bottom-nav.json",
         "https://pouf.dev/r/charts.json",
         "https://pouf.dev/r/layout.json",
         "https://pouf.dev/r/media.json",
@@ -882,6 +883,7 @@
       "registryDependencies": [
         "https://pouf.dev/r/base.json",
         "https://pouf.dev/r/button.json",
+        "https://pouf.dev/r/feedback.json",
         "https://pouf.dev/r/input.json",
         "https://pouf.dev/r/layout.json",
         "https://pouf.dev/r/media.json",
@@ -904,11 +906,14 @@
       ],
       "registryDependencies": [
         "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/bottom-nav.json",
         "https://pouf.dev/r/button.json",
         "https://pouf.dev/r/controls.json",
         "https://pouf.dev/r/disclosure.json",
         "https://pouf.dev/r/input.json",
         "https://pouf.dev/r/layout.json",
+        "https://pouf.dev/r/media.json",
+        "https://pouf.dev/r/nav-link.json",
         "https://pouf.dev/r/radio-group.json",
         "https://pouf.dev/r/separator.json",
         "https://pouf.dev/r/slider.json",
@@ -931,13 +936,18 @@
       "registryDependencies": [
         "https://pouf.dev/r/avatar.json",
         "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/bottom-nav.json",
         "https://pouf.dev/r/button.json",
         "https://pouf.dev/r/icon.json",
         "https://pouf.dev/r/input.json",
         "https://pouf.dev/r/layout.json",
         "https://pouf.dev/r/media.json",
+        "https://pouf.dev/r/nav-link.json",
         "https://pouf.dev/r/surface.json",
         "https://pouf.dev/r/text.json"
+      ],
+      "dependencies": [
+        "clsx"
       ]
     },
     {
@@ -1003,9 +1013,11 @@
       "registryDependencies": [
         "https://pouf.dev/r/avatar.json",
         "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/feedback.json",
         "https://pouf.dev/r/layout.json",
         "https://pouf.dev/r/media.json",
         "https://pouf.dev/r/pagination.json",
+        "https://pouf.dev/r/segmented.json",
         "https://pouf.dev/r/surface.json",
         "https://pouf.dev/r/text.json"
       ]
@@ -1050,10 +1062,18 @@
       "registryDependencies": [
         "https://pouf.dev/r/avatar.json",
         "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/bottom-nav.json",
+        "https://pouf.dev/r/button.json",
+        "https://pouf.dev/r/icon.json",
         "https://pouf.dev/r/layout.json",
         "https://pouf.dev/r/media.json",
+        "https://pouf.dev/r/nav-link.json",
         "https://pouf.dev/r/surface.json",
         "https://pouf.dev/r/text.json"
+      ],
+      "dependencies": [
+        "@dnd-kit/core",
+        "clsx"
       ]
     },
     {
@@ -1236,12 +1256,19 @@
       "registryDependencies": [
         "https://pouf.dev/r/avatar.json",
         "https://pouf.dev/r/base.json",
+        "https://pouf.dev/r/bottom-nav.json",
         "https://pouf.dev/r/button.json",
+        "https://pouf.dev/r/feedback.json",
         "https://pouf.dev/r/icon.json",
+        "https://pouf.dev/r/input.json",
         "https://pouf.dev/r/layout.json",
         "https://pouf.dev/r/media.json",
+        "https://pouf.dev/r/nav-link.json",
         "https://pouf.dev/r/surface.json",
         "https://pouf.dev/r/text.json"
+      ],
+      "dependencies": [
+        "clsx"
       ]
     },
     {
@@ -1263,6 +1290,7 @@
         "https://pouf.dev/r/icon.json",
         "https://pouf.dev/r/layout.json",
         "https://pouf.dev/r/media.json",
+        "https://pouf.dev/r/segmented.json",
         "https://pouf.dev/r/surface.json",
         "https://pouf.dev/r/text.json"
       ]

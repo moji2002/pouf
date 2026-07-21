@@ -3,6 +3,7 @@ import '@fontsource-variable/nunito'
 import '@fontsource-variable/fredoka'
 import '../styles/site.css'
 import { ToasterMount } from '../components/ToasterMount'
+import { CommandPalette } from '../components/CommandPalette'
 
 
 interface Props {
@@ -24,6 +25,26 @@ const wrapClass = wide ? 'site-wide' : 'site-wrap'
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <link rel="icon" href="/favicon.svg" />
+    {/* Runs before first paint, so the page never flashes light then repaint
+        dark. Inline and synchronous on purpose — a deferred script or a React
+        effect would both land after the browser has already painted. */}
+    <script is:inline>
+      (function () {
+        try {
+          var saved = localStorage.getItem('pouf-theme')
+          var theme =
+            saved === 'light' || saved === 'dark'
+              ? saved
+              : window.matchMedia('(prefers-color-scheme: dark)').matches
+                ? 'dark'
+                : 'light'
+          document.documentElement.setAttribute('data-theme', theme)
+        } catch (e) {
+          /* Private mode can throw on localStorage; light is a fine default. */
+          document.documentElement.setAttribute('data-theme', 'light')
+        }
+      })()
+    </script>
   </head>
   <body style="background: var(--bg); color: var(--ink); font-family: var(--font); font-weight: 700; min-height: 100vh; margin: 0;">
     <!-- Decorative cushion-blob field: colour and depth behind everything. -->
@@ -44,8 +65,20 @@ const wrapClass = wide ? 'site-wide' : 'site-wrap'
           </a>
           <a class="site-link" href="/docs/">Docs</a>
           <a class="site-link" href="/components">Components</a>
-          <a class="site-link" href="/examples">Examples</a>
+          <a class="site-link" href="/blocks">Blocks</a>
+          <a class="site-link" href="/examples">Templates</a>
+          <a class="site-link" href="/theme">Theme</a>
           <a class="site-link" href="/changelog">Changelog</a>
+          <CommandPalette client:load />
+          <button
+            id="theme-toggle"
+            class="site-link theme-toggle"
+            type="button"
+            aria-label="Switch colour theme"
+            aria-pressed="false"
+          >
+            <span class="theme-toggle__icon" aria-hidden="true"></span>
+          </button>
           <a class="site-link" href="https://github.com/pouf-ui/pouf" target="_blank" rel="noopener noreferrer" style="background:var(--ink); color:var(--bg);">GitHub</a>
         </nav>
       </div>
@@ -69,9 +102,11 @@ const wrapClass = wide ? 'site-wide' : 'site-wrap'
             </div>
           </div>
           <div style="margin-left:auto; display:flex; gap:20px; flex-wrap:wrap; font-weight:800;">
-            <a href="/docs/" style="color:var(--ink); text-decoration:none;">Docs</a>
-            <a href="/examples" style="color:var(--ink); text-decoration:none;">Examples</a>
-            <a href="https://github.com/pouf-ui/pouf" target="_blank" rel="noopener noreferrer" style="color:var(--ink); text-decoration:none;">GitHub</a>
+            <a class="site-foot-link" href="/docs/">Docs</a>
+            <a class="site-foot-link" href="/components">Components</a>
+            <a class="site-foot-link" href="/blocks">Blocks</a>
+            <a class="site-foot-link" href="/examples">Templates</a>
+            <a class="site-foot-link" href="https://github.com/pouf-ui/pouf" target="_blank" rel="noopener noreferrer">GitHub</a>
           </div>
         </div>
         <p style="text-align:center; color:var(--muted); font-weight:700; font-size:13px; margin-top:20px;">Visual language adapted from <a href="https://github.com/novusgfx/retro-design-system" target="_blank" rel="noopener noreferrer" style="color:var(--muted); font-weight:800;">novusgfx/retro-design-system</a> (MIT).</p>
@@ -99,5 +134,277 @@ const wrapClass = wide ? 'site-wide' : 'site-wrap'
         for (const el of document.querySelectorAll('.reveal')) io.observe(el)
       }
     </script>
+    <script is:inline>
+      (function () {
+        var btn = document.getElementById('theme-toggle')
+        if (!btn) return
+        var root = document.documentElement
+        var sync = function () {
+          var dark = root.getAttribute('data-theme') === 'dark'
+          btn.setAttribute('aria-pressed', String(dark))
+          btn.title = dark ? 'Switch to light' : 'Switch to dark'
+        }
+        sync()
+        btn.addEventListener('click', function () {
+          var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'
+          root.setAttribute('data-theme', next)
+          try { localStorage.setItem('pouf-theme', next) } catch (e) {}
+          sync()
+        })
+      })()
+    </script>
   </body>
 </html>
+
+<style is:global>
+  /* The toggle reuses .site-link's chrome and only adds the glyph. Sun and moon
+     are drawn with a box-shadow + radial-gradient rather than an inline SVG so
+     the icon can be swapped purely by the data-theme attribute — no second
+     asset, no JS re-render, and it animates between states. */
+  .theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+    padding: 8px 12px;
+  }
+  .theme-toggle__icon {
+    width: 18px;
+    height: 18px;
+    border-radius: 999px;
+    background: var(--ink);
+    display: inline-block;
+    position: relative;
+    transition: background 200ms ease, transform 300ms cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  /* Light: a full disc with rays. Dark: the disc is masked into a crescent. */
+  [data-theme='light'] .theme-toggle__icon {
+    box-shadow:
+      0 -11px 0 -6.5px var(--ink), 0 11px 0 -6.5px var(--ink),
+      -11px 0 0 -6.5px var(--ink), 11px 0 0 -6.5px var(--ink);
+    transform: scale(0.72);
+  }
+  [data-theme='dark'] .theme-toggle__icon {
+    box-shadow: inset -5px -3px 0 0 var(--ink);
+    background: transparent;
+    transform: rotate(-18deg);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .theme-toggle__icon { transition: none; }
+  }
+
+  /* ==========================================================================
+   * ⌘K COMMAND PALETTE — trigger pill in the nav + the portaled dialog.
+   * A self-contained pair (see CommandPalette.tsx): everything here reads the
+   * same tokens as the rest of the chrome so it never needs its own dark-mode
+   * branch. Reduced motion is handled globally (pouf.css neutralises every
+   * animation/transition duration under prefers-reduced-motion), so the pop
+   * and fade below need no extra guard. ==================================== */
+  .cmdk-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s2);
+    flex: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font);
+    font-weight: 800;
+    font-size: 14px;
+    color: var(--muted);
+    background: var(--bg);
+    border-radius: 999px;
+    padding: 8px 10px 8px 14px;
+    box-shadow: var(--pouf-field);
+    transition: box-shadow 140ms ease, transform 140ms ease, color 140ms ease;
+  }
+  .cmdk-trigger:hover {
+    color: var(--ink);
+    box-shadow: var(--pouf-field-focus);
+  }
+  .cmdk-trigger:active {
+    transform: translateY(1px);
+  }
+  .cmdk-trigger__label {
+    white-space: nowrap;
+  }
+  .cmdk-kbd {
+    font-family: var(--font);
+    font-size: 11px;
+    font-weight: 800;
+    line-height: 1;
+    color: var(--muted);
+    background: var(--surface);
+    border-radius: 8px;
+    padding: 4px 6px;
+    box-shadow: var(--pouf-control);
+  }
+  .cmdk-kbd--sm {
+    font-size: 10px;
+    padding: 2px 5px;
+    margin-right: 3px;
+    box-shadow: none;
+    background: var(--bg);
+  }
+  @media (max-width: 780px) {
+    .cmdk-trigger__label,
+    .cmdk-trigger .cmdk-kbd {
+      display: none;
+    }
+    .cmdk-trigger {
+      padding: 8px;
+    }
+  }
+
+  .cmdk-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    background: rgba(58, 46, 92, 0.35);
+    backdrop-filter: blur(2px);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 10vh 20px 20px;
+    animation: cmdk-fade 160ms ease;
+  }
+  .cmdk-dialog {
+    width: min(560px, 100%);
+    max-height: min(70vh, 560px);
+    display: flex;
+    flex-direction: column;
+    background: var(--surface);
+    border-radius: var(--r-card);
+    box-shadow: var(--pouf-card);
+    overflow: hidden;
+    animation: cmdk-pop 180ms cubic-bezier(0.2, 0.9, 0.3, 1.3);
+  }
+  @keyframes cmdk-fade {
+    from { opacity: 0; }
+  }
+  @keyframes cmdk-pop {
+    from { opacity: 0; transform: translateY(-12px) scale(0.97); }
+  }
+  @media (max-width: 640px) {
+    .cmdk-overlay { padding: 6vh 12px 12px; }
+    .cmdk-dialog { max-height: 80vh; }
+  }
+
+  .cmdk-header {
+    display: flex;
+    align-items: center;
+    gap: var(--s3);
+    flex: none;
+    padding: var(--s4) var(--s5);
+    border-bottom: 2px solid rgba(201, 168, 255, 0.2);
+    color: var(--muted);
+  }
+  .cmdk-input {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    background: none;
+    outline: none;
+    font-family: var(--font);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .cmdk-input::placeholder {
+    color: var(--muted);
+    font-weight: 700;
+  }
+  .cmdk-close {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transition: background 140ms ease, color 140ms ease;
+  }
+  .cmdk-close:hover {
+    background: var(--bg);
+    color: var(--ink);
+  }
+
+  .cmdk-list {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    min-height: 0;
+    padding: var(--s3) var(--s3) var(--s4);
+  }
+  .cmdk-group + .cmdk-group {
+    margin-top: var(--s3);
+  }
+  .cmdk-group__label {
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: var(--s2) var(--s3) 6px;
+  }
+  .cmdk-option {
+    display: flex;
+    align-items: center;
+    gap: var(--s3);
+    padding: var(--s3);
+    border-radius: var(--r-control);
+    cursor: pointer;
+  }
+  .cmdk-option--active {
+    background: var(--bg);
+    box-shadow: var(--pouf-field);
+  }
+  .cmdk-option__text {
+    flex: 1;
+    min-width: 0;
+  }
+  .cmdk-option__title {
+    font-weight: 900;
+    color: var(--ink);
+    font-size: 15px;
+  }
+  .cmdk-option__blurb {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .cmdk-option__tag {
+    flex: none;
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--muted);
+    background: var(--bg);
+    border-radius: 999px;
+    padding: 4px 10px;
+    white-space: nowrap;
+  }
+  .cmdk-empty {
+    text-align: center;
+    color: var(--muted);
+    font-weight: 700;
+    padding: var(--s7) var(--s4);
+    margin: 0;
+  }
+
+  .cmdk-footer {
+    display: flex;
+    gap: var(--s5);
+    flex-wrap: wrap;
+    flex: none;
+    padding: var(--s3) var(--s5);
+    border-top: 2px solid rgba(201, 168, 255, 0.2);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--muted);
+  }
+</style>

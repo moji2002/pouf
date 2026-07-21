@@ -1,20 +1,23 @@
 ---
 import Site from '../../layouts/Site.astro'
 import { IconBlob } from '../../components/IconBlob'
-import { BLOCKS } from '../../data/blocks'
+import { TEMPLATES, BLOCKS } from '../../data/blocks'
 ---
 
-<Site title="Examples" description="Full-page templates composed from Pouf primitives — install a whole screen at once." wide>
+<Site title="Templates" description="Complete screens — app shell, navigation, and content — composed from Pouf primitives." wide>
   <section style="display:flex; flex-direction:column; gap:14px; padding:8px 0 40px;">
-    <span class="sticker" style="background:var(--yellow); align-self:flex-start; transform:rotate(-2deg);">{BLOCKS.length} ready-to-copy screens</span>
+    <span class="sticker" style="background:var(--yellow); align-self:flex-start; transform:rotate(-2deg);">{TEMPLATES.length} whole screens</span>
     <h1 class="display" style="font-size:clamp(44px,6vw,76px); margin:0;">Templates</h1>
-    <p style="font-size:20px; font-weight:800; color:var(--muted); margin:0; max-width:56ch;">
-      Full-page screens, composed entirely from Pouf primitives. Preview each live, then install the whole thing with one command — it lands with every component it uses.
+    <p style="font-size:20px; font-weight:800; color:var(--muted); margin:0; max-width:58ch;">
+      Not sections — <strong style="color:var(--ink);">screens</strong>. Each one ships its own chrome: an app shell with working navigation, or a marketing page with a navbar and a footer. Preview it live, then install the whole route with one command.
+    </p>
+    <p style="font-size:16px; font-weight:800; color:var(--muted); margin:0;">
+      Looking for a single section instead? <a href="/blocks" style="color:var(--ink);">Browse the {BLOCKS.length} blocks →</a>
     </p>
   </section>
 
   <div style="display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:22px;" class="ex-grid">
-    {BLOCKS.map((b, i) => (
+    {TEMPLATES.map((b, i) => (
       <a href={`/examples/${b.slug}`} style="text-decoration:none; color:var(--ink);">
         <div class="ex-card" style={`background:var(--${b.tone}); border-radius:28px; padding:26px; box-shadow: var(--pouf-control); display:flex; flex-direction:column; gap:14px; height:100%; transform:rotate(${i % 2 === 0 ? '-0.6' : '0.6'}deg);`}>
           <IconBlob client:visible icon={b.icon as any} tone="purple" size="md" />

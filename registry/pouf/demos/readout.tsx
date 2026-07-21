@@ -5,10 +5,10 @@ import type { Demo } from './types'
 export const statDemos: Demo[] = [
   { id: 'default', render: () => (
       <Grid cols={4}>
-        <Stat label="Orders" value="128" icon="log" tone="idle" />
-        <Stat label="Wins / losses" value="74 / 54" icon="target" tone="up" />
-        <Stat label="Realized" value="+$412.90" icon="up" tone="up" />
-        <Stat label="Avg R" value="−0.42" icon="performance" tone="down" />
+        <Stat label="Users" value="1,284" icon="users" tone="idle" />
+        <Stat label="Active" value="312" icon="target" tone="up" />
+        <Stat label="Revenue" value="+$4,290" icon="up" tone="up" />
+        <Stat label="Churn" value="−0.4%" icon="performance" tone="down" />
       </Grid>
     ) },
 ]
@@ -18,11 +18,11 @@ export const metricDemos: Demo[] = [
   // real zero so the difference between "known zero" and "unknown" is visible.
   { id: 'default', render: () => (
       <Row gap={6} wrap={false}>
-        <Metric label="Orders" value={0} />
-        <Metric label="Win rate" value={null} />
-        <Metric label="Avg R" value={null} />
-        <Metric label="Realized" value="+$0.00" />
-        <Metric label="Sizing" value="fixed-fractional" num={false} />
+        <Metric label="Projects" value={0} />
+        <Metric label="Completion" value={null} />
+        <Metric label="Score" value={null} />
+        <Metric label="Balance" value="$0.00" />
+        <Metric label="Plan" value="Free" num={false} />
       </Row>
     ) },
 ]

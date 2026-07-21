@@ -7,17 +7,17 @@ import type { Demo } from './types'
 const noopDismiss = () => {}
 
 export const toastDemos: Demo[] = [
-  { id: 'info', render: () => <Toast id={1} severity="info" onDismiss={noopDismiss}>Apple filled at 64,201.50.</Toast> },
+  { id: 'info', render: () => <Toast id={1} severity="info" onDismiss={noopDismiss}>Maya commented on your post.</Toast> },
   { id: 'critical', render: () => (
       <Toast id={2} severity="critical" onDismiss={noopDismiss}>
-        Circuit breaker tripped — the engine halted itself.
+        Payment failed — your card was declined.
       </Toast>
     ) },
   { id: 'viewport', render: () => (
       <ToastViewport
         toasts={[
-          { id: 1, severity: 'critical', text: 'Circuit breaker tripped — the engine halted itself.' },
-          { id: 2, severity: 'info', text: 'Apple filled at 64,201.50.' },
+          { id: 1, severity: 'critical', text: 'Payment failed — your card was declined.' },
+          { id: 2, severity: 'info', text: 'Maya commented on your post.' },
         ]}
         onDismiss={noopDismiss}
       />

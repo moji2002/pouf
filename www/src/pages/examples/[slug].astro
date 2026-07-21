@@ -5,10 +5,10 @@ import Site from '../../layouts/Site.astro'
 import { Code } from 'astro:components'
 import { BlockPreview } from '../../components/BlockPreview'
 import { CopyCommand } from '../../components/CopyCommand'
-import { BLOCKS, blockInstall } from '../../data/blocks'
+import { TEMPLATES, blockInstall } from '../../data/blocks'
 
 export function getStaticPaths() {
-  return BLOCKS.map((b) => ({ params: { slug: b.slug }, props: { block: b } }))
+  return TEMPLATES.map((b) => ({ params: { slug: b.slug }, props: { block: b } }))
 }
 
 const { block } = Astro.props
@@ -25,7 +25,7 @@ try {
 <Site title={block.title} description={block.blurb} wide>
   <article style="display:flex; flex-direction:column; gap:28px;">
     <div style="display:flex; flex-direction:column; gap:10px;">
-      <a href="/examples" style="color:var(--ink); font-weight:900; text-decoration:none; opacity:0.7;">← All templates</a>
+      <a href="/examples" class="back-link">← All templates</a>
       <h1 class="display" style="font-size:clamp(40px,5vw,68px); margin:0;">{block.title}</h1>
       <p style="font-size:19px; font-weight:800; color:var(--muted); margin:0;">{block.blurb}</p>
     </div>

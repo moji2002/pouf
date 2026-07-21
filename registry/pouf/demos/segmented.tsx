@@ -8,15 +8,15 @@ export const segmentedDemos: Demo[] = [
       <span data-subject>
         <Row gap={3}>
           <Segmented
-            label="Mode"
-            value="paper"
+            label="View"
+            value="grid"
             onChange={() => {}}
             options={[
-              { value: 'paper', label: 'paper' },
-              { value: 'live', label: 'live' },
+              { value: 'grid', label: 'grid' },
+              { value: 'list', label: 'list' },
             ]}
           />
-          <Text size="sm" muted>Showing paper</Text>
+          <Text size="sm" muted>Showing grid</Text>
         </Row>
       </span>
     ) },

@@ -5,7 +5,7 @@ export const breadcrumbDemos: Demo[] = [
   { id: 'default', render: () => (
       <Breadcrumb items={[
         { label: 'Dashboard', href: '#' },
-        { label: 'Signals', href: '#' },
+        { label: 'Reports', href: '#' },
         { label: '#fruit-stand' },
       ]} />
     ) },

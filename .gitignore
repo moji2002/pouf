@@ -5,5 +5,9 @@ gallery/harness/.candidate
 *.log
 .DS_Store
 
+# gallery/shoot-pouf.mjs screenshot output (override with SHOOT_OUT)
+.shots
+
 # generated at build
 www/src/data/changelog.json
+www/src/data/props.json

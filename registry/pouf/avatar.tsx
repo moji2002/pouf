@@ -39,7 +39,7 @@ const avatar = cva(
  * around the 72px avatar and crowding the 32px one. */
 const fallback = cva(
   [
-    'pouf-avatar__fallback w-full h-full flex items-center justify-center font-black text-ink',
+    'pouf-avatar__fallback w-full h-full flex items-center justify-center font-black text-[var(--on-accent)]',
     'bg-[var(--tone,var(--purple))]',
     '[box-shadow:inset_0_4px_8px_rgba(255,255,255,0.5),inset_0_-7px_11px_rgba(0,0,0,0.06)]',
   ],

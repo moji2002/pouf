@@ -75,14 +75,14 @@ export function Text({ children, size, muted, num, mono, truncate }: TextProps) 
   return (
     // dir="auto" by default, and deliberately not opt-in.
     //
-    // Almost everything an admin renders is user-generated: channel titles and
-    // raw message text, in whatever language the operator follows. Without
-    // this, a Persian or Arabic title renders with its emoji and punctuation
-    // on the wrong side — visibly wrong, and easy to miss if your own test
-    // data is all English.
+    // Almost everything an app renders is user-generated: names, titles and
+    // raw message text, in whatever language the person writes. Without this,
+    // a Persian or Arabic title renders with its emoji and punctuation on the
+    // wrong side — visibly wrong, and easy to miss if your own test data is
+    // all English.
     //
     // Safe as a blanket default: dir="auto" resolves from the first STRONG
-    // character, and digits/punctuation are neutral — so "+2.41%" and "BTCUSDT"
+    // character, and digits/punctuation are neutral — so "+2.41%" and "SKU-1420"
     // stay LTR. Opting in per call site would mean remembering it at every one,
     // which is how the bug comes back.
     <span dir="auto" className={text({ size, muted, num, mono, truncate })}>

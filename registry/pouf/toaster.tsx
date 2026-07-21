@@ -7,7 +7,7 @@ import type { IconName } from './Icon'
  * Programmatic toast API — `toast("message")` from anywhere.
  *
  * Modeled after sonner / shadcn. A module-level array + subscriber pattern so
- * screen code never touches toast state. Call `toast("Filled")` and a Toaster
+ * screen code never touches toast state. Call `toast("Saved")` and a Toaster
  * mounted at the root handles rendering, auto-dismiss, and stacking.
  * ========================================================================= */
 
@@ -60,9 +60,9 @@ function remove(id: string) {
 
 /* -- public API ----------------------------------------------------------- */
 
-/* Roles, not moods. `up` is price direction (a "saved OK" toast must not claim
- * the market moved), and error/warning sharing the triangle made "order
- * failed" and "approaching limit" the same visual claim. */
+/* Roles, not moods. `up` means direction of a value (a "saved OK" toast must not
+ * claim a number went up), and error/warning sharing the triangle made "upload
+ * failed" and "approaching your quota" the same visual claim. */
 const ICON: Record<ToastVariant, IconName> = {
   default: 'ok',
   success: 'ok',
@@ -164,7 +164,7 @@ function ToastItem({ t, onDismiss }: { t: ToastEntry; onDismiss: (id: string) =>
 
 /** Renders bare items, no positioned wrapper: the shell owns ONE .pouf-toasts
  * stack and mounts this beside ToastViewport inside it. When each system
- * carried its own fixed stack they sat at identical coordinates, and a breaker
+ * carried its own fixed stack they sat at identical coordinates, and a critical
  * alert could render underneath a routine "saved" toast. */
 export function Toaster() {
   const [items, setItems] = useState<ToastEntry[]>(toasts)

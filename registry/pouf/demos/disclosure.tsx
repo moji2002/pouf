@@ -36,7 +36,7 @@ export const accordionDemos: Demo[] = [
         items={[
           { value: 'risk', title: 'Autosave', children: <Text size="sm">Saves every 30 seconds. Keeps the last 10 versions.</Text> },
           { value: 'sizing', title: 'Layout density', children: <Text size="sm">Comfortable by default. Compact fits more rows.</Text> },
-          { value: 'hours', title: 'Hours', children: <Text size="sm">24/7. Pause during announcements at operator discretion.</Text> },
+          { value: 'hours', title: 'Support hours', children: <Text size="sm">Mon–Fri, 9–6 CET. Weekend replies are best effort.</Text> },
         ]}
       />
     ) },
@@ -54,7 +54,7 @@ export const accordionDemos: Demo[] = [
 const collapsibleTrigger = <Text muted>Show advanced settings</Text>
 const collapsibleBody = (
   <Card variant="tight">
-    <Field label="Slippage tolerance">
+    <Field label="Autosave delay (s)">
       {(id, d) => <Input id={id} describedBy={d} value="0.5" onChange={() => {}} />}
     </Field>
   </Card>

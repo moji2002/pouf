@@ -9,8 +9,8 @@ import type { Demo } from './types'
 // dependent at render time; that's a determinism gap in the component, not
 // something this demo can paper over.
 const alerts: AlertBellItem[] = [
-  { id: 1, severity: 'critical', at: '2024-01-01T12:00:00.000Z', text: 'Circuit breaker tripped — the engine halted itself.' },
-  { id: 2, severity: 'info', at: '2024-01-01T11:58:00.000Z', text: 'Apple filled at 64,201.50.' },
+  { id: 1, severity: 'critical', at: '2024-01-01T12:00:00.000Z', text: 'Build failed — the deploy was rolled back.' },
+  { id: 2, severity: 'info', at: '2024-01-01T11:58:00.000Z', text: 'Maya commented on your post.' },
 ]
 
 function AlertBellOpen({ items, connected = true }: { items: AlertBellItem[]; connected?: boolean }) {

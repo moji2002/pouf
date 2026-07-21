@@ -19,14 +19,12 @@ interface State {
   error: Error | null
 }
 
-/** Catches render crashes so one broken part can't blank the whole admin.
+/** Catches render crashes so one broken part can't blank the whole page.
  *
- * This matters more here than in a typical app: the shell renders ModeBanner,
- * the paper-vs-live indicator. If a render error in Positions unmounted the
- * whole tree, the operator would be left staring at a blank page with no
- * indication of whether the engine is live — and the engine keeps trading
- * regardless. So boundaries wrap each screen and each independent section,
- * never the shell itself.
+ * If a render error in one section unmounted the whole tree, the user would be
+ * left staring at a blank page with no way back. So boundaries wrap each screen
+ * and each independent section, never the shell itself — a crash stays local and
+ * the rest of the UI keeps working.
  *
  * Must be a class: there is still no hook equivalent of componentDidCatch.
  */
@@ -39,7 +37,7 @@ export class ErrorBoundary extends Component<Props, State> {
 
   componentDidCatch(error: Error, info: ErrorInfo): void {
     // Keep the stack in the console: the fallback deliberately doesn't render it
-    // (it isn't useful to an operator), but it must not be swallowed either.
+    // (it isn't useful to the person using the app), but it must not be swallowed either.
     console.error(`[${this.props.name}] render error`, error, info.componentStack)
   }
 
@@ -57,7 +55,7 @@ export class ErrorBoundary extends Component<Props, State> {
             <Stack gap={1}>
               <Heading level={3}>{this.props.name} couldn't be displayed</Heading>
               <Text muted>
-                This part of the admin hit an error. The rest of the page still works, and the engine is unaffected.
+                This section hit an error. The rest of the page still works.
               </Text>
             </Stack>
           </Row>

@@ -204,16 +204,16 @@ export const dialogDemos: Demo[] = [
 
 /* -------------------------------------------------------------- Combobox */
 
-const modelOptions = ['deepseek-chat', 'deepseek-reasoner', 'gpt-4o-mini']
+const timezoneOptions = ['America/New_York', 'Europe/London', 'Asia/Tokyo', 'Australia/Sydney']
 
 function ComboboxOpen() {
   const ref = useRef<HTMLDivElement>(null)
   useEffect(() => { simulateOpen(ref.current?.querySelector('button')) }, [])
   return (
     <div ref={ref}>
-      <Field label="Model">
+      <Field label="Timezone">
         {(id, d) => (
-          <Combobox id={id} describedBy={d} value="deepseek-chat" onChange={() => {}} options={modelOptions} mono placeholder="deepseek-chat" />
+          <Combobox id={id} describedBy={d} value="America/New_York" onChange={() => {}} options={timezoneOptions} mono placeholder="Search a timezone" />
         )}
       </Field>
     </div>
@@ -223,17 +223,17 @@ function ComboboxOpen() {
 export const comboboxDemos: Demo[] = [
   { id: 'default', states: ['hover', 'focus'], render: () => (
       <span data-subject>
-        <Field label="Model">
+        <Field label="Timezone">
           {(id, d) => (
-            <Combobox id={id} describedBy={d} value="deepseek-chat" onChange={() => {}} options={modelOptions} mono placeholder="deepseek-chat" />
+            <Combobox id={id} describedBy={d} value="America/New_York" onChange={() => {}} options={timezoneOptions} mono placeholder="Search a timezone" />
           )}
         </Field>
       </span>
     ) },
-  // The empty-list case is the contract, not a degradation: an endpoint that
-  // offers no list must still let you type an id.
+  // The empty-list case is the contract, not a degradation: a field that offers
+  // no preset list must still let you type a value.
   { id: 'no-options', render: () => (
-      <Field label="Model (no list offered)">
+      <Field label="Custom zone (no list offered)">
         {(id, d) => (
           <Combobox
             id={id}
@@ -241,9 +241,9 @@ export const comboboxDemos: Demo[] = [
             value=""
             onChange={() => {}}
             options={[]}
-            error="This endpoint has no model list — type one."
+            error="No presets — type an IANA name."
             mono
-            placeholder="type an id"
+            placeholder="e.g. Europe/Paris"
           />
         )}
       </Field>

@@ -5,8 +5,8 @@ import { Text } from './text'
 import { Blob, Dot } from './media'
 import { toneClass, type Tone } from './tone'
 
-/** How old a reading may be before we stop vouching for it. The overview polls
- * every 5s, so 15s means "we've missed roughly three polls" — that's a
+/** How old a reading may be before we stop vouching for it. A dashboard that
+ * polls every 5s means 15s is "we've missed roughly three polls" — that's a
  * connection problem, not jitter. */
 const STALE_AFTER_MS = 15_000
 
@@ -34,10 +34,10 @@ function age(ms: number): string {
  * Two things this fixes, both of which a bare coloured dot gets wrong:
  *
  * 1. A green dot on a polled UI means "green as of some past moment we aren't
- *    showing you." On a trading engine that is worse than no indicator: the
- *    operator reads "connected" off a value that may be a minute stale, from a
- *    poll that has been failing. So a reading past STALE_AFTER_MS drops to an
- *    explicit unknown state rather than keeping its last colour.
+ *    showing you." That can be worse than no indicator: the user reads
+ *    "connected" off a value that may be a minute stale, from a poll that has
+ *    been failing. So a reading past STALE_AFTER_MS drops to an explicit unknown
+ *    state rather than keeping its last colour.
  * 2. WCAG 2.2 SC 1.4.1 (Level A) forbids colour as the only carrier of
  *    information. The dot is decorative (aria-hidden) and the text is the
  *    actual signal — so this reads correctly with no colour vision at all.
@@ -78,7 +78,7 @@ interface FreshnessProps {
 /** Speaks only when the data on screen can no longer be trusted.
  *
  * A healthy poll renders nothing: a routine "Updated 2s ago" readout on every
- * screen is chatter, and chatter trains the operator to stop reading. What
+ * screen is chatter, and chatter trains the user to stop reading. What
  * remains are the two states that must not be missed — the most recent fetch
  * failed (what's on screen is the last known value, not the current one), or
  * no fetch has succeeded for longer than STALE_AFTER_MS.
@@ -107,12 +107,12 @@ export function Freshness({ at, isError }: FreshnessProps) {
   )
 }
 
-/** The paper/live indicator.
+/** The draft/live (or any two-mode) indicator.
  *
  * Lives in the shell rather than on a settings screen: the single most
- * expensive mistake this admin permits is believing you are in paper mode while
- * the engine is live, and a checkbox you have to go and look at cannot prevent
- * it. Text carries the state; the tone and pulse only amplify it (SC 1.4.1).
+ * expensive mistake it guards against is believing you are in the safe mode
+ * while you are actually live, and a checkbox you have to go and look at cannot
+ * prevent it. Text carries the state; the tone and pulse only amplify it (SC 1.4.1).
  */
 export function ModeBanner({ live }: { live: boolean }) {
   return (
@@ -122,7 +122,7 @@ export function ModeBanner({ live }: { live: boolean }) {
       aria-live="polite"
     >
       <Blob tone={live ? 'orange' : 'blue'} size="sm" icon={live ? 'live' : 'draft'} />
-      <Text>{live ? 'LIVE — orders use real funds' : 'PAPER — simulated, no real funds'}</Text>
+      <Text>{live ? 'LIVE — changes are public' : 'DRAFT — only you can see this'}</Text>
     </div>
   )
 }

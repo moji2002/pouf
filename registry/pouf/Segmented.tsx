@@ -11,13 +11,13 @@ interface SegmentedProps<T extends string> {
   value: T
   onChange: (value: T) => void
   options: SegmentedOption<T>[]
-  /** Names the group for a screen reader — "Showing", "Mode". Required: a bare
+  /** Names the group for a screen reader — "Showing", "View". Required: a bare
    *  set of buttons announces no reason for existing. */
   label: string
   tone?: Tone
 }
 
-/** A mutually-exclusive choice: paper vs live, and similar.
+/** A mutually-exclusive choice: grid vs list, draft vs live, and similar.
  *
  * Replaces a row of Buttons that signalled selection with `tone={mode === m ?
  * 'purple' : 'blue'}` and nothing else. That was wrong twice over: colour was
@@ -31,8 +31,8 @@ interface SegmentedProps<T extends string> {
  * pouf-btn already does on :active. RowCard sets the precedent for aria-pressed
  * as the selection signal.
  *
- * Generic in T so `<Segmented value={mode} .../>` keeps the union ('paper' |
- * 'live') end to end — passing an option this control cannot produce is a
+ * Generic in T so `<Segmented value={view} .../>` keeps the union ('grid' |
+ * 'list') end to end — passing an option this control cannot produce is a
  * compile error, not a runtime surprise.
  */
 export function Segmented<T extends string>({ value, onChange, options, label, tone = 'blue' }: SegmentedProps<T>) {

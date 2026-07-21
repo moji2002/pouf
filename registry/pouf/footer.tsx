@@ -29,8 +29,17 @@ export function Footer({ brand, tagline, columns = [], note }: FooterProps) {
           {columns.map((col) => (
             <nav key={col.title} className="flex flex-col gap-(--s2)" aria-label={col.title}>
               <span className="text-[12px] font-black tracking-[1.5px] uppercase text-muted">{col.title}</span>
+              {/* inline-flex + min-h on each link: as bare inline anchors these
+                * measured 23px, under the WCAG 2.2 AA target minimum (2.5.8).
+                * They sit in a nav column, not in a sentence, so the SC's
+                * "inline" exemption does not cover them. `self-start` keeps each
+                * link hugging its label rather than stretching the column. */}
               {col.links.map((l) => (
-                <a key={l.href} href={l.href} className="font-extrabold text-ink no-underline hover:text-muted transition-colors">
+                <a
+                  key={l.href}
+                  href={l.href}
+                  className="font-extrabold text-ink no-underline hover:text-muted transition-colors inline-flex items-center self-start min-h-[24px]"
+                >
                   {l.label}
                 </a>
               ))}

@@ -117,8 +117,8 @@ interface BarChartProps {
   height?: number
   stacked?: boolean
   /** Name of a per-datum field holding a Tone. When set (single series only),
-   *  each bar takes its own datum's tone — e.g. mint for a profitable channel,
-   *  pink for a losing one — instead of the series-wide colour. */
+   *  each bar takes its own datum's tone — e.g. mint for a region above target,
+   *  pink for one below — instead of the series-wide colour. */
   toneKey?: string
 }
 

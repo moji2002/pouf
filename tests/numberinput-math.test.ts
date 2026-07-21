@@ -1,8 +1,8 @@
 import { describe, expect, test } from 'bun:test'
 import { normalizeOnBlur, sanitizeNumeric, stepValue } from '../registry/pouf/numberinput-math'
 
-/** The three pure halves of the clay NumberInput (spinbutton). Everything
- * string-in/string-out: the component keeps the operator's typing verbatim,
+/** The three pure halves of the pouf NumberInput (spinbutton). Everything
+ * string-in/string-out: the component keeps the user's typing verbatim,
  * so partial states ("1.", "-") must survive sanitising and stepping must
  * never smuggle float noise ("1.6000000000000001") into the field. */
 

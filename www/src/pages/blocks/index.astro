@@ -1,0 +1,60 @@
+---
+import Site from '../../layouts/Site.astro'
+import { IconBlob } from '../../components/IconBlob'
+import { BLOCKS, BLOCK_CATEGORIES, TEMPLATES } from '../../data/blocks'
+
+/* Grouped rather than one flat wall: twelve unlabelled cards is a pile, six
+   labelled pairs is a menu. Categories come from the data so adding a block
+   never means editing this page. */
+const grouped = BLOCK_CATEGORIES.map((c) => ({
+  category: c,
+  items: BLOCKS.filter((b) => b.category === c),
+})).filter((g) => g.items.length > 0)
+---
+
+<Site title="Blocks" description="Drop-in sections built from Pouf primitives — pricing tables, auth cards, feeds, players." wide>
+  <section style="display:flex; flex-direction:column; gap:14px; padding:8px 0 40px;">
+    <span class="sticker" style="background:var(--mint); align-self:flex-start; transform:rotate(-2deg);">{BLOCKS.length} drop-in sections</span>
+    <h1 class="display" style="font-size:clamp(44px,6vw,76px); margin:0;">Blocks</h1>
+    <p style="font-size:20px; font-weight:800; color:var(--muted); margin:0; max-width:58ch;">
+      One section, fully wired — state, validation, empty states and all. Paste it into a page you already have. Every block is real code you own after install, not a dependency.
+    </p>
+    <p style="font-size:16px; font-weight:800; color:var(--muted); margin:0;">
+      Want a whole screen with navigation? <a href="/examples" style="color:var(--ink);">See the {TEMPLATES.length} templates →</a>
+    </p>
+  </section>
+
+  <div style="display:flex; flex-direction:column; gap:44px;">
+    {grouped.map((g) => (
+      <section style="display:flex; flex-direction:column; gap:18px;">
+        <div style="display:flex; align-items:baseline; gap:12px;">
+          <h2 class="display" style="font-size:28px; margin:0;">{g.category}</h2>
+          <span style="font-size:12px; font-weight:900; letter-spacing:1px; text-transform:uppercase; color:var(--muted);">
+            {g.items.length} block{g.items.length === 1 ? '' : 's'}
+          </span>
+        </div>
+        <!-- auto-fit, not a fixed 3: a category with two blocks would otherwise
+             leave a dead third column. Every card spans one track, so collapsing
+             the empty ones is exactly right here. -->
+        <div class="bl-grid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:22px;">
+          {g.items.map((b, i) => (
+            <a href={`/blocks/${b.slug}`} style="text-decoration:none; color:var(--ink);">
+              <div class="bl-card" style={`background:var(--${b.tone}); border-radius:28px; padding:26px; box-shadow: var(--pouf-control); display:flex; flex-direction:column; gap:14px; height:100%; transform:rotate(${i % 2 === 0 ? '-0.6' : '0.6'}deg);`}>
+                <IconBlob client:visible icon={b.icon as any} tone="purple" size="md" />
+                <h3 class="display" style="font-size:26px; margin:6px 0 0;">{b.title}</h3>
+                <p style="margin:0; color:var(--ink); opacity:0.72; font-weight:800; font-size:15px;">{b.blurb}</p>
+                <span style="margin-top:auto; padding-top:8px; font-weight:900; color:var(--ink);">Open block →</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+    ))}
+  </div>
+
+  <style>
+    .bl-card { transition: transform 160ms ease; }
+    .bl-card:hover { transform: rotate(0deg) translateY(-4px) !important; }
+    @media (max-width: 620px) { .bl-grid { grid-template-columns: minmax(0,1fr) !important; } }
+  </style>
+</Site>

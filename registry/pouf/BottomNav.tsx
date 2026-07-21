@@ -64,15 +64,15 @@ interface Props {
 /** Mobile bottom navigation.
  *
  * Bottom rather than top because it is the only part of a phone screen a thumb
- * reaches without regripping — and this is an app someone opens to check a
- * position while walking.
+ * reaches without regripping — and this is an app someone opens one-handed,
+ * mid-walk, to check one thing.
  *
  * Only a few destinations fit honestly; the rest go behind Menu rather than
  * being crushed into unreadable 8px labels. Menu is a real tab (not a hamburger
  * in a corner) so the overflow is thumb-reachable too, and it lights up when the
- * current page isn't one of the primary tabs — otherwise navigating to
- * Configuration would leave every tab dark and the operator unable to tell where
- * they are.
+ * current page isn't one of the primary tabs — otherwise navigating to a
+ * secondary page would leave every tab dark and nobody able to tell where they
+ * are.
  */
 export function BottomNav({ primary, groups, currentPath, link: Link = Anchor }: Props) {
   const [open, setOpen] = useState(false)

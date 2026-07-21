@@ -9,10 +9,10 @@ import { Empty } from './feedback'
  *
  * Toasts are the interruption; this is the record. It exists because a toast that has
  * faded (or that fired while the tab was in the background) must still be discoverable —
- * otherwise "I stepped away for ten minutes" means "I have no idea what the engine did".
+ * otherwise "I stepped away for ten minutes" means "I have no idea what happened".
  *
- * It is a *session* record, not an archive: it holds what the server's in-memory ring
- * replays, and Telegram Saved Messages remains the permanent log.
+ * It is a *session* record, not an archive: it holds what the app kept in memory,
+ * while your own backend remains the permanent log.
  */
 
 export interface AlertBellItem {
@@ -96,7 +96,7 @@ export function AlertBell({ alerts, unread, connected, onOpen }: Props) {
 
           {alerts.length === 0 ? (
             <Empty icon="alerts" title="No alerts yet">
-              Fills, closes, and safety alerts appear here as the engine trades.
+              Updates and alerts appear here as things happen.
             </Empty>
           ) : (
             <ul className="pouf-bell__list">
