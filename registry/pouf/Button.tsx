@@ -45,9 +45,9 @@ const button = cva(
   {
     variants: {
       size: {
-        sm: 'text-[13px] px-4 py-[9px] min-h-[38px] rounded-[14px]',
-        md: 'text-[15px] px-[26px] py-[14px] min-h-12 rounded-control',
-        lg: 'text-[17px] px-8 py-[18px] min-h-14 rounded-control',
+        sm: 'text-[13px] px-4 pt-[6px] pb-[12px] min-h-[38px] rounded-[14px]',
+        md: 'text-[15px] px-[26px] pt-[11px] pb-[17px] min-h-12 rounded-control',
+        lg: 'text-[17px] px-8 pt-[15px] pb-[21px] min-h-14 rounded-control',
       },
       variant: {
         solid:

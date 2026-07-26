@@ -56,8 +56,8 @@ export const inputClasses = cva(
   {
     variants: {
       bare: {
-        false: 'bg-bg px-5 py-4 min-h-[52px] focus:outline-none focus-visible:outline-none disabled:opacity-55 disabled:cursor-not-allowed',
-        true: 'bg-transparent flex-1 min-w-0 min-h-0 text-center px-0 py-2 [box-shadow:none] focus:[box-shadow:none] focus:outline-none focus-visible:outline-none disabled:opacity-100 disabled:cursor-not-allowed',
+        false: 'bg-bg px-5 pt-[14px] pb-[18px] min-h-[52px] focus:outline-none focus-visible:outline-none disabled:opacity-55 disabled:cursor-not-allowed',
+        true: 'bg-transparent flex-1 min-w-0 min-h-0 text-center px-0 pt-[6px] pb-[10px] [box-shadow:none] focus:[box-shadow:none] focus:outline-none focus-visible:outline-none disabled:opacity-100 disabled:cursor-not-allowed',
       },
       invalid: { true: '', false: '' },
       /* mono OWNS font-family — a base font-pouf would fight it (same-property
