@@ -64,12 +64,16 @@ const wrapClass = wide ? 'site-wide' : 'site-wrap'
             <span aria-hidden="true" style="width:36px; height:36px; border-radius:13px; background:var(--purple); box-shadow: var(--pouf-blob); display:inline-block;"></span>
             <strong class="display" style="font-size:24px;">Pouf</strong>
           </a>
-          <a class="site-link" href="/docs/">Docs</a>
-          <a class="site-link" href="/components">Components</a>
-          <a class="site-link" href="/blocks">Blocks</a>
-          <a class="site-link" href="/examples">Templates</a>
-          <a class="site-link" href="/theme">Theme</a>
-          <a class="site-link" href="/changelog">Changelog</a>
+          {/* The label is wrapped so it can carry text-box-trim. The trim has to
+              live on a block container with real line boxes, and .site-link is a
+              flex container — its bare text would become an anonymous flex item,
+              which the trim never reaches. See .site-link__label in site.css. */}
+          <a class="site-link" href="/docs/"><span class="site-link__label">Docs</span></a>
+          <a class="site-link" href="/components"><span class="site-link__label">Components</span></a>
+          <a class="site-link" href="/blocks"><span class="site-link__label">Blocks</span></a>
+          <a class="site-link" href="/examples"><span class="site-link__label">Templates</span></a>
+          <a class="site-link" href="/theme"><span class="site-link__label">Theme</span></a>
+          <a class="site-link" href="/changelog"><span class="site-link__label">Changelog</span></a>
           <CommandPalette client:load />
           <button
             id="theme-toggle"
@@ -80,7 +84,7 @@ const wrapClass = wide ? 'site-wide' : 'site-wrap'
           >
             <span class="theme-toggle__icon" aria-hidden="true"></span>
           </button>
-          <a class="site-link" href="https://github.com/moji2002/pouf" target="_blank" rel="noopener noreferrer" style="background:var(--ink); color:var(--bg);">GitHub</a>
+          <a class="site-link" href="https://github.com/moji2002/pouf" target="_blank" rel="noopener noreferrer" style="background:var(--ink); color:var(--bg);"><span class="site-link__label">GitHub</span></a>
         </nav>
       </div>
     </header>

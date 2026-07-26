@@ -100,11 +100,47 @@
      * target minimum (2.5.8). inline-flex so min-height actually applies to
      * what is otherwise an inline anchor. */
     padding: 9px 14px;
-    min-height: 24px;
+    /* The pill used to be 40.5px tall by accident: 22.5px of line box plus
+     * 18px of padding. Trimming the label (below) collapses the line box to
+     * the cap band, so the height has to be stated rather than inherited from
+     * leading. 40px is the old size to the nearest pixel, and still well over
+     * the 24px WCAG minimum. Where text-box-trim is unsupported the untrimmed
+     * 40.5px content simply wins and nothing moves. */
+    min-height: 40px;
     display: inline-flex;
     align-items: center;
     border-radius: 999px;
     transition: background 140ms ease, transform 140ms ease;
+  }
+
+  /* Optical vertical centring for the nav bar.
+   *
+   * align-items:center centres the BOX; it cannot centre the letterforms
+   * inside it, because where the glyphs sit in a line box is decided by the
+   * font's own ascent/descent. At font-size:15px Nunito reports a 15px ascent
+   * against a 3px descent — a 5:1 split that reserves room for Vietnamese and
+   * Cyrillic diacritics this nav never renders — which parked the cap band
+   * ~0.75px BELOW centre. Fredoka's metrics differ, so the wordmark sat
+   * ~0.75px ABOVE it. Measured on the live bar: a 1.5px disagreement across
+   * one row, which is what reads as "not centred".
+   *
+   * text-box-trim shrinks the line box to the cap-height/baseline band, so
+   * centring the box now centres what you actually see. Padding and min-height
+   * go back to being purely about the pill's size — no asymmetric nudge tuned
+   * to one font at one size, which is the other way to fix this and rots the
+   * moment either changes.
+   *
+   * It must sit on the LABEL, not on .site-link: trim applies to a block
+   * container's line boxes, and .site-link is a flex container whose bare text
+   * would become an anonymous flex item the trim never reaches. Verified in
+   * Chromium — trim on the flex container itself is a no-op.
+   *
+   * Descenders intentionally hang past the trimmed box; they are not part of
+   * the band the eye centres on. Unsupported browsers ignore the declaration
+   * and render exactly what shipped before. */
+  .site-link__label,
+  .site-nav .display {
+    text-box: trim-both cap alphabetic;
   }
   /* Footer links. Bare anchors rendered ~23px tall, under the WCAG 2.2 AA
    * target minimum; the negative margin keeps the visual row spacing the same
@@ -190,9 +226,13 @@
     }
     .site-link {
       /* 8px left these at 23px tall, a hair under the 24px WCAG 2.2 AA target
-       * minimum — and this is the one nav a thumb uses. */
+       * minimum — and this is the one nav a thumb uses. The min-height must
+       * restate the pill size for the same reason the base rule does: once the
+       * label is trimmed to its cap band, leading no longer sets the height,
+       * and a 24px floor here would collapse the thumb target it exists to
+       * protect. */
       padding: 10px 12px;
-      min-height: 24px;
+      min-height: 40px;
       display: inline-flex;
       align-items: center;
       white-space: nowrap;
