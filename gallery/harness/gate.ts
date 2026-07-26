@@ -174,6 +174,15 @@ const MEASURED_PROPS = new Set([
   'perspective-origin', 'transform-origin',
   'left', 'right', 'top', 'bottom',
   'inset-inline-start', 'inset-inline-end', 'inset-block-start', 'inset-block-end',
+  /* `margin: auto` resolves from the free space left over, which depends on how
+   * wide the siblings' text turned out. Authored margins are identical on both
+   * platforms and never reach the tolerance — the diff short-circuits on
+   * equality first — so listing these costs nothing. */
+  'margin-left', 'margin-right', 'margin-inline-start', 'margin-inline-end',
+  /* `ch` is defined as the advance width of the "0" glyph, and `em`/`ex` are
+   * font metrics too, so a max-width authored as `36ch` is a measured length
+   * wearing a stylesheet's clothes: 561.6px on macOS, 572px on Linux. */
+  'max-width', 'max-inline-size', 'min-width', 'min-inline-size',
 ])
 
 function isMeasuredLength(prop: string): boolean {
