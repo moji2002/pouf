@@ -165,14 +165,26 @@ const TEXT_SIZED_PROPS = new Set(['width', 'inline-size', 'perspective-origin', 
  * --disable-font-subpixel-positioning and --disable-lcd-text were both tried
  * and neither changes the macOS numbers.
  *
- * 2px, and only because the residual is now genuinely sub-pixel rounding.
- * Before the font-family fix these same properties differed by 5-21% — a whole
- * different typeface, because 'Nunito' matched no @font-face and each OS fell
- * back differently — and a tolerance then would have hidden a real bug. With
- * the webfont actually rendering, the largest observed spread is 1.63px.
- * Anything a regression does here is far larger; the harness's own sabotage
- * test moves 1453 pixels. */
+ * The bound is PROPORTIONAL, not absolute, because the error accumulates: each
+ * glyph's advance rounds independently, so a longer string drifts further. A
+ * first attempt at a flat 2px passed the short labels and still failed the long
+ * ones — 301.016px vs 305px is 3.98px of drift but only 1.32%. Observed spread
+ * across a full CI run tops out at 2.40%; 4% is ~1.7x that headroom, and the
+ * 2px floor covers very short strings where a percentage is too tight.
+ *
+ * Relaxing WIDTH specifically is safe because every stylesheet-authored
+ * contributor to a shrink-wrapped box — padding, border-width, font-size,
+ * font-weight, font-family, letter-spacing — is captured and compared exactly
+ * by this same diff. A padding or type-scale regression is caught on its own
+ * property, not via width. What width uniquely carries is the measured text
+ * advance, which is exactly the platform-variable part.
+ *
+ * This is only defensible after the font-family fix. Before it these same
+ * properties differed by 5-21% — a whole different typeface, because 'Nunito'
+ * matched no @font-face and each OS fell back differently — and any tolerance
+ * would have buried the real bug instead of surfacing it. */
 const SUBPIXEL_TOLERANCE_PX = 2
+const SUBPIXEL_TOLERANCE_RATIO = 0.04
 
 function withinSubpixelTolerance(a: string, b: string): boolean {
   const NUM = /-?\d+(?:\.\d+)?/g
@@ -182,7 +194,12 @@ function withinSubpixelTolerance(a: string, b: string): boolean {
   const na = a.match(NUM)
   const nb = b.match(NUM)
   if (!na || !nb || na.length !== nb.length) return false
-  return na.every((v, i) => Math.abs(parseFloat(v) - parseFloat(nb[i]!)) <= SUBPIXEL_TOLERANCE_PX)
+  return na.every((v, i) => {
+    const x = parseFloat(v)
+    const y = parseFloat(nb[i]!)
+    const bound = Math.max(SUBPIXEL_TOLERANCE_PX, Math.abs(x) * SUBPIXEL_TOLERANCE_RATIO)
+    return Math.abs(x - y) <= bound
+  })
 }
 
 function diffJson(component: string, file: string): string[] {
