@@ -149,16 +149,37 @@ async function snap(page: Page, dir: string, component: string, id: string, stat
   writeFileSync(join(dir, component, `${id}.${state}.png`), png)
 }
 
-/* The only properties measured from text rather than computed from the
- * stylesheet: a box that shrink-wraps its label, plus the two origins that are
- * just 50% of that box resolved to px. Everything else comes straight from CSS
- * and is identical everywhere, so it stays an exact comparison.
+/* Properties whose value is MEASURED rather than authored.
  *
- * Evidence-based, not defensive: across every CI run only these four differed,
- * and only in their x component — the y components ("11.25px", "14px") matched
- * exactly, which is what proves heights are stable and the variance is purely
- * horizontal text advance. */
-const TEXT_SIZED_PROPS = new Set(['width', 'inline-size', 'perspective-origin', 'transform-origin'])
+ * A stylesheet-authored length (padding, border-width, font-size, gap) is
+ * identical on every platform and stays an exact comparison. These are
+ * different: each one is ultimately derived from how wide the text turned out,
+ * so each inherits the platform's glyph-advance rounding.
+ *
+ *   width / inline-size / height / block-size
+ *       a box that shrink-wraps its own text.
+ *   perspective-origin / transform-origin
+ *       50% of that box, resolved to px.
+ *   left / right / top / bottom / inset-*
+ *       where Floating UI parked a popper, computed from the measured anchor.
+ *   --radix-*-width / --radix-*-height
+ *       Radix reads the trigger/content box with getBoundingClientRect and
+ *       writes it into a custom property, so the same rounding lands in a CSS
+ *       variable one hop downstream. This is the one that is easy to miss:
+ *       it is a custom property, not a real CSS length.
+ *
+ * Each entry here was added because a CI run demonstrated it, not pre-emptively. */
+const MEASURED_PROPS = new Set([
+  'width', 'inline-size', 'height', 'block-size',
+  'perspective-origin', 'transform-origin',
+  'left', 'right', 'top', 'bottom',
+  'inset-inline-start', 'inset-inline-end', 'inset-block-start', 'inset-block-end',
+])
+
+function isMeasuredLength(prop: string): boolean {
+  const p = prop.replace(/^::(?:before|after)/, '')
+  return MEASURED_PROPS.has(p) || /^--radix-.+-(?:width|height)$/.test(p)
+}
 
 /* Chromium quantises glyph advances per platform: macOS keeps them fractional
  * (75.9688px), Linux rounds to whole pixels (77px). It is not a setting —
@@ -218,7 +239,7 @@ function diffJson(component: string, file: string): string[] {
        * machine where the goldens were captured. */
       if (
         JSON_ONLY &&
-        TEXT_SIZED_PROPS.has(prop.replace(/^::(?:before|after)/, '')) &&
+        isMeasuredLength(prop) &&
         withinSubpixelTolerance(gEl[prop]!, cEl[prop]!)
       )
         continue
