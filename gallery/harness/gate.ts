@@ -222,7 +222,34 @@ async function main(): Promise<number> {
           await page.goto(`${BASE}/#/${component}/${demo.id}`)
           await page.addScriptTag({ content: captureScript })
           await page.addStyleTag({ content: FREEZE })
-          await page.evaluate(() => document.fonts.ready)
+          /* document.fonts.ready ALONE is a race, and it is the race that made
+           * this gate platform-dependent. It resolves as soon as font loading
+           * is idle — which is immediately, if nothing has requested the face
+           * yet. fontsource ships font-display:swap, so the first frames are
+           * drawn in a system fallback and the real face swaps in later. That
+           * swap reflows every text-derived width, and settle() cannot see it
+           * because swapping a font does not change innerHTML.
+           *
+           * load() actually requests the face and resolves when it is usable.
+           * The assert then refuses to compare rather than silently measuring a
+           * fallback: the original symptom was ~168 demos differing by +5% to
+           * +21% per string, and "variable per string" is the signature of a
+           * different typeface, not of hinting. */
+          await page.evaluate(async () => {
+            await Promise.all([
+              document.fonts.load('400 16px "Nunito Variable"'),
+              document.fonts.load('800 16px "Nunito Variable"'),
+            ])
+            await document.fonts.ready
+          })
+          const fontReady = await page.evaluate(() =>
+            document.fonts.check('800 16px "Nunito Variable"'),
+          )
+          if (!fontReady)
+            throw new Error(
+              'gate: "Nunito Variable" is not loaded. Every text-derived width would be ' +
+                'measured against a system fallback, which differs per OS. Refusing to compare.',
+            )
 
           for (const [name, apply] of stateHandlers(demo.states)) {
             await apply(page)

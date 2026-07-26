@@ -7,7 +7,9 @@
 /* Display face: Fredoka — chunky, rounded, kid-shaped. The maximalist voice
  * for headlines; Nunito stays the body/component face. */
 :root {
-  --display: 'Fredoka Variable', 'Nunito', system-ui, sans-serif;
+  /* Same trap as --font-pouf: the fontsource variable packages register
+   * '<Name> Variable', so a bare 'Nunito' in the fallback slot never matches. */
+  --display: 'Fredoka Variable', 'Nunito Variable', 'Nunito', system-ui, sans-serif;
 }
 
 @layer components {

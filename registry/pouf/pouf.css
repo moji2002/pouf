@@ -27,7 +27,17 @@
   --color-orange: #ffb38a;
   --color-surface: #ffffff;
 
-  --font-pouf: 'Nunito', 'SF Pro Rounded', 'Helvetica Neue', system-ui, sans-serif;
+  /* 'Nunito Variable' FIRST, and it is not interchangeable with 'Nunito':
+   * @fontsource-variable/nunito — the package the install docs tell you to
+   * import — registers its @font-face under the family name 'Nunito Variable'.
+   * A stack that only says 'Nunito' therefore matches nothing, silently falls
+   * through to SF Pro Rounded / Helvetica Neue on macOS and DejaVu Sans on
+   * Linux, and Pouf renders in a system face on every machine. Confirmed with
+   * Chrome's CSS.getPlatformFontsForNode: the nav was drawing in Helvetica Neue
+   * while document.fonts.check('Nunito Variable') returned false.
+   * 'Nunito' is kept behind it for anyone on the static @fontsource/nunito
+   * package, which does register that name. */
+  --font-pouf: 'Nunito Variable', 'Nunito', 'SF Pro Rounded', 'Helvetica Neue', system-ui, sans-serif;
 
   /* -- Radii: verbatim (card 32, control 20, blob 24) -------------------- */
   --radius-card: 32px;

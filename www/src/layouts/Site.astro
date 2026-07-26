@@ -1,6 +1,16 @@
 ---
 import '@fontsource-variable/nunito'
 import '@fontsource-variable/fredoka'
+/* Imported for their URLs so the two faces actually used above the fold can be
+ * preloaded. fontsource ships font-display:swap, so without this the first
+ * paint is a system fallback and every heading and label REFLOWS when the real
+ * face arrives — a visible layout shift, and the reason the snapshot gate was
+ * platform-dependent. The ?url import resolves to the build-hashed path, so it
+ * can never drift from what the CSS requests.
+ * Latin only: the other subsets are declared with unicode-range and are not
+ * fetched unless a page actually contains those characters. */
+import nunitoLatin from '@fontsource-variable/nunito/files/nunito-latin-wght-normal.woff2?url'
+import fredokaLatin from '@fontsource-variable/fredoka/files/fredoka-latin-wght-normal.woff2?url'
 import '../styles/site.css'
 import { ToasterMount } from '../components/ToasterMount'
 import { CommandPalette } from '../components/CommandPalette'
@@ -21,6 +31,13 @@ const wrapClass = wide ? 'site-wide' : 'site-wrap'
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {/* Before the stylesheet, so the fetch starts with the CSS rather than
+        after the CSS has been parsed and the first layout has already been
+        drawn in a fallback face. crossorigin is required even same-origin:
+        fonts are fetched in CORS mode, and a preload without it is discarded
+        and re-fetched, which is worse than no preload at all. */}
+    <link rel="preload" as="font" type="font/woff2" href={nunitoLatin} crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={fredokaLatin} crossorigin />
     <title>{title === 'Pouf' ? 'Pouf — puffy, maximalist UI for React' : `${title} · Pouf`}</title>
     <meta name="description" content={description} />
     <meta property="og:title" content={title} />
