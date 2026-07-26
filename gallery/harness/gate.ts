@@ -149,6 +149,42 @@ async function snap(page: Page, dir: string, component: string, id: string, stat
   writeFileSync(join(dir, component, `${id}.${state}.png`), png)
 }
 
+/* The only properties measured from text rather than computed from the
+ * stylesheet: a box that shrink-wraps its label, plus the two origins that are
+ * just 50% of that box resolved to px. Everything else comes straight from CSS
+ * and is identical everywhere, so it stays an exact comparison.
+ *
+ * Evidence-based, not defensive: across every CI run only these four differed,
+ * and only in their x component — the y components ("11.25px", "14px") matched
+ * exactly, which is what proves heights are stable and the variance is purely
+ * horizontal text advance. */
+const TEXT_SIZED_PROPS = new Set(['width', 'inline-size', 'perspective-origin', 'transform-origin'])
+
+/* Chromium quantises glyph advances per platform: macOS keeps them fractional
+ * (75.9688px), Linux rounds to whole pixels (77px). It is not a setting —
+ * --disable-font-subpixel-positioning and --disable-lcd-text were both tried
+ * and neither changes the macOS numbers.
+ *
+ * 2px, and only because the residual is now genuinely sub-pixel rounding.
+ * Before the font-family fix these same properties differed by 5-21% — a whole
+ * different typeface, because 'Nunito' matched no @font-face and each OS fell
+ * back differently — and a tolerance then would have hidden a real bug. With
+ * the webfont actually rendering, the largest observed spread is 1.63px.
+ * Anything a regression does here is far larger; the harness's own sabotage
+ * test moves 1453 pixels. */
+const SUBPIXEL_TOLERANCE_PX = 2
+
+function withinSubpixelTolerance(a: string, b: string): boolean {
+  const NUM = /-?\d+(?:\.\d+)?/g
+  /* The non-numeric skeleton must match exactly, so "10px 5px" can never be
+   * considered equal to "10% 5px" or to a value with a different token count. */
+  if (a.replace(NUM, '#') !== b.replace(NUM, '#')) return false
+  const na = a.match(NUM)
+  const nb = b.match(NUM)
+  if (!na || !nb || na.length !== nb.length) return false
+  return na.every((v, i) => Math.abs(parseFloat(v) - parseFloat(nb[i]!)) <= SUBPIXEL_TOLERANCE_PX)
+}
+
 function diffJson(component: string, file: string): string[] {
   const g: StyleSnapshot = JSON.parse(readFileSync(join(GOLDEN, component, file), 'utf8'))
   const c: StyleSnapshot = JSON.parse(readFileSync(join(CAND, component, file), 'utf8'))
@@ -158,8 +194,19 @@ function diffJson(component: string, file: string): string[] {
     const cEl = c[key]
     if (!gEl) { problems.push(`${key}: element added`); continue }
     if (!cEl) { problems.push(`${key}: element removed`); continue }
-    for (const prop of new Set([...Object.keys(gEl), ...Object.keys(cEl)]))
-      if (gEl[prop] !== cEl[prop]) problems.push(`${key} ${prop}: "${gEl[prop]}" → "${cEl[prop]}"`)
+    for (const prop of new Set([...Object.keys(gEl), ...Object.keys(cEl)])) {
+      if (gEl[prop] === cEl[prop]) continue
+      /* Only in --json-only (CI, comparing across platforms). A local run still
+       * demands exact equality AND diffs the pixels, so nothing is lost on the
+       * machine where the goldens were captured. */
+      if (
+        JSON_ONLY &&
+        TEXT_SIZED_PROPS.has(prop.replace(/^::(?:before|after)/, '')) &&
+        withinSubpixelTolerance(gEl[prop]!, cEl[prop]!)
+      )
+        continue
+      problems.push(`${key} ${prop}: "${gEl[prop]}" → "${cEl[prop]}"`)
+    }
   }
   return problems
 }

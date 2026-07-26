@@ -6,7 +6,20 @@ import { IconBlob } from '../components/IconBlob'
 import { CopyCommand } from '../components/CopyCommand'
 import { COMPONENTS } from '../data/manifest'
 import { BLOCKS, TEMPLATES } from '../data/blocks'
-import { installCommand } from '../data/site'
+import { installCommand, SITE_ORIGIN } from '../data/site'
+
+const softwareSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareSourceCode',
+  name: 'Pouf',
+  description: 'A puffy, pastel, maximalist UI kit for React. Claymorphism as a shadcn-style registry — copy it in, own the source.',
+  url: SITE_ORIGIN,
+  codeRepository: 'https://github.com/moji2002/pouf',
+  programmingLanguage: ['TypeScript', 'CSS'],
+  runtimePlatform: 'React',
+  license: 'https://opensource.org/licenses/MIT',
+  author: { '@type': 'Person', name: 'Mojtaba Beheshti', url: 'https://github.com/moji2002' },
+}
 
 const TONES = [
   { name: 'purple', var: '--purple' },
@@ -30,7 +43,7 @@ const FEATURED_TEMPLATES = TEMPLATES
 const FEATURED_BLOCKS = BLOCKS.slice(0, 6)
 ---
 
-<Site wide>
+<Site wide schema={softwareSchema}>
   <!-- HERO -->
   <section style="display:grid; grid-template-columns: 1.05fr 0.95fr; gap:48px; align-items:center; padding:24px 0 40px;" class="hero-grid">
     <div style="display:flex; flex-direction:column; gap:26px;">
@@ -43,7 +56,12 @@ const FEATURED_BLOCKS = BLOCKS.slice(0, 6)
       <p class="pop" style="font-size:21px; font-weight:800; color:var(--muted); max-width:36ch; margin:0; animation-delay:200ms;">
         Pouf is a puffy, pastel, <strong style="color:var(--ink);">maximalist</strong> UI kit — and the best-looking one you'll install this year. Every surface a cushion — bright, chunky, tactile. Copy it in shadcn-style and own the source.
       </p>
-      <div class="pop" style="max-width:560px; animation-delay:280ms;">
+      {/* No max-width: the 560px cap was sized around the old pouf.dev command.
+          pouf.worksonmy.dev is 10 characters longer — measured 525px of content
+          in a 480px box, truncating the homepage's primary call to action
+          mid-URL. It scrolls, but a command you must scroll to read is a
+          command you cannot copy by eye. */}
+      <div class="pop" style="animation-delay:280ms;">
         <CopyCommand client:load command={installCommand('button')} />
       </div>
       <div class="pop" style="display:flex; gap:14px; flex-wrap:wrap; animation-delay:360ms;">
