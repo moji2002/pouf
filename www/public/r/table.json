@@ -3,8 +3,8 @@
   "name": "table",
   "title": "Table",
   "registryDependencies": [
-    "https://pouf.dev/r/base.json",
-    "https://pouf.dev/r/text.json"
+    "https://pouf.worksonmy.dev/r/base.json",
+    "https://pouf.worksonmy.dev/r/text.json"
   ],
   "files": [
     {

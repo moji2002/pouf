@@ -6,6 +6,7 @@ import { IconBlob } from '../components/IconBlob'
 import { CopyCommand } from '../components/CopyCommand'
 import { COMPONENTS } from '../data/manifest'
 import { BLOCKS, TEMPLATES } from '../data/blocks'
+import { installCommand } from '../data/site'
 
 const TONES = [
   { name: 'purple', var: '--purple' },
@@ -43,7 +44,7 @@ const FEATURED_BLOCKS = BLOCKS.slice(0, 6)
         Pouf is a puffy, pastel, <strong style="color:var(--ink);">maximalist</strong> UI kit — and the best-looking one you'll install this year. Every surface a cushion — bright, chunky, tactile. Copy it in shadcn-style and own the source.
       </p>
       <div class="pop" style="max-width:560px; animation-delay:280ms;">
-        <CopyCommand client:load command="npx shadcn@latest add https://pouf.dev/r/button.json" />
+        <CopyCommand client:load command={installCommand('button')} />
       </div>
       <div class="pop" style="display:flex; gap:14px; flex-wrap:wrap; animation-delay:360ms;">
         <a href="/docs/" style="text-decoration:none; color:var(--ink); font-weight:900; font-size:17px; background:var(--purple); padding:16px 30px; border-radius:20px; box-shadow: var(--pouf-control);">Get started</a>
@@ -162,7 +163,7 @@ const FEATURED_BLOCKS = BLOCKS.slice(0, 6)
     <div class="cushion" style="padding:48px; text-align:center; display:flex; flex-direction:column; align-items:center; gap:18px;">
       <h2 class="display" style="font-size:clamp(32px,5vw,56px); margin:0;">Go make something puffy.</h2>
       <p style="font-weight:800; color:var(--muted); margin:0; font-size:18px;">One command. Component and its dependencies, straight into your project. That's the whole trick.</p>
-      <div style="max-width:520px; width:100%;"><CopyCommand client:load command="npx shadcn@latest add https://pouf.dev/r/dashboard.json" /></div>
+      <div style="max-width:520px; width:100%;"><CopyCommand client:load command={installCommand('dashboard')} /></div>
     </div>
   </section>
 

@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro'
 import { COMPONENTS, SECTIONS, componentInstall } from '../data/manifest'
 import { TEMPLATES, BLOCKS, blockInstall } from '../data/blocks'
+import { SITE_ORIGIN, registryUrl } from '../data/site'
 
 /* Served at /llms.txt, generated from the same manifests the site renders from.
  *
@@ -13,7 +14,7 @@ import { TEMPLATES, BLOCKS, blockInstall } from '../data/blocks'
  * H2 sections of links with short descriptions.
  */
 export const GET: APIRoute = ({ site }) => {
-  const origin = site?.origin ?? 'https://pouf.dev'
+  const origin = site?.origin ?? SITE_ORIGIN
   const abs = (p: string) => new URL(p, origin).href
 
   const lines: string[] = []
@@ -32,7 +33,7 @@ export const GET: APIRoute = ({ site }) => {
   lines.push('Every component, block and template installs the same way:')
   lines.push('')
   lines.push('```sh')
-  lines.push('npx shadcn@latest add https://pouf.dev/r/<item>.json')
+  lines.push(`npx shadcn@latest add ${registryUrl('<item>')}`)
   lines.push('```')
   lines.push('')
   lines.push(

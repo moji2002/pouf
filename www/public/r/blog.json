@@ -4,15 +4,15 @@
   "title": "Blog",
   "description": "An example blog index — a featured post and a grid of cards.",
   "registryDependencies": [
-    "https://pouf.dev/r/avatar.json",
-    "https://pouf.dev/r/base.json",
-    "https://pouf.dev/r/feedback.json",
-    "https://pouf.dev/r/layout.json",
-    "https://pouf.dev/r/media.json",
-    "https://pouf.dev/r/pagination.json",
-    "https://pouf.dev/r/segmented.json",
-    "https://pouf.dev/r/surface.json",
-    "https://pouf.dev/r/text.json"
+    "https://pouf.worksonmy.dev/r/avatar.json",
+    "https://pouf.worksonmy.dev/r/base.json",
+    "https://pouf.worksonmy.dev/r/feedback.json",
+    "https://pouf.worksonmy.dev/r/layout.json",
+    "https://pouf.worksonmy.dev/r/media.json",
+    "https://pouf.worksonmy.dev/r/pagination.json",
+    "https://pouf.worksonmy.dev/r/segmented.json",
+    "https://pouf.worksonmy.dev/r/surface.json",
+    "https://pouf.worksonmy.dev/r/text.json"
   ],
   "files": [
     {

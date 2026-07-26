@@ -4,18 +4,18 @@
   "title": "Dashboard",
   "description": "An example dashboard — sidebar nav, KPI row, chart, and data table.",
   "registryDependencies": [
-    "https://pouf.dev/r/base.json",
-    "https://pouf.dev/r/bottom-nav.json",
-    "https://pouf.dev/r/charts.json",
-    "https://pouf.dev/r/layout.json",
-    "https://pouf.dev/r/media.json",
-    "https://pouf.dev/r/nav-link.json",
-    "https://pouf.dev/r/readout.json",
-    "https://pouf.dev/r/segmented.json",
-    "https://pouf.dev/r/status.json",
-    "https://pouf.dev/r/surface.json",
-    "https://pouf.dev/r/table.json",
-    "https://pouf.dev/r/text.json"
+    "https://pouf.worksonmy.dev/r/base.json",
+    "https://pouf.worksonmy.dev/r/bottom-nav.json",
+    "https://pouf.worksonmy.dev/r/charts.json",
+    "https://pouf.worksonmy.dev/r/layout.json",
+    "https://pouf.worksonmy.dev/r/media.json",
+    "https://pouf.worksonmy.dev/r/nav-link.json",
+    "https://pouf.worksonmy.dev/r/readout.json",
+    "https://pouf.worksonmy.dev/r/segmented.json",
+    "https://pouf.worksonmy.dev/r/status.json",
+    "https://pouf.worksonmy.dev/r/surface.json",
+    "https://pouf.worksonmy.dev/r/table.json",
+    "https://pouf.worksonmy.dev/r/text.json"
   ],
   "files": [
     {

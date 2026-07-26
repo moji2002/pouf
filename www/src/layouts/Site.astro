@@ -4,6 +4,7 @@ import '@fontsource-variable/fredoka'
 import '../styles/site.css'
 import { ToasterMount } from '../components/ToasterMount'
 import { CommandPalette } from '../components/CommandPalette'
+import { SITE_HOST } from '../data/site'
 
 
 interface Props {
@@ -102,10 +103,12 @@ const wrapClass = wide ? 'site-wide' : 'site-wrap'
               <div class="site-byline">
                 by <a class="site-foot-link" href="https://github.com/moji2002" target="_blank" rel="noopener noreferrer">Mojtaba Beheshti</a>
                 <span aria-hidden="true">·</span>
-                {/* Relative, not the absolute https://pouf.dev — this footer is
-                    served FROM pouf.dev, so an absolute self-link would break
-                    on a preview deploy or when running the site locally. */}
-                <a class="site-foot-link" href="/">pouf.dev</a>
+                {/* Relative, not the absolute SITE_ORIGIN — this footer is
+                    served FROM that origin, so an absolute self-link would break
+                    on a preview deploy or when running the site locally. The
+                    label is derived so it can never drift from where the
+                    install commands actually point. */}
+                <a class="site-foot-link" href="/">{SITE_HOST}</a>
               </div>
             </div>
           </div>

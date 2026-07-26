@@ -6,11 +6,11 @@
     "clsx"
   ],
   "registryDependencies": [
-    "https://pouf.dev/r/base.json",
-    "https://pouf.dev/r/icon.json",
-    "https://pouf.dev/r/layout.json",
-    "https://pouf.dev/r/media.json",
-    "https://pouf.dev/r/text.json"
+    "https://pouf.worksonmy.dev/r/base.json",
+    "https://pouf.worksonmy.dev/r/icon.json",
+    "https://pouf.worksonmy.dev/r/layout.json",
+    "https://pouf.worksonmy.dev/r/media.json",
+    "https://pouf.worksonmy.dev/r/text.json"
   ],
   "files": [
     {

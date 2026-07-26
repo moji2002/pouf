@@ -4,14 +4,14 @@
   "title": "Onboarding",
   "description": "An example setup wizard — a progress bar and step-by-step forms.",
   "registryDependencies": [
-    "https://pouf.dev/r/base.json",
-    "https://pouf.dev/r/button.json",
-    "https://pouf.dev/r/input.json",
-    "https://pouf.dev/r/layout.json",
-    "https://pouf.dev/r/progress.json",
-    "https://pouf.dev/r/radio-group.json",
-    "https://pouf.dev/r/surface.json",
-    "https://pouf.dev/r/text.json"
+    "https://pouf.worksonmy.dev/r/base.json",
+    "https://pouf.worksonmy.dev/r/button.json",
+    "https://pouf.worksonmy.dev/r/input.json",
+    "https://pouf.worksonmy.dev/r/layout.json",
+    "https://pouf.worksonmy.dev/r/progress.json",
+    "https://pouf.worksonmy.dev/r/radio-group.json",
+    "https://pouf.worksonmy.dev/r/surface.json",
+    "https://pouf.worksonmy.dev/r/text.json"
   ],
   "files": [
     {

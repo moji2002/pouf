@@ -10,10 +10,10 @@
     "framer-motion"
   ],
   "registryDependencies": [
-    "https://pouf.dev/r/base.json",
-    "https://pouf.dev/r/button.json",
-    "https://pouf.dev/r/icon.json",
-    "https://pouf.dev/r/tone.json"
+    "https://pouf.worksonmy.dev/r/base.json",
+    "https://pouf.worksonmy.dev/r/button.json",
+    "https://pouf.worksonmy.dev/r/icon.json",
+    "https://pouf.worksonmy.dev/r/tone.json"
   ],
   "files": [
     {

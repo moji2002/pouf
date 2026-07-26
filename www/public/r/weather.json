@@ -4,14 +4,14 @@
   "title": "Weather widget",
   "description": "An example weather card — current conditions, hourly, and a 5-day forecast.",
   "registryDependencies": [
-    "https://pouf.dev/r/base.json",
-    "https://pouf.dev/r/icon.json",
-    "https://pouf.dev/r/layout.json",
-    "https://pouf.dev/r/media.json",
-    "https://pouf.dev/r/readout.json",
-    "https://pouf.dev/r/segmented.json",
-    "https://pouf.dev/r/surface.json",
-    "https://pouf.dev/r/text.json"
+    "https://pouf.worksonmy.dev/r/base.json",
+    "https://pouf.worksonmy.dev/r/icon.json",
+    "https://pouf.worksonmy.dev/r/layout.json",
+    "https://pouf.worksonmy.dev/r/media.json",
+    "https://pouf.worksonmy.dev/r/readout.json",
+    "https://pouf.worksonmy.dev/r/segmented.json",
+    "https://pouf.worksonmy.dev/r/surface.json",
+    "https://pouf.worksonmy.dev/r/text.json"
   ],
   "files": [
     {

@@ -3,6 +3,10 @@
  * registry/pouf/demos; registry items come from registry.json. A single file
  * (layout.tsx) bundles several exports, so one doc page shows several demos. */
 
+import { installCommand } from './site'
+
+export { installCommand }
+
 export interface ComponentDoc {
   /** URL slug and anchor id (and registry-item name, unless `install` overrides). */
   slug: string
@@ -63,9 +67,5 @@ export const COMPONENTS: ComponentDoc[] = [
 export const SECTIONS = ['Layout', 'Typography', 'Surfaces', 'Forms', 'Overlays', 'Navigation', 'Sections', 'Feedback', 'Data'] as const
 
 export function componentInstall(doc: ComponentDoc): string {
-  return `npx shadcn@latest add https://pouf.dev/r/${doc.install ?? doc.slug}.json`
-}
-
-export function installCommand(slug: string): string {
-  return `npx shadcn@latest add https://pouf.dev/r/${slug}.json`
+  return installCommand(doc.install ?? doc.slug)
 }

@@ -4,15 +4,15 @@
   "title": "Landing page",
   "description": "An example marketing landing page — navbar, hero, features, CTA, footer.",
   "registryDependencies": [
-    "https://pouf.dev/r/base.json",
-    "https://pouf.dev/r/button.json",
-    "https://pouf.dev/r/cta.json",
-    "https://pouf.dev/r/footer.json",
-    "https://pouf.dev/r/layout.json",
-    "https://pouf.dev/r/media.json",
-    "https://pouf.dev/r/navbar.json",
-    "https://pouf.dev/r/surface.json",
-    "https://pouf.dev/r/text.json"
+    "https://pouf.worksonmy.dev/r/base.json",
+    "https://pouf.worksonmy.dev/r/button.json",
+    "https://pouf.worksonmy.dev/r/cta.json",
+    "https://pouf.worksonmy.dev/r/footer.json",
+    "https://pouf.worksonmy.dev/r/layout.json",
+    "https://pouf.worksonmy.dev/r/media.json",
+    "https://pouf.worksonmy.dev/r/navbar.json",
+    "https://pouf.worksonmy.dev/r/surface.json",
+    "https://pouf.worksonmy.dev/r/text.json"
   ],
   "files": [
     {

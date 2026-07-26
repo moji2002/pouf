@@ -2,6 +2,7 @@
 import Site from '../../layouts/Site.astro'
 import { Code } from 'astro:components'
 import { CopyCommand } from '../../components/CopyCommand'
+import { SITE_HOST, installCommand } from '../../data/site'
 
 const TOC = [
   { id: 'prerequisites', label: 'Prerequisites' },
@@ -40,7 +41,7 @@ const TOC = [
         <p style="margin:0; font-weight:700;">Before your first <code>add</code>, you need three things in place:</p>
         <ul style="margin:0; padding-left:22px; display:flex; flex-direction:column; gap:10px; font-weight:700;">
           <li><strong>A React 19 app.</strong> Every registry item targets React 19 (Pouf's own <code>react</code>/<code>react-dom</code> are pinned to <code>^19</code>) — Vite, Next, Astro with the React integration, whatever you already run.</li>
-          <li><strong>Tailwind CSS v4.</strong> Pouf's stylesheet is CSS-first — no <code>tailwind.config.js</code>, just <code>@theme</code> and <code>@import</code> in a <code>.css</code> file. You still need Tailwind's v4 build plugin wired into your bundler: <code>@tailwindcss/vite</code> for a Vite-based app (that's what pouf.dev itself runs — an Astro site on Vite), or <code>@tailwindcss/postcss</code> for a plain PostCSS pipeline.</li>
+          <li><strong>Tailwind CSS v4.</strong> Pouf's stylesheet is CSS-first — no <code>tailwind.config.js</code>, just <code>@theme</code> and <code>@import</code> in a <code>.css</code> file. You still need Tailwind's v4 build plugin wired into your bundler: <code>@tailwindcss/vite</code> for a Vite-based app (that's what {SITE_HOST} itself runs — an Astro site on Vite), or <code>@tailwindcss/postcss</code> for a plain PostCSS pipeline.</li>
           <li><strong>The shadcn CLI, initialized.</strong> Run <code>init</code> once to create a <code>components.json</code>. Pouf doesn't need special aliases: every file in the registry declares an explicit target path (<code>components/pouf/…</code>), so it lands in the same place no matter how your aliases are configured.</li>
         </ul>
         <CopyCommand client:load command="npx shadcn@latest init" />
@@ -56,7 +57,7 @@ const TOC = [
         <p style="margin:0; font-weight:700;">
           The <code>base</code> registry item ships one file — <code>pouf.css</code> — the theme: every design token, the cushion box-shadow recipes, keyframes, and the chrome for multi-part components (dialogs, menus, the mobile sheet). Every other component depends on it, so it always comes along, but you can install it explicitly:
         </p>
-        <CopyCommand client:load command="npx shadcn@latest add https://pouf.dev/r/base.json" />
+        <CopyCommand client:load command={installCommand('base')} />
         <p style="margin:0; font-weight:700;">It lands at <code>components/pouf/pouf.css</code>. Import it once, at your app root, alongside the font:</p>
         <Code code={`import '@fontsource-variable/nunito'
 import './components/pouf/pouf.css'`} lang="ts" theme="material-theme-palenight" />
@@ -73,7 +74,7 @@ import './components/pouf/pouf.css'`} lang="ts" theme="material-theme-palenight"
       <section id="quick-start" class="docs-section" style="display:flex; flex-direction:column; gap:12px;">
         <h2 style="font-size:24px; font-weight:900; margin:16px 0 0;">3. Quick start</h2>
         <p style="margin:0; font-weight:700;">With the base in place, add a component:</p>
-        <CopyCommand client:load command="npx shadcn@latest add https://pouf.dev/r/button.json" />
+        <CopyCommand client:load command={installCommand('button')} />
         <Code code={`import { Button } from './components/pouf/Button'
 
 export function Example() {
@@ -151,7 +152,7 @@ export function Example() {
   })()
 </script>`} lang="html" theme="material-theme-palenight" />
         <p style="margin:0; font-weight:700;">
-          Toggling later is one line — <code>document.documentElement.setAttribute('data-theme', next)</code> — plus whatever persistence you want (pouf.dev's own toggle writes the choice to <code>localStorage</code> so it survives a reload).
+          Toggling later is one line — <code>document.documentElement.setAttribute('data-theme', next)</code> — plus whatever persistence you want (this site's own toggle writes the choice to <code>localStorage</code> so it survives a reload).
         </p>
         <p style="margin:0; font-weight:700;">
           One token needs a closer look across the swap: <code>--on-accent</code> — the ink colour that sits <em>on</em> a pastel accent fill (a solid Button, a filled Badge, an active NavLink, a Blob). The accents themselves never change between themes — they're the brand — while <code>--ink</code> flips from near-black to near-white for the page. Collapse the two and dark mode puts near-white text on a fill that's still pastel purple, which fails contrast outright. <code>--on-accent</code> is pinned separately for dark (it stays dark, because the fill it sits on stays pastel); in light mode it resolves to exactly <code>--ink</code>, so nothing about the light theme changes.
@@ -207,7 +208,7 @@ export function Example() {
           <li><strong>Blocks are sections.</strong> A pricing table, a login card, a music player — you drop one into a page you already have.</li>
           <li><strong>Templates are screens.</strong> Global chrome (an app shell with navigation, or a marketing page with a navbar and footer) plus the content inside it — you ship one as a route.</li>
         </ul>
-        <CopyCommand client:load command="npx shadcn@latest add https://pouf.dev/r/dashboard.json" />
+        <CopyCommand client:load command={installCommand('dashboard')} />
         <p style="margin:0; font-weight:700;">
           Browse every block on <a href="/blocks" style="color:var(--ink);">/blocks</a>, and every template on <a href="/examples" style="color:var(--ink);">/examples</a>.
         </p>

@@ -16,10 +16,10 @@ Pouf needs a React app with **Tailwind CSS v4** and the **shadcn CLI** configure
 ```bash
 # the theme (tokens, cushion utilities, keyframes) — comes along automatically,
 # but you can add it explicitly
-npx shadcn@latest add https://pouf.dev/r/base.json
+npx shadcn@latest add https://pouf.worksonmy.dev/r/base.json
 
 # a component (pulls in its dependencies + the base)
-npx shadcn@latest add https://pouf.dev/r/button.json
+npx shadcn@latest add https://pouf.worksonmy.dev/r/button.json
 ```
 
 Import the theme and the font once in your app entry:
@@ -39,7 +39,7 @@ export function Example() {
 }
 ```
 
-Browse every component live at **[pouf.dev](https://pouf.dev)**.
+Browse every component live at **[pouf.worksonmy.dev](https://pouf.worksonmy.dev)**.
 
 ## Components
 
@@ -62,7 +62,7 @@ Pouf is a bun-workspaces monorepo:
 
 - `registry/pouf/` — the library source (what users receive) + `pouf.css` theme + demos
 - `gallery/` — a Vite app that renders every demo, driving the snapshot-equivalence gate
-- `www/` — the [pouf.dev](https://pouf.dev) site (Astro), which runs on Pouf itself
+- `www/` — the [pouf.worksonmy.dev](https://pouf.worksonmy.dev) site (Astro), which runs on Pouf itself
 
 ```bash
 bun install

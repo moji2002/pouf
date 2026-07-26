@@ -6,7 +6,7 @@
     "@radix-ui/react-scroll-area"
   ],
   "registryDependencies": [
-    "https://pouf.dev/r/base.json"
+    "https://pouf.worksonmy.dev/r/base.json"
   ],
   "files": [
     {

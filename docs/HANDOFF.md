@@ -12,7 +12,7 @@ The `clay` design system extracted from the zirkel trading app and open-sourced 
 claymorphism UI library, distributed shadcn-style:
 
 ```
-npx shadcn@latest add https://pouf.dev/r/<item>.json
+npx shadcn@latest add https://pouf.worksonmy.dev/r/<item>.json
 ```
 
 Monorepo (bun workspaces): `registry/` (the components), `gallery/` (the snapshot

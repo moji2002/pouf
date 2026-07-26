@@ -37,7 +37,7 @@ for (const item of registry.items) {
   const src = readFileSync(join(ROOT, file), 'utf8')
   const declared = new Set<string>(
     (item.registryDependencies ?? []).map((u: string) =>
-      u.replace('https://pouf.dev/r/', '').replace('.json', ''),
+      u.replace('https://pouf.worksonmy.dev/r/', '').replace('.json', ''),
     ),
   )
   const declaredNpm = new Set<string>(item.dependencies ?? [])

@@ -3,7 +3,7 @@
   "name": "footer",
   "title": "Footer",
   "registryDependencies": [
-    "https://pouf.dev/r/base.json"
+    "https://pouf.worksonmy.dev/r/base.json"
   ],
   "files": [
     {

@@ -3,12 +3,12 @@
   "name": "readout",
   "title": "Stat, Metric",
   "registryDependencies": [
-    "https://pouf.dev/r/base.json",
-    "https://pouf.dev/r/icon.json",
-    "https://pouf.dev/r/media.json",
-    "https://pouf.dev/r/surface.json",
-    "https://pouf.dev/r/text.json",
-    "https://pouf.dev/r/tone.json"
+    "https://pouf.worksonmy.dev/r/base.json",
+    "https://pouf.worksonmy.dev/r/icon.json",
+    "https://pouf.worksonmy.dev/r/media.json",
+    "https://pouf.worksonmy.dev/r/surface.json",
+    "https://pouf.worksonmy.dev/r/text.json",
+    "https://pouf.worksonmy.dev/r/tone.json"
   ],
   "files": [
     {

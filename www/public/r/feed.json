@@ -4,15 +4,15 @@
   "title": "Social feed",
   "description": "An example feed — a composer and a stream of posts with reactions.",
   "registryDependencies": [
-    "https://pouf.dev/r/avatar.json",
-    "https://pouf.dev/r/base.json",
-    "https://pouf.dev/r/button.json",
-    "https://pouf.dev/r/icon.json",
-    "https://pouf.dev/r/input.json",
-    "https://pouf.dev/r/layout.json",
-    "https://pouf.dev/r/media.json",
-    "https://pouf.dev/r/surface.json",
-    "https://pouf.dev/r/text.json"
+    "https://pouf.worksonmy.dev/r/avatar.json",
+    "https://pouf.worksonmy.dev/r/base.json",
+    "https://pouf.worksonmy.dev/r/button.json",
+    "https://pouf.worksonmy.dev/r/icon.json",
+    "https://pouf.worksonmy.dev/r/input.json",
+    "https://pouf.worksonmy.dev/r/layout.json",
+    "https://pouf.worksonmy.dev/r/media.json",
+    "https://pouf.worksonmy.dev/r/surface.json",
+    "https://pouf.worksonmy.dev/r/text.json"
   ],
   "files": [
     {

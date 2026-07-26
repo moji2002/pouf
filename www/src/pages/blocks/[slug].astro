@@ -6,6 +6,7 @@ import { Code } from 'astro:components'
 import { BlockPreview } from '../../components/BlockPreview'
 import { CopyCommand } from '../../components/CopyCommand'
 import { BLOCKS, blockInstall } from '../../data/blocks'
+import { slugFromRegistryUrl } from '../../data/site'
 
 export function getStaticPaths() {
   return BLOCKS.map((b) => ({ params: { slug: b.slug }, props: { block: b } }))
@@ -18,7 +19,7 @@ let regDeps: string[] = []
 try {
   const reg = JSON.parse(fs.readFileSync(regPath, 'utf8'))
   source = reg.files?.[0]?.content ?? ''
-  regDeps = (reg.registryDependencies ?? []).map((u: string) => u.replace('https://pouf.dev/r/', '').replace('.json', '')).filter((n: string) => n !== 'base')
+  regDeps = (reg.registryDependencies ?? []).map(slugFromRegistryUrl).filter((n: string) => n !== 'base')
 } catch {}
 
 const siblings = BLOCKS.filter((b) => b.category === block.category && b.slug !== block.slug)

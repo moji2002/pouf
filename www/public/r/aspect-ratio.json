@@ -6,7 +6,7 @@
     "@radix-ui/react-aspect-ratio"
   ],
   "registryDependencies": [
-    "https://pouf.dev/r/base.json"
+    "https://pouf.worksonmy.dev/r/base.json"
   ],
   "files": [
     {

@@ -10,6 +10,8 @@
  * on a page background vs. a whole window) and what the copy promises. Both
  * install the same way — a registry:block that lands with its dependencies.
  */
+
+import { installCommand } from './site'
 export interface BlockDoc {
   slug: string
   title: string
@@ -61,5 +63,5 @@ export const BLOCK_CATEGORIES = [
 ] as const
 
 export function blockInstall(slug: string): string {
-  return `npx shadcn@latest add https://pouf.dev/r/${slug}.json`
+  return installCommand(slug)
 }

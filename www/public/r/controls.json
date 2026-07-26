@@ -12,13 +12,13 @@
     "clsx"
   ],
   "registryDependencies": [
-    "https://pouf.dev/r/base.json",
-    "https://pouf.dev/r/button.json",
-    "https://pouf.dev/r/icon.json",
-    "https://pouf.dev/r/input.json",
-    "https://pouf.dev/r/layout.json",
-    "https://pouf.dev/r/text.json",
-    "https://pouf.dev/r/tone.json"
+    "https://pouf.worksonmy.dev/r/base.json",
+    "https://pouf.worksonmy.dev/r/button.json",
+    "https://pouf.worksonmy.dev/r/icon.json",
+    "https://pouf.worksonmy.dev/r/input.json",
+    "https://pouf.worksonmy.dev/r/layout.json",
+    "https://pouf.worksonmy.dev/r/text.json",
+    "https://pouf.worksonmy.dev/r/tone.json"
   ],
   "files": [
     {
