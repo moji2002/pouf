@@ -31,7 +31,15 @@ jobs:
         # user's project. Nothing else in this pipeline can catch it.
         run: bun run check:deps
       - name: Install Chromium
-        run: bunx playwright install --with-deps chromium
+        # From gallery/, not the repo root. There is no `playwright` at the
+        # root, so a root `bunx playwright` silently downloads the LATEST
+        # release and installs that version's browser builds — while gate.ts
+        # imports gallery's pinned playwright (^1.61.1) and looks for its own
+        # build revision. The install "succeeds" and the gate then dies with
+        # "Executable doesn't exist at .../chromium_headless_shell-<rev>".
+        # Running it here resolves gallery/node_modules/.bin/playwright, so the
+        # installer and the runtime are always the same version.
+        run: cd gallery && bunx playwright install --with-deps chromium
       - name: Snapshot gate (computed styles — platform-stable)
         # gate.ts spawns and tears down its own Vite server. This step used to
         # start one first (`bun --cwd gallery dev &` + wait-on); the gate then
