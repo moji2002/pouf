@@ -11,3 +11,5 @@ gallery/harness/.candidate
 # generated at build
 www/src/data/changelog.json
 www/src/data/props.json
+.vercel
+.env*
