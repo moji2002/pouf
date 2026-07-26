@@ -14,16 +14,34 @@ import fredokaLatin from '@fontsource-variable/fredoka/files/fredoka-latin-wght-
 import '../styles/site.css'
 import { ToasterMount } from '../components/ToasterMount'
 import { CommandPalette } from '../components/CommandPalette'
-import { SITE_HOST } from '../data/site'
+import { SITE_HOST, SITE_ORIGIN } from '../data/site'
 
 
 interface Props {
   title?: string
   description?: string
   wide?: boolean
+  /** Extra JSON-LD node(s) for this page specifically (e.g. SoftwareSourceCode
+   * on the homepage). The sitewide WebSite graph below is emitted regardless. */
+  schema?: Record<string, unknown> | Record<string, unknown>[]
 }
-const { title = 'Pouf', description = 'A puffy, pastel, maximalist UI kit for React. Claymorphism as a shadcn-style registry — copy it in, own the source.', wide = false } = Astro.props
+const { title = 'Pouf', description = 'A puffy, pastel, maximalist UI kit for React. Claymorphism as a shadcn-style registry — copy it in, own the source.', wide = false, schema } = Astro.props
 const wrapClass = wide ? 'site-wide' : 'site-wrap'
+const pageTitle = title === 'Pouf' ? 'Pouf — puffy, maximalist UI for React' : `${title} · Pouf`
+// Astro.url already carries the trailing slash a directory-format static build
+// serves (e.g. /components/), so this is the one true canonical for the page —
+// no hand-rolled trailing-slash logic to drift from how the site is actually built.
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? SITE_ORIGIN)
+const ogImageURL = new URL('/og-image.png', Astro.site ?? SITE_ORIGIN)
+// WebSite is true of every page; it's the site-wide identity, not a per-page claim.
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Pouf',
+  url: SITE_ORIGIN,
+  description: 'A puffy, pastel, maximalist UI kit for React, distributed as a shadcn-style registry.',
+}
+const schemaNodes = [websiteSchema, ...(schema ? (Array.isArray(schema) ? schema : [schema]) : [])]
 ---
 
 <!doctype html>
@@ -38,11 +56,28 @@ const wrapClass = wide ? 'site-wide' : 'site-wrap'
         and re-fetched, which is worse than no preload at all. */}
     <link rel="preload" as="font" type="font/woff2" href={nunitoLatin} crossorigin />
     <link rel="preload" as="font" type="font/woff2" href={fredokaLatin} crossorigin />
-    <title>{title === 'Pouf' ? 'Pouf — puffy, maximalist UI for React' : `${title} · Pouf`}</title>
+    <title>{pageTitle}</title>
     <meta name="description" content={description} />
-    <meta property="og:title" content={title} />
+    <link rel="canonical" href={canonicalURL} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Pouf" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
-    <link rel="icon" href="/favicon.svg" />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Pouf — puffy, pastel, maximalist UI kit for React" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    {schemaNodes.map((node) => (
+      <script type="application/ld+json" set:html={JSON.stringify(node)} />
+    ))}
     {/* Runs before first paint, so the page never flashes light then repaint
         dark. Inline and synchronous on purpose — a deferred script or a React
         effect would both land after the browser has already painted. */}

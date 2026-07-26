@@ -1,0 +1,17 @@
+---
+import Site from '../layouts/Site.astro'
+---
+
+<Site title="Page not found" description="This page doesn't exist. Browse Pouf's components, blocks, templates, or head back to the docs.">
+  <section style="display:flex; flex-direction:column; align-items:center; gap:18px; text-align:center; padding:96px 0 64px;">
+    <span class="sticker" style="background:var(--yellow); transform:rotate(-2deg);">404</span>
+    <h1 class="display" style="font-size:clamp(40px,6vw,64px); margin:0;">This cushion's missing.</h1>
+    <p style="font-size:19px; font-weight:800; color:var(--muted); margin:0; max-width:44ch;">
+      Nothing lives at this address. Try the docs, browse every component, or head back home.
+    </p>
+    <div style="display:flex; gap:14px; flex-wrap:wrap; justify-content:center;">
+      <a href="/" style="text-decoration:none; color:var(--ink); font-weight:900; font-size:17px; background:var(--purple); padding:16px 30px; border-radius:20px; box-shadow: var(--pouf-control);">Go home</a>
+      <a href="/components" style="text-decoration:none; color:var(--ink); font-weight:900; font-size:17px; background:var(--surface); padding:16px 30px; border-radius:20px; box-shadow: var(--pouf-control);">Browse components</a>
+    </div>
+  </section>
+</Site>

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /r/
+
+Sitemap: https://pouf.worksonmy.dev/sitemap-index.xml

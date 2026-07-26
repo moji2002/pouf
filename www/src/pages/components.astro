@@ -82,7 +82,7 @@ const enriched = COMPONENTS.map((c) => {
 const bySectionEnriched = SECTIONS.map((s) => ({ section: s, items: enriched.filter((c) => c.section === s) })).filter((g) => g.items.length)
 ---
 
-<Site title="Components" description="Every Pouf component, live on one page." wide>
+<Site title="Components" description={`Browse all ${COMPONENTS.length} Pouf components — layout, forms, overlays, navigation, and data — live and interactive, each with an install command and full prop docs.`} wide>
   <section style="display:flex; flex-direction:column; gap:12px; padding:8px 0 32px;">
     <span class="sticker" style="background:var(--mint); align-self:flex-start; transform:rotate(-2deg);">{COMPONENTS.length} components, one page</span>
     <h1 class="display" style="font-size:clamp(44px,6vw,76px); margin:0;">Components</h1>
