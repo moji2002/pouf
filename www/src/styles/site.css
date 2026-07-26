@@ -88,7 +88,20 @@
     align-items: center;
     gap: 8px;
     height: 60px;
-    padding: 0 10px 0 18px;
+    /* padding-bottom: var(--lip) — NOT decoration, it is what makes the bar
+     * look centred.
+     *
+     * --pouf-card paints `inset 0 calc(-1 * var(--lip)) 0` : a 10px band of
+     * purple along the bottom inside edge, the cushion's lip. So the pill is
+     * 60px tall but only its top 50px read as white. align-items:center centres
+     * against the 60px box and lands content at y=30, while the eye centres
+     * against the white and expects y=25 — the content sat 5px low, which is
+     * far more visible than any sub-pixel font-metric offset.
+     *
+     * Reserving the lip as padding shrinks the content box to exactly the white
+     * field, so centring in it is centring in what you actually see. Using the
+     * token rather than 10px means this cannot drift if the cushion is retuned. */
+    padding: 0 10px var(--lip) 18px;
     background: color-mix(in srgb, var(--surface) 82%, transparent);
     backdrop-filter: blur(12px) saturate(1.2);
     border-radius: 999px;
