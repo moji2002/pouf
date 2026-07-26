@@ -26,11 +26,17 @@ www/dist
 .astro
 
 # Repo-local tooling and prose; nothing in the build reads them.
-docs
-tests
-.github
-.remember
-.superpowers
-.playwright-mcp
+#
+# LEADING SLASHES ARE LOad-BEARING. These use .gitignore matching, where a
+# pattern without a slash matches a directory of that name at EVERY level. A
+# bare `docs` therefore also excluded www/src/pages/docs/ — the docs page
+# source — and production served a 404 for /docs/ while every local build was
+# fine, because nothing is excluded locally. Anchor to the repo root.
+/docs
+/tests
+/.github
+/.remember
+/.superpowers
+/.playwright-mcp
 *.log
 .DS_Store
