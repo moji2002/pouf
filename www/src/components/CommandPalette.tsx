@@ -67,6 +67,11 @@ export function CommandPalette() {
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState('')
   const [selected, setSelected] = useState(0)
+  /* Keep the server and the first client render identical. Deployment builds
+   * run on Linux, while the visitor may be on macOS; reading navigator during
+   * render made the server say "Ctrl K" and the hydrating client say "⌘K".
+   * Detect the platform only after hydration, then refine the visible hint. */
+  const [shortcut, setShortcut] = useState('Ctrl K')
 
   const triggerRef = useRef<HTMLButtonElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -209,7 +214,11 @@ export function CommandPalette() {
     return () => document.removeEventListener('keydown', onKeyDown)
   }, [])
 
-  const isMac = typeof navigator !== 'undefined' && /Mac|iPhone|iPad/.test(navigator.platform ?? navigator.userAgent)
+  useEffect(() => {
+    if (/Mac|iPhone|iPad/.test(navigator.platform ?? navigator.userAgent)) {
+      setShortcut('⌘K')
+    }
+  }, [])
 
   return (
     <>
@@ -222,7 +231,7 @@ export function CommandPalette() {
       >
         <Icon name="search" size="sm" label="Search" />
         <span className="cmdk-trigger__label">Search</span>
-        <kbd className="cmdk-kbd">{isMac ? '⌘K' : 'Ctrl K'}</kbd>
+        <kbd className="cmdk-kbd">{shortcut}</kbd>
       </button>
 
       {open &&
