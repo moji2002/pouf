@@ -1,4 +1,4 @@
-# pouf
+# pouf-ui
 
 **Pouf is not installed from npm.** It is a [shadcn-style](https://ui.shadcn.com) registry — you copy the component source into your own project and own it.
 

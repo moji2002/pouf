@@ -1,6 +1,6 @@
 # Publishing the name-reservation stub
 
-This reserves `pouf` on npm so no one else takes it. It ships no code.
+This reserves `pouf-ui` on npm so no one else takes it. It ships no code.
 
 ```bash
 cd npm-stub
