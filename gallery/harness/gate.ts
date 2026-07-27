@@ -141,12 +141,75 @@ async function snap(page: Page, dir: string, component: string, id: string, stat
   const styles = await page.evaluate<StyleSnapshot>(() =>
     (window as unknown as { captureComputedStyles: () => StyleSnapshot }).captureComputedStyles(),
   )
-  writeFileSync(join(dir, component, `${id}.${state}.json`), JSON.stringify(styles, null, 1))
+  const jsonPath = join(dir, component, `${id}.${state}.json`)
+  /* Chromium does not guarantee the enumeration order of computed-style
+   * properties. Rewriting a golden with the same keys and values can therefore
+   * produce a huge, order-only git diff. Preserve the existing file byte for
+   * byte when the parsed snapshot is semantically identical. If values really
+   * changed, retain the old key order and only append genuinely new keys so
+   * code review shows the signal instead of property-order churn. */
+  let shouldWriteJson = true
+  let stylesToWrite = styles
+  if (dir === GOLDEN && existsSync(jsonPath)) {
+    const previousStyles = JSON.parse(readFileSync(jsonPath, 'utf8')) as StyleSnapshot
+    shouldWriteJson = !styleSnapshotsEqual(previousStyles, styles)
+    if (shouldWriteJson) stylesToWrite = preserveSnapshotOrder(previousStyles, styles)
+  }
+  if (shouldWriteJson) writeFileSync(jsonPath, JSON.stringify(stylesToWrite, null, 1))
   /* Viewport shot, not an element shot: fixed bars (BottomNav) and Radix
    * portals (dialogs, menus) live outside [data-demo-root]'s box and were
    * invisible to an element screenshot. */
   const png = await page.screenshot({ animations: 'disabled' })
-  writeFileSync(join(dir, component, `${id}.${state}.png`), png)
+  const pngPath = join(dir, component, `${id}.${state}.png`)
+  const shouldWritePng =
+    dir !== GOLDEN ||
+    !existsSync(pngPath) ||
+    !pngsEqualWithinThreshold(readFileSync(pngPath), png)
+  if (shouldWritePng) writeFileSync(pngPath, png)
+}
+
+function styleSnapshotsEqual(a: StyleSnapshot, b: StyleSnapshot): boolean {
+  const aElements = Object.keys(a)
+  const bElements = Object.keys(b)
+  if (aElements.length !== bElements.length) return false
+
+  for (const element of aElements) {
+    const aStyles = a[element]
+    const bStyles = b[element]
+    if (!aStyles || !bStyles) return false
+
+    const aProperties = Object.keys(aStyles)
+    const bProperties = Object.keys(bStyles)
+    if (aProperties.length !== bProperties.length) return false
+    for (const property of aProperties) {
+      if (aStyles[property] !== bStyles[property]) return false
+    }
+  }
+
+  return true
+}
+
+function preserveSnapshotOrder(previous: StyleSnapshot, next: StyleSnapshot): StyleSnapshot {
+  const ordered: StyleSnapshot = {}
+  for (const element of [...Object.keys(previous), ...Object.keys(next)]) {
+    if (element in ordered || !next[element]) continue
+    const previousStyles = previous[element] ?? {}
+    const nextStyles = next[element]
+    const orderedStyles: Record<string, string> = {}
+    for (const property of [...Object.keys(previousStyles), ...Object.keys(nextStyles)]) {
+      if (property in orderedStyles || nextStyles[property] === undefined) continue
+      orderedStyles[property] = nextStyles[property]
+    }
+    ordered[element] = orderedStyles
+  }
+  return ordered
+}
+
+function pngsEqualWithinThreshold(previous: Buffer, next: Buffer): boolean {
+  const a = PNG.sync.read(previous)
+  const b = PNG.sync.read(next)
+  if (a.width !== b.width || a.height !== b.height) return false
+  return pixelmatch(a.data, b.data, undefined, a.width, a.height, { threshold: 0.1 }) === 0
 }
 
 /* Properties whose value is MEASURED rather than authored.

@@ -7,11 +7,15 @@ export const progressDemos: Demo[] = [
   { id: 'default', render: () => (
       <Stack gap={2}>
         <Row gap={3} wrap={false}>
-          <Progress value={40} tone="mint" label="Uploading" />
+          <div style={{ flex: '1 1 auto', minWidth: 120 }}>
+            <Progress value={40} tone="mint" label="Uploading" />
+          </div>
           <Text size="sm" mono num>40%</Text>
         </Row>
         <Row gap={3} wrap={false}>
-          <Progress value={85} tone="blue" label="Processing" />
+          <div style={{ flex: '1 1 auto', minWidth: 120 }}>
+            <Progress value={85} tone="blue" label="Processing" />
+          </div>
           <Text size="sm" mono num>85%</Text>
         </Row>
       </Stack>

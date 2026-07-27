@@ -24,7 +24,7 @@ const SECTION_TONE: Record<string, string> = {
 // chrome (app shells, nav/footer bars, tables) spans the whole card.
 const WIDE = new Set([
   'shell', 'sidebar', 'bottom-nav', 'menubar', 'navbar', 'footer', 'cta', 'table',
-  'area-chart', 'bar-chart', 'line-chart', 'pie-chart', 'tabs',
+  'area-chart', 'bar-chart', 'line-chart', 'pie-chart', 'tabs', 'stat', 'metric',
 ])
 const MED = new Set([
   'heading', 'text', 'card', 'row-card', 'stat', 'metric', 'input', 'slider', 'segmented', 'number-input',
@@ -80,44 +80,86 @@ const enriched = COMPONENTS.map((c) => {
   }
 })
 const bySectionEnriched = SECTIONS.map((s) => ({ section: s, items: enriched.filter((c) => c.section === s) })).filter((g) => g.items.length)
+const demoCount = enriched.reduce(
+  (total, component) => total + component.demoIds.reduce((count, demo) => count + demo.ids.length, 0),
+  0,
+)
 ---
 
 <Site title="Components" description={`Browse all ${COMPONENTS.length} Pouf components — layout, forms, overlays, navigation, and data — live and interactive, each with an install command and full prop docs.`} wide>
-  <section style="display:flex; flex-direction:column; gap:12px; padding:8px 0 32px;">
-    <span class="sticker" style="background:var(--mint); align-self:flex-start; transform:rotate(-2deg);">{COMPONENTS.length} components, one page</span>
-    <h1 class="display" style="font-size:clamp(44px,6vw,76px); margin:0;">Components</h1>
-    <p style="font-size:19px; font-weight:800; color:var(--muted); margin:0; max-width:60ch;">Every component, live and interactive. Copy the install command, or grab the source.</p>
+  <section class="comp-hero" aria-labelledby="components-title">
+    <div class="comp-hero-copy">
+      <span class="sticker comp-hero-sticker">Live component library</span>
+      <h1 id="components-title" class="display comp-hero-title">Find It. Try It. Ship It.</h1>
+      <p class="comp-hero-lede">Explore every Pouf component at a useful size. Change values, open overlays, inspect props, and copy the source without leaving the page.</p>
+      <div class="comp-stats" aria-label="Library summary">
+        <span><strong>{COMPONENTS.length}</strong> components</span>
+        <span><strong>{demoCount}</strong> live demos</span>
+        <span><strong>{SECTIONS.length}</strong> categories</span>
+      </div>
+    </div>
+    <div class="comp-search-wrap">
+      <label class="comp-search-label" for="component-search">Find a component</label>
+      <div class="comp-search">
+        <span class="comp-search-icon" aria-hidden="true">⌕</span>
+        <input
+          id="component-search"
+          name="q"
+          type="search"
+          placeholder="Search components…"
+          autocomplete="off"
+          spellcheck="false"
+          aria-describedby="component-results"
+        />
+        <button id="component-search-clear" type="button" aria-label="Clear component search" hidden>Clear</button>
+      </div>
+      <span id="component-results" class="comp-search-results" aria-live="polite">{COMPONENTS.length} components shown</span>
+    </div>
   </section>
 
   <div class="comp-layout">
-    <!-- Sticky vertical TOC — one item per line, no wrapping. -->
-    <aside class="comp-toc">
-      {bySection.map((g) => (
-        <div style="display:flex; flex-direction:column; gap:2px;">
-          <span class="comp-toc-section">{g.section}</span>
-          {g.items.map((c) => (
-            <a class="comp-toc-link" href={`#${c.slug}`}>{c.title.split(',')[0].split(' (')[0]}</a>
-          ))}
-        </div>
-      ))}
+    <aside class="comp-toc" aria-label="Component index">
+      <div class="comp-toc-head">
+        <strong>Browse</strong>
+        <span>{COMPONENTS.length}</span>
+      </div>
+      <nav class="comp-toc-scroll">
+        {bySection.map((g) => (
+          <div class="comp-toc-group" data-toc-section={g.section}>
+            <a class="comp-toc-section" href={`#section-${g.section.toLowerCase()}`}>{g.section}</a>
+            {g.items.map((c) => (
+              <a class="comp-toc-link" data-component-link={c.slug} href={`#${c.slug}`}>{c.title.split(',')[0].split(' (')[0]}</a>
+            ))}
+          </div>
+        ))}
+      </nav>
     </aside>
 
     <div class="comp-col">
       {bySectionEnriched.map((g) => (
-        <div class="comp-section">
+        <div class="comp-section" data-comp-section={g.section}>
           <div class="comp-band">
-            <span class="sticker" style={`background:${SECTION_TONE[g.section]}; transform:rotate(-1.5deg);`}>{g.section}</span>
+            <h2 id={`section-${g.section.toLowerCase()}`} class="display comp-section-title" style={`--section-tone:${SECTION_TONE[g.section]};`}>{g.section}</h2>
             <span class="comp-band-count">{g.items.length} {g.items.length === 1 ? 'component' : 'components'}</span>
           </div>
           {g.items.map((c) => (
-            <section id={c.slug} class="comp-card">
+            <section
+              id={c.slug}
+              class="comp-card"
+              data-component-card={c.slug}
+              data-search={`${c.title} ${c.blurb} ${c.section} ${c.demos.join(' ')}`.toLowerCase()}
+            >
               <div class="comp-card-head">
-                <div style="min-width:0;">
-                  <h2 class="display comp-title">{c.title}</h2>
+                <div class="comp-card-copy">
+                  <span class="comp-card-kicker">{c.section}</span>
+                  <h3 class="display comp-title">{c.title}</h3>
                   <p class="comp-blurb">{c.blurb}</p>
                 </div>
+                <div class="comp-install">
+                  <span>Install</span>
+                  <CopyCommand client:load command={componentInstall(c)} compact />
+                </div>
               </div>
-              <CopyCommand client:load command={componentInstall(c)} />
               {/* Preview / Code / Props as real tabs rather than stacked
                   <details>. Preview stays the default panel so the
                   client:visible demos below still hydrate on scroll — inside a
@@ -176,7 +218,7 @@ const bySectionEnriched = SECTIONS.map((s) => ({ section: s, items: enriched.fil
                   <div class="comp-api-body">
                     {c.api.map(({ name, props }) => (
                       <div class="comp-api-block">
-                        {c.api.length > 1 && <h3 class="comp-api-name">{name}</h3>}
+                        {c.api.length > 1 && <h4 class="comp-api-name">{name}</h4>}
                         <div class="comp-api-scroll">
                           <table class="comp-api-table">
                             <thead>
@@ -206,14 +248,150 @@ const bySectionEnriched = SECTIONS.map((s) => ({ section: s, items: enriched.fil
           ))}
         </div>
       ))}
+      <div id="component-empty" class="comp-empty" hidden>
+        <span aria-hidden="true">⌕</span>
+        <h2 class="display">No components found</h2>
+        <p>Try a component name such as “Button”, “Dialog”, or “Chart”.</p>
+        <button id="component-empty-clear" type="button">Show all components</button>
+      </div>
     </div>
   </div>
 
   <style>
+    .comp-hero {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
+      align-items: end;
+      gap: clamp(28px, 5vw, 72px);
+      margin: 8px 0 44px;
+      padding: clamp(28px, 4vw, 52px);
+      border-radius: 38px;
+      background:
+        radial-gradient(circle at 92% 12%, color-mix(in srgb, var(--pink) 38%, transparent), transparent 34%),
+        radial-gradient(circle at 7% 90%, color-mix(in srgb, var(--blue) 32%, transparent), transparent 32%),
+        var(--surface);
+      box-shadow: var(--pouf-card);
+    }
+    .comp-hero-copy { min-width: 0; display: flex; flex-direction: column; align-items: flex-start; }
+    .comp-hero-sticker {
+      background: var(--mint);
+      transform: rotate(-2deg);
+      margin-bottom: 18px;
+    }
+    .comp-hero-title {
+      max-width: 11ch;
+      margin: 0;
+      font-size: clamp(46px, 6.5vw, 92px);
+      line-height: 0.92;
+      letter-spacing: -0.045em;
+      text-wrap: balance;
+    }
+    .comp-hero-lede {
+      max-width: 62ch;
+      margin: 20px 0 0;
+      color: var(--muted);
+      font-size: clamp(16px, 1.5vw, 20px);
+      font-weight: 800;
+      line-height: 1.55;
+      text-wrap: pretty;
+    }
+    .comp-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 24px;
+    }
+    .comp-stats span {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 5px;
+      min-height: 32px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--bg) 78%, transparent);
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.02em;
+      box-shadow: var(--pouf-field);
+    }
+    .comp-stats strong { color: var(--ink); font-size: 14px; font-variant-numeric: tabular-nums; }
+    .comp-search-wrap {
+      min-width: 0;
+      padding: 24px;
+      border-radius: 28px;
+      background: color-mix(in srgb, var(--surface) 82%, transparent);
+      box-shadow: var(--pouf-row);
+    }
+    .comp-search-label {
+      display: block;
+      margin: 0 0 9px 4px;
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .comp-search {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 56px;
+      padding: 0 12px 0 16px;
+      border-radius: 19px;
+      background: var(--bg);
+      box-shadow: var(--pouf-field);
+    }
+    .comp-search:focus-within { box-shadow: var(--pouf-field-focus); }
+    .comp-search-icon {
+      flex: none;
+      color: var(--muted);
+      font-family: var(--font);
+      font-size: 26px;
+      line-height: 1;
+      transform: rotate(-18deg);
+    }
+    .comp-search input {
+      flex: 1;
+      align-self: stretch;
+      min-width: 0;
+      min-height: 44px;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      color: var(--ink);
+      font: 800 16px/1.2 var(--font);
+    }
+    .comp-search input::placeholder { color: var(--muted); opacity: 0.78; }
+    .comp-search button {
+      flex: none;
+      min-height: 34px;
+      border: 0;
+      border-radius: 12px;
+      padding: 7px 10px;
+      background: var(--purple);
+      color: var(--on-accent);
+      font: 900 12px/1 var(--font);
+      cursor: pointer;
+      touch-action: manipulation;
+      box-shadow: var(--pouf-control-active);
+    }
+    .comp-search button:hover { filter: saturate(1.08) brightness(0.98); }
+    .comp-search button:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+    .comp-search-results {
+      display: block;
+      margin: 10px 4px 0;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+    }
+
     .comp-layout {
       display: grid;
-      grid-template-columns: 210px minmax(0, 1fr);
-      gap: 40px;
+      grid-template-columns: 230px minmax(0, 1fr);
+      gap: clamp(28px, 3vw, 48px);
       align-items: start;
     }
     .comp-toc {
@@ -221,15 +399,56 @@ const bySectionEnriched = SECTIONS.map((s) => ({ section: s, items: enriched.fil
       top: 92px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
       max-height: calc(100vh - 112px);
-      overflow-y: auto;
       background: color-mix(in srgb, var(--surface) 70%, transparent);
       border-radius: 24px;
-      padding: 14px 8px;
       box-shadow: var(--pouf-card);
+      overflow: hidden;
+      overscroll-behavior: contain;
     }
-    .comp-toc-section { font-size: 11px; font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); padding: 8px 12px 4px; }
+    .comp-toc-head {
+      flex: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 48px;
+      padding: 12px 16px;
+      background: color-mix(in srgb, var(--purple) 22%, var(--surface));
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 900;
+    }
+    .comp-toc-head span {
+      display: grid;
+      place-items: center;
+      min-width: 28px;
+      min-height: 24px;
+      padding: 0 7px;
+      border-radius: 999px;
+      background: var(--surface);
+      color: var(--muted);
+      font-size: 11px;
+      font-variant-numeric: tabular-nums;
+    }
+    .comp-toc-scroll {
+      min-height: 0;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      scrollbar-gutter: stable;
+      padding: 8px 8px calc(var(--lip) + 18px);
+      mask-image: linear-gradient(to bottom, transparent 0, #000 12px, #000 calc(100% - 28px), transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 12px, #000 calc(100% - 28px), transparent 100%);
+    }
+    .comp-toc-group { display: flex; flex-direction: column; gap: 2px; }
+    .comp-toc-section {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      text-decoration: none;
+      text-transform: uppercase;
+      padding: 12px 12px 4px;
+    }
     .comp-toc-link {
       display: block;
       font-weight: 800;
@@ -241,13 +460,39 @@ const bySectionEnriched = SECTIONS.map((s) => ({ section: s, items: enriched.fil
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      transition: background 140ms ease;
+      transition: background 140ms ease, color 140ms ease, transform 140ms ease;
     }
-    .comp-toc-link:hover { background: rgba(201, 168, 255, 0.25); }
+    .comp-toc-link:hover { background: rgba(201, 168, 255, 0.22); transform: translateX(2px); }
+    .comp-toc-link[aria-current='location'] {
+      background: var(--purple);
+      color: var(--on-accent);
+      box-shadow: var(--pouf-control-active);
+    }
+    .comp-toc-link:focus-visible,
+    .comp-toc-section:focus-visible { outline: 3px solid var(--ink); outline-offset: -1px; }
 
-    .comp-col { min-width: 0; display: flex; flex-direction: column; gap: 40px; }
-    .comp-section { display: flex; flex-direction: column; gap: 20px; }
-    .comp-band { display: flex; align-items: center; gap: 14px; }
+    .comp-col { min-width: 0; display: flex; flex-direction: column; gap: 56px; }
+    .comp-section { display: flex; flex-direction: column; gap: 24px; }
+    .comp-band { display: flex; align-items: center; gap: 14px; scroll-margin-top: 100px; }
+    .comp-section-title {
+      position: relative;
+      margin: 0;
+      padding-left: 18px;
+      font-size: clamp(26px, 3vw, 38px);
+      line-height: 1;
+      scroll-margin-top: 100px;
+    }
+    .comp-section-title::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 10%;
+      bottom: 3%;
+      width: 8px;
+      border-radius: 999px;
+      background: var(--section-tone);
+      box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.08);
+    }
     .comp-band-count { font-weight: 900; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
 
     /* Each component on its own cushion card — roomy, but boxed so it reads as a
@@ -257,14 +502,42 @@ const bySectionEnriched = SECTIONS.map((s) => ({ section: s, items: enriched.fil
       display: flex;
       flex-direction: column;
       gap: 16px;
-      padding: 26px;
-      border-radius: 28px;
-      background: var(--surface);
+      padding: clamp(20px, 2.4vw, 32px);
+      border-radius: 30px;
+      background: color-mix(in srgb, var(--surface) 95%, var(--purple));
       box-shadow: var(--pouf-card);
     }
-    .comp-card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
-    .comp-title { font-size: clamp(24px, 3vw, 32px); margin: 0; }
-    .comp-blurb { font-size: 16px; font-weight: 800; color: var(--muted); margin: 4px 0 0; }
+    .comp-card:target {
+      box-shadow: var(--pouf-card), 0 0 0 4px color-mix(in srgb, var(--purple) 72%, transparent);
+    }
+    .comp-card-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, 420px);
+      align-items: end;
+      gap: 22px;
+    }
+    .comp-card-copy { min-width: 0; }
+    .comp-card-kicker {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--muted);
+      font-size: 10.5px;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .comp-title { font-size: clamp(27px, 3vw, 38px); line-height: 1.02; margin: 0; text-wrap: balance; }
+    .comp-blurb { max-width: 62ch; font-size: 15px; line-height: 1.45; font-weight: 800; color: var(--muted); margin: 7px 0 0; text-wrap: pretty; }
+    .comp-install { min-width: 0; }
+    .comp-install > span {
+      display: block;
+      margin: 0 0 7px 3px;
+      color: var(--muted);
+      font-size: 10.5px;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
 
     /* Variations in a responsive grid, so they sit side-by-side instead of a
        tall stack. Three width tiers: small = 3-per-row, med = 2-per-row, wide =
@@ -279,7 +552,9 @@ const bySectionEnriched = SECTIONS.map((s) => ({ section: s, items: enriched.fil
     .comp-tablist {
       display: flex;
       gap: 6px;
-      margin: 4px 0 12px;
+      margin: 4px 0 16px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid color-mix(in srgb, var(--purple) 22%, transparent);
       flex-wrap: wrap;
     }
     .comp-tab {
@@ -307,7 +582,7 @@ const bySectionEnriched = SECTIONS.map((s) => ({ section: s, items: enriched.fil
       transform: translateY(1px);
     }
     .comp-tab:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
-    .comp-panel { animation: comp-panel-in 160ms ease; }
+    .comp-panel { animation: comp-panel-in 160ms ease; min-width: 0; }
     @keyframes comp-panel-in { from { opacity: 0; } to { opacity: 1; } }
     @media (prefers-reduced-motion: reduce) {
       .comp-tab { transition: none; }
@@ -355,20 +630,42 @@ const bySectionEnriched = SECTIONS.map((s) => ({ section: s, items: enriched.fil
     }
     .comp-api-desc { color: var(--muted); font-weight: 700; min-width: 220px; }
 
-    .comp-demos { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
-    .comp-demo { display: flex; flex-direction: column; gap: 6px; min-width: 0; grid-column: span 2; }
-    .comp-demo--med { grid-column: span 3; }
+    .comp-demos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; align-items: start; }
+    .comp-demo { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
     .comp-demo--wide { grid-column: 1 / -1; }
     /* A lone variation has nothing to sit beside — let it use the whole row
        rather than stranding four empty columns. */
     .comp-demo:only-child { grid-column: 1 / -1; }
-    @media (max-width: 1100px) {
-      .comp-demos { grid-template-columns: repeat(4, 1fr); }
-      .comp-demo { grid-column: span 2; }
-      .comp-demo--med { grid-column: 1 / -1; }
-    }
-    @media (max-width: 620px) { .comp-demo, .comp-demo--med { grid-column: 1 / -1; } }
+    @media (max-width: 1180px) { .comp-demos { grid-template-columns: minmax(0, 1fr); } }
     .comp-cap { font-size: 10.5px; font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); opacity: 0.7; }
+    .comp-empty {
+      display: grid;
+      place-items: center;
+      gap: 10px;
+      min-height: 320px;
+      padding: 40px;
+      border-radius: 30px;
+      background: var(--surface);
+      text-align: center;
+      box-shadow: var(--pouf-card);
+    }
+    .comp-empty[hidden] { display: none; }
+    .comp-empty > span { color: var(--muted); font-size: 48px; line-height: 1; transform: rotate(-18deg); }
+    .comp-empty h2 { margin: 0; font-size: 30px; }
+    .comp-empty p { margin: 0; color: var(--muted); font-weight: 800; }
+    .comp-empty button {
+      min-height: 44px;
+      margin-top: 8px;
+      border: 0;
+      border-radius: 15px;
+      padding: 10px 16px;
+      background: var(--purple);
+      color: var(--on-accent);
+      font: 900 14px/1 var(--font);
+      cursor: pointer;
+      box-shadow: var(--pouf-control);
+    }
+    .comp-empty button:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
 
     .comp-src > summary { cursor: pointer; font-weight: 900; font-size: 14px; color: var(--ink); list-style: none; padding: 2px 0; }
     .comp-src > summary::-webkit-details-marker { display: none; }
@@ -377,8 +674,25 @@ const bySectionEnriched = SECTIONS.map((s) => ({ section: s, items: enriched.fil
     .comp-src-code { margin-top: 8px; max-height: 420px; overflow: auto; border-radius: 16px; }
 
     @media (max-width: 900px) {
+      .comp-hero { grid-template-columns: minmax(0, 1fr); }
+      .comp-hero-title { max-width: 13ch; }
       .comp-layout { grid-template-columns: minmax(0, 1fr); }
       .comp-toc { display: none; }
+    }
+    @media (max-width: 680px) {
+      .comp-hero { margin-top: 0; padding: 24px 20px 30px; border-radius: 28px; }
+      .comp-hero-title { font-size: clamp(42px, 13vw, 64px); }
+      .comp-search-wrap { padding: 16px; }
+      .comp-card-head { grid-template-columns: minmax(0, 1fr); }
+      .comp-card { padding: 20px 16px 24px; border-radius: 24px; }
+      .comp-section-title { font-size: 30px; }
+      .comp-band { align-items: baseline; justify-content: space-between; }
+      .comp-tab { padding-inline: 11px; }
+      .comp-api-desc { min-width: 180px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .comp-toc-link,
+      .comp-search button { transition: none; }
     }
   </style>
 
@@ -417,5 +731,83 @@ const bySectionEnriched = SECTIONS.map((s) => ({ section: s, items: enriched.fil
         })
       })
     })
+
+    /* Search is page navigation state, so keep it in the URL. This makes a
+       filtered component library linkable and restores the same view on
+       reload/back without hydrating the whole page as an application. */
+    var search = document.getElementById('component-search')
+    var clear = document.getElementById('component-search-clear')
+    var emptyClear = document.getElementById('component-empty-clear')
+    var results = document.getElementById('component-results')
+    var empty = document.getElementById('component-empty')
+    var cards = Array.prototype.slice.call(document.querySelectorAll('[data-component-card]'))
+    var links = Array.prototype.slice.call(document.querySelectorAll('[data-component-link]'))
+    var sections = Array.prototype.slice.call(document.querySelectorAll('[data-comp-section]'))
+    var tocGroups = Array.prototype.slice.call(document.querySelectorAll('[data-toc-section]'))
+
+    function setQuery(value, writeURL) {
+      if (!search) return
+      var query = String(value || '').trim().toLowerCase()
+      search.value = value || ''
+      var shown = 0
+
+      cards.forEach(function (card) {
+        var match = !query || (card.getAttribute('data-search') || '').indexOf(query) >= 0
+        card.hidden = !match
+        if (match) shown += 1
+      })
+      links.forEach(function (link) {
+        var slug = link.getAttribute('data-component-link')
+        var card = document.querySelector('[data-component-card="' + slug + '"]')
+        link.hidden = !card || card.hidden
+      })
+      sections.forEach(function (section) {
+        section.hidden = !section.querySelector('[data-component-card]:not([hidden])')
+      })
+      tocGroups.forEach(function (group) {
+        group.hidden = !group.querySelector('[data-component-link]:not([hidden])')
+      })
+
+      if (clear) clear.hidden = !query
+      if (empty) empty.hidden = shown !== 0
+      if (results) results.textContent = shown + (shown === 1 ? ' component shown' : ' components shown')
+
+      if (writeURL) {
+        var url = new URL(window.location.href)
+        if (query) url.searchParams.set('q', value.trim())
+        else url.searchParams.delete('q')
+        history.replaceState(null, '', url)
+      }
+    }
+
+    if (search) {
+      var initialQuery = new URL(window.location.href).searchParams.get('q') || ''
+      setQuery(initialQuery, false)
+      search.addEventListener('input', function () { setQuery(search.value, true) })
+    }
+    if (clear) clear.addEventListener('click', function () {
+      setQuery('', true)
+      search && search.focus()
+    })
+    if (emptyClear) emptyClear.addEventListener('click', function () {
+      setQuery('', true)
+      search && search.focus()
+    })
+
+    /* Highlight the component whose card currently leads the viewport. */
+    if ('IntersectionObserver' in window) {
+      var activeObserver = new IntersectionObserver(function (entries) {
+        var visible = entries
+          .filter(function (entry) { return entry.isIntersecting && !entry.target.hidden })
+          .sort(function (a, b) { return b.intersectionRatio - a.intersectionRatio })
+        if (!visible.length) return
+        var slug = visible[0].target.getAttribute('data-component-card')
+        links.forEach(function (link) {
+          if (link.getAttribute('data-component-link') === slug) link.setAttribute('aria-current', 'location')
+          else link.removeAttribute('aria-current')
+        })
+      }, { rootMargin: '-96px 0px -58% 0px', threshold: [0.08, 0.3, 0.6] })
+      cards.forEach(function (card) { activeObserver.observe(card) })
+    }
   </script>
 </Site>

@@ -1,5 +1,6 @@
 import * as RCheck from '@radix-ui/react-checkbox'
 import clsx from 'clsx'
+import { useId } from 'react'
 
 interface CheckboxProps {
   checked: boolean | 'indeterminate'
@@ -16,10 +17,12 @@ interface CheckboxProps {
 }
 
 export function Checkbox({ checked, onChange, id, disabled, label, hideLabel }: CheckboxProps) {
+  const generatedId = useId()
+  const controlId = id ?? generatedId
   return (
     <div className="pouf-checkbox-row inline-flex items-center gap-(--s2)">
       <RCheck.Root
-        id={id}
+        id={controlId}
         className={clsx([
           'pouf-checkbox w-7 h-7 rounded-[9px] border-none p-0 cursor-pointer cushion-field flex-none',
           'flex items-center justify-center',
@@ -68,7 +71,7 @@ export function Checkbox({ checked, onChange, id, disabled, label, hideLabel }: 
         </RCheck.Indicator>
       </RCheck.Root>
       {label && !hideLabel && (
-        <label htmlFor={id} className="pouf-checkbox__label text-[15px] font-bold text-ink cursor-pointer">
+        <label htmlFor={controlId} className="pouf-checkbox__label text-[15px] font-bold text-ink cursor-pointer">
           {label}
         </label>
       )}

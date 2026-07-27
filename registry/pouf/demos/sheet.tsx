@@ -1,21 +1,26 @@
+import { useState } from 'react'
 import { Sheet } from '../sheet'
 import { Button } from '../Button'
 import { Switch } from '../controls'
 import { Stack } from '../layout'
 import type { Demo } from './types'
 
-const sheetBody = (
-  <Stack gap={3}>
-    <Switch checked onChange={() => {}} label="Push notifications" />
-    <Switch checked={false} onChange={() => {}} label="Email digests" />
-  </Stack>
-)
+function SheetBody() {
+  const [push, setPush] = useState(true)
+  const [email, setEmail] = useState(false)
+  return (
+    <Stack gap={3}>
+      <Switch checked={push} onChange={setPush} label="Push notifications" />
+      <Switch checked={email} onChange={setEmail} label="Email digests" />
+    </Stack>
+  )
+}
 
 export const sheetDemos: Demo[] = [
   { id: 'trigger', viewport: 'mobile', states: ['hover', 'focus'], render: () => (
       <span data-subject>
         <Sheet trigger={<Button tone="blue" size="sm">Open sheet</Button>} title="Notification settings" description="Manage how you receive alerts.">
-          {sheetBody}
+          <SheetBody />
         </Sheet>
       </span>
     ) },
@@ -28,7 +33,7 @@ export const sheetDemos: Demo[] = [
         title="Notification settings"
         description="Manage how you receive alerts."
       >
-        {sheetBody}
+        <SheetBody />
       </Sheet>
     ) },
 ]

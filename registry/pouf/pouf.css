@@ -367,6 +367,9 @@
 .pouf-overlay {
   position: fixed;
   inset: 0;
+  /* Compact portal scale: page chrome tops out at 45, then backdrop 50 →
+   * modal 60 → floating content 70 → toast 80. */
+  z-index: 50;
   background: rgba(58, 46, 92, 0.35);
   backdrop-filter: blur(2px);
 }
@@ -382,6 +385,7 @@
 }
 .pouf-dialog {
   position: fixed;
+  z-index: 60;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -493,7 +497,7 @@
   bottom: 0;
   width: min(440px, 100vw);
   display: flex;
-  z-index: 61;
+  z-index: 60;
 }
 .pouf-sheet-panel {
   width: 100%;
@@ -578,7 +582,7 @@
   padding: var(--s2);
   padding-block: calc(var(--s2) - var(--lip) / 2) calc(var(--s2) + var(--lip) / 2);
   box-shadow: var(--pouf-card);
-  z-index: 50;
+  z-index: 70;
   /* Scale from the trigger, not the centre — Radix sets this to the corner the
    * popper opened from, so a menu below its field grows downward out of it. */
   transform-origin: var(--radix-popper-transform-origin);
@@ -658,7 +662,7 @@
   border-radius: 12px;
   padding: var(--s2) var(--s3);
   box-shadow: 0 10px 20px rgba(58, 46, 92, 0.25);
-  z-index: 60;
+  z-index: 70;
   transform-origin: var(--radix-tooltip-content-transform-origin);
 }
 .pouf-tooltip[data-state='delayed-open'] {
@@ -729,7 +733,7 @@
   padding: var(--s2);
   padding-block: calc(var(--s2) - var(--lip) / 2) calc(var(--s2) + var(--lip) / 2);
   box-shadow: var(--pouf-card);
-  z-index: 50;
+  z-index: 70;
   min-width: 160px;
   animation: pouf-fade 140ms ease;
   overscroll-behavior: contain;
@@ -785,7 +789,7 @@
   padding: var(--s4);
   padding-block: calc(var(--s4) - var(--lip) / 2) calc(var(--s4) + var(--lip) / 2);
   box-shadow: var(--pouf-card);
-  z-index: 50;
+  z-index: 70;
   max-width: 280px;
   animation: pouf-fade 140ms ease;
 }
@@ -1208,7 +1212,7 @@
   position: fixed;
   top: calc(var(--s4) + env(safe-area-inset-top, 0px));
   right: var(--s4);
-  z-index: 60;
+  z-index: 80;
   display: flex;
   flex-direction: column;
   gap: var(--s2);
@@ -1409,7 +1413,7 @@
   top: calc(100% + var(--s2));
   left: 0;
   right: 0;
-  z-index: 50;
+  z-index: 70;
   max-height: 60vh;
   overflow-y: auto;
   padding: var(--s3);

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Select, Switch, Tooltip, TooltipProvider, Confirm, Dialog, Combobox } from '../controls'
 import { Field } from '../Input'
 import { Button } from '../Button'
@@ -16,6 +16,31 @@ const fruitOptions = [
   { value: 'cherry', label: 'Cherry' },
 ]
 
+function InteractiveSelect({
+  initial,
+  subject = false,
+}: {
+  initial: string
+  subject?: boolean
+}) {
+  const [value, setValue] = useState(initial)
+  const field = (
+    <Field label="Fruit">
+      {(id, d) => (
+        <Select
+          id={id}
+          describedBy={d}
+          value={value}
+          onChange={setValue}
+          options={fruitOptions}
+          placeholder="Choose a fruit…"
+        />
+      )}
+    </Field>
+  )
+  return subject ? <span data-subject>{field}</span> : field
+}
+
 function SelectOpen() {
   const ref = useRef<HTMLDivElement>(null)
   useEffect(() => { simulateOpen(ref.current?.querySelector('button')) }, [])
@@ -29,20 +54,8 @@ function SelectOpen() {
 }
 
 export const selectDemos: Demo[] = [
-  { id: 'default', states: ['hover', 'focus'], render: () => (
-      <span data-subject>
-        <Field label="Fruit">
-          {(id, d) => <Select id={id} describedBy={d} value="apple" onChange={() => {}} options={fruitOptions} />}
-        </Field>
-      </span>
-    ) },
-  { id: 'placeholder', render: () => (
-      <Field label="Fruit">
-        {(id, d) => (
-          <Select id={id} describedBy={d} value="" onChange={() => {}} options={fruitOptions} placeholder="Choose a fruit…" />
-        )}
-      </Field>
-    ) },
+  { id: 'default', states: ['hover', 'focus'], render: () => <InteractiveSelect initial="apple" subject /> },
+  { id: 'placeholder', render: () => <InteractiveSelect initial="" /> },
   { id: 'disabled', render: () => (
       <Field label="Fruit">
         {(id, d) => <Select id={id} describedBy={d} value="apple" onChange={() => {}} options={fruitOptions} disabled />}
@@ -53,21 +66,26 @@ export const selectDemos: Demo[] = [
 
 /* ---------------------------------------------------------------- Switch */
 
+function InteractiveSwitch({
+  initial,
+  subject = false,
+}: {
+  initial: boolean
+  subject?: boolean
+}) {
+  const [checked, setChecked] = useState(initial)
+  const control = (
+    <Row gap={2} wrap={false}>
+      <Switch checked={checked} onChange={setChecked} label="Notifications" />
+      <Text size="sm">Notifications</Text>
+    </Row>
+  )
+  return subject ? <span data-subject>{control}</span> : control
+}
+
 export const switchDemos: Demo[] = [
-  { id: 'on', states: ['hover', 'focus'], render: () => (
-      <span data-subject>
-        <Row gap={2} wrap={false}>
-          <Switch checked onChange={() => {}} label="Notifications" />
-          <Text size="sm">Notifications</Text>
-        </Row>
-      </span>
-    ) },
-  { id: 'off', render: () => (
-      <Row gap={2} wrap={false}>
-        <Switch checked={false} onChange={() => {}} label="Notifications" />
-        <Text size="sm">Notifications</Text>
-      </Row>
-    ) },
+  { id: 'on', states: ['hover', 'focus'], render: () => <InteractiveSwitch initial subject /> },
+  { id: 'off', render: () => <InteractiveSwitch initial={false} /> },
   { id: 'disabled', render: () => (
       <Row gap={2} wrap={false}>
         <Switch checked={false} onChange={() => {}} disabled label="Busy switch" />
@@ -206,6 +224,35 @@ export const dialogDemos: Demo[] = [
 
 const timezoneOptions = ['America/New_York', 'Europe/London', 'Asia/Tokyo', 'Australia/Sydney']
 
+function InteractiveCombobox({
+  initial,
+  options = timezoneOptions,
+  subject = false,
+}: {
+  initial: string
+  options?: string[]
+  subject?: boolean
+}) {
+  const [value, setValue] = useState(initial)
+  const field = (
+    <Field label={options.length ? 'Timezone' : 'Custom zone (no list offered)'}>
+      {(id, d) => (
+        <Combobox
+          id={id}
+          describedBy={d}
+          value={value}
+          onChange={setValue}
+          options={options}
+          error={options.length ? undefined : 'No presets — type an IANA name.'}
+          mono
+          placeholder={options.length ? 'Search a timezone…' : 'e.g. Europe/Paris…'}
+        />
+      )}
+    </Field>
+  )
+  return subject ? <span data-subject>{field}</span> : field
+}
+
 function ComboboxOpen() {
   const ref = useRef<HTMLDivElement>(null)
   useEffect(() => { simulateOpen(ref.current?.querySelector('button')) }, [])
@@ -221,32 +268,9 @@ function ComboboxOpen() {
 }
 
 export const comboboxDemos: Demo[] = [
-  { id: 'default', states: ['hover', 'focus'], render: () => (
-      <span data-subject>
-        <Field label="Timezone">
-          {(id, d) => (
-            <Combobox id={id} describedBy={d} value="America/New_York" onChange={() => {}} options={timezoneOptions} mono placeholder="Search a timezone…" />
-          )}
-        </Field>
-      </span>
-    ) },
+  { id: 'default', states: ['hover', 'focus'], render: () => <InteractiveCombobox initial="America/New_York" subject /> },
   // The empty-list case is the contract, not a degradation: a field that offers
   // no preset list must still let you type a value.
-  { id: 'no-options', render: () => (
-      <Field label="Custom zone (no list offered)">
-        {(id, d) => (
-          <Combobox
-            id={id}
-            describedBy={d}
-            value=""
-            onChange={() => {}}
-            options={[]}
-            error="No presets — type an IANA name."
-            mono
-            placeholder="e.g. Europe/Paris…"
-          />
-        )}
-      </Field>
-    ) },
+  { id: 'no-options', render: () => <InteractiveCombobox initial="" options={[]} /> },
   { id: 'open', render: () => <ComboboxOpen /> },
 ]

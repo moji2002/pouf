@@ -1,10 +1,17 @@
+import { useState } from 'react'
 import { Pagination } from '../pagination'
 import type { Demo } from './types'
 
+function InteractivePagination({ initial, subject = false }: { initial: number; subject?: boolean }) {
+  const [page, setPage] = useState(initial)
+  const control = <Pagination page={page} total={5} onChange={setPage} />
+  return subject ? <span data-subject>{control}</span> : control
+}
+
 export const paginationDemos: Demo[] = [
   { id: 'middle', states: ['hover', 'focus'], render: () => (
-      <span data-subject><Pagination page={2} total={5} onChange={() => {}} /></span>
+      <InteractivePagination initial={2} subject />
     ) },
-  { id: 'first-page', render: () => <Pagination page={1} total={5} onChange={() => {}} /> },
-  { id: 'last-page', render: () => <Pagination page={5} total={5} onChange={() => {}} /> },
+  { id: 'first-page', render: () => <InteractivePagination initial={1} /> },
+  { id: 'last-page', render: () => <InteractivePagination initial={5} /> },
 ]

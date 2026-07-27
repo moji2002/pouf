@@ -101,9 +101,8 @@
     box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.08), 0 6px 14px rgba(58, 46, 92, 0.14);
   }
 
-  /* Header: a floating chunky bar, not a hairline-bordered strip. z-index kept
-   * below the component overlays (dialogs/toasts/menus at 50–61) so those
-   * always cover it. */
+  /* Header: a floating chunky bar, not a hairline-bordered strip. Library
+   * overlays start at 50, above this page-chrome layer. */
   .site-header {
     position: sticky;
     top: 12px;

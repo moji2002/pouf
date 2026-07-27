@@ -13,6 +13,7 @@ export const aspectRatioDemos: Demo[] = [
               alignItems: 'center',
               justifyContent: 'center',
               background: 'var(--purple)',
+              color: 'var(--on-accent)',
               fontWeight: 900,
               fontSize: 14,
             }}
@@ -33,6 +34,7 @@ export const aspectRatioDemos: Demo[] = [
               alignItems: 'center',
               justifyContent: 'center',
               background: 'var(--mint)',
+              color: 'var(--on-accent)',
               fontWeight: 900,
               fontSize: 14,
             }}

@@ -319,10 +319,12 @@ const schemaNodes = [websiteSchema, ...(schema ? (Array.isArray(schema) ? schema
     font-family: var(--font);
     font-weight: 800;
     font-size: 14px;
+    line-height: 1;
     color: var(--muted);
     background: var(--bg);
     border-radius: 999px;
-    padding: 8px 10px 8px 14px;
+    min-height: 40px;
+    padding: 7px 9px 7px 14px;
     box-shadow: var(--pouf-field);
     transition: box-shadow 140ms ease, transform 140ms ease, color 140ms ease;
   }
@@ -334,9 +336,15 @@ const schemaNodes = [websiteSchema, ...(schema ? (Array.isArray(schema) ? schema
     transform: translateY(1px);
   }
   .cmdk-trigger__label {
+    display: block;
     white-space: nowrap;
+    text-box: trim-both cap alphabetic;
   }
   .cmdk-kbd {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 25px;
     font-family: var(--font);
     font-size: 11px;
     font-weight: 800;
@@ -344,7 +352,7 @@ const schemaNodes = [websiteSchema, ...(schema ? (Array.isArray(schema) ? schema
     color: var(--muted);
     background: var(--surface);
     border-radius: 8px;
-    padding: 4px 6px;
+    padding: 4px 7px;
     box-shadow: var(--pouf-control);
   }
   .cmdk-kbd--sm {
@@ -367,7 +375,7 @@ const schemaNodes = [websiteSchema, ...(schema ? (Array.isArray(schema) ? schema
   .cmdk-overlay {
     position: fixed;
     inset: 0;
-    z-index: 999;
+    z-index: 60;
     background: rgba(58, 46, 92, 0.35);
     backdrop-filter: blur(2px);
     display: flex;

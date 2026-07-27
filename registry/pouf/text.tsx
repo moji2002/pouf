@@ -66,7 +66,10 @@ const text = cva('pouf-text font-bold [overflow-wrap:anywhere]', {
     muted: { true: 'text-muted' },
     num: { true: '[font-variant-numeric:tabular-nums] [font-feature-settings:"tnum"]' },
     mono: { true: "[font-family:ui-monospace,'SF_Mono',Menlo,monospace] [font-variant-numeric:tabular-nums]" },
-    truncate: { true: 'truncate min-w-0' },
+    /* Truncation needs a real box. On an inline span the parent can be 120px
+     * wide while the span's own visual rect remains its full 380px intrinsic
+     * width, creating page overflow in documentation and real layouts. */
+    truncate: { true: 'block truncate min-w-0 max-w-full' },
   },
   defaultVariants: { size: 'md' },
 })
