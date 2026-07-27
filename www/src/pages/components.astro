@@ -4,6 +4,7 @@ import path from 'node:path'
 import Site from '../layouts/Site.astro'
 import { Code } from 'astro:components'
 import { DemoBox } from '../components/DemoBox'
+import { ChartDemoBox } from '../components/ChartDemoBox'
 import { CopyCommand } from '../components/CopyCommand'
 import { COMPONENTS, SECTIONS, componentInstall } from '../data/manifest'
 import { allDemos } from '../../../registry/pouf/demos'
@@ -23,7 +24,7 @@ const SECTION_TONE: Record<string, string> = {
 // medium content (a field, a chart, a status row) takes two columns; full-bleed
 // chrome (app shells, nav/footer bars, tables) spans the whole card.
 const WIDE = new Set([
-  'shell', 'sidebar', 'bottom-nav', 'menubar', 'navbar', 'footer', 'cta', 'table',
+  'shell', 'sidebar', 'bottom-nav', 'navbar', 'footer', 'cta', 'table',
   'area-chart', 'bar-chart', 'line-chart', 'pie-chart', 'tabs', 'stat', 'metric',
 ])
 const MED = new Set([
@@ -31,7 +32,14 @@ const MED = new Set([
   'status', 'mode-banner', 'error-note', 'empty', 'skeleton', 'progress', 'blob',
   'accordion', 'collapsible', 'nav-link', 'breadcrumb',
 ])
-const demoTier = (key: string) => (WIDE.has(key) ? ' comp-demo--wide' : MED.has(key) ? ' comp-demo--med' : '')
+const COMPACT = new Set(['menubar'])
+const CHARTS = new Set(['area-chart', 'bar-chart', 'line-chart', 'pie-chart'])
+const demoTier = (key: string) => (
+  WIDE.has(key) ? ' comp-demo--wide' :
+  MED.has(key) ? ' comp-demo--med' :
+  COMPACT.has(key) ? ' comp-demo--compact' :
+  ''
+)
 
 // Preload each component's source from the built registry JSON.
 function sourceFor(slug: string): string {
@@ -157,7 +165,7 @@ const demoCount = enriched.reduce(
                 </div>
                 <div class="comp-install">
                   <span>Install</span>
-                  <CopyCommand client:load command={componentInstall(c)} compact />
+                  <CopyCommand command={componentInstall(c)} compact />
                 </div>
               </div>
               {/* Preview / Code / Props as real tabs rather than stacked
@@ -195,7 +203,10 @@ const demoCount = enriched.reduce(
                     {c.demoIds.map(({ key, ids }) => ids.map((id) => (
                       <div class={`comp-demo${demoTier(key)}`}>
                         {(c.demoIds.length > 1 || ids.length > 1) && <span class="comp-cap">{id}</span>}
-                        <DemoBox client:visible component={key} id={id} compact />
+                        {CHARTS.has(key)
+                          ? <ChartDemoBox client:visible component={key} id={id} compact />
+                          : <DemoBox client:visible component={key} id={id} compact />
+                        }
                       </div>
                     )))}
                   </div>
@@ -499,6 +510,8 @@ const demoCount = enriched.reduce(
        unit (the toybox presentation, kept full-width for readability). */
     .comp-card {
       scroll-margin-top: 92px;
+      content-visibility: auto;
+      contain-intrinsic-size: auto 720px;
       display: flex;
       flex-direction: column;
       gap: 16px;
@@ -633,6 +646,11 @@ const demoCount = enriched.reduce(
     .comp-demos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; align-items: start; }
     .comp-demo { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
     .comp-demo--wide { grid-column: 1 / -1; }
+    .comp-demo--compact { width: min(100%, 480px); justify-self: start; }
+    /* BottomNav is intentionally viewport-gated in the component itself. Its
+       mobile docs viewport is a contained preview on a desktop page, so opt
+       that simulated viewport in explicitly. */
+    :global([data-demo-viewport='mobile'] .pouf-bottomnav) { display: grid; }
     /* A lone variation has nothing to sit beside — let it use the whole row
        rather than stranding four empty columns. */
     .comp-demo:only-child { grid-column: 1 / -1; }

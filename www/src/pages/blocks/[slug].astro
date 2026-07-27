@@ -40,7 +40,7 @@ const siblings = BLOCKS.filter((b) => b.category === block.category && b.slug !=
 
     <div style="display:flex; flex-direction:column; gap:10px; max-width:760px;">
       <span style="font-size:13px; font-weight:900; letter-spacing:1px; text-transform:uppercase; color:var(--muted);">Install this section</span>
-      <CopyCommand client:load command={blockInstall(block.slug)} />
+      <CopyCommand command={blockInstall(block.slug)} />
       {regDeps.length > 0 && (
         <p style="margin:0; font-size:14px; color:var(--muted); font-weight:800;">Lands with {regDeps.length} components: {regDeps.join(', ')}.</p>
       )}

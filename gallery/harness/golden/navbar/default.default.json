@@ -1232,7 +1232,7 @@
   "contain-intrinsic-size": "none",
   "contain-intrinsic-width": "none",
   "container-name": "none",
-  "container-type": "normal",
+  "container-type": "inline-size",
   "content": "normal",
   "content-visibility": "visible",
   "corner-bottom-left-shape": "round",

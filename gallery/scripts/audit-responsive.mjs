@@ -127,6 +127,21 @@ for (const [vpName, width, height] of VIEWPORTS) {
          * otherwise report an overlap on all of them. */
         if (cs.pointerEvents === 'none') return false
         if (el.getAttribute('aria-hidden') === 'true') return false
+        /* A transformed demo viewport is a containing block for `fixed`
+         * descendants. BottomNav is therefore fixed to the preview, not the
+         * browser. If its measured box stays inside that preview it cannot
+         * cover the next documentation card. */
+        const demoRoot = el.closest('[data-demo-root]')
+        if (demoRoot) {
+          const fr = el.getBoundingClientRect()
+          const rr = demoRoot.getBoundingClientRect()
+          if (
+            fr.left >= rr.left - 1 &&
+            fr.right <= rr.right + 1 &&
+            fr.top >= rr.top - 1 &&
+            fr.bottom <= rr.bottom + 1
+          ) return false
+        }
         return el.getBoundingClientRect().height > 40
       })
       const texts = [...document.querySelectorAll('p, li, h1, h2, h3, pre, td')].filter(

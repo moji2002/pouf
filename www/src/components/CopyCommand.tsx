@@ -1,38 +1,18 @@
-import { useEffect, useRef, useState } from 'react'
-
-/** The install command with a copy button. A tiny island — the only JS on an
- * otherwise static docs page besides the live demos.
+/** The install command with a copy button. This renders as static HTML; one
+ * delegated handler in Site.astro serves every copy button on the page.
  *
  * `compact` renders a single truncating pill (the whole thing copies) for use
  * inside a component tile, where the full `npx shadcn@latest add …` line is too
  * long to show; the full command still lands on the clipboard. */
 export function CopyCommand({ command, compact = false }: { command: string; compact?: boolean }) {
-  const [status, setStatus] = useState<'idle' | 'copied' | 'failed'>('idle')
-  const resetTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
-
-  useEffect(() => () => {
-    if (resetTimer.current) clearTimeout(resetTimer.current)
-  }, [])
-
-  const copy = async () => {
-    try {
-      if (!navigator.clipboard?.writeText) throw new Error('Clipboard API unavailable')
-      await navigator.clipboard.writeText(command)
-      setStatus('copied')
-    } catch {
-      setStatus('failed')
-    }
-    if (resetTimer.current) clearTimeout(resetTimer.current)
-    resetTimer.current = setTimeout(() => setStatus('idle'), 1800)
-  }
-  const actionLabel = status === 'copied' ? 'Copied' : status === 'failed' ? 'Copy failed' : 'Copy'
-
   if (compact) {
     const shown = command.replace('npx shadcn@latest add ', '')
     return (
       <button
         type="button"
-        onClick={() => void copy()}
+        data-copy-command={command}
+        data-copy-status="idle"
+        data-copy-kind="compact"
         title={command}
         aria-live="polite"
         style={{
@@ -52,7 +32,7 @@ export function CopyCommand({ command, compact = false }: { command: string; com
         }}
       >
         <span style={{ flex: 1, minWidth: 0, textAlign: 'left', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', color: 'var(--inverse-ink)' }}>{shown}</span>
-        <span style={{ flex: 'none', fontWeight: 900, color: 'var(--inverse-ink)', opacity: status === 'copied' ? 1 : 0.85 }}>{actionLabel}</span>
+        <span data-copy-label style={{ flex: 'none', fontWeight: 900, color: 'var(--inverse-ink)', opacity: 0.85 }}>Copy</span>
       </button>
     )
   }
@@ -67,7 +47,9 @@ export function CopyCommand({ command, compact = false }: { command: string; com
       </code>
       <button
         type="button"
-        onClick={() => void copy()}
+        data-copy-command={command}
+        data-copy-status="idle"
+        data-copy-kind="full"
         aria-live="polite"
         style={{
           flex: 'none',
@@ -79,11 +61,11 @@ export function CopyCommand({ command, compact = false }: { command: string; com
           /* Accent fill -> accent ink. --ink goes near-white in dark mode and would
            * leave this unreadable on the pastel. */
           color: 'var(--on-accent)',
-          background: status === 'copied' ? 'var(--mint)' : status === 'failed' ? 'var(--orange)' : 'var(--purple)',
+          background: 'var(--purple)',
           boxShadow: 'var(--pouf-control)',
         }}
       >
-        {actionLabel}
+        <span data-copy-label>Copy</span>
       </button>
     </div>
   )

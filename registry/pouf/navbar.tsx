@@ -28,7 +28,7 @@ export function Navbar({ brand, links = [], actions, label = 'Primary' }: Navbar
       aria-label={label}
     >
       <div className="flex items-center gap-(--s2) font-black text-[20px] text-ink">{brand}</div>
-      <div className="flex items-center gap-[2px] max-[760px]:hidden">
+      <div className="pouf-navbar__links flex items-center gap-[2px]">
         {links.map((l) => (
           <a
             key={l.href}
@@ -53,7 +53,7 @@ export function Navbar({ brand, links = [], actions, label = 'Primary' }: Navbar
         ))}
       </div>
       {links.length > 0 ? (
-        <details className="relative hidden max-[760px]:block ml-auto">
+        <details className="pouf-navbar__mobile relative ml-auto">
           <summary
             className="inline-flex items-center min-h-[40px] px-(--s3) font-extrabold text-ink cursor-pointer rounded-pill hover:bg-[rgba(201,168,255,0.25)]"
             style={{ listStyle: 'none' }}
@@ -81,7 +81,7 @@ export function Navbar({ brand, links = [], actions, label = 'Primary' }: Navbar
         </details>
       ) : null}
       {actions && (
-        <div className="flex items-center gap-(--s2) ml-auto max-[760px]:ml-0">
+        <div className="pouf-navbar__actions flex items-center gap-(--s2) ml-auto">
           {actions}
         </div>
       )}

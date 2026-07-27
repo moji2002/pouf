@@ -32,7 +32,7 @@ async function open(width, height, theme = 'light') {
 }
 
 async function hydrate(page, selector) {
-  const target = page.locator(selector)
+  const target = page.locator(selector).first()
   await target.evaluate((node) => node.scrollIntoView({ block: 'center' }))
   await page.waitForTimeout(550)
   return target
@@ -56,13 +56,61 @@ for (const [name, width, height] of [['desktop', 1440, 1000], ['mobile', 390, 84
 
 {
   const { page, runtime } = await open(1440, 1000, 'dark')
+  const darkPalette = await page.evaluate(() => {
+    const root = getComputedStyle(document.documentElement)
+    const body = getComputedStyle(document.body)
+    const card = document.querySelector('.comp-card')
+    return {
+      scheme: root.colorScheme,
+      background: body.backgroundColor,
+      ink: body.color,
+      card: card ? getComputedStyle(card).backgroundColor : 'missing',
+    }
+  })
   await page.screenshot({ path: `${SHOT_DIR}/components-desktop-dark.png`, fullPage: false })
+  record(
+    'dark: palette and native color scheme are applied',
+    darkPalette.scheme === 'dark' &&
+      darkPalette.background === 'rgb(18, 17, 26)' &&
+      darkPalette.ink === 'rgb(247, 243, 255)',
+    JSON.stringify(darkPalette),
+  )
   record('dark: components page has no runtime errors', runtime.length === 0, runtime.join(' | '))
   await page.close()
 }
 
 {
+  const { page, runtime } = await open(1024, 900)
+  await hydrate(page, '#navbar')
+  const tabletNavbar = await page.locator('#navbar [data-demo-id="default"]').evaluate((root) => {
+    const nav = root.querySelector('.pouf-navbar')
+    const action = nav?.querySelector('.pouf-navbar__actions')
+    const mobile = nav?.querySelector('.pouf-navbar__mobile')
+    const rootRect = root.getBoundingClientRect()
+    const actionRect = action?.getBoundingClientRect()
+    return {
+      actionVisible: Boolean(actionRect && actionRect.width > 0 && actionRect.right <= rootRect.right + 1),
+      mobileDisplay: mobile ? getComputedStyle(mobile).display : 'missing',
+      overflow: root.scrollWidth - root.clientWidth,
+    }
+  })
+  record(
+    'tablet: navbar keeps its actions inside the preview',
+    tabletNavbar.actionVisible && tabletNavbar.overflow <= 1,
+    JSON.stringify(tabletNavbar),
+  )
+  record('tablet: navbar has no runtime errors', runtime.length === 0, runtime.join(' | '))
+  await page.screenshot({ path: `${SHOT_DIR}/components-navbar-tablet.png`, fullPage: false })
+  await page.close()
+}
+
+{
   const { page, runtime } = await open(1440, 1000)
+
+  const chartsInitiallyRequested = await page.evaluate(() =>
+    performance.getEntriesByType('resource').some((entry) => /\/charts\.[^/]+\.js$/.test(entry.name)),
+  )
+  record('performance: chart bundle is deferred below the fold', !chartsInitiallyRequested)
 
   await hydrate(page, '#progress')
   const progress = await page.locator('#progress').evaluate((card) => {
@@ -114,6 +162,67 @@ for (const [name, width, height] of [['desktop', 1440, 1000], ['mobile', 390, 84
     JSON.stringify(navbarPreviews),
   )
   await page.screenshot({ path: `${SHOT_DIR}/components-navbar.png`, fullPage: false })
+
+  await hydrate(page, '#menubar')
+  const menubar = await page.locator('#menubar [data-demo-root]').first().evaluate((root) => {
+    const bar = root.querySelector('.pouf-menubar')
+    return {
+      stageWidth: Math.round(root.getBoundingClientRect().width),
+      stageHeight: Math.round(root.getBoundingClientRect().height),
+      barWidth: Math.round(bar?.getBoundingClientRect().width ?? 0),
+    }
+  })
+  record(
+    'menubar: compact chrome uses a compact stage',
+    menubar.stageWidth <= 480 && menubar.stageHeight <= 110 && menubar.barWidth >= 160,
+    JSON.stringify(menubar),
+  )
+
+  await hydrate(page, '#bottom-nav')
+  const bottomNavs = await page.locator('#bottom-nav [data-demo-root]').evaluateAll((roots) =>
+    roots.map((root) => {
+      const nav = root.querySelector('.pouf-bottomnav')
+      const visibleTabs = nav
+        ? [...nav.querySelectorAll('.pouf-tab')].filter((tab) => {
+            const rect = tab.getBoundingClientRect()
+            return rect.width > 0 && rect.height > 0
+          }).length
+        : 0
+      return {
+        display: nav ? getComputedStyle(nav).display : 'missing',
+        visibleTabs,
+      }
+    }),
+  )
+  record(
+    'bottom nav: simulated mobile previews contain visible tabs',
+    bottomNavs.length === 2 && bottomNavs.every((nav) => nav.display === 'grid' && nav.visibleTabs === 3),
+    JSON.stringify(bottomNavs),
+  )
+
+  await hydrate(page, '#alert-bell')
+  const disconnectedBell = page.locator(
+    '#alert-bell [data-demo-component="alert-bell"][data-demo-id="disconnected"]',
+  )
+  await disconnectedBell.locator('.pouf-bell__panel').waitFor({ state: 'visible' })
+  const alertPanel = await disconnectedBell.evaluate((root) => {
+    const panel = root.querySelector('.pouf-bell__panel')
+    const status = root.querySelector('.pouf-bell__offline')
+    const rootRect = root.getBoundingClientRect()
+    const panelRect = panel?.getBoundingClientRect()
+    const statusRect = status?.getBoundingClientRect()
+    return {
+      panelWidth: Math.round(panelRect?.width ?? 0),
+      statusHeight: Math.round(statusRect?.height ?? 0),
+      contained: panelRect ? panelRect.bottom <= rootRect.bottom + 1 : false,
+    }
+  })
+  record(
+    'alert bell: disconnected panel is readable and reserved',
+    alertPanel.panelWidth >= 280 && alertPanel.statusHeight < 140 && alertPanel.contained,
+    JSON.stringify(alertPanel),
+  )
+  await page.screenshot({ path: `${SHOT_DIR}/components-navigation.png`, fullPage: false })
 
   await hydrate(page, '#slider')
   const sliderWidths = await page.locator('#slider .pouf-slider__track').evaluateAll((tracks) =>
@@ -194,6 +303,19 @@ for (const [name, width, height] of [['desktop', 1440, 1000], ['mobile', 390, 84
   record('search: query is linkable', new URL(page.url()).searchParams.get('q') === 'dialog', page.url())
   await page.getByRole('button', { name: 'Clear component search' }).click()
 
+  await hydrate(page, '#button')
+  await page.context().grantPermissions(['clipboard-read', 'clipboard-write'])
+  const copyButton = page.locator('#button [data-copy-command]').first()
+  await copyButton.click()
+  await page.waitForTimeout(100)
+  const copyStatus = await copyButton.getAttribute('data-copy-status')
+  const copyLabel = await copyButton.locator('[data-copy-label]').textContent()
+  record(
+    'install command: static copy control remains interactive',
+    copyStatus === 'copied' && copyLabel === 'Copied',
+    `${copyStatus}/${copyLabel}`,
+  )
+
   await hydrate(page, '#controls')
   const dialogTrigger = page.getByRole('button', { name: 'Open dialog' }).first()
   await dialogTrigger.scrollIntoViewIfNeeded()
@@ -245,6 +367,18 @@ for (const [name, width, height] of [['desktop', 1440, 1000], ['mobile', 390, 84
     return last ? Math.round(aside.getBoundingClientRect().bottom - last.getBoundingClientRect().bottom) : -1
   })
   record('component index: last link clears cushion lip', tocClearance >= 16, `${tocClearance}px`)
+
+  await hydrate(page, '#charts [data-demo-root]')
+  await page.locator('#charts .recharts-surface').first().waitFor({ state: 'visible' })
+  const chartHydration = await page.evaluate(() => ({
+    requested: performance.getEntriesByType('resource').some((entry) => /\/charts\.[^/]+\.js$/.test(entry.name)),
+    visible: document.querySelectorAll('#charts .recharts-surface').length,
+  }))
+  record(
+    'charts: deferred bundle loads and renders on approach',
+    chartHydration.requested && chartHydration.visible >= 1,
+    JSON.stringify(chartHydration),
+  )
 
   await page.screenshot({ path: `${SHOT_DIR}/components-desktop.png`, fullPage: false })
   await hydrate(page, '#slider')

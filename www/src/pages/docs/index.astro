@@ -45,7 +45,7 @@ const TOC = [
           <li><strong>Tailwind CSS v4.</strong> Pouf's stylesheet is CSS-first — no <code>tailwind.config.js</code>, just <code>@theme</code> and <code>@import</code> in a <code>.css</code> file. You still need Tailwind's v4 build plugin wired into your bundler: <code>@tailwindcss/vite</code> for a Vite-based app (that's what {SITE_HOST} itself runs — an Astro site on Vite), or <code>@tailwindcss/postcss</code> for a plain PostCSS pipeline.</li>
           <li><strong>The shadcn CLI, initialized.</strong> Run <code>init</code> once to create a <code>components.json</code>. Pouf doesn't need special aliases: every file in the registry declares an explicit target path (<code>components/pouf/…</code>), so it lands in the same place no matter how your aliases are configured.</li>
         </ul>
-        <CopyCommand client:load command="npx shadcn@latest init" />
+        <CopyCommand command="npx shadcn@latest init" />
         <p style="margin:0; font-weight:700;">
           Everything past that rides along automatically. Radix UI primitives, <code>class-variance-authority</code>, <code>clsx</code>, and — for a handful of components — <code>framer-motion</code> are declared as npm dependencies on the individual registry items that need them, so the CLI installs exactly what a given component uses the moment you <code>add</code> it. Nothing to pre-install by hand.
         </p>
@@ -58,7 +58,7 @@ const TOC = [
         <p style="margin:0; font-weight:700;">
           The <code>base</code> registry item ships one file — <code>pouf.css</code> — the theme: every design token, the cushion box-shadow recipes, keyframes, and the chrome for multi-part components (dialogs, menus, the mobile sheet). Every other component depends on it, so it always comes along, but you can install it explicitly:
         </p>
-        <CopyCommand client:load command={installCommand('base')} />
+        <CopyCommand command={installCommand('base')} />
         <p style="margin:0; font-weight:700;">It lands at <code>components/pouf/pouf.css</code>. Import it once, at your app root, alongside the font:</p>
         <Code code={`import '@fontsource-variable/nunito'
 import './components/pouf/pouf.css'`} lang="ts" theme="material-theme-palenight" />
@@ -75,7 +75,7 @@ import './components/pouf/pouf.css'`} lang="ts" theme="material-theme-palenight"
       <section id="quick-start" class="docs-section" style="display:flex; flex-direction:column; gap:12px;">
         <h2 style="font-size:24px; font-weight:900; margin:16px 0 0;">3. Quick start</h2>
         <p style="margin:0; font-weight:700;">With the base in place, add a component:</p>
-        <CopyCommand client:load command={installCommand('button')} />
+        <CopyCommand command={installCommand('button')} />
         <Code code={`import { Button } from './components/pouf/Button'
 
 export function Example() {
@@ -93,7 +93,7 @@ export function Example() {
         <p style="margin:0; font-weight:700;">
           The examples use <a href="https://react-hook-form.com/" target="_blank" rel="noopener noreferrer" style="color:var(--ink);">React Hook Form</a>. Its <code>Controller</code> maps directly to every controlled Pouf form component while keeping validation and submission in the example rather than the design system.
         </p>
-        <CopyCommand client:load command="npm install react-hook-form" />
+        <CopyCommand command="npm install react-hook-form" />
         <Code code={`import { Controller, useForm } from 'react-hook-form'
 import { Button } from './components/pouf/Button'
 import { Checkbox } from './components/pouf/checkbox'
@@ -308,7 +308,7 @@ export function ProfileForm() {
       <section id="dark-mode" class="docs-section" style="display:flex; flex-direction:column; gap:12px;">
         <h2 style="font-size:24px; font-weight:900; margin:16px 0 0;">6. Dark mode</h2>
         <p style="margin:0; font-weight:700;">
-          Dark is opt-in via an attribute on the document, not a media query: set <code>data-theme="dark"</code> on <code>&lt;html&gt;</code> and every token in <code>pouf.css</code>'s <code>[data-theme='dark']</code> block takes over. Leave the attribute off (or set it to <code>"light"</code>) and nothing changes.
+          Dark is opt-in on the document, not a media query: set <code>data-theme="dark"</code> or the conventional shadcn <code>class="dark"</code> on <code>&lt;html&gt;</code> and every dark token in <code>pouf.css</code> takes over. Leave both off (or use their light equivalents) and the default palette remains.
         </p>
         <p style="margin:0; font-weight:700;">
           There is deliberately no <code>@media (prefers-color-scheme: dark)</code> rule in the stylesheet. Reading the OS preference in CSS would make the theme a property of the visitor's machine rather than of the document — every screenshot test would become environment-dependent, and the choice would be taken away from your app, which usually already owns a theme toggle. Deciding from the OS preference is a one-line job for whoever mounts the app, done once, in script — not baked into the library.
@@ -388,7 +388,7 @@ export function ProfileForm() {
           <li><strong>Blocks are sections.</strong> A pricing table, a login card, a music player — you drop one into a page you already have.</li>
           <li><strong>Templates are screens.</strong> Global chrome (an app shell with navigation, or a marketing page with a navbar and footer) plus the content inside it — you ship one as a route.</li>
         </ul>
-        <CopyCommand client:load command={installCommand('dashboard')} />
+        <CopyCommand command={installCommand('dashboard')} />
         <p style="margin:0; font-weight:700;">
           Browse every block on <a href="/blocks" style="color:var(--ink);">/blocks</a>, and every template on <a href="/examples" style="color:var(--ink);">/examples</a>.
         </p>

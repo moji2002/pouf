@@ -152,7 +152,8 @@
 /* ============================================================================
  * DARK
  *
- * Opt-in via <html data-theme="dark">. Nothing here touches the light values,
+ * Opt-in via <html data-theme="dark"> or <html class="dark">. Nothing here
+ * touches the light values,
  * so the snapshot goldens (which capture the default theme) cannot move.
  *
  * The palette is the easy half. The hard half is that a cushion is a claim
@@ -172,7 +173,8 @@
  * Get that distinction wrong and everything reads flat, which is the usual way
  * a claymorphism dark mode fails.
  * ========================================================================= */
-[data-theme='dark'] {
+[data-theme='dark'],
+.dark {
   /* Neutral plum-black foundations keep the pastel accents colourful instead
    * of tinting every square inch purple. Surfaces are separated by luminance,
    * not by a second saturated hue. */
@@ -227,8 +229,8 @@
     0 10px 20px rgba(0, 0, 0, 0.34);
 }
 
-/* Dark is opt-in via the attribute ONLY — there is deliberately no
- * `@media (prefers-color-scheme: dark)` rule here.
+/* Dark is opt-in via an attribute or the conventional shadcn `dark` class —
+ * there is deliberately no `@media (prefers-color-scheme: dark)` rule here.
  *
  * Reading the OS preference in CSS would make the theme a property of the
  * visitor's machine rather than of the document, which (a) makes every
@@ -239,9 +241,12 @@
  * standard no-flash version:
  *
  *   <html data-theme={prefersDark ? 'dark' : 'light'}>
+ *   <html className={prefersDark ? 'dark' : 'light'}>
  */
-[data-theme='dark'] { color-scheme: dark; }
-[data-theme='light'] { color-scheme: light; }
+[data-theme='dark'],
+.dark { color-scheme: dark; }
+[data-theme='light'],
+.light { color-scheme: light; }
 
 /* ============================================================================
  * Base. Tailwind preflight supplies box-sizing/margin/padding resets; what
@@ -965,24 +970,24 @@
  * BOTTOM NAV (mobile)
  * ========================================================================= */
 .pouf-bottomnav {
+  position: fixed;
+  left: var(--s3);
+  right: var(--s3);
+  bottom: calc(var(--s3) + env(safe-area-inset-bottom, 0px));
+  z-index: 40;
   display: none;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: var(--s1);
+  background: var(--surface);
+  border-radius: var(--r-card);
+  padding: var(--s2);
+  padding-block: calc(var(--s2) - var(--lip) / 2) calc(var(--s2) + var(--lip) / 2);
+  box-shadow: var(--pouf-card);
 }
 @media (max-width: 900px) {
   .pouf-bottomnav {
-    position: fixed;
-    left: var(--s3);
-    right: var(--s3);
-    bottom: calc(var(--s3) + env(safe-area-inset-bottom, 0px));
-    z-index: 40;
     display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: 1fr;
-    gap: var(--s1);
-    background: var(--surface);
-    border-radius: var(--r-card);
-    padding: var(--s2);
-    padding-block: calc(var(--s2) - var(--lip) / 2) calc(var(--s2) + var(--lip) / 2);
-    box-shadow: var(--pouf-card);
   }
 }
 .pouf-tab {
@@ -1411,8 +1416,9 @@
 .pouf-bell__panel {
   position: absolute;
   top: calc(100% + var(--s2));
-  left: 0;
+  left: auto;
   right: 0;
+  width: min(320px, calc(100vw - var(--s3) * 2));
   z-index: 70;
   max-height: 60vh;
   overflow-y: auto;
@@ -1429,7 +1435,29 @@
     position: fixed;
     left: var(--s3);
     right: var(--s3);
+    width: auto;
     top: auto;
+  }
+}
+
+/* Navbar responsiveness belongs to the bar itself, not to the browser
+ * viewport. A navbar can live in a narrow dashboard column or docs preview on
+ * a wide screen; viewport media queries left its actions outside that box. */
+.pouf-navbar {
+  container-type: inline-size;
+}
+.pouf-navbar__mobile {
+  display: none;
+}
+@container (max-width: 760px) {
+  .pouf-navbar__links {
+    display: none;
+  }
+  .pouf-navbar__mobile {
+    display: block;
+  }
+  .pouf-navbar__actions {
+    margin-left: 0;
   }
 }
 .pouf-bell__offline {

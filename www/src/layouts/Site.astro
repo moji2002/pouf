@@ -261,10 +261,86 @@ const schemaNodes = [websiteSchema, ...(schema ? (Array.isArray(schema) ? schema
         })
       })()
     </script>
+    <script is:inline>
+      /* Copy commands are static HTML, not one React root per button. A single
+         delegated listener keeps every install pill interactive, including
+         content added later, while preserving the copied/failed feedback. */
+      (function () {
+        var resetTimers = new WeakMap()
+
+        function setCopyStatus(button, status) {
+          var label = button.querySelector('[data-copy-label]')
+          button.setAttribute('data-copy-status', status)
+          if (label) {
+            label.textContent =
+              status === 'copied' ? 'Copied' :
+              status === 'failed' ? 'Copy failed' :
+              'Copy'
+          }
+          var previous = resetTimers.get(button)
+          if (previous) window.clearTimeout(previous)
+          if (status !== 'idle') {
+            resetTimers.set(button, window.setTimeout(function () {
+              setCopyStatus(button, 'idle')
+            }, 1800))
+          }
+        }
+
+        async function writeClipboard(text) {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            await navigator.clipboard.writeText(text)
+            return
+          }
+          var input = document.createElement('textarea')
+          input.value = text
+          input.setAttribute('readonly', '')
+          input.style.position = 'fixed'
+          input.style.opacity = '0'
+          document.body.appendChild(input)
+          input.select()
+          var copied = document.execCommand('copy')
+          input.remove()
+          if (!copied) throw new Error('Copy command was rejected')
+        }
+
+        document.addEventListener('click', function (event) {
+          var target = event.target
+          if (!(target instanceof Element)) return
+          var button = target.closest('[data-copy-command]')
+          if (!(button instanceof HTMLButtonElement)) return
+          var command = button.getAttribute('data-copy-command')
+          if (!command) return
+          writeClipboard(command).then(
+            function () { setCopyStatus(button, 'copied') },
+            function () { setCopyStatus(button, 'failed') },
+          )
+        })
+      })()
+    </script>
   </body>
 </html>
 
 <style is:global>
+  [data-copy-command] {
+    transition: background 140ms ease, box-shadow 140ms ease, transform 140ms ease;
+  }
+  [data-copy-command]:hover {
+    transform: translateY(-1px);
+  }
+  [data-copy-command]:active {
+    transform: translateY(2px);
+    box-shadow: var(--pouf-control-active) !important;
+  }
+  [data-copy-command][data-copy-status='copied'] [data-copy-label] {
+    opacity: 1 !important;
+  }
+  [data-copy-command][data-copy-kind='full'][data-copy-status='copied'] {
+    background: var(--mint) !important;
+  }
+  [data-copy-command][data-copy-kind='full'][data-copy-status='failed'] {
+    background: var(--orange) !important;
+  }
+
   /* The toggle reuses .site-link's chrome and only adds the glyph. Sun and moon
      are drawn with a box-shadow + radial-gradient rather than an inline SVG so
      the icon can be swapped purely by the data-theme attribute — no second
