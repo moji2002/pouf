@@ -142,7 +142,12 @@ export function StorefrontBlock() {
   }
 
   function scrollToShop() {
-    document.getElementById('shop')?.scrollIntoView({ behavior: 'smooth' })
+    scrollToSection('shop')
+  }
+
+  function scrollToSection(id: string) {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    document.getElementById(id)?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' })
   }
 
   return (
@@ -156,7 +161,7 @@ export function StorefrontBlock() {
             { label: 'Shipping', href: '#shipping' },
           ]}
           actions={
-            <Button size="sm" variant="quiet" onClick={() => document.getElementById('bag')?.scrollIntoView()}>
+            <Button size="sm" variant="quiet" onClick={() => scrollToSection('bag')}>
               <Icon name="cart" size="sm" />
               Bag ({count})
             </Button>
@@ -178,7 +183,7 @@ export function StorefrontBlock() {
               <Button
                 size="lg"
                 variant="quiet"
-                onClick={() => document.getElementById('story')?.scrollIntoView({ behavior: 'smooth' })}
+                onClick={() => scrollToSection('story')}
               >
                 Our story
               </Button>

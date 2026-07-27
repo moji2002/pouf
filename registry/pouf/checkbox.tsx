@@ -38,7 +38,7 @@ export function Checkbox({ checked, onChange, id, disabled, label, hideLabel }: 
         aria-label={label}
       >
         <RCheck.Indicator className={[
-            'pouf-checkbox__indicator text-ink flex [&_svg]:w-5 [&_svg]:h-5',
+            'pouf-checkbox__indicator text-[var(--on-accent)] flex [&_svg]:w-5 [&_svg]:h-5',
             /* The check draws itself in. Radix mounts the indicator on check, so
              * a keyframe entry is correct; uncheck unmounts instantly. Reduced
              * motion keeps the state change legible, drops the drawing. */

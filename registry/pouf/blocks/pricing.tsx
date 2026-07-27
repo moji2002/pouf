@@ -26,7 +26,7 @@ const PLANS: Plan[] = [
 function Feature({ text }: { text: string }) {
   return (
     <Row gap={2} wrap={false}>
-      <span style={{ display: 'inline-flex', flex: 'none', width: 22, height: 22, borderRadius: 999, alignItems: 'center', justifyContent: 'center', background: 'var(--mint)', color: 'var(--ink)' }}>
+      <span style={{ display: 'inline-flex', flex: 'none', width: 22, height: 22, borderRadius: 999, alignItems: 'center', justifyContent: 'center', background: 'var(--mint)', color: 'var(--on-accent)' }}>
         <Icon name="ok" size="sm" />
       </span>
       <Text size="sm">{text}</Text>

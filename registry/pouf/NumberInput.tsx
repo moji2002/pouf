@@ -50,7 +50,7 @@ const capsule = cva('pouf-numberinput flex items-center gap-1 h-14 px-2 py-0 rou
  * double-tap-zoom. */
 const stepper = [
   'pouf-numberinput__btn flex-none inline-flex items-center justify-center w-10 h-10 p-0 border-none',
-  'rounded-pill bg-purple text-ink cursor-pointer',
+  'rounded-pill bg-purple text-[var(--on-accent)] cursor-pointer',
   '[box-shadow:inset_0_-5px_0_rgba(0,0,0,0.12),inset_0_3px_0_rgba(255,255,255,0.4),0_3px_6px_rgba(58,46,92,0.18)]',
   '[transition:box-shadow_120ms_ease,transform_120ms_ease] [touch-action:manipulation] select-none',
   '[&_svg]:[transform:translateY(-1px)]',

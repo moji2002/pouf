@@ -19,6 +19,10 @@ import { InboxBlock } from '../../../registry/pouf/blocks/inbox'
 import { CalendarBlock } from '../../../registry/pouf/blocks/calendar'
 import { StorefrontBlock } from '../../../registry/pouf/blocks/storefront'
 import { SupportBlock } from '../../../registry/pouf/blocks/support'
+import { ContactBlock } from '../../../registry/pouf/blocks/contact'
+import { TestimonialsBlock } from '../../../registry/pouf/blocks/testimonials'
+import { CrmBlock } from '../../../registry/pouf/blocks/crm'
+import { BookingBlock } from '../../../registry/pouf/blocks/booking'
 
 const BLOCKS: Record<string, () => ReactNode> = {
   dashboard: DashboardBlock,
@@ -41,6 +45,10 @@ const BLOCKS: Record<string, () => ReactNode> = {
   calendar: CalendarBlock,
   storefront: StorefrontBlock,
   support: SupportBlock,
+  contact: ContactBlock,
+  testimonials: TestimonialsBlock,
+  crm: CrmBlock,
+  booking: BookingBlock,
 }
 
 /** Renders a full example template by slug as a live island. */

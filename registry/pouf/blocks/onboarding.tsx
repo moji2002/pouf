@@ -113,7 +113,7 @@ export function OnboardingBlock() {
                             value={field.value}
                             onChange={field.onChange}
                             onBlur={field.onBlur}
-                            placeholder="Ada Lovelace"
+                            placeholder="Ada Lovelace…"
                             autoComplete="name"
                             invalid={!!errors.name}
                             required
@@ -144,7 +144,7 @@ export function OnboardingBlock() {
                             value={field.value}
                             onChange={field.onChange}
                             onBlur={field.onBlur}
-                            placeholder="acme"
+                            placeholder="Acme…"
                             autoComplete="organization"
                             invalid={!!errors.workspace}
                             required

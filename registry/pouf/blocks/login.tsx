@@ -82,7 +82,7 @@ export function LoginBlock() {
               value={field.value}
               onChange={field.onChange}
               onBlur={field.onBlur}
-              placeholder="you@example.com"
+              placeholder="you@example.com…"
               autoComplete="email"
               inputMode="email"
               autoCapitalize="none"
@@ -156,7 +156,7 @@ export function LoginBlock() {
                                 value={field.value}
                                 onChange={field.onChange}
                                 onBlur={field.onBlur}
-                                placeholder="••••••••"
+                                placeholder="••••••••…"
                                 autoComplete="current-password"
                                 required
                                 invalid={!!errors.password}

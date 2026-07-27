@@ -3,7 +3,7 @@ import { Card, RowCard } from '../surface'
 import { Stack, Row, Spacer } from '../layout'
 import { Heading, Text, Eyebrow } from '../text'
 import { Slider } from '../slider'
-import { Button } from '../Button'
+import { IconButton } from '../Button'
 import { Icon } from '../Icon'
 import { Badge } from '../media'
 
@@ -28,14 +28,6 @@ function formatTime(seconds: number): string {
   const m = Math.floor(seconds / 60)
   const s = Math.floor(seconds % 60)
   return `${m}:${String(s).padStart(2, '0')}`
-}
-
-function IconButton({ icon, label, tone, size = 'lg', onClick }: { icon: string; label: string; tone?: 'purple'; size?: 'sm' | 'lg'; onClick?: () => void }) {
-  return (
-    <Button size={size} tone={tone} variant={tone ? 'solid' : 'quiet'} label={label} onClick={onClick}>
-      <Icon name={icon as never} size={size === 'lg' ? 'md' : 'sm'} />
-    </Button>
-  )
 }
 
 /** An example music player: album art, a draggable scrubber that moves
@@ -98,7 +90,7 @@ export function MusicBlock() {
                 <Heading level={2}>{track.title}</Heading>
                 <Text muted>{track.artist}</Text>
               </Stack>
-              <IconButton icon="heart" label="Like" />
+              <IconButton icon={<Icon name="heart" size="sm" />} label="Like" />
             </Row>
             <Stack gap={2}>
               <Slider value={pos} onChange={setPos} label="Seek" />
@@ -108,9 +100,9 @@ export function MusicBlock() {
               </Row>
             </Stack>
             <Row justify="center" gap={3}>
-              <IconButton icon="rewind" label="Previous" onClick={() => goTo(queueIndex - 1)} />
-              <IconButton icon={playing ? 'pause' : 'play'} label={playing ? 'Pause' : 'Play'} tone="purple" onClick={() => setPlaying((p) => !p)} />
-              <IconButton icon="forward" label="Next" onClick={() => goTo(queueIndex + 1)} />
+              <IconButton size="lg" icon={<Icon name="rewind" size="md" />} label="Previous" onClick={() => goTo(queueIndex - 1)} />
+              <IconButton size="lg" icon={<Icon name={playing ? 'pause' : 'play'} size="md" />} label={playing ? 'Pause' : 'Play'} tone="purple" variant="solid" onClick={() => setPlaying((p) => !p)} />
+              <IconButton size="lg" icon={<Icon name="forward" size="md" />} label="Next" onClick={() => goTo(queueIndex + 1)} />
             </Row>
             <Row gap={3} wrap={false} align="center">
               <Icon name="wind" size="sm" />

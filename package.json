@@ -14,6 +14,8 @@
     "gate:golden": "bun gallery/harness/gate.ts --write-golden",
     "check:deps": "bun scripts/check-block-deps.ts",
     "props": "bun scripts/extract-props.ts",
-    "audit:responsive": "cd gallery && node scripts/audit-responsive.mjs"
+    "audit:responsive": "cd gallery && node scripts/audit-responsive.mjs",
+    "review:ui": "cd gallery && node scripts/review-ui.mjs",
+    "verify:expansion": "cd gallery && node scripts/verify-expansion.mjs"
   }
 }

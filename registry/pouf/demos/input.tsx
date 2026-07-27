@@ -17,7 +17,7 @@ export const inputDemos: Demo[] = [
   { id: 'placeholder', render: () => (
       <Field label="Email">
         {(id, describedBy) => (
-          <Input id={id} describedBy={describedBy} value="" placeholder="you@example.com" onChange={() => {}} />
+          <Input id={id} describedBy={describedBy} value="" placeholder="you@example.com…" onChange={() => {}} />
         )}
       </Field>
     ) },

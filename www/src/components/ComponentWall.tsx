@@ -91,7 +91,7 @@ export function ComponentWall() {
         <Row gap={2} wrap={false}><Dot tone="mint" /><Text size="sm" muted>Online</Text></Row>
       </Tile>
       <Tile label="Stepper">
-        <NumberInput value={qty} onChange={setQty} min={0} max={10} />
+        <NumberInput value={qty} onChange={setQty} min={0} max={10} label="Quantity" />
       </Tile>
       <Tile label="Progress">
         <div style={{ width: '100%' }}>

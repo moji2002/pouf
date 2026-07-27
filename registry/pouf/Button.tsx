@@ -46,7 +46,7 @@ const button = cva(
      * and must follow --on-accent (which stays dark in dark mode), while
      * `quiet` is transparent on the page and follows --ink. In light mode both
      * resolve to the same value, so this is a no-op for the goldens. */
-    'border-none cursor-pointer',
+    'border-none cursor-pointer [touch-action:manipulation]',
     '[transition:box-shadow_120ms_ease,transform_120ms_ease]',
     'enabled:active:[transform:translateY(2px)] enabled:active:cushion-control-active',
     'disabled:cursor-not-allowed disabled:opacity-50',
@@ -62,14 +62,23 @@ const button = cva(
         solid:
           'text-[var(--on-accent)] bg-[var(--tone,var(--purple))] cushion-control disabled:cushion-control-active disabled:[transform:translateY(2px)]',
         quiet:
-          'text-ink bg-transparent [box-shadow:inset_0_0_0_2px_rgba(201,168,255,0.55)] enabled:hover:bg-bg enabled:hover:cushion-field disabled:[box-shadow:none]',
+          'text-[var(--quiet-ink,var(--ink))] bg-transparent [box-shadow:inset_0_0_0_2px_rgba(201,168,255,0.55)] enabled:hover:bg-bg enabled:hover:text-ink enabled:hover:cushion-field disabled:[box-shadow:none]',
       },
       block: {
         true: 'flex w-full',
         false: 'inline-flex',
       },
+      shape: {
+        label: '',
+        icon: '',
+      },
     },
-    defaultVariants: { size: 'md', variant: 'solid', block: false },
+    compoundVariants: [
+      { size: 'sm', shape: 'icon', className: 'w-[38px] px-0' },
+      { size: 'md', shape: 'icon', className: 'w-12 px-0' },
+      { size: 'lg', shape: 'icon', className: 'w-14 px-0' },
+    ],
+    defaultVariants: { size: 'md', variant: 'solid', block: false, shape: 'label' },
   },
 )
 
@@ -77,10 +86,25 @@ const button = cva(
  *  ToggleGroup, and BottomNav's menu compose literal buttons — sharing the
  *  builder means a toggle can never drift from the button it imitates. */
 export function buttonClasses(
-  opts: { tone?: Tone; size?: 'sm' | 'md' | 'lg'; variant?: 'solid' | 'quiet'; block?: boolean } = {},
+  opts: {
+    tone?: Tone
+    size?: 'sm' | 'md' | 'lg'
+    variant?: 'solid' | 'quiet'
+    block?: boolean
+    shape?: 'label' | 'icon'
+  } = {},
 ): string {
-  const { tone = 'purple', size, variant, block } = opts
-  return cx(button({ size, variant, block }), toneClass(tone))
+  const { tone = 'purple', size, variant, block, shape } = opts
+  return cx(button({ size, variant, block, shape }), toneClass(tone))
+}
+
+function LoadingSpinner() {
+  return (
+    <span
+      className="size-[15px] rounded-[50%] border-[3px] border-solid border-[color-mix(in_srgb,currentColor_24%,transparent)] border-t-current [animation:pouf-spin_620ms_linear_infinite]"
+      aria-hidden="true"
+    />
+  )
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
@@ -110,13 +134,59 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       aria-busy={loading || undefined}
       aria-label={label}
     >
-      {loading && (
-        <span
-          className="size-[15px] rounded-[50%] border-[3px] border-solid border-[rgba(58,46,92,0.25)] border-t-ink [animation:pouf-spin_620ms_linear_infinite]"
-          aria-hidden="true"
-        />
-      )}
+      {loading && <LoadingSpinner />}
       {children}
+    </button>
+  )
+})
+
+interface IconButtonProps
+  extends Omit<
+    ButtonHTMLAttributes<HTMLButtonElement>,
+    'children' | 'className' | 'style' | 'onClick' | 'type' | 'disabled' | 'aria-label'
+  > {
+  icon: ReactNode
+  /** Icon-only actions must always expose their meaning to assistive tech. */
+  label: string
+  onClick?: MouseEventHandler<HTMLButtonElement>
+  tone?: Tone
+  size?: 'sm' | 'md' | 'lg'
+  variant?: 'solid' | 'quiet'
+  disabled?: boolean
+  loading?: boolean
+  type?: 'button' | 'submit'
+}
+
+/** A square, labelled icon action. The required `label` prevents the common
+ * accessible-name omission, while the shape stays aligned with Button sizes. */
+export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(function IconButton(
+  {
+    icon,
+    label,
+    onClick,
+    tone = 'purple',
+    size = 'md',
+    variant = 'quiet',
+    disabled,
+    loading,
+    type = 'button',
+    ...nativeProps
+  },
+  ref,
+) {
+  return (
+    <button
+      ref={ref}
+      {...nativeProps}
+      type={type}
+      className={buttonClasses({ tone, size, variant, shape: 'icon' })}
+      onClick={onClick}
+      disabled={disabled || loading}
+      aria-busy={loading || undefined}
+      aria-label={label}
+      title={nativeProps.title ?? label}
+    >
+      {loading ? <LoadingSpinner /> : <span aria-hidden="true">{icon}</span>}
     </button>
   )
 })

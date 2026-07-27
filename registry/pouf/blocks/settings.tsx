@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Controller, useForm, useWatch } from 'react-hook-form'
 import { Card } from '../surface'
 import { Shell, Sidebar, Stack, Row, Spacer } from '../layout'
@@ -59,6 +59,16 @@ export function SettingsBlock() {
     formState: { isDirty },
   } = useForm<Settings>({ defaultValues: INITIAL })
   const form = useWatch({ control })
+
+  useEffect(() => {
+    if (!isDirty) return
+    const warn = (event: BeforeUnloadEvent) => {
+      event.preventDefault()
+      event.returnValue = ''
+    }
+    window.addEventListener('beforeunload', warn)
+    return () => window.removeEventListener('beforeunload', warn)
+  }, [isDirty])
 
   const save = handleSubmit((values) => {
     setSaved(values)

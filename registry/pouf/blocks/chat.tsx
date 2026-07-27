@@ -201,10 +201,10 @@ export function ChatBlock() {
                     >
                       <div
                         className={clsx(
-                          'max-w-[78%] px-4 py-3 rounded-[20px] font-bold text-ink',
+                          'max-w-[78%] px-4 py-3 rounded-[20px] font-bold',
                           m.from === 'me'
-                            ? 'bg-purple [box-shadow:var(--pouf-control)]'
-                            : 'bg-surface [box-shadow:var(--pouf-row)]',
+                            ? 'bg-purple text-[var(--on-accent)] [box-shadow:var(--pouf-control)]'
+                            : 'bg-surface text-ink [box-shadow:var(--pouf-row)]',
                         )}
                       >
                         {m.text}

@@ -38,7 +38,7 @@ export function Field({ label, children, hint, error }: FieldProps) {
         * message rather than stretch to fill a flex/grid cell. */}
       {error && (
         <span
-          className="pouf-error text-[13px] font-extrabold text-ink bg-orange rounded-xl py-(--s2) px-(--s3) [align-self:start] max-w-full"
+          className="pouf-error text-[13px] font-extrabold text-[var(--on-accent)] bg-orange rounded-xl py-(--s2) px-(--s3) [align-self:start] max-w-full"
           id={`${id}-err`}
           role="alert"
         >

@@ -106,7 +106,7 @@ function EventRow({ event }: { event: Event }) {
       <div style={{ width: 52, flex: 'none', paddingTop: 4 }}>
         <Text size="sm" muted num>{event.time}</Text>
       </div>
-      <div style={{ flex: 1, minWidth: 0, borderRadius: 18, padding: '14px 16px', background: `var(--${event.tone})`, boxShadow: 'var(--pouf-control)' }}>
+      <div style={{ flex: 1, minWidth: 0, borderRadius: 18, padding: '14px 16px', background: `var(--${event.tone})`, color: 'var(--on-accent)', boxShadow: 'var(--pouf-control)' }}>
         <Row justify="between" wrap={false}>
           <Stack gap={1}>
             <Text>{event.title}</Text>

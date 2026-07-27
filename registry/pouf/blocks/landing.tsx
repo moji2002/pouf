@@ -54,7 +54,8 @@ export function LandingBlock() {
   const [billing, setBilling] = useState<Billing>('monthly')
 
   function scrollTo(id: string) {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    document.getElementById(id)?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' })
   }
 
   return (
@@ -132,8 +133,8 @@ export function LandingBlock() {
               <Text muted>Preview, review, deploy, observe, and roll back from one place.</Text>
             </Stack>
             <Grid cols={3}>
-              {FEATURES.map((f) => (
-                <Card key={f.title}>
+              {FEATURES.map((f, index) => (
+                <Card key={f.title} motion={index % 2 === 0 ? 'tilt-left' : 'tilt-right'}>
                   <Stack gap={3}>
                     <Blob icon={f.icon} tone={f.tone} />
                     <Heading level={3}>{f.title}</Heading>

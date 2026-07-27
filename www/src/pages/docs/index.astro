@@ -316,17 +316,18 @@ export function ProfileForm() {
         <p style="margin:0; font-weight:700;">Here's the standard no-flash version — synchronous and inline in <code>&lt;head&gt;</code>, so it runs before first paint (a deferred script, or a React effect, both run after the browser has already painted the wrong theme):</p>
         <Code code={`<script>
   (function () {
+    var media = window.matchMedia('(prefers-color-scheme: dark)')
     try {
       var saved = localStorage.getItem('theme')
       var theme =
         saved === 'light' || saved === 'dark'
           ? saved
-          : window.matchMedia('(prefers-color-scheme: dark)').matches
+          : media.matches
             ? 'dark'
             : 'light'
       document.documentElement.setAttribute('data-theme', theme)
     } catch (e) {
-      document.documentElement.setAttribute('data-theme', 'light')
+      document.documentElement.setAttribute('data-theme', media.matches ? 'dark' : 'light')
     }
   })()
 </script>`} lang="html" theme="material-theme-palenight" />

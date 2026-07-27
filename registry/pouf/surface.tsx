@@ -11,8 +11,17 @@ const card = cva('pouf-card bg-surface rounded-card cushion-card', {
       flush: 'p-0',
       tight: 'px-(--s4) pt-[calc(var(--s4)-var(--lip)/2)] pb-[calc(var(--s4)+var(--lip)/2)]',
     },
+    motion: {
+      none: '',
+      lift:
+        '[transition:transform_160ms_ease] hover:[transform:translateY(-4px)] motion-reduce:[transform:none] motion-reduce:hover:[transform:none]',
+      'tilt-left':
+        '[transform:rotate(-0.6deg)] [transition:transform_160ms_ease] hover:[transform:rotate(0deg)_translateY(-4px)] motion-reduce:[transform:none] motion-reduce:hover:[transform:none]',
+      'tilt-right':
+        '[transform:rotate(0.6deg)] [transition:transform_160ms_ease] hover:[transform:rotate(0deg)_translateY(-4px)] motion-reduce:[transform:none] motion-reduce:hover:[transform:none]',
+    },
   },
-  defaultVariants: { variant: 'default' },
+  defaultVariants: { variant: 'default', motion: 'none' },
 })
 
 interface CardProps {
@@ -20,10 +29,12 @@ interface CardProps {
   /** flush: no padding, clipped — for a card that wraps its own scroll region.
    *  tight: 16px instead of the reference's 32px, for dense panels. */
   variant?: 'default' | 'flush' | 'tight'
+  /** Playful, composited hover motion for linked or featured cards. */
+  motion?: 'none' | 'lift' | 'tilt-left' | 'tilt-right'
 }
 
-export function Card({ children, variant }: CardProps) {
-  return <div className={card({ variant })}>{children}</div>
+export function Card({ children, variant, motion }: CardProps) {
+  return <div className={card({ variant, motion })}>{children}</div>
 }
 
 interface RowCardProps {
@@ -51,7 +62,7 @@ const rowCard = cva(
       selected: {
         /* The same words navlink--active speaks for "the active one of a set":
          * a tone fill on the whole cushion. Ink on --purple is 6.10:1. */
-        true: 'bg-purple cushion-control',
+        true: 'bg-purple text-[var(--on-accent)] cushion-control',
         false: 'bg-surface cushion-row',
       },
     },
@@ -79,10 +90,16 @@ export function RowCard({ children, onClick, selected }: RowCardProps) {
 
   if (onClick) {
     return (
-      <button type="button" className={className} onClick={onClick} aria-pressed={selected}>
+      <button
+        type="button"
+        className={className}
+        onClick={onClick}
+        aria-pressed={selected}
+        data-selected={selected || undefined}
+      >
         {children}
       </button>
     )
   }
-  return <div className={className}>{children}</div>
+  return <div className={className} data-selected={selected || undefined}>{children}</div>
 }

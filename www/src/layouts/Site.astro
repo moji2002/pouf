@@ -49,6 +49,7 @@ const schemaNodes = [websiteSchema, ...(schema ? (Array.isArray(schema) ? schema
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta id="theme-color" name="theme-color" content="#f0e9ff" />
     {/* Before the stylesheet, so the fetch starts with the CSS rather than
         after the CSS has been parsed and the first layout has already been
         drawn in a fallback face. crossorigin is required even same-origin:
@@ -83,18 +84,26 @@ const schemaNodes = [websiteSchema, ...(schema ? (Array.isArray(schema) ? schema
         effect would both land after the browser has already painted. */}
     <script is:inline>
       (function () {
+        var root = document.documentElement
+        var media = window.matchMedia('(prefers-color-scheme: dark)')
+        var apply = function (theme) {
+          root.setAttribute('data-theme', theme)
+          var themeColor = document.getElementById('theme-color')
+          if (themeColor) themeColor.setAttribute('content', theme === 'dark' ? '#12111a' : '#f0e9ff')
+        }
         try {
           var saved = localStorage.getItem('pouf-theme')
           var theme =
             saved === 'light' || saved === 'dark'
               ? saved
-              : window.matchMedia('(prefers-color-scheme: dark)').matches
+              : media.matches
                 ? 'dark'
                 : 'light'
-          document.documentElement.setAttribute('data-theme', theme)
+          apply(theme)
         } catch (e) {
-          /* Private mode can throw on localStorage; light is a fine default. */
-          document.documentElement.setAttribute('data-theme', 'light')
+          /* Storage can fail in private/restricted contexts; the OS preference
+             is still available and should not be discarded with it. */
+          apply(media.matches ? 'dark' : 'light')
         }
       })()
     </script>
@@ -137,7 +146,7 @@ const schemaNodes = [websiteSchema, ...(schema ? (Array.isArray(schema) ? schema
           >
             <span class="theme-toggle__icon" aria-hidden="true"></span>
           </button>
-          <a class="site-link" href="https://github.com/moji2002/pouf" target="_blank" rel="noopener noreferrer" style="background:var(--ink); color:var(--bg);"><span class="site-link__label">GitHub</span></a>
+          <a class="site-link" href="https://github.com/moji2002/pouf" target="_blank" rel="noopener noreferrer" style="background:var(--inverse-surface); color:var(--inverse-ink);"><span class="site-link__label">GitHub</span></a>
           <details class="site-mobile-menu">
             <summary class="site-link site-mobile-menu__trigger">
               <span class="site-link__label">Menu</span>
@@ -225,12 +234,29 @@ const schemaNodes = [websiteSchema, ...(schema ? (Array.isArray(schema) ? schema
           var dark = root.getAttribute('data-theme') === 'dark'
           btn.setAttribute('aria-pressed', String(dark))
           btn.title = dark ? 'Switch to light' : 'Switch to dark'
+          btn.setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme')
+          var themeColor = document.getElementById('theme-color')
+          if (themeColor) themeColor.setAttribute('content', dark ? '#12111a' : '#f0e9ff')
         }
         sync()
         btn.addEventListener('click', function () {
           var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'
           root.setAttribute('data-theme', next)
           try { localStorage.setItem('pouf-theme', next) } catch (e) {}
+          sync()
+        })
+        window.addEventListener('storage', function (event) {
+          if (event.key !== 'pouf-theme') return
+          if (event.newValue !== 'light' && event.newValue !== 'dark') return
+          root.setAttribute('data-theme', event.newValue)
+          sync()
+        })
+        var media = window.matchMedia('(prefers-color-scheme: dark)')
+        media.addEventListener('change', function (event) {
+          try {
+            if (localStorage.getItem('pouf-theme')) return
+          } catch (e) {}
+          root.setAttribute('data-theme', event.matches ? 'dark' : 'light')
           sync()
         })
       })()

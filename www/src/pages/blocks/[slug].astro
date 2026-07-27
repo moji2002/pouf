@@ -70,7 +70,7 @@ const siblings = BLOCKS.filter((b) => b.category === block.category && b.slug !=
         <h2 class="display" style="font-size:24px; margin:0;">More {block.category?.toLowerCase()} blocks</h2>
         <div style="display:flex; gap:12px; flex-wrap:wrap;">
           {siblings.map((s) => (
-            <a href={`/blocks/${s.slug}`} style={`text-decoration:none; color:var(--ink); font-weight:900; background:var(--${s.tone}); padding:12px 20px; border-radius:16px; box-shadow: var(--pouf-control);`}>{s.title} →</a>
+            <a href={`/blocks/${s.slug}`} style={`text-decoration:none; color:var(--on-accent); font-weight:900; background:var(--${s.tone}); padding:12px 20px; border-radius:16px; box-shadow: var(--pouf-control);`}>{s.title} →</a>
           ))}
         </div>
       </section>

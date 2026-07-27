@@ -33,6 +33,8 @@ export const TEMPLATES: BlockDoc[] = [
   { slug: 'landing', title: 'Landing page', blurb: 'Navbar, hero, features, pricing, CTA, and footer — a marketing page end to end.', tone: 'yellow', icon: 'sparkle' },
   { slug: 'storefront', title: 'Storefront', blurb: 'A complete shop with filters, product discovery, a working bag, totals, and footer.', tone: 'mint', icon: 'cart' },
   { slug: 'support', title: 'Support desk', blurb: 'App shell, searchable ticket queue, customer context, replies, and status updates.', tone: 'purple', icon: 'comment' },
+  { slug: 'crm', title: 'Customer CRM', blurb: 'Responsive customer workspace with search, lifecycle stages, account details, and notes.', tone: 'blue', icon: 'users' },
+  { slug: 'booking', title: 'Booking flow', blurb: 'A complete service-booking route with site chrome, scheduling, details, review, and confirmation.', tone: 'pink', icon: 'calendar' },
 ]
 
 /** Sections: drop one into a page you already have. */
@@ -41,6 +43,8 @@ export const BLOCKS: BlockDoc[] = [
   { slug: 'onboarding', title: 'Onboarding', blurb: 'A progress bar and step-by-step forms that remember your answers.', tone: 'yellow', icon: 'sparkle', category: 'Auth & onboarding' },
   { slug: 'pricing', title: 'Pricing', blurb: 'Three plans, a monthly/annual toggle, and feature checklists.', tone: 'mint', icon: 'card', category: 'Marketing' },
   { slug: 'blog', title: 'Blog index', blurb: 'A featured post and a filterable grid of article cards.', tone: 'orange', icon: 'draft', category: 'Marketing' },
+  { slug: 'contact', title: 'Contact section', blurb: 'A high-trust contact section with useful context, inline validation, and a sent state.', tone: 'blue', icon: 'mail', category: 'Marketing' },
+  { slug: 'testimonials', title: 'Testimonials', blurb: 'A filterable customer-story carousel with outcomes, controls, and live announcements.', tone: 'yellow', icon: 'comment', category: 'Marketing' },
   { slug: 'profile', title: 'Profile', blurb: 'Avatar, stats, a follow button, and tabbed content.', tone: 'purple', icon: 'user', category: 'Social' },
   { slug: 'feed', title: 'Social feed', blurb: 'A composer and a stream of posts you can like, comment on, and post to.', tone: 'pink', icon: 'heart-filled', category: 'Social' },
   { slug: 'todo', title: 'Todo list', blurb: 'Add, filter, check off, and clear tasks — with a real empty state.', tone: 'mint', icon: 'ok', category: 'Productivity' },

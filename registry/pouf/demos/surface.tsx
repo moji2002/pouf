@@ -20,6 +20,17 @@ export const cardDemos: Demo[] = [
         <Text size="sm">Flush card — no padding, clipped.</Text>
       </Card>
     ) },
+  {
+    id: 'playful',
+    states: ['hover'],
+    render: () => (
+      <span data-subject>
+        <Card motion="tilt-left">
+          <Text>Starts crooked, then settles and lifts.</Text>
+        </Card>
+      </span>
+    ),
+  },
 ]
 
 export const rowCardDemos: Demo[] = [

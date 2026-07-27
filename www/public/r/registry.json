@@ -1370,6 +1370,108 @@
         "https://pouf.worksonmy.dev/r/surface.json",
         "https://pouf.worksonmy.dev/r/text.json"
       ]
+    },
+    {
+      "name": "contact",
+      "type": "registry:block",
+      "title": "Contact section",
+      "description": "A high-trust contact section with context, inline validation, and a submitted state.",
+      "files": [
+        {
+          "path": "registry/pouf/blocks/contact.tsx",
+          "type": "registry:block",
+          "target": "components/pouf/blocks/contact.tsx"
+        }
+      ],
+      "registryDependencies": [
+        "https://pouf.worksonmy.dev/r/base.json",
+        "https://pouf.worksonmy.dev/r/button.json",
+        "https://pouf.worksonmy.dev/r/controls.json",
+        "https://pouf.worksonmy.dev/r/feedback.json",
+        "https://pouf.worksonmy.dev/r/input.json",
+        "https://pouf.worksonmy.dev/r/layout.json",
+        "https://pouf.worksonmy.dev/r/media.json",
+        "https://pouf.worksonmy.dev/r/surface.json",
+        "https://pouf.worksonmy.dev/r/text.json"
+      ]
+    },
+    {
+      "name": "testimonials",
+      "type": "registry:block",
+      "title": "Testimonials",
+      "description": "A filterable customer-story carousel with outcomes and accessible controls.",
+      "files": [
+        {
+          "path": "registry/pouf/blocks/testimonials.tsx",
+          "type": "registry:block",
+          "target": "components/pouf/blocks/testimonials.tsx"
+        }
+      ],
+      "registryDependencies": [
+        "https://pouf.worksonmy.dev/r/avatar.json",
+        "https://pouf.worksonmy.dev/r/base.json",
+        "https://pouf.worksonmy.dev/r/button.json",
+        "https://pouf.worksonmy.dev/r/icon.json",
+        "https://pouf.worksonmy.dev/r/layout.json",
+        "https://pouf.worksonmy.dev/r/media.json",
+        "https://pouf.worksonmy.dev/r/segmented.json",
+        "https://pouf.worksonmy.dev/r/surface.json",
+        "https://pouf.worksonmy.dev/r/text.json"
+      ]
+    },
+    {
+      "name": "crm",
+      "type": "registry:block",
+      "title": "Customer CRM",
+      "description": "A complete customer workspace with responsive app chrome, filters, lifecycle stages, and notes.",
+      "files": [
+        {
+          "path": "registry/pouf/blocks/crm.tsx",
+          "type": "registry:block",
+          "target": "components/pouf/blocks/crm.tsx"
+        }
+      ],
+      "registryDependencies": [
+        "https://pouf.worksonmy.dev/r/avatar.json",
+        "https://pouf.worksonmy.dev/r/base.json",
+        "https://pouf.worksonmy.dev/r/bottom-nav.json",
+        "https://pouf.worksonmy.dev/r/button.json",
+        "https://pouf.worksonmy.dev/r/controls.json",
+        "https://pouf.worksonmy.dev/r/feedback.json",
+        "https://pouf.worksonmy.dev/r/input.json",
+        "https://pouf.worksonmy.dev/r/layout.json",
+        "https://pouf.worksonmy.dev/r/media.json",
+        "https://pouf.worksonmy.dev/r/nav-link.json",
+        "https://pouf.worksonmy.dev/r/segmented.json",
+        "https://pouf.worksonmy.dev/r/surface.json",
+        "https://pouf.worksonmy.dev/r/text.json"
+      ]
+    },
+    {
+      "name": "booking",
+      "type": "registry:block",
+      "title": "Booking flow",
+      "description": "A complete service-booking route with site chrome, scheduling, contact details, review, and confirmation.",
+      "files": [
+        {
+          "path": "registry/pouf/blocks/booking.tsx",
+          "type": "registry:block",
+          "target": "components/pouf/blocks/booking.tsx"
+        }
+      ],
+      "registryDependencies": [
+        "https://pouf.worksonmy.dev/r/base.json",
+        "https://pouf.worksonmy.dev/r/button.json",
+        "https://pouf.worksonmy.dev/r/feedback.json",
+        "https://pouf.worksonmy.dev/r/footer.json",
+        "https://pouf.worksonmy.dev/r/input.json",
+        "https://pouf.worksonmy.dev/r/layout.json",
+        "https://pouf.worksonmy.dev/r/media.json",
+        "https://pouf.worksonmy.dev/r/navbar.json",
+        "https://pouf.worksonmy.dev/r/progress.json",
+        "https://pouf.worksonmy.dev/r/surface.json",
+        "https://pouf.worksonmy.dev/r/text.json"
+      ]
     }
   ]
 }

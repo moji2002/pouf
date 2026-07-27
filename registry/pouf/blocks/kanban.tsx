@@ -233,7 +233,7 @@ export function KanbanBlock() {
             <Badge tone="purple">{total} cards</Badge>
           </Row>
 
-          <DndContext sensors={sensors} onDragEnd={onDragEnd}>
+          <DndContext id="pouf-kanban" sensors={sensors} onDragEnd={onDragEnd}>
             <Grid cols={3}>
               {COLUMNS.map((col) => (
                 <Column key={col.key} col={col} tasks={board[col.key]} onMove={step} />

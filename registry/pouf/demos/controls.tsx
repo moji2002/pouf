@@ -39,7 +39,7 @@ export const selectDemos: Demo[] = [
   { id: 'placeholder', render: () => (
       <Field label="Fruit">
         {(id, d) => (
-          <Select id={id} describedBy={d} value="" onChange={() => {}} options={fruitOptions} placeholder="Choose a fruit" />
+          <Select id={id} describedBy={d} value="" onChange={() => {}} options={fruitOptions} placeholder="Choose a fruit…" />
         )}
       </Field>
     ) },
@@ -213,7 +213,7 @@ function ComboboxOpen() {
     <div ref={ref}>
       <Field label="Timezone">
         {(id, d) => (
-          <Combobox id={id} describedBy={d} value="America/New_York" onChange={() => {}} options={timezoneOptions} mono placeholder="Search a timezone" />
+          <Combobox id={id} describedBy={d} value="America/New_York" onChange={() => {}} options={timezoneOptions} mono placeholder="Search a timezone…" />
         )}
       </Field>
     </div>
@@ -225,7 +225,7 @@ export const comboboxDemos: Demo[] = [
       <span data-subject>
         <Field label="Timezone">
           {(id, d) => (
-            <Combobox id={id} describedBy={d} value="America/New_York" onChange={() => {}} options={timezoneOptions} mono placeholder="Search a timezone" />
+            <Combobox id={id} describedBy={d} value="America/New_York" onChange={() => {}} options={timezoneOptions} mono placeholder="Search a timezone…" />
           )}
         </Field>
       </span>
@@ -243,7 +243,7 @@ export const comboboxDemos: Demo[] = [
             options={[]}
             error="No presets — type an IANA name."
             mono
-            placeholder="e.g. Europe/Paris"
+            placeholder="e.g. Europe/Paris…"
           />
         )}
       </Field>

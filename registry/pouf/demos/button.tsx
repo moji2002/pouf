@@ -1,4 +1,5 @@
-import { Button } from '../Button'
+import { Button, IconButton } from '../Button'
+import { Icon } from '../Icon'
 import type { Demo } from './types'
 
 export const buttonDemos: Demo[] = [
@@ -12,4 +13,9 @@ export const buttonDemos: Demo[] = [
   { id: 'block', render: () => <Button block>Full width</Button> },
   { id: 'disabled', render: () => <Button disabled>Disabled</Button> },
   { id: 'loading', render: () => <Button loading>Saving…</Button> },
+  {
+    id: 'icon',
+    states: ['hover', 'active', 'focus'],
+    render: () => <span data-subject><IconButton icon={<Icon name="settings" size="sm" />} label="Settings" /></span>,
+  },
 ]

@@ -26,7 +26,7 @@ export interface ComponentDoc {
 export const COMPONENTS: ComponentDoc[] = [
   { slug: 'layout', title: 'Layout', blurb: 'Stack, Row, Grid, Shell, Sidebar, Spacer — flex and grid without inline styles.', demos: ['stack', 'row', 'grid', 'shell', 'sidebar'], section: 'Layout' },
   { slug: 'text', title: 'Text & Headings', blurb: 'Heading, Text, Highlight, Eyebrow — the type scale.', demos: ['heading', 'text'], section: 'Typography' },
-  { slug: 'surface', title: 'Card', blurb: 'Card and RowCard — every surface a cushion.', demos: ['card', 'row-card'], section: 'Surfaces' },
+  { slug: 'surface', title: 'Card', blurb: 'Card and RowCard — cushions with optional lift and playful tilt.', demos: ['card', 'row-card'], section: 'Surfaces' },
   { slug: 'readout', title: 'Stat & Metric', blurb: 'Headline figures on their own cushion.', demos: ['stat', 'metric'], section: 'Surfaces' },
   { slug: 'media', title: 'Blob, Badge, Dot, Figure', blurb: 'Icon tiles, flat labels, status dots, framed images.', demos: ['blob', 'badge', 'dot', 'figure'], section: 'Surfaces' },
   { slug: 'avatar', title: 'Avatar', blurb: 'A puffy avatar with image, initials, or icon fallback.', demos: ['avatar'], section: 'Surfaces' },

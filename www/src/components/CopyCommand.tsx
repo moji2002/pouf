@@ -44,15 +44,15 @@ export function CopyCommand({ command, compact = false }: { command: string; com
           cursor: 'pointer',
           borderRadius: 14,
           padding: '9px 12px',
-          background: 'var(--ink)',
+          background: 'var(--inverse-surface)',
           boxShadow: 'var(--pouf-control)',
           fontFamily: 'ui-monospace, SFMono-Regular, Menlo, monospace',
           fontSize: 12.5,
           fontWeight: 700,
         }}
       >
-        <span style={{ flex: 1, minWidth: 0, textAlign: 'left', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', color: 'var(--surface)' }}>{shown}</span>
-        <span style={{ flex: 'none', fontWeight: 900, color: 'var(--bg)', opacity: status === 'copied' ? 1 : 0.85 }}>{actionLabel}</span>
+        <span style={{ flex: 1, minWidth: 0, textAlign: 'left', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', color: 'var(--inverse-ink)' }}>{shown}</span>
+        <span style={{ flex: 'none', fontWeight: 900, color: 'var(--inverse-ink)', opacity: status === 'copied' ? 1 : 0.85 }}>{actionLabel}</span>
       </button>
     )
   }

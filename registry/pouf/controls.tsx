@@ -414,7 +414,7 @@ export function Combobox({
               setActive(0)
             }}
             onKeyDown={onKeyDown}
-            placeholder="Search, or type a value"
+            placeholder="Search, or type a value…"
             role="combobox"
             aria-label={label ? `Search ${label}` : 'Search options'}
             aria-autocomplete="list"

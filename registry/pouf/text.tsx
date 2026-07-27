@@ -7,7 +7,7 @@ interface HeadingProps {
   level?: 1 | 2 | 3
 }
 
-const heading = cva('font-black', {
+const heading = cva('font-black [text-wrap:balance]', {
   variants: {
     level: {
       1: 'pouf-h1 text-[48px] tracking-[-1px] leading-[1.1]',
@@ -30,7 +30,7 @@ export function Highlight({ children, tone = 'yellow' }: { children: ReactNode; 
   return (
     <span
       className={cx(
-        'pouf-highlight inline-block px-[14px] rounded-control bg-[var(--tone,var(--yellow))]',
+        'pouf-highlight inline-block px-[14px] rounded-control text-[var(--on-accent)] bg-[var(--tone,var(--yellow))]',
         '[box-shadow:inset_0_-6px_0_rgba(0,0,0,0.08)]',
         toneClass(tone),
       )}
@@ -60,7 +60,7 @@ interface TextProps {
   truncate?: boolean
 }
 
-const text = cva('pouf-text font-bold', {
+const text = cva('pouf-text font-bold [overflow-wrap:anywhere]', {
   variants: {
     size: { md: 'text-[15px]', sm: 'text-[13px]' },
     muted: { true: 'text-muted' },

@@ -66,7 +66,7 @@ const FEATURED_BLOCKS = BLOCKS.slice(0, 6)
         <CopyCommand client:load command={installCommand('button')} />
       </div>
       <div class="pop" style="display:flex; gap:14px; flex-wrap:wrap; animation-delay:360ms;">
-        <a href="/docs/" style="text-decoration:none; color:var(--ink); font-weight:900; font-size:17px; background:var(--purple); padding:16px 30px; border-radius:20px; box-shadow: var(--pouf-control);">Get started</a>
+        <a href="/docs/" style="text-decoration:none; color:var(--on-accent); font-weight:900; font-size:17px; background:var(--purple); padding:16px 30px; border-radius:20px; box-shadow: var(--pouf-control);">Get started</a>
         <a href="/examples" style="text-decoration:none; color:var(--ink); font-weight:900; font-size:17px; background:var(--surface); padding:16px 30px; border-radius:20px; box-shadow: var(--pouf-control);">See {TEMPLATES.length} templates</a>
       </div>
     </div>
@@ -86,7 +86,7 @@ const FEATURED_BLOCKS = BLOCKS.slice(0, 6)
     {STATS.map((s) => (
       <div class="cushion-tone" style={`background:var(${s.tone}); padding:26px 24px; display:flex; flex-direction:column; gap:2px;`}>
         <span class="display" style="font-size:44px;">{s.n}</span>
-        <span style="font-weight:900; text-transform:uppercase; letter-spacing:1.5px; font-size:12px; color:var(--ink); opacity:0.65;">{s.label}</span>
+        <span style="font-weight:900; text-transform:uppercase; letter-spacing:1.5px; font-size:12px; color:var(--on-accent); opacity:0.65;">{s.label}</span>
       </div>
     ))}
   </section>
@@ -114,11 +114,11 @@ const FEATURED_BLOCKS = BLOCKS.slice(0, 6)
     </div>
     <div style="display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:20px;" class="tpl-grid">
       {FEATURED_TEMPLATES.map((b, i) => (
-        <a href={`/examples/${b.slug}`} style="text-decoration:none; color:var(--ink);">
+        <a href={`/examples/${b.slug}`} style="text-decoration:none; color:var(--on-accent);">
           <div class="ex-card" style={`background:var(--${b.tone}); border-radius:26px; padding:24px; box-shadow: var(--pouf-control); display:flex; flex-direction:column; gap:12px; height:100%; transform:rotate(${i % 2 === 0 ? '-0.5' : '0.5'}deg);`}>
             <IconBlob client:visible icon={b.icon as any} tone="purple" size="sm" />
             <h3 class="display" style="font-size:24px; margin:4px 0 0;">{b.title}</h3>
-            <p style="margin:0; color:var(--ink); opacity:0.72; font-weight:800; font-size:14px;">{b.blurb}</p>
+            <p style="margin:0; color:var(--on-accent); opacity:0.72; font-weight:800; font-size:14px;">{b.blurb}</p>
           </div>
         </a>
       ))}
@@ -137,11 +137,11 @@ const FEATURED_BLOCKS = BLOCKS.slice(0, 6)
     </div>
     <div style="display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:20px;" class="tpl-grid">
       {FEATURED_BLOCKS.map((b, i) => (
-        <a href={`/blocks/${b.slug}`} style="text-decoration:none; color:var(--ink);">
+        <a href={`/blocks/${b.slug}`} style="text-decoration:none; color:var(--on-accent);">
           <div class="ex-card" style={`background:var(--${b.tone}); border-radius:26px; padding:24px; box-shadow: var(--pouf-control); display:flex; flex-direction:column; gap:12px; height:100%; transform:rotate(${i % 2 === 0 ? '0.5' : '-0.5'}deg);`}>
             <IconBlob client:visible icon={b.icon as any} tone="purple" size="sm" />
             <h3 class="display" style="font-size:24px; margin:4px 0 0;">{b.title}</h3>
-            <p style="margin:0; color:var(--ink); opacity:0.72; font-weight:800; font-size:14px;">{b.blurb}</p>
+            <p style="margin:0; color:var(--on-accent); opacity:0.72; font-weight:800; font-size:14px;">{b.blurb}</p>
           </div>
         </a>
       ))}
@@ -155,7 +155,7 @@ const FEATURED_BLOCKS = BLOCKS.slice(0, 6)
     <div style="display:grid; grid-template-columns:repeat(6, minmax(0,1fr)); gap:14px;" class="tone-strip">
       {TONES.map((t) => (
         <div style={`aspect-ratio:1; background:var(${t.var}); border-radius:24px; box-shadow: var(--pouf-control); display:flex; align-items:flex-end; padding:16px;`}>
-          <span style="font-weight:900; color:var(--ink); text-transform:capitalize;">{t.name}</span>
+          <span style="font-weight:900; color:var(--on-accent); text-transform:capitalize;">{t.name}</span>
         </div>
       ))}
     </div>
@@ -165,15 +165,15 @@ const FEATURED_BLOCKS = BLOCKS.slice(0, 6)
   <section class="reveal feature-grid" style="display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:20px; padding:24px 0 64px;">
     <div class="cushion-tone" style="background:var(--purple); padding:30px;">
       <h3 class="display" style="font-size:26px; margin:0 0 10px;">Depth is the affordance</h3>
-      <p style="margin:0; font-weight:800; color:var(--ink); opacity:0.75;">Buttons press in. Badges stay flat. State you can feel before you read it.</p>
+      <p style="margin:0; font-weight:800; color:var(--on-accent); opacity:0.75;">Buttons press in. Badges stay flat. State you can feel before you read it.</p>
     </div>
     <div class="cushion-tone" style="background:var(--mint); padding:30px;">
       <h3 class="display" style="font-size:26px; margin:0 0 10px;">You own the source</h3>
-      <p style="margin:0; font-weight:800; color:var(--ink); opacity:0.75;">Install with the shadcn CLI or copy the file. Tailwind v4 + Radix under the hood. No dependency to lock.</p>
+      <p style="margin:0; font-weight:800; color:var(--on-accent); opacity:0.75;">Install with the shadcn CLI or copy the file. Tailwind v4 + Radix under the hood. No dependency to lock.</p>
     </div>
     <div class="cushion-tone" style="background:var(--pink); padding:30px;">
       <h3 class="display" style="font-size:26px; margin:0 0 10px;">Any icon, any lib</h3>
-      <p style="margin:0; font-weight:800; color:var(--ink); opacity:0.75;">Named roles for convenience, or drop in lucide, phosphor, your own SVG. The vocabulary is a default, not a cage.</p>
+      <p style="margin:0; font-weight:800; color:var(--on-accent); opacity:0.75;">Named roles for convenience, or drop in lucide, phosphor, your own SVG. The vocabulary is a default, not a cage.</p>
     </div>
   </section>
 
@@ -198,6 +198,7 @@ const FEATURED_BLOCKS = BLOCKS.slice(0, 6)
       padding: 0 18px;
       border-radius: 20px;
       background: var(--purple);
+      color: var(--on-accent);
       box-shadow: inset 0 -8px 0 rgba(0,0,0,0.08);
       transform: rotate(-1.5deg);
     }

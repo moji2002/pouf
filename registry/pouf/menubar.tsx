@@ -24,7 +24,7 @@ export function Menubar({ menus }: { menus: MenubarMenu[] }) {
     <RMenubar.Root className="pouf-menubar inline-flex items-center gap-[2px] p-[6px] rounded-pill bg-surface cushion-card">
       {menus.map((menu) => (
         <RMenubar.Menu key={menu.label}>
-          <RMenubar.Trigger className="pouf-menubar__trigger font-extrabold text-ink px-(--s3) py-(--s2) rounded-pill cursor-pointer data-[state=open]:bg-purple hover:bg-[rgba(201,168,255,0.25)]">
+          <RMenubar.Trigger className="pouf-menubar__trigger font-extrabold text-ink px-(--s3) py-(--s2) rounded-pill cursor-pointer data-[state=open]:bg-purple data-[state=open]:text-[var(--on-accent)] hover:bg-[rgba(201,168,255,0.25)]">
             {menu.label}
           </RMenubar.Trigger>
           <RMenubar.Portal>

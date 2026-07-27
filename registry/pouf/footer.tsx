@@ -36,7 +36,7 @@ export function Footer({ brand, tagline, columns = [], note }: FooterProps) {
                 * link hugging its label rather than stretching the column. */}
               {col.links.map((l) => (
                 <a
-                  key={l.href}
+                  key={`${l.href}-${l.label}`}
                   href={l.href}
                   className="font-extrabold text-ink no-underline hover:text-muted transition-colors inline-flex items-center self-start min-h-[24px]"
                 >

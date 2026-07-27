@@ -38,12 +38,12 @@ const grouped = BLOCK_CATEGORIES.map((c) => ({
              the empty ones is exactly right here. -->
         <div class="bl-grid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:22px;">
           {g.items.map((b, i) => (
-            <a href={`/blocks/${b.slug}`} style="text-decoration:none; color:var(--ink);">
+            <a href={`/blocks/${b.slug}`} style="text-decoration:none; color:var(--on-accent);">
               <div class="bl-card" style={`background:var(--${b.tone}); border-radius:28px; padding:26px; box-shadow: var(--pouf-control); display:flex; flex-direction:column; gap:14px; height:100%; transform:rotate(${i % 2 === 0 ? '-0.6' : '0.6'}deg);`}>
                 <IconBlob client:visible icon={b.icon as any} tone="purple" size="md" />
                 <h3 class="display" style="font-size:26px; margin:6px 0 0;">{b.title}</h3>
-                <p style="margin:0; color:var(--ink); opacity:0.72; font-weight:800; font-size:15px;">{b.blurb}</p>
-                <span style="margin-top:auto; padding-top:8px; font-weight:900; color:var(--ink);">Open block →</span>
+                <p style="margin:0; color:var(--on-accent); opacity:0.72; font-weight:800; font-size:15px;">{b.blurb}</p>
+                <span style="margin-top:auto; padding-top:8px; font-weight:900; color:var(--on-accent);">Open block →</span>
               </div>
             </a>
           ))}
@@ -53,6 +53,7 @@ const grouped = BLOCK_CATEGORIES.map((c) => ({
   </div>
 
   <style>
+    .bl-card :global(.display) { color: inherit; }
     .bl-card { transition: transform 160ms ease; }
     .bl-card:hover { transform: rotate(0deg) translateY(-4px) !important; }
     @media (max-width: 620px) { .bl-grid { grid-template-columns: minmax(0,1fr) !important; } }
