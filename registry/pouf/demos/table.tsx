@@ -22,7 +22,13 @@ export const tableDemos: Demo[] = [
   { id: 'empty', render: () => <Table columns={columns} rows={[]} getKey={(r) => r.fruit} /> },
   { id: 'clickable-rows', states: ['hover', 'focus'], render: () => (
       <span data-subject>
-        <Table columns={columns} rows={rows} getKey={(r) => r.fruit} onRowClick={() => {}} />
+        <Table
+          columns={columns}
+          rows={rows}
+          getKey={(r) => r.fruit}
+          onRowClick={() => {}}
+          getRowLabel={(r) => `Open ${r.fruit}`}
+        />
       </span>
     ) },
 ]

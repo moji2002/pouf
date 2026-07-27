@@ -21,6 +21,9 @@ const PAGES = [
   ['changelog', '/changelog/'],
   ['tpl-dashboard', '/examples/dashboard/'],
   ['tpl-inbox', '/examples/inbox/'],
+  ['tpl-landing', '/examples/landing/'],
+  ['tpl-storefront', '/examples/storefront/'],
+  ['tpl-support', '/examples/support/'],
   ['blk-login', '/blocks/login/'],
   ['blk-music', '/blocks/music/'],
 ]

@@ -1,8 +1,8 @@
 import * as RMenu from '@radix-ui/react-dropdown-menu'
 import * as RContext from '@radix-ui/react-context-menu'
 import clsx from 'clsx'
-import type { ReactNode } from 'react'
-import { motion } from 'framer-motion'
+import type { ReactElement, ReactNode } from 'react'
+import { motion, useReducedMotion } from 'framer-motion'
 import { renderIcon, type IconLike } from './Icon'
 
 export interface MenuEntry {
@@ -26,31 +26,27 @@ interface MenuItem {
 }
 
 interface DropdownMenuProps {
-  children: ReactNode
+  /** A single element that can receive a ref and native button attributes. */
+  children: ReactElement
   items: (MenuItem | 'separator')[]
   label?: string
 }
 
 export function DropdownMenu({ children, items, label }: DropdownMenuProps) {
+  const reduceMotion = useReducedMotion()
   return (
     <RMenu.Root>
-      {/* A span, same trick as Tooltip's pouf-tip-anchor: pouf primitives take
-          closed props, so asChild has no DOM node to reach inside <Button> —
-          but wrapping in a <button> nested the caller's Button inside it,
-          which HTML forbids (browsers may reparent, and React logs it as an
-          error). Radix's pointer/key handlers sit on the span; events from the
-          real Button inside bubble up to them. */}
-      <RMenu.Trigger asChild>
-        <span aria-label={label} className="pouf-menu__anchor">
-          {children}
-        </span>
+      {/* asChild places Radix's ARIA state, handlers, and ref on the actual
+          focusable trigger. Pouf Button forwards those native attributes. */}
+      <RMenu.Trigger asChild aria-label={label}>
+        {children}
       </RMenu.Trigger>
       <RMenu.Portal>
         <RMenu.Content className="pouf-menu" sideOffset={8} align="start" asChild>
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: -4 }}
+            initial={reduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.95, y: -4 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.14, ease: 'easeOut' }}
+            transition={{ duration: reduceMotion ? 0.01 : 0.14, ease: 'easeOut' }}
           >
             {items.map((item, i) => {
               if (item === 'separator') return <RMenu.Separator key={i} className="pouf-menu__sep" />
@@ -86,15 +82,16 @@ interface ContextMenuProps {
 /** A right-click menu on the same clay skin as DropdownMenu. Wrap any region;
  * a secondary click (or long-press on touch) opens it at the pointer. */
 export function ContextMenu({ children, items }: ContextMenuProps) {
+  const reduceMotion = useReducedMotion()
   return (
     <RContext.Root>
       <RContext.Trigger className="pouf-context-anchor">{children}</RContext.Trigger>
       <RContext.Portal>
         <RContext.Content className="pouf-menu" asChild>
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
+            initial={reduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.14, ease: 'easeOut' }}
+            transition={{ duration: reduceMotion ? 0.01 : 0.14, ease: 'easeOut' }}
           >
             {items.map((item, i) => {
               if (item === 'separator') return <RContext.Separator key={i} className="pouf-menu__sep" />

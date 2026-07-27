@@ -58,7 +58,9 @@ async function openTemplate(slug, width = 1440, height = 1100) {
 
   await page.getByLabel('Search mail').fill('zzzz')
   await page.waitForTimeout(400)
-  const empty = await page.getByText('No matches').isVisible().catch(() => false)
+  // Scope away from the collapsed source listing, which contains the same
+  // literal and makes an unscoped text locator ambiguous after registry build.
+  const empty = await page.locator('.pouf-empty').getByText('No matches').isVisible().catch(() => false)
   record('inbox: empty state on no matches', empty)
 
   await page.getByLabel('Search mail').fill('')
@@ -129,6 +131,104 @@ async function openTemplate(slug, width = 1440, height = 1100) {
   const back = await page.getByRole('button', { name: 'Back to list' }).isVisible().catch(() => false)
   const listHidden = !(await page.getByLabel('Search mail').isVisible().catch(() => false))
   record('inbox mobile: tap swaps to detail with Back', back && listHidden, `back ${back}, list hidden ${listHidden}`)
+  await page.close()
+}
+
+/* ---------- landing: complete pricing section ---------- */
+{
+  const page = await openTemplate('landing')
+  const monthly = await page.getByText('$24', { exact: true }).isVisible().catch(() => false)
+  await page.getByRole('button', { name: /Annual/ }).click()
+  await page.waitForTimeout(400)
+  const annual = await page.getByText('$19', { exact: true }).isVisible().catch(() => false)
+  const sections = await page.locator('#features, #customers, #pricing').count()
+  record(
+    'landing: complete sections and working billing',
+    monthly && annual && sections === 3,
+    `monthly ${monthly}, annual ${annual}, sections ${sections}`,
+  )
+  await page.close()
+}
+
+/* ---------- storefront: discovery + bag + order state ---------- */
+{
+  const page = await openTemplate('storefront')
+  await page.getByLabel('Search products').fill('speaker')
+  await page.waitForTimeout(400)
+  const addButtons = await page.getByRole('button', { name: 'Add to bag' }).count()
+  await page.getByRole('button', { name: 'Add to bag' }).click()
+  await page.waitForTimeout(300)
+  const bagCount = await page.getByRole('button', { name: 'Bag (1)' }).isVisible().catch(() => false)
+  record(
+    'storefront: search narrows products and add updates bag',
+    addButtons === 1 && bagCount,
+    `add buttons ${addButtons}, bag count ${bagCount}`,
+  )
+
+  await page.getByRole('button', { name: 'Reserve order' }).click()
+  await page.waitForTimeout(300)
+  const reserved = await page.locator('.pouf-badge', { hasText: /order reserved/i }).isVisible().catch(() => false)
+  const total = await page.getByText('$92.00', { exact: true }).isVisible().catch(() => false)
+  record(
+    'storefront: order summary includes shipping and reserve state',
+    reserved && total,
+    `reserved ${reserved}, total ${total}`,
+  )
+  await page.close()
+}
+
+/* ---------- storefront mobile: navigation stays available ---------- */
+{
+  const page = await openTemplate('storefront', 420, 900)
+  await page.locator('.pouf-navbar summary').click()
+  const shop = await page.locator('.pouf-navbar').getByRole('link', { name: 'Shop' }).isVisible().catch(() => false)
+  const story = await page.locator('.pouf-navbar').getByRole('link', { name: 'Story' }).isVisible().catch(() => false)
+  record(
+    'storefront mobile: navbar keeps all destinations',
+    shop && story,
+    `shop ${shop}, story ${story}`,
+  )
+  await page.close()
+}
+
+/* ---------- support: queue + reply + status ---------- */
+{
+  const page = await openTemplate('support')
+  await page.getByLabel('Search tickets').fill('Alan')
+  await page.waitForTimeout(400)
+  const tickets = await page.locator('.pouf-rowcard').count()
+  await page.getByRole('button', { name: /Alan Turing/ }).click()
+  await page.waitForTimeout(300)
+  await page.getByLabel('Reply').fill('A fresh battery should restore the chime.')
+  await page.getByRole('button', { name: 'Send reply' }).click()
+  await page.waitForTimeout(400)
+  const sent = await page.getByText('A fresh battery should restore the chime.', { exact: true }).isVisible().catch(() => false)
+  const waiting = (await page.locator('.pouf-badge').allInnerTexts()).some((text) => /^waiting$/i.test(text))
+  record(
+    'support: filters queue and sends a reply',
+    tickets === 1 && sent && waiting,
+    `tickets ${tickets}, sent ${sent}, waiting ${waiting}`,
+  )
+
+  await page.getByRole('button', { name: 'Mark solved' }).click()
+  await page.waitForTimeout(300)
+  const solved = (await page.locator('.pouf-badge').allInnerTexts()).some((text) => /^solved$/i.test(text))
+  record('support: status actions update the ticket', solved)
+  await page.close()
+}
+
+/* ---------- support mobile: master/detail ---------- */
+{
+  const page = await openTemplate('support', 420, 900)
+  await page.getByRole('button', { name: /Alan Turing/ }).click()
+  await page.waitForTimeout(400)
+  const back = await page.getByRole('button', { name: 'Back to queue' }).isVisible().catch(() => false)
+  const queueHidden = !(await page.getByLabel('Search tickets').isVisible().catch(() => false))
+  record(
+    'support mobile: ticket opens as a focused detail view',
+    back && queueHidden,
+    `back ${back}, queue hidden ${queueHidden}`,
+  )
   await page.close()
 }
 

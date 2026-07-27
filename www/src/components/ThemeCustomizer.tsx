@@ -29,7 +29,7 @@ const COLOR_DEFAULTS: Knob[] = [
   { key: 'bg', themeKey: 'color-bg', label: 'Background', value: '#f0e9ff' },
   { key: 'surface', themeKey: 'color-surface', label: 'Surface', value: '#ffffff' },
   { key: 'ink', themeKey: 'color-ink', label: 'Ink', value: '#3a2e5c' },
-  { key: 'muted', themeKey: 'color-muted', label: 'Muted', value: '#7c6ba8' },
+  { key: 'muted', themeKey: 'color-muted', label: 'Muted', value: '#71609b' },
   { key: 'purple', themeKey: 'color-purple', label: 'Purple', value: '#c9a8ff' },
   { key: 'pink', themeKey: 'color-pink', label: 'Pink', value: '#ffb3d1' },
   { key: 'blue', themeKey: 'color-blue', label: 'Blue', value: '#9ec8ff' },

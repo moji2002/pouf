@@ -86,7 +86,7 @@ export function InboxBlock() {
   return (
     <>
       <Shell>
-        <Sidebar>
+        <Sidebar mobile="hide">
           <Row gap={2} wrap={false}>
             <Blob icon="target" tone="purple" size="sm" />
             <Heading level={3}>Acme</Heading>

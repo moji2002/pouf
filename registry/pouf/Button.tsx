@@ -1,10 +1,19 @@
 import { cva, cx } from 'class-variance-authority'
-import type { ReactNode } from 'react'
+import {
+  forwardRef,
+  type ButtonHTMLAttributes,
+  type MouseEventHandler,
+  type ReactNode,
+} from 'react'
 import { toneClass, type Tone } from './tone'
 
-interface ButtonProps {
+interface ButtonProps
+  extends Omit<
+    ButtonHTMLAttributes<HTMLButtonElement>,
+    'children' | 'className' | 'style' | 'onClick' | 'type' | 'disabled'
+  > {
   children: ReactNode
-  onClick?: () => void
+  onClick?: MouseEventHandler<HTMLButtonElement>
   tone?: Tone
   size?: 'sm' | 'md' | 'lg'
   /** quiet: no cushion until hover — for tertiary actions that shouldn't
@@ -74,20 +83,26 @@ export function buttonClasses(
   return cx(button({ size, variant, block }), toneClass(tone))
 }
 
-export function Button({
-  children,
-  onClick,
-  tone = 'purple',
-  size = 'md',
-  variant = 'solid',
-  block,
-  disabled,
-  loading,
-  type = 'button',
-  label,
-}: ButtonProps) {
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
+  {
+    children,
+    onClick,
+    tone = 'purple',
+    size = 'md',
+    variant = 'solid',
+    block,
+    disabled,
+    loading,
+    type = 'button',
+    label,
+    ...nativeProps
+  },
+  ref,
+) {
   return (
     <button
+      ref={ref}
+      {...nativeProps}
       type={type}
       className={buttonClasses({ tone, size, variant, block })}
       onClick={onClick}
@@ -104,4 +119,4 @@ export function Button({
       {children}
     </button>
   )
-}
+})

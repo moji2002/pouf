@@ -4,7 +4,7 @@ import * as RCollapse from '@radix-ui/react-collapsible'
 import clsx from 'clsx'
 import { buttonClasses } from './Button'
 import { useState, type ReactNode } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { Icon } from './Icon'
 import { toneClass, type Tone } from './tone'
 
@@ -31,6 +31,7 @@ interface TabsProps {
  * a second visual language (the underline rail this replaces) made the UI
  * claim they were different things. */
 export function Tabs({ tabs, value, onChange, tone = 'blue' }: TabsProps) {
+  const reduceMotion = useReducedMotion()
   return (
     <RTabs.Root className="pouf-tabs" value={value} onValueChange={onChange}>
       <RTabs.List className="pouf-tabs__list">
@@ -56,10 +57,10 @@ export function Tabs({ tabs, value, onChange, tone = 'blue' }: TabsProps) {
                 asChild
               >
                 <motion.div
-                  initial={{ opacity: 0, y: 6 }}
+                  initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 6 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -6 }}
-                  transition={{ duration: 0.18, ease: 'easeOut' }}
+                  exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -6 }}
+                  transition={{ duration: reduceMotion ? 0.01 : 0.18, ease: 'easeOut' }}
                 >
                   {t.content}
                 </motion.div>
@@ -130,6 +131,7 @@ interface CollapsibleProps {
 }
 
 export function Collapsible({ children, trigger, open: controlledOpen, onOpenChange: controlledOnOpen }: CollapsibleProps) {
+  const reduceMotion = useReducedMotion()
   const [internalOpen, setInternalOpen] = useState(false)
   const isControlled = controlledOpen !== undefined
   const open = isControlled ? controlledOpen : internalOpen
@@ -146,7 +148,7 @@ export function Collapsible({ children, trigger, open: controlledOpen, onOpenCha
         <motion.div
           initial={false}
           animate={{ height: open ? 'auto' : 0, opacity: open ? 1 : 0 }}
-          transition={{ duration: 0.2, ease: [0.2, 0.9, 0.3, 1] }}
+          transition={{ duration: reduceMotion ? 0 : 0.2, ease: [0.2, 0.9, 0.3, 1] }}
           style={{ overflow: 'hidden' }}
         >
           <div className="pouf-collapsible__body">{children}</div>

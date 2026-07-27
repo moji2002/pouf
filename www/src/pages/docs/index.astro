@@ -8,6 +8,7 @@ const TOC = [
   { id: 'prerequisites', label: 'Prerequisites' },
   { id: 'stylesheet', label: 'The stylesheet' },
   { id: 'quick-start', label: 'Quick start' },
+  { id: 'forms', label: 'Forms' },
   { id: 'theming', label: 'Theming' },
   { id: 'dark-mode', label: 'Dark mode' },
   { id: 'conventions', label: 'Conventions' },
@@ -84,8 +85,186 @@ export function Example() {
 
       <hr style="border:none; height:2px; background:var(--purple); opacity:0.2; margin:4px 0;" />
 
+      <section id="forms" class="docs-section" style="display:flex; flex-direction:column; gap:12px;">
+        <h2 style="font-size:24px; font-weight:900; margin:16px 0 0;">4. Forms</h2>
+        <p style="margin:0; font-weight:700;">
+          Pouf does not choose a form library for you. Its controls expose controlled <code>value</code>/<code>onChange</code> APIs, and text fields additionally forward <code>ref</code>, <code>name</code>, <code>onBlur</code>, autocomplete, and native input attributes. Use plain React state, native forms, Formik, or anything else.
+        </p>
+        <p style="margin:0; font-weight:700;">
+          The examples use <a href="https://react-hook-form.com/" target="_blank" rel="noopener noreferrer" style="color:var(--ink);">React Hook Form</a>. Its <code>Controller</code> maps directly to every controlled Pouf form component while keeping validation and submission in the example rather than the design system.
+        </p>
+        <CopyCommand client:load command="npm install react-hook-form" />
+        <Code code={`import { Controller, useForm } from 'react-hook-form'
+import { Button } from './components/pouf/Button'
+import { Checkbox } from './components/pouf/checkbox'
+import { Combobox, Select, Switch } from './components/pouf/controls'
+import { Field, Input, Textarea } from './components/pouf/Input'
+import { NumberInput } from './components/pouf/NumberInput'
+import { RadioGroup } from './components/pouf/radiogroup'
+import { Segmented } from './components/pouf/Segmented'
+import { Slider } from './components/pouf/slider'
+import { ToggleGroup } from './components/pouf/toggle'
+
+type FormValues = {
+  email: string
+  bio: string
+  age: string
+  fruit: string
+  timezone: string
+  updates: boolean
+  publicProfile: boolean
+  plan: string
+  volume: number
+  view: 'grid' | 'list'
+  topics: string[]
+}
+
+const defaults: FormValues = {
+  email: '',
+  bio: '',
+  age: '18',
+  fruit: '',
+  timezone: '',
+  updates: true,
+  publicProfile: false,
+  plan: 'solo',
+  volume: 60,
+  view: 'grid',
+  topics: [],
+}
+
+export function ProfileForm() {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<FormValues>({ defaultValues: defaults })
+
+  return (
+    <form onSubmit={handleSubmit(console.log)} noValidate>
+      <Field label="Email" error={errors.email?.message}>
+        {(id, describedBy) => (
+          <Controller
+            name="email"
+            control={control}
+            rules={{ required: 'Email is required.' }}
+            render={({ field }) => (
+              <Input
+                {...field}
+                id={id}
+                describedBy={describedBy}
+                type="email"
+                autoComplete="email"
+                invalid={!!errors.email}
+              />
+            )}
+          />
+        )}
+      </Field>
+
+      <Field label="Bio">
+        {(id, describedBy) => (
+          <Controller
+            name="bio"
+            control={control}
+            render={({ field }) => (
+              <Textarea {...field} id={id} describedBy={describedBy} />
+            )}
+          />
+        )}
+      </Field>
+
+      <Controller
+        name="age"
+        control={control}
+        render={({ field }) => <NumberInput value={field.value} onChange={field.onChange} min={0} label="Age" />}
+      />
+      <Controller
+        name="fruit"
+        control={control}
+        render={({ field }) => (
+          <Select
+            value={field.value}
+            onChange={field.onChange}
+            label="Fruit"
+            options={[{ value: 'apple', label: 'Apple' }, { value: 'pear', label: 'Pear' }]}
+          />
+        )}
+      />
+      <Controller
+        name="timezone"
+        control={control}
+        render={({ field }) => (
+          <Combobox
+            value={field.value}
+            onChange={field.onChange}
+            label="Timezone"
+            options={['Europe/London', 'Asia/Tokyo']}
+          />
+        )}
+      />
+      <Controller
+        name="updates"
+        control={control}
+        render={({ field }) => <Checkbox checked={field.value} onChange={field.onChange} label="Email updates" />}
+      />
+      <Controller
+        name="publicProfile"
+        control={control}
+        render={({ field }) => <Switch checked={field.value} onChange={field.onChange} label="Public profile" />}
+      />
+      <Controller
+        name="plan"
+        control={control}
+        render={({ field }) => (
+          <RadioGroup
+            value={field.value}
+            onChange={field.onChange}
+            label="Plan"
+            options={[{ value: 'solo', label: 'Solo' }, { value: 'team', label: 'Team' }]}
+          />
+        )}
+      />
+      <Controller
+        name="volume"
+        control={control}
+        render={({ field }) => <Slider value={[field.value]} onChange={(value) => field.onChange(value[0])} label="Volume" />}
+      />
+      <Controller
+        name="view"
+        control={control}
+        render={({ field }) => (
+          <Segmented
+            value={field.value}
+            onChange={field.onChange}
+            label="View"
+            options={[{ value: 'grid', label: 'Grid' }, { value: 'list', label: 'List' }]}
+          />
+        )}
+      />
+      <Controller
+        name="topics"
+        control={control}
+        render={({ field }) => (
+          <ToggleGroup
+            value={field.value}
+            onChange={field.onChange}
+            label="Topics"
+            options={[{ value: 'design', label: 'Design' }, { value: 'code', label: 'Code' }]}
+          />
+        )}
+      />
+
+      <Button type="submit" loading={isSubmitting}>Save profile</Button>
+    </form>
+  )
+}`} lang="tsx" theme="material-theme-palenight" />
+      </section>
+
+      <hr style="border:none; height:2px; background:var(--purple); opacity:0.2; margin:4px 0;" />
+
       <section id="theming" class="docs-section" style="display:flex; flex-direction:column; gap:12px;">
-        <h2 style="font-size:24px; font-weight:900; margin:16px 0 0;">4. Theming</h2>
+        <h2 style="font-size:24px; font-weight:900; margin:16px 0 0;">5. Theming</h2>
         <p style="margin:0; font-weight:700;">
           Every token in <code>pouf.css</code> is a plain CSS custom property, in two layers.
         </p>
@@ -127,7 +306,7 @@ export function Example() {
       <hr style="border:none; height:2px; background:var(--purple); opacity:0.2; margin:4px 0;" />
 
       <section id="dark-mode" class="docs-section" style="display:flex; flex-direction:column; gap:12px;">
-        <h2 style="font-size:24px; font-weight:900; margin:16px 0 0;">5. Dark mode</h2>
+        <h2 style="font-size:24px; font-weight:900; margin:16px 0 0;">6. Dark mode</h2>
         <p style="margin:0; font-weight:700;">
           Dark is opt-in via an attribute on the document, not a media query: set <code>data-theme="dark"</code> on <code>&lt;html&gt;</code> and every token in <code>pouf.css</code>'s <code>[data-theme='dark']</code> block takes over. Leave the attribute off (or set it to <code>"light"</code>) and nothing changes.
         </p>
@@ -162,7 +341,7 @@ export function Example() {
       <hr style="border:none; height:2px; background:var(--purple); opacity:0.2; margin:4px 0;" />
 
       <section id="conventions" class="docs-section" style="display:flex; flex-direction:column; gap:12px;">
-        <h2 style="font-size:24px; font-weight:900; margin:16px 0 0;">6. Conventions</h2>
+        <h2 style="font-size:24px; font-weight:900; margin:16px 0 0;">7. Conventions</h2>
         <p style="margin:0; font-weight:700;">
           No component takes a <code>className</code> or <code>style</code> prop. Appearance is chosen with variants — <code>tone</code>, <code>size</code>, <code>variant</code> — so your UI can't quietly drift off-system one utility class at a time. Tones are <code>purple, pink, blue, mint, yellow, orange</code>, plus five semantic aliases that speak intent instead of colour: <code>up, down, warn, info, idle</code> (see Theming above for what they map to, and how to remap them).
         </p>
@@ -174,7 +353,7 @@ export function Example() {
       <hr style="border:none; height:2px; background:var(--purple); opacity:0.2; margin:4px 0;" />
 
       <section id="accessibility" class="docs-section" style="display:flex; flex-direction:column; gap:12px;">
-        <h2 style="font-size:24px; font-weight:900; margin:16px 0 0;">7. Accessibility</h2>
+        <h2 style="font-size:24px; font-weight:900; margin:16px 0 0;">8. Accessibility</h2>
         <p style="margin:0; font-weight:700;">
           Overlay behaviour — focus trapping, keyboard nav, ARIA state — comes from Radix, for free. Two conventions worth knowing before you build a form or a toolbar:
         </p>
@@ -200,7 +379,7 @@ export function Example() {
       <hr style="border:none; height:2px; background:var(--purple); opacity:0.2; margin:4px 0;" />
 
       <section id="blocks-vs-templates" class="docs-section" style="display:flex; flex-direction:column; gap:12px;">
-        <h2 style="font-size:24px; font-weight:900; margin:16px 0 0;">8. Blocks vs. templates</h2>
+        <h2 style="font-size:24px; font-weight:900; margin:16px 0 0;">9. Blocks vs. templates</h2>
         <p style="margin:0; font-weight:700;">
           Past a single component, Pouf ships two tiers of copy-pasteable composition. Both install exactly like a component — a registry item that lands with its own dependencies — but they promise different things:
         </p>
@@ -211,6 +390,9 @@ export function Example() {
         <CopyCommand client:load command={installCommand('dashboard')} />
         <p style="margin:0; font-weight:700;">
           Browse every block on <a href="/blocks" style="color:var(--ink);">/blocks</a>, and every template on <a href="/examples" style="color:var(--ink);">/examples</a>.
+        </p>
+        <p style="margin:0; font-weight:700;">
+          Templates are complete routes, not oversized snippets. They include responsive navigation, realistic content, working core interactions, and meaningful states. Install one, replace the sample data, then connect your router, persistence, and service adapters.
         </p>
       </section>
 

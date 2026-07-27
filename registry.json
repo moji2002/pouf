@@ -880,6 +880,9 @@
           "target": "components/pouf/blocks/login.tsx"
         }
       ],
+      "dependencies": [
+        "react-hook-form"
+      ],
       "registryDependencies": [
         "https://pouf.worksonmy.dev/r/base.json",
         "https://pouf.worksonmy.dev/r/button.json",
@@ -903,6 +906,9 @@
           "type": "registry:block",
           "target": "components/pouf/blocks/settings.tsx"
         }
+      ],
+      "dependencies": [
+        "react-hook-form"
       ],
       "registryDependencies": [
         "https://pouf.worksonmy.dev/r/base.json",
@@ -1135,6 +1141,9 @@
           "target": "components/pouf/blocks/todo.tsx"
         }
       ],
+      "dependencies": [
+        "react-hook-form"
+      ],
       "registryDependencies": [
         "https://pouf.worksonmy.dev/r/base.json",
         "https://pouf.worksonmy.dev/r/button.json",
@@ -1158,6 +1167,9 @@
           "type": "registry:block",
           "target": "components/pouf/blocks/onboarding.tsx"
         }
+      ],
+      "dependencies": [
+        "react-hook-form"
       ],
       "registryDependencies": [
         "https://pouf.worksonmy.dev/r/base.json",
@@ -1221,7 +1233,7 @@
       "name": "landing",
       "type": "registry:block",
       "title": "Landing page",
-      "description": "An example marketing landing page \u2014 navbar, hero, features, CTA, footer.",
+      "description": "A complete marketing route \u2014 navbar, hero, proof, features, pricing, CTA, and footer.",
       "files": [
         {
           "path": "registry/pouf/blocks/landing.tsx",
@@ -1237,6 +1249,70 @@
         "https://pouf.worksonmy.dev/r/layout.json",
         "https://pouf.worksonmy.dev/r/media.json",
         "https://pouf.worksonmy.dev/r/navbar.json",
+        "https://pouf.worksonmy.dev/r/segmented.json",
+        "https://pouf.worksonmy.dev/r/surface.json",
+        "https://pouf.worksonmy.dev/r/text.json",
+        "https://pouf.worksonmy.dev/r/icon.json"
+      ]
+    },
+    {
+      "name": "storefront",
+      "type": "registry:block",
+      "title": "Storefront",
+      "description": "A complete commerce route with site chrome, product discovery, a working bag, totals, and order state.",
+      "files": [
+        {
+          "path": "registry/pouf/blocks/storefront.tsx",
+          "type": "registry:block",
+          "target": "components/pouf/blocks/storefront.tsx"
+        }
+      ],
+      "dependencies": [
+        "react-hook-form"
+      ],
+      "registryDependencies": [
+        "https://pouf.worksonmy.dev/r/base.json",
+        "https://pouf.worksonmy.dev/r/button.json",
+        "https://pouf.worksonmy.dev/r/feedback.json",
+        "https://pouf.worksonmy.dev/r/footer.json",
+        "https://pouf.worksonmy.dev/r/icon.json",
+        "https://pouf.worksonmy.dev/r/input.json",
+        "https://pouf.worksonmy.dev/r/layout.json",
+        "https://pouf.worksonmy.dev/r/media.json",
+        "https://pouf.worksonmy.dev/r/navbar.json",
+        "https://pouf.worksonmy.dev/r/segmented.json",
+        "https://pouf.worksonmy.dev/r/surface.json",
+        "https://pouf.worksonmy.dev/r/text.json"
+      ]
+    },
+    {
+      "name": "support",
+      "type": "registry:block",
+      "title": "Support desk",
+      "description": "A complete support workspace with app chrome, queue filters, ticket detail, replies, and status updates.",
+      "files": [
+        {
+          "path": "registry/pouf/blocks/support.tsx",
+          "type": "registry:block",
+          "target": "components/pouf/blocks/support.tsx"
+        }
+      ],
+      "dependencies": [
+        "clsx",
+        "react-hook-form"
+      ],
+      "registryDependencies": [
+        "https://pouf.worksonmy.dev/r/avatar.json",
+        "https://pouf.worksonmy.dev/r/base.json",
+        "https://pouf.worksonmy.dev/r/bottom-nav.json",
+        "https://pouf.worksonmy.dev/r/button.json",
+        "https://pouf.worksonmy.dev/r/controls.json",
+        "https://pouf.worksonmy.dev/r/feedback.json",
+        "https://pouf.worksonmy.dev/r/icon.json",
+        "https://pouf.worksonmy.dev/r/input.json",
+        "https://pouf.worksonmy.dev/r/layout.json",
+        "https://pouf.worksonmy.dev/r/media.json",
+        "https://pouf.worksonmy.dev/r/nav-link.json",
         "https://pouf.worksonmy.dev/r/surface.json",
         "https://pouf.worksonmy.dev/r/text.json"
       ]

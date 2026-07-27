@@ -117,9 +117,21 @@ export function Shell({ children }: { children: ReactNode }) {
   )
 }
 
-export function Sidebar({ children }: { children: ReactNode }) {
+export function Sidebar({
+  children,
+  mobile = 'show',
+}: {
+  children: ReactNode
+  /** Hide desktop sidebar chrome when the screen supplies BottomNav on phones. */
+  mobile?: 'show' | 'hide'
+}) {
   return (
-    <aside className="pouf-sidebar sticky top-(--s8) flex flex-col gap-(--s2) max-[900px]:static">
+    <aside
+      className={[
+        'pouf-sidebar sticky top-(--s8) flex flex-col gap-(--s2)',
+        mobile === 'hide' ? 'max-[900px]:hidden' : 'max-[900px]:static',
+      ].join(' ')}
+    >
       {children}
     </aside>
   )

@@ -40,8 +40,8 @@ export function Highlight({ children, tone = 'yellow' }: { children: ReactNode; 
   )
 }
 
-/** The reference's uppercase section eyebrow. Restricted to white surfaces:
- * --muted measures 3.93:1 on --bg (fails) but 4.64:1 on white (passes). */
+/** The reference's compact uppercase section eyebrow. The muted token clears
+ * AA contrast on both the page background and white surfaces. */
 export function Eyebrow({ children }: { children: ReactNode }) {
   return (
     <div className="pouf-eyebrow text-[14px] tracking-[2px] uppercase font-extrabold text-muted">

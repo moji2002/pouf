@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Controller, useForm } from 'react-hook-form'
 import { Card } from '../surface'
 import { Stack, Row, Spacer } from '../layout'
 import { Heading, Text, Eyebrow } from '../text'
@@ -15,9 +16,10 @@ const PLAN_OPTIONS = [
   { value: 'org', label: 'Whole organization' },
 ]
 
-interface StepErrors {
-  name?: string
-  workspace?: string
+interface OnboardingValues {
+  name: string
+  workspace: string
+  plan: string
 }
 
 /** An example onboarding wizard: a progress bar, per-step forms, and
@@ -26,44 +28,38 @@ interface StepErrors {
  * typed. The finish screen recaps every answer to prove it. */
 export function OnboardingBlock() {
   const [step, setStep] = useState(0)
-  const [name, setName] = useState('')
-  const [workspace, setWorkspace] = useState('')
-  const [plan, setPlan] = useState('solo')
-  const [errors, setErrors] = useState<StepErrors>({})
   const [done, setDone] = useState(false)
+  const {
+    control,
+    clearErrors,
+    reset: resetForm,
+    trigger,
+    watch,
+    formState: { errors },
+  } = useForm<OnboardingValues>({
+    defaultValues: { name: '', workspace: '', plan: 'solo' },
+    mode: 'onSubmit',
+    reValidateMode: 'onChange',
+  })
+  const { name, workspace, plan } = watch()
 
   const pct = done ? 100 : ((step + 1) / STEPS.length) * 100
 
-  function validateStep(): boolean {
-    if (step === 0 && !name.trim()) {
-      setErrors({ name: 'Tell us what to call you.' })
-      return false
-    }
-    if (step === 1 && !workspace.trim()) {
-      setErrors({ workspace: 'Pick a name for your workspace.' })
-      return false
-    }
-    setErrors({})
-    return true
-  }
-
-  function goNext() {
-    if (!validateStep()) return
+  async function goNext() {
+    const field = step === 0 ? 'name' : step === 1 ? 'workspace' : undefined
+    if (field && !(await trigger(field, { shouldFocus: true }))) return
     if (step === STEPS.length - 1) setDone(true)
     else setStep((s) => s + 1)
   }
 
   function goBack() {
-    setErrors({})
+    clearErrors()
     setStep((s) => Math.max(0, s - 1))
   }
 
   function reset() {
     setStep(0)
-    setName('')
-    setWorkspace('')
-    setPlan('solo')
-    setErrors({})
+    resetForm()
     setDone(false)
   }
 
@@ -92,22 +88,37 @@ export function OnboardingBlock() {
               </Stack>
             </Stack>
           ) : (
-            <>
+            <form
+              onSubmit={(event) => {
+                event.preventDefault()
+                void goNext()
+              }}
+              noValidate
+            >
               {step === 0 && (
                 <Stack gap={4}>
                   <Heading level={2}>Welcome to Pouf</Heading>
-                  <Field label="Your name" error={errors.name}>
+                  <Field label="Your name" error={errors.name?.message}>
                     {(id, describedBy) => (
-                      <Input
-                        id={id}
-                        describedBy={describedBy}
-                        value={name}
-                        onChange={(v) => {
-                          setName(v)
-                          if (errors.name) setErrors({})
-                        }}
-                        placeholder="Ada Lovelace"
-                        invalid={!!errors.name}
+                      <Controller
+                        name="name"
+                        control={control}
+                        rules={{ validate: (value) => value.trim().length > 0 || 'Tell us what to call you.' }}
+                        render={({ field }) => (
+                          <Input
+                            ref={field.ref}
+                            id={id}
+                            name={field.name}
+                            describedBy={describedBy}
+                            value={field.value}
+                            onChange={field.onChange}
+                            onBlur={field.onBlur}
+                            placeholder="Ada Lovelace"
+                            autoComplete="name"
+                            invalid={!!errors.name}
+                            required
+                          />
+                        )}
                       />
                     )}
                   </Field>
@@ -116,18 +127,29 @@ export function OnboardingBlock() {
               {step === 1 && (
                 <Stack gap={4}>
                   <Heading level={2}>Name your workspace</Heading>
-                  <Field label="Workspace" hint="You can change this later." error={errors.workspace}>
+                  <Field label="Workspace" hint="You can change this later." error={errors.workspace?.message}>
                     {(id, describedBy) => (
-                      <Input
-                        id={id}
-                        describedBy={describedBy}
-                        value={workspace}
-                        onChange={(v) => {
-                          setWorkspace(v)
-                          if (errors.workspace) setErrors({})
+                      <Controller
+                        name="workspace"
+                        control={control}
+                        rules={{
+                          validate: (value) => value.trim().length > 0 || 'Pick a name for your workspace.',
                         }}
-                        placeholder="acme"
-                        invalid={!!errors.workspace}
+                        render={({ field }) => (
+                          <Input
+                            ref={field.ref}
+                            id={id}
+                            name={field.name}
+                            describedBy={describedBy}
+                            value={field.value}
+                            onChange={field.onChange}
+                            onBlur={field.onBlur}
+                            placeholder="acme"
+                            autoComplete="organization"
+                            invalid={!!errors.workspace}
+                            required
+                          />
+                        )}
                       />
                     )}
                   </Field>
@@ -136,25 +158,32 @@ export function OnboardingBlock() {
               {step === 2 && (
                 <Stack gap={4}>
                   <Heading level={2}>How will you use it?</Heading>
-                  <RadioGroup label="Plan" value={plan} onChange={setPlan} options={PLAN_OPTIONS} />
+                  <Controller
+                    name="plan"
+                    control={control}
+                    render={({ field }) => (
+                      <RadioGroup label="Plan" value={field.value} onChange={field.onChange} options={PLAN_OPTIONS} />
+                    )}
+                  />
                 </Stack>
               )}
-            </>
+              <div style={{ marginTop: 24 }}>
+                <Row wrap={false}>
+                  <Button variant="quiet" disabled={step === 0} onClick={goBack}>Back</Button>
+                  <Spacer />
+                  {step < STEPS.length - 1 ? (
+                    <Button type="submit">Continue</Button>
+                  ) : (
+                    <Button type="submit" tone="mint">Finish</Button>
+                  )}
+                </Row>
+              </div>
+            </form>
           )}
 
           {done ? (
             <Button variant="quiet" onClick={reset}>Start over</Button>
-          ) : (
-            <Row wrap={false}>
-              <Button variant="quiet" disabled={step === 0} onClick={goBack}>Back</Button>
-              <Spacer />
-              {step < STEPS.length - 1 ? (
-                <Button onClick={goNext}>Continue</Button>
-              ) : (
-                <Button tone="mint" onClick={goNext}>Finish</Button>
-              )}
-            </Row>
-          )}
+          ) : null}
         </Stack>
       </Card>
     </div>

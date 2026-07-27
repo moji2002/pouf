@@ -4,7 +4,7 @@ import * as RTooltip from '@radix-ui/react-tooltip'
 import * as RAlert from '@radix-ui/react-alert-dialog'
 import * as RDialog from '@radix-ui/react-dialog'
 import * as RPopover from '@radix-ui/react-popover'
-import { useMemo, useState, type KeyboardEvent, type ReactNode } from 'react'
+import { useId, useMemo, useState, type KeyboardEvent, type ReactNode } from 'react'
 import clsx from 'clsx'
 import { Button } from './Button'
 import { Icon } from './Icon'
@@ -300,6 +300,8 @@ interface ComboboxProps {
   describedBy?: string
   placeholder?: string
   mono?: boolean
+  /** Accessible name when the control is not wrapped in Field. */
+  label?: string
 }
 
 /** A typeable select: pick from the provider's list, or type an id it doesn't offer.
@@ -325,10 +327,13 @@ export function Combobox({
   describedBy,
   placeholder,
   mono,
+  label,
 }: ComboboxProps) {
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState('')
   const [active, setActive] = useState(0)
+  const listboxId = useId()
+  const optionPrefix = useId()
 
   const shown = useMemo(() => {
     const q = query.trim().toLowerCase()
@@ -338,6 +343,14 @@ export function Combobox({
   const typed = query.trim()
   const canCreate = typed.length > 0 && !options.includes(typed)
   const createIndex = shown.length
+  const optionCount = shown.length + (canCreate ? 1 : 0)
+  const activeIndex = optionCount > 0 ? Math.min(active, optionCount - 1) : -1
+  const activeOptionId =
+    activeIndex < 0
+      ? undefined
+      : activeIndex === createIndex && canCreate
+        ? `${optionPrefix}-create`
+        : `${optionPrefix}-${activeIndex}`
 
   const commit = (v: string) => {
     onChange(v)
@@ -345,17 +358,17 @@ export function Combobox({
   }
 
   const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    const max = shown.length + (canCreate ? 1 : 0) - 1
+    const max = optionCount - 1
     if (e.key === 'ArrowDown') {
       e.preventDefault()
-      setActive((i) => Math.min(i + 1, max))
+      if (max >= 0) setActive((i) => Math.min(i + 1, max))
     } else if (e.key === 'ArrowUp') {
       e.preventDefault()
       setActive((i) => Math.max(i - 1, 0))
     } else if (e.key === 'Enter') {
       e.preventDefault()
-      if (canCreate && active === createIndex) commit(typed)
-      else if (shown[active] !== undefined) commit(shown[active])
+      if (canCreate && activeIndex === createIndex) commit(typed)
+      else if (shown[activeIndex] !== undefined) commit(shown[activeIndex])
     }
   }
 
@@ -375,9 +388,11 @@ export function Combobox({
         <button
           type="button"
           id={id}
-          role="combobox"
+          aria-haspopup="listbox"
           aria-expanded={open}
+          aria-controls={open ? listboxId : undefined}
           aria-describedby={describedBy}
+          aria-label={label}
           className={clsx(
             inputClasses({ mono }),
             /* Row's layout, inlined: the trigger borrowed .pouf-row classes,
@@ -399,19 +414,28 @@ export function Combobox({
               setActive(0)
             }}
             onKeyDown={onKeyDown}
-            placeholder="Search, or type a model id"
-            aria-label="Search models"
+            placeholder="Search, or type a value"
+            role="combobox"
+            aria-label={label ? `Search ${label}` : 'Search options'}
+            aria-autocomplete="list"
+            aria-expanded="true"
+            aria-controls={listboxId}
+            aria-activedescendant={activeOptionId}
+            autoComplete="off"
+            spellCheck={false}
             autoFocus
           />
-          <div className="pouf-combobox__list" role="listbox">
-            {loading && <div className="pouf-combobox__note">Loading models…</div>}
-            {!loading && error && <div className="pouf-combobox__note">{error}</div>}
+          <div className="pouf-combobox__list" id={listboxId} role="listbox" aria-busy={loading || undefined}>
+            {loading && <div className="pouf-combobox__note" role="status" aria-live="polite">Loading options…</div>}
+            {!loading && error && <div className="pouf-combobox__note" role="status" aria-live="polite">{error}</div>}
             {!loading &&
               shown.map((o, i) => (
                 <button
                   key={o}
+                  id={`${optionPrefix}-${i}`}
                   type="button"
                   role="option"
+                  tabIndex={-1}
                   aria-selected={o === value}
                   // Set by hand because these rows are plain buttons, not Radix Select
                   // items — this is what lets them reuse .pouf-option's existing skin
@@ -431,7 +455,9 @@ export function Combobox({
             {canCreate && (
               <button
                 type="button"
+                id={`${optionPrefix}-create`}
                 role="option"
+                tabIndex={-1}
                 aria-selected={false}
                 data-highlighted={active === createIndex ? '' : undefined}
                 className="pouf-option"

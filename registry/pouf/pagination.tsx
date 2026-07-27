@@ -11,7 +11,7 @@ interface PaginationProps {
 
 /** Chevrons, not arrows: `up`/`down` carry trend meaning in this system, and the
  * first build used them here — a "previous page" that read as a value falling.
- * The indicator is plain ink; muted fails contrast on --bg at 13px. */
+ * The indicator stays plain ink so the current page remains visually primary. */
 export function Pagination({ page, total, onChange }: PaginationProps) {
   if (total <= 1) return null
 

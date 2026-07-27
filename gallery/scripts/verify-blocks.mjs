@@ -37,6 +37,10 @@ const txt = (p) => p.locator('body').innerText()
   await p.getByRole('button', { name: /magic|email me|link/i }).first().click()
   await p.waitForTimeout(400)
   rec('login: magic-link fallback switches mode', /magic|inbox|link/i.test(await txt(p)))
+  await p.getByLabel(/email/i).first().fill('ada@example.com')
+  await p.getByLabel(/email/i).first().press('Enter')
+  await p.waitForTimeout(400)
+  rec('login: Enter submits the form', /check your inbox/i.test(await txt(p)))
   await p.close()
 }
 
@@ -104,6 +108,16 @@ const txt = (p) => p.locator('body').innerText()
   rec('todo: Enter adds the task exactly once', hits === 1, `${hits} occurrence(s)`)
   const clear = p.getByRole('button', { name: /clear/i }).first()
   rec('todo: Clear completed exists', await clear.count() > 0)
+  await clear.click()
+  await box.fill('After clear')
+  await p.keyboard.press('Enter')
+  await p.waitForTimeout(500)
+  await p.getByRole('checkbox', { name: 'Ship the blocks pass' }).click()
+  const afterClear = p.getByRole('checkbox', { name: 'After clear' })
+  rec(
+    'todo: ids stay unique after clearing and adding',
+    (await afterClear.count()) === 1 && !(await afterClear.isChecked()),
+  )
   await p.close()
 }
 

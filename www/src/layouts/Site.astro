@@ -100,6 +100,7 @@ const schemaNodes = [websiteSchema, ...(schema ? (Array.isArray(schema) ? schema
     </script>
   </head>
   <body style="background: var(--bg); color: var(--ink); font-family: var(--font); font-weight: 700; min-height: 100vh; margin: 0;">
+    <a class="skip-link" href="#main-content">Skip to content</a>
     <!-- Decorative cushion-blob field: colour and depth behind everything. -->
     <div class="blob-field" aria-hidden="true">
       <span style="width:520px; height:520px; background:var(--purple); top:-160px; left:-120px; --dur:24s; --del:0s;"></span>
@@ -111,7 +112,7 @@ const schemaNodes = [websiteSchema, ...(schema ? (Array.isArray(schema) ? schema
 
     <header class="site-header">
       <div class={wrapClass}>
-        <nav class="site-nav">
+        <nav class="site-nav" aria-label="Primary">
           <a href="/" style="display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--ink); margin-right:auto;">
             <span aria-hidden="true" style="width:36px; height:36px; border-radius:13px; background:var(--purple); box-shadow: var(--pouf-blob); display:inline-block;"></span>
             <strong class="display" style="font-size:24px;">Pouf</strong>
@@ -137,11 +138,25 @@ const schemaNodes = [websiteSchema, ...(schema ? (Array.isArray(schema) ? schema
             <span class="theme-toggle__icon" aria-hidden="true"></span>
           </button>
           <a class="site-link" href="https://github.com/moji2002/pouf" target="_blank" rel="noopener noreferrer" style="background:var(--ink); color:var(--bg);"><span class="site-link__label">GitHub</span></a>
+          <details class="site-mobile-menu">
+            <summary class="site-link site-mobile-menu__trigger">
+              <span class="site-link__label">Menu</span>
+            </summary>
+            <div class="site-mobile-menu__panel">
+              <a href="/docs/">Docs</a>
+              <a href="/components">Components</a>
+              <a href="/blocks">Blocks</a>
+              <a href="/examples">Templates</a>
+              <a href="/theme">Theme</a>
+              <a href="/changelog">Changelog</a>
+              <a href="https://github.com/moji2002/pouf" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </div>
+          </details>
         </nav>
       </div>
     </header>
 
-    <main class={wrapClass} style="padding-top:36px; padding-bottom:96px;">
+    <main id="main-content" class={wrapClass} style="padding-top:36px; padding-bottom:96px;">
       <slot />
     </main>
 

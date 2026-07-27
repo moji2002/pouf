@@ -18,7 +18,7 @@
   /* -- Palette: verbatim from the reference ------------------------------ */
   --color-bg: #f0e9ff;
   --color-ink: #3a2e5c;
-  --color-muted: #7c6ba8;
+  --color-muted: #71609b;
   --color-pink: #ffb3d1;
   --color-purple: #c9a8ff;
   --color-blue: #9ec8ff;
@@ -743,6 +743,10 @@
   background: rgba(201, 168, 255, 0.3);
   margin: var(--s1) var(--s2);
 }
+.pouf-menubar__trigger:focus-visible {
+  outline: 3px solid var(--purple);
+  outline-offset: 2px;
+}
 
 /* ============================================================================
  * HOVER CARD
@@ -1429,8 +1433,8 @@
 /* NOT the browser-tab idiom (underline rail, square bottom corners). That
  * pattern belongs to flat systems where an underline is the selection signal;
  * here the signal is depth, and an active tab with a drop shadow bleeding over
- * a 3px rail read as a glitch, with --muted labels failing contrast on --bg to
- * boot. Tabs are a row of small clay buttons (composed in disclosure.tsx) and
+ * a 3px rail read as a glitch. Tabs are a row of small clay buttons
+ * (composed in disclosure.tsx) and
  * the active one is held down — identical vocabulary to Segmented, which is
  * the same control at a different altitude. */
 .pouf-tabs__list {
@@ -1609,19 +1613,14 @@
   overflow: hidden;
 }
 .pouf-progress__fill {
+  width: 100%;
   height: 100%;
+  transform-origin: left center;
   border-radius: 999px;
   background: var(--tone, var(--purple));
   /* The same floor shadow as .pouf-dot: the fill is a bead of clay lying in a
    * recessed channel, not a flat paint bar. */
   box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.12);
-  /* A pill narrower than its own height renders as a squashed ellipse; hold it
-   * at least round. Zero stays zero — the component drops this floor via
-   * [data-zero] rather than showing progress that doesn't exist. */
-  min-width: 16px;
-}
-.pouf-progress__fill[data-zero] {
-  min-width: 0;
 }
 
 /* ============================================================================
@@ -1658,19 +1657,30 @@
   padding: var(--s7) var(--s3);
   text-align: center;
 }
-/* Clickable rows (Table onRowClick): the hover fill is the affordance — cells
- * carry no links, so without it nothing says "this opens". Focus ring inset,
- * because the row spans the scroll container and an outset ring would clip. */
+/* Clickable rows (Table onRowClick): pointer users can click the whole row;
+ * keyboard users get a real button in the first cell. */
 .pouf-table__row--click {
   cursor: pointer;
 }
 .pouf-table__row--click:hover td {
   background: rgba(201, 168, 255, 0.12);
 }
-.pouf-table__row--click:focus-visible {
+.pouf-table__rowaction {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  min-height: 24px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.pouf-table__rowaction:focus-visible {
   outline: 3px solid var(--focus, rgba(155, 106, 255, 0.55));
-  outline-offset: -3px;
-  border-radius: 8px;
+  outline-offset: 3px;
+  border-radius: 6px;
 }
 
 /* Sortable headers (Table column `sort`). A bare button rather than a cushion:
@@ -1724,8 +1734,8 @@ th[aria-sort='descending'] .pouf-table__caret {
  * BREADCRUMB
  * ========================================================================= */
 /* Links are ink with a lavender underline that darkens on hover — the old
- * build set muted text (fails contrast on --bg at 13px) and a hover rule that
- * never fired because the colour lived on a child span. The current page is
+ * build used a low-emphasis text token and a hover rule that never fired
+ * because the colour lived on a child span. The current page is
  * heavier and bare: weight + underline carry the distinction, not hue alone. */
 .pouf-breadcrumb {
   display: flex;

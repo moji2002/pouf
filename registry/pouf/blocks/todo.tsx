@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
+import { Controller, useForm } from 'react-hook-form'
 import { Card } from '../surface'
 import { Stack, Row, Spacer } from '../layout'
 import { Heading, Text, Eyebrow } from '../text'
 import { Checkbox } from '../checkbox'
-import { Input } from '../Input'
+import { Field, Input } from '../Input'
 import { Button } from '../Button'
 import { Segmented } from '../Segmented'
 import { Empty } from '../feedback'
@@ -21,23 +22,32 @@ const SEED: Item[] = [
   { id: '4', text: 'Tell everyone', done: false },
 ]
 
+interface TodoValues {
+  task: string
+}
+
 /** An example todo list: add, filter, check off, and clear completed — with a
  *  real empty state whenever the current filter (or the whole list) has
  *  nothing to show. */
 export function TodoBlock() {
   const [items, setItems] = useState(SEED)
-  const [draft, setDraft] = useState('')
   const [filter, setFilter] = useState('all')
+  const nextId = useRef(SEED.length + 1)
+  const {
+    control,
+    handleSubmit,
+    resetField,
+    formState: { errors },
+  } = useForm<TodoValues>({ defaultValues: { task: '' } })
 
   const shown = items.filter((i) => (filter === 'active' ? !i.done : filter === 'done' ? i.done : true))
   const left = items.filter((i) => !i.done).length
 
-  function add() {
-    const text = draft.trim()
-    if (!text) return
-    setItems((xs) => [...xs, { id: String(xs.length + 1), text, done: false }])
-    setDraft('')
-  }
+  const add = handleSubmit(({ task }) => {
+    const text = task.trim()
+    setItems((xs) => [...xs, { id: String(nextId.current++), text, done: false }])
+    resetField('task')
+  })
 
   function clearCompleted() {
     setItems((xs) => xs.filter((x) => !x.done))
@@ -54,24 +64,39 @@ export function TodoBlock() {
             <Heading level={2}>Today</Heading>
           </Stack>
 
-          {/* A real <form> so Enter submits. `Input` exposes no onKeyDown, and
-            * adding one would widen a shared component's API for a single call
-            * site — whereas a form gets Enter-to-submit from the platform for
-            * free. Typing a task and pressing Enter is table stakes here; a todo
-            * list that only adds via a mouse click feels broken. */}
-          <form
-            onSubmit={(e) => {
-              e.preventDefault()
-              add()
-            }}
-          >
+          {/* React Hook Form belongs to this example, not the Input primitive:
+            * the shared control stays usable with any form strategy. */}
+          <form onSubmit={add} noValidate>
             <Row gap={2} wrap={false}>
               <div style={{ flex: 1, minWidth: 0 }}>
-                <Input value={draft} onChange={setDraft} placeholder="Add a task…" label="New task" />
+                <Field label="New task" error={errors.task?.message}>
+                  {(id, describedBy) => (
+                    <Controller
+                      name="task"
+                      control={control}
+                      rules={{
+                        validate: (value) => value.trim().length > 0 || 'Enter a task first.',
+                      }}
+                      render={({ field }) => (
+                        <Input
+                          ref={field.ref}
+                          id={id}
+                          name={field.name}
+                          describedBy={describedBy}
+                          value={field.value}
+                          onChange={field.onChange}
+                          onBlur={field.onBlur}
+                          placeholder="Add a task…"
+                          autoComplete="off"
+                          invalid={!!errors.task}
+                          required
+                        />
+                      )}
+                    />
+                  )}
+                </Field>
               </div>
               <Spacer />
-              {/* No onClick: the form's onSubmit already runs add(), and a
-                * click on a submit button fires both — which would add twice. */}
               <Button type="submit" label="Add">Add</Button>
             </Row>
           </form>

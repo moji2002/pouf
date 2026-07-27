@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 /** The install command with a copy button. A tiny island — the only JS on an
  * otherwise static docs page besides the live demos.
@@ -7,20 +7,34 @@ import { useState } from 'react'
  * inside a component tile, where the full `npx shadcn@latest add …` line is too
  * long to show; the full command still lands on the clipboard. */
 export function CopyCommand({ command, compact = false }: { command: string; compact?: boolean }) {
-  const [copied, setCopied] = useState(false)
-  const copy = () => {
-    navigator.clipboard?.writeText(command)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 1400)
+  const [status, setStatus] = useState<'idle' | 'copied' | 'failed'>('idle')
+  const resetTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
+
+  useEffect(() => () => {
+    if (resetTimer.current) clearTimeout(resetTimer.current)
+  }, [])
+
+  const copy = async () => {
+    try {
+      if (!navigator.clipboard?.writeText) throw new Error('Clipboard API unavailable')
+      await navigator.clipboard.writeText(command)
+      setStatus('copied')
+    } catch {
+      setStatus('failed')
+    }
+    if (resetTimer.current) clearTimeout(resetTimer.current)
+    resetTimer.current = setTimeout(() => setStatus('idle'), 1800)
   }
+  const actionLabel = status === 'copied' ? 'Copied' : status === 'failed' ? 'Copy failed' : 'Copy'
 
   if (compact) {
     const shown = command.replace('npx shadcn@latest add ', '')
     return (
       <button
         type="button"
-        onClick={copy}
+        onClick={() => void copy()}
         title={command}
+        aria-live="polite"
         style={{
           display: 'flex',
           alignItems: 'center',
@@ -38,7 +52,7 @@ export function CopyCommand({ command, compact = false }: { command: string; com
         }}
       >
         <span style={{ flex: 1, minWidth: 0, textAlign: 'left', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', color: 'var(--surface)' }}>{shown}</span>
-        <span style={{ flex: 'none', fontWeight: 900, color: 'var(--bg)', opacity: copied ? 1 : 0.85 }}>{copied ? 'Copied' : 'Copy'}</span>
+        <span style={{ flex: 'none', fontWeight: 900, color: 'var(--bg)', opacity: status === 'copied' ? 1 : 0.85 }}>{actionLabel}</span>
       </button>
     )
   }
@@ -53,7 +67,8 @@ export function CopyCommand({ command, compact = false }: { command: string; com
       </code>
       <button
         type="button"
-        onClick={copy}
+        onClick={() => void copy()}
+        aria-live="polite"
         style={{
           flex: 'none',
           border: 'none',
@@ -64,11 +79,11 @@ export function CopyCommand({ command, compact = false }: { command: string; com
           /* Accent fill -> accent ink. --ink goes near-white in dark mode and would
            * leave this unreadable on the pastel. */
           color: 'var(--on-accent)',
-          background: copied ? 'var(--mint)' : 'var(--purple)',
+          background: status === 'copied' ? 'var(--mint)' : status === 'failed' ? 'var(--orange)' : 'var(--purple)',
           boxShadow: 'var(--pouf-control)',
         }}
       >
-        {copied ? 'Copied' : 'Copy'}
+        {actionLabel}
       </button>
     </div>
   )

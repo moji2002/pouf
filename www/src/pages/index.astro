@@ -48,10 +48,11 @@ const FEATURED_BLOCKS = BLOCKS.slice(0, 6)
   <section style="display:grid; grid-template-columns: 1.05fr 0.95fr; gap:48px; align-items:center; padding:24px 0 40px;" class="hero-grid">
     <div style="display:flex; flex-direction:column; gap:26px;">
       <span class="sticker pop" style="background:var(--yellow); align-self:flex-start; transform:rotate(-2deg); animation-delay:60ms;">Claymorphism for React</span>
-      <h1 class="display pop" style="font-size:clamp(52px, 7vw, 92px); animation-delay:120ms;">
-        Soft software.<br />
-        <span style="background:var(--purple); border-radius:20px; padding:0 18px; box-shadow: inset 0 -8px 0 rgba(0,0,0,0.08); display:inline-block; transform:rotate(-1.5deg);">Absurdly</span>
-        built.
+      <h1 class="display pop hero-title" style="font-size:clamp(52px, 7vw, 92px); animation-delay:120ms;">
+        <span class="hero-line">Soft software.</span>
+        <span class="hero-line hero-line--built">
+          <span class="hero-highlight">Absurdly</span> built.
+        </span>
       </h1>
       <p class="pop" style="font-size:21px; font-weight:800; color:var(--muted); max-width:36ch; margin:0; animation-delay:200ms;">
         Pouf is a puffy, pastel, <strong style="color:var(--ink);">maximalist</strong> UI kit — and the best-looking one you'll install this year. Every surface a cushion — bright, chunky, tactile. Copy it in shadcn-style and own the source.
@@ -186,6 +187,20 @@ const FEATURED_BLOCKS = BLOCKS.slice(0, 6)
   </section>
 
   <style>
+    .hero-line {
+      display: block;
+    }
+    .hero-line--built {
+      white-space: nowrap;
+    }
+    .hero-highlight {
+      display: inline-block;
+      padding: 0 18px;
+      border-radius: 20px;
+      background: var(--purple);
+      box-shadow: inset 0 -8px 0 rgba(0,0,0,0.08);
+      transform: rotate(-1.5deg);
+    }
     .ex-card { transition: transform 160ms ease; }
     .ex-card:hover { transform: rotate(0deg) translateY(-4px) !important; }
     /* Two-up before one-up: at ~1000px three cards squeeze their blurbs into
@@ -205,6 +220,13 @@ const FEATURED_BLOCKS = BLOCKS.slice(0, 6)
       :global(.wall) { grid-template-columns: repeat(2, minmax(0,1fr)) !important; }
     }
     @media (max-width: 560px) {
+      .hero-title {
+        font-size: clamp(32px, 10.5vw, 48px) !important;
+      }
+      .hero-highlight {
+        padding-inline: 12px;
+        border-radius: 16px;
+      }
       :global(.wall) { grid-template-columns: minmax(0,1fr) !important; }
       /* Tiles carry `grid-column: span 2`. Collapsing the track list alone is
          not enough: a span-2 item in a one-column grid makes Grid generate an

@@ -31,6 +31,8 @@ export const TEMPLATES: BlockDoc[] = [
   { slug: 'settings', title: 'Settings', blurb: 'App shell, tabbed sections, and a save bar that tracks dirty state.', tone: 'orange', icon: 'settings' },
   { slug: 'chat', title: 'Chat', blurb: 'App shell, a conversation list, message bubbles, and a working composer.', tone: 'pink', icon: 'comment' },
   { slug: 'landing', title: 'Landing page', blurb: 'Navbar, hero, features, pricing, CTA, and footer — a marketing page end to end.', tone: 'yellow', icon: 'sparkle' },
+  { slug: 'storefront', title: 'Storefront', blurb: 'A complete shop with filters, product discovery, a working bag, totals, and footer.', tone: 'mint', icon: 'cart' },
+  { slug: 'support', title: 'Support desk', blurb: 'App shell, searchable ticket queue, customer context, replies, and status updates.', tone: 'purple', icon: 'comment' },
 ]
 
 /** Sections: drop one into a page you already have. */

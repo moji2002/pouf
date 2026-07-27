@@ -17,6 +17,8 @@ import { QuizBlock } from '../../../registry/pouf/blocks/quiz'
 import { LandingBlock } from '../../../registry/pouf/blocks/landing'
 import { InboxBlock } from '../../../registry/pouf/blocks/inbox'
 import { CalendarBlock } from '../../../registry/pouf/blocks/calendar'
+import { StorefrontBlock } from '../../../registry/pouf/blocks/storefront'
+import { SupportBlock } from '../../../registry/pouf/blocks/support'
 
 const BLOCKS: Record<string, () => ReactNode> = {
   dashboard: DashboardBlock,
@@ -37,6 +39,8 @@ const BLOCKS: Record<string, () => ReactNode> = {
   landing: LandingBlock,
   inbox: InboxBlock,
   calendar: CalendarBlock,
+  storefront: StorefrontBlock,
+  support: SupportBlock,
 }
 
 /** Renders a full example template by slug as a live island. */

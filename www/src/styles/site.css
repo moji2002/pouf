@@ -13,6 +13,24 @@
 }
 
 @layer components {
+  .skip-link {
+    position: fixed;
+    top: 12px;
+    left: 16px;
+    z-index: 100;
+    padding: 10px 16px;
+    border-radius: 14px;
+    color: var(--ink);
+    background: var(--yellow);
+    box-shadow: var(--pouf-control);
+    font-weight: 900;
+    text-decoration: none;
+    transform: translateY(-160%);
+  }
+  .skip-link:focus {
+    transform: translateY(0);
+  }
+
   /* ONE width for every page, so the nav, content, and footer never shift
    * when you navigate. (The `wide` prop is kept as a no-op for compatibility.) */
   .site-wrap,
@@ -84,6 +102,7 @@
     z-index: 40;
   }
   .site-nav {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -217,41 +236,71 @@
     box-shadow: var(--pouf-control);
   }
 
-  /* On narrow screens the pill links can't all fit, so the nav scrolls
-     horizontally (hidden scrollbar) and the brand stays pinned to the left
-     edge so "home" is always reachable. */
+  .site-mobile-menu {
+    display: none;
+  }
+
+  /* On narrow screens, primary destinations move into an explicit menu so
+     important controls never disappear beyond a horizontal scroll rail. */
   @media (max-width: 640px) {
     .site-nav {
-      overflow-x: auto;
-      scrollbar-width: none;
       gap: 4px;
-      padding: 0 10px;
+      padding: 0 10px var(--lip) 14px;
     }
-    .site-nav::-webkit-scrollbar { display: none; }
     .site-nav > a:first-child {
-      position: sticky;
-      left: 0;
-      z-index: 2;
-      /* Fully opaque, not 92%. The links scroll UNDER this brand, and at 92%
-       * their text bled through it — reading as the logo overlapping a word. */
-      background: var(--surface);
-      padding-right: 10px;
-      /* Soften the hard edge the opaque background would otherwise create. */
-      box-shadow: 8px 0 8px -6px var(--surface);
+      min-width: 0;
+    }
+    .site-nav > a.site-link {
+      display: none;
     }
     .site-link {
-      /* 8px left these at 23px tall, a hair under the 24px WCAG 2.2 AA target
-       * minimum — and this is the one nav a thumb uses. The min-height must
-       * restate the pill size for the same reason the base rule does: once the
-       * label is trimmed to its cap band, leading no longer sets the height,
-       * and a 24px floor here would collapse the thumb target it exists to
-       * protect. */
       padding: 10px 12px;
       min-height: 40px;
       display: inline-flex;
       align-items: center;
       white-space: nowrap;
       flex: none;
+    }
+    .site-mobile-menu {
+      display: block;
+      position: relative;
+    }
+    .site-mobile-menu__trigger {
+      list-style: none;
+      cursor: pointer;
+    }
+    .site-mobile-menu__trigger::-webkit-details-marker {
+      display: none;
+    }
+    .site-mobile-menu[open] .site-mobile-menu__trigger {
+      background: var(--purple);
+    }
+    .site-mobile-menu__panel {
+      position: absolute;
+      top: calc(100% + 14px);
+      right: 0;
+      width: min(260px, calc(100vw - 48px));
+      display: grid;
+      gap: 4px;
+      padding: 10px;
+      border-radius: 22px;
+      background: var(--surface);
+      box-shadow: var(--pouf-card);
+      z-index: 45;
+    }
+    .site-mobile-menu__panel a {
+      display: flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 8px 14px;
+      border-radius: 14px;
+      color: var(--ink);
+      font-weight: 850;
+      text-decoration: none;
+    }
+    .site-mobile-menu__panel a:hover,
+    .site-mobile-menu__panel a:focus-visible {
+      background: rgba(201, 168, 255, 0.25);
     }
   }
 

@@ -62,5 +62,7 @@ export const dotDemos: Demo[] = [
 ]
 
 export const figureDemos: Demo[] = [
-  { id: 'default', render: () => <Figure src={SAMPLE_IMAGE} alt="A worked example screenshot" /> },
+  { id: 'default', render: () => (
+      <Figure src={SAMPLE_IMAGE} alt="A worked example screenshot" width={320} height={180} />
+    ) },
 ]

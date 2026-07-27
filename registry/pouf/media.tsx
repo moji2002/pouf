@@ -92,12 +92,14 @@ export function Dot({ tone = 'purple' }: { tone?: Tone }) {
  * `alt` is required with no default: these render user-supplied screenshots,
  * and an unlabelled image is exactly the case alt text exists for.
  * Lazy by default — a gallery can be dozens of photos. */
-export function Figure({ src, alt }: { src: string; alt: string }) {
+export function Figure({ src, alt, width, height }: { src: string; alt: string; width: number; height: number }) {
   return (
     <img
       className="pouf-figure block max-w-[420px] w-full h-auto rounded-control bg-bg cushion-field"
       src={src}
       alt={alt}
+      width={width}
+      height={height}
       loading="lazy"
     />
   )

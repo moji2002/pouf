@@ -1,5 +1,11 @@
 import { cva } from 'class-variance-authority'
-import { useId, type ReactNode } from 'react'
+import {
+  forwardRef,
+  useId,
+  type InputHTMLAttributes,
+  type ReactNode,
+  type TextareaHTMLAttributes,
+} from 'react'
 
 interface FieldProps {
   label: string
@@ -16,7 +22,7 @@ export function Field({ label, children, hint, error }: FieldProps) {
   const describedBy = error ? `${id}-err` : hint ? `${id}-hint` : undefined
   return (
     <div className="pouf-field flex flex-col gap-(--s2)">
-      {/* --muted fails on --bg at small sizes (3.93:1); labels use ink. */}
+      {/* Labels use ink so their compact uppercase treatment stays emphatic. */}
       <label className="pouf-label text-[13px] font-black tracking-[0.6px] uppercase text-ink" htmlFor={id}>
         {label}
       </label>
@@ -80,13 +86,24 @@ export const inputClasses = cva(
   },
 )
 
-interface InputProps {
+interface InputProps
+  extends Omit<
+    InputHTMLAttributes<HTMLInputElement>,
+    'children' | 'className' | 'style' | 'value' | 'onChange'
+  > {
   value: string
   onChange: (value: string) => void
+  onBlur?: InputHTMLAttributes<HTMLInputElement>['onBlur']
   id?: string
+  name?: string
   describedBy?: string
   placeholder?: string
-  type?: 'text' | 'password'
+  type?: InputHTMLAttributes<HTMLInputElement>['type']
+  autoComplete?: string
+  inputMode?: InputHTMLAttributes<HTMLInputElement>['inputMode']
+  autoCapitalize?: string
+  spellCheck?: boolean
+  required?: boolean
   mono?: boolean
   invalid?: boolean
   disabled?: boolean
@@ -95,45 +112,54 @@ interface InputProps {
   bare?: boolean
 }
 
-export function Input({
-  value,
-  onChange,
-  id,
-  describedBy,
-  placeholder,
-  type = 'text',
-  mono,
-  invalid,
-  disabled,
-  label,
-  bare,
-}: InputProps) {
+export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
+  {
+    value,
+    onChange,
+    describedBy,
+    type = 'text',
+    mono,
+    invalid,
+    label,
+    bare,
+    ...nativeProps
+  },
+  ref,
+) {
   return (
     <input
-      id={id}
+      ref={ref}
+      {...nativeProps}
       className={inputClasses({ bare: !!bare, invalid: !!invalid, mono })}
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      placeholder={placeholder}
       type={type}
-      disabled={disabled}
       aria-invalid={invalid || undefined}
       aria-describedby={describedBy}
       aria-label={label}
     />
   )
-}
+})
 
 /* ------------------------------------------------------------------ */
 /* Textarea                                                            */
 /* ------------------------------------------------------------------ */
 
-interface TextareaProps {
+interface TextareaProps
+  extends Omit<
+    TextareaHTMLAttributes<HTMLTextAreaElement>,
+    'children' | 'className' | 'style' | 'value' | 'onChange'
+  > {
   value: string
   onChange: (value: string) => void
+  onBlur?: TextareaHTMLAttributes<HTMLTextAreaElement>['onBlur']
   id?: string
+  name?: string
   describedBy?: string
   placeholder?: string
+  autoComplete?: string
+  spellCheck?: boolean
+  required?: boolean
   rows?: number
   mono?: boolean
   invalid?: boolean
@@ -141,30 +167,30 @@ interface TextareaProps {
   label?: string
 }
 
-export function Textarea({
-  value,
-  onChange,
-  id,
-  describedBy,
-  placeholder,
-  rows = 4,
-  mono,
-  invalid,
-  disabled,
-  label,
-}: TextareaProps) {
+export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function Textarea(
+  {
+    value,
+    onChange,
+    describedBy,
+    rows = 4,
+    mono,
+    invalid,
+    label,
+    ...nativeProps
+  },
+  ref,
+) {
   return (
     <textarea
-      id={id}
+      ref={ref}
+      {...nativeProps}
       className={`${inputClasses({ invalid: !!invalid, mono })} pouf-textarea resize-y min-h-[100px]`}
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      placeholder={placeholder}
       rows={rows}
-      disabled={disabled}
       aria-invalid={invalid || undefined}
       aria-describedby={describedBy}
       aria-label={label}
     />
   )
-}
+})

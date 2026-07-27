@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Controller, useForm, useWatch } from 'react-hook-form'
 import { Card } from '../surface'
 import { Shell, Sidebar, Stack, Row, Spacer } from '../layout'
 import { Heading, Text, Eyebrow } from '../text'
@@ -50,45 +51,85 @@ const INITIAL: Settings = {
 export function SettingsBlock() {
   const [tab, setTab] = useState('profile')
   const [saved, setSaved] = useState<Settings>(INITIAL)
-  const [form, setForm] = useState<Settings>(INITIAL)
   const [justSaved, setJustSaved] = useState(false)
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: { isDirty },
+  } = useForm<Settings>({ defaultValues: INITIAL })
+  const form = useWatch({ control })
 
-  /* Field order is fixed and the values are primitives, so JSON is a sound
-   * (and dependency-free) deep compare here. */
-  const dirty = JSON.stringify(form) !== JSON.stringify(saved)
-
-  function set<K extends keyof Settings>(key: K, value: Settings[K]) {
-    setForm((f) => ({ ...f, [key]: value }))
-    setJustSaved(false)
-  }
-
-  function save() {
-    setSaved(form)
+  const save = handleSubmit((values) => {
+    setSaved(values)
+    reset(values)
     setJustSaved(true)
+  })
+
+  function changed<T>(onChange: (value: T) => void) {
+    return (value: T) => {
+      onChange(value)
+      setJustSaved(false)
+    }
   }
 
   const profile = (
     <Stack gap={4}>
       <Field label="Display name">
         {(id, describedBy) => (
-          <Input id={id} describedBy={describedBy} value={form.name} onChange={(v) => set('name', v)} />
+          <Controller
+            name="name"
+            control={control}
+            render={({ field }) => (
+              <Input
+                ref={field.ref}
+                id={id}
+                name={field.name}
+                describedBy={describedBy}
+                value={field.value}
+                onChange={changed(field.onChange)}
+                onBlur={field.onBlur}
+                autoComplete="name"
+              />
+            )}
+          />
         )}
       </Field>
       <Field label="Bio" hint="A sentence or two.">
         {(id, describedBy) => (
-          <Textarea id={id} describedBy={describedBy} value={form.bio} onChange={(v) => set('bio', v)} />
+          <Controller
+            name="bio"
+            control={control}
+            render={({ field }) => (
+              <Textarea
+                ref={field.ref}
+                id={id}
+                name={field.name}
+                describedBy={describedBy}
+                value={field.value}
+                onChange={changed(field.onChange)}
+                onBlur={field.onBlur}
+              />
+            )}
+          />
         )}
       </Field>
       <Field label="Density">
         {() => (
-          <RadioGroup
-            label="Density"
-            value={form.density}
-            onChange={(v) => set('density', v)}
-            options={[
-              { value: 'comfortable', label: 'Comfortable' },
-              { value: 'compact', label: 'Compact' },
-            ]}
+          <Controller
+            name="density"
+            control={control}
+            render={({ field }) => (
+              <RadioGroup
+                label="Density"
+                value={field.value}
+                onChange={changed(field.onChange)}
+                options={[
+                  { value: 'comfortable', label: 'Comfortable' },
+                  { value: 'compact', label: 'Compact' },
+                ]}
+              />
+            )}
           />
         )}
       </Field>
@@ -102,10 +143,16 @@ export function SettingsBlock() {
           <Text>Email notifications</Text>
           <Text size="sm" muted>Product news and account activity.</Text>
         </Stack>
-        <Switch
-          checked={form.emailNotif}
-          onChange={(v) => set('emailNotif', v)}
-          label="Email notifications"
+        <Controller
+          name="emailNotif"
+          control={control}
+          render={({ field }) => (
+            <Switch
+              checked={field.value}
+              onChange={changed(field.onChange)}
+              label="Email notifications"
+            />
+          )}
         />
       </Row>
       <Separator />
@@ -114,10 +161,16 @@ export function SettingsBlock() {
           <Text>Push notifications</Text>
           <Text size="sm" muted>Sent to your devices in real time.</Text>
         </Stack>
-        <Switch
-          checked={form.pushNotif}
-          onChange={(v) => set('pushNotif', v)}
-          label="Push notifications"
+        <Controller
+          name="pushNotif"
+          control={control}
+          render={({ field }) => (
+            <Switch
+              checked={field.value}
+              onChange={changed(field.onChange)}
+              label="Push notifications"
+            />
+          )}
         />
       </Row>
       <Separator />
@@ -126,10 +179,16 @@ export function SettingsBlock() {
           <Text>Alert volume</Text>
           <Text size="sm" muted num>{form.volume}</Text>
         </Row>
-        <Slider
-          value={[form.volume]}
-          onChange={(v) => set('volume', v[0] ?? 0)}
-          label="Alert volume"
+        <Controller
+          name="volume"
+          control={control}
+          render={({ field }) => (
+            <Slider
+              value={[field.value]}
+              onChange={(value) => changed(field.onChange)(value[0] ?? 0)}
+              label="Alert volume"
+            />
+          )}
         />
       </Stack>
     </Stack>
@@ -138,7 +197,7 @@ export function SettingsBlock() {
   return (
     <TooltipProvider>
       <Shell>
-        <Sidebar>
+        <Sidebar mobile="hide">
           <Row gap={2} wrap={false}>
             <Blob icon="target" tone="purple" size="sm" />
             <Heading level={3}>Acme</Heading>
@@ -156,7 +215,7 @@ export function SettingsBlock() {
               <Eyebrow>Account</Eyebrow>
               <Heading level={1}>Settings</Heading>
             </Stack>
-            {dirty ? (
+            {isDirty ? (
               <Badge tone="yellow">Unsaved changes</Badge>
             ) : justSaved ? (
               <Badge tone="mint">Saved</Badge>
@@ -164,30 +223,39 @@ export function SettingsBlock() {
           </Row>
 
           <Card>
-            <Stack gap={5}>
-              <Tabs
-                value={tab}
-                onChange={setTab}
-                tabs={[
-                  { value: 'profile', label: 'Profile', content: profile },
-                  { value: 'notifications', label: 'Notifications', content: notifications },
-                ]}
-              />
-              <Separator />
-              <Row justify="between">
-                <Text size="sm" muted>
-                  {dirty ? 'You have unsaved changes.' : 'Everything is up to date.'}
-                </Text>
-                <Row gap={2} wrap={false}>
-                  <Button variant="quiet" disabled={!dirty} onClick={() => setForm(saved)}>
-                    Cancel
-                  </Button>
-                  <Button tone="mint" disabled={!dirty} onClick={save}>
-                    Save changes
-                  </Button>
+            <form onSubmit={save}>
+              <Stack gap={5}>
+                <Tabs
+                  value={tab}
+                  onChange={setTab}
+                  tabs={[
+                    { value: 'profile', label: 'Profile', content: profile },
+                    { value: 'notifications', label: 'Notifications', content: notifications },
+                  ]}
+                />
+                <Separator />
+                <Row justify="between">
+                  <Text size="sm" muted>
+                    {isDirty ? 'You have unsaved changes.' : 'Everything is up to date.'}
+                  </Text>
+                  <Row gap={2} wrap={false}>
+                    <Button
+                      variant="quiet"
+                      disabled={!isDirty}
+                      onClick={() => {
+                        reset(saved)
+                        setJustSaved(false)
+                      }}
+                    >
+                      Cancel
+                    </Button>
+                    <Button type="submit" tone="mint" disabled={!isDirty}>
+                      Save changes
+                    </Button>
+                  </Row>
                 </Row>
-              </Row>
-            </Stack>
+              </Stack>
+            </form>
           </Card>
           <Spacer />
         </Stack>

@@ -1,6 +1,6 @@
 import * as RHover from '@radix-ui/react-hover-card'
 import type { ReactNode } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 
 interface HoverCardProps {
   children: ReactNode
@@ -10,6 +10,7 @@ interface HoverCardProps {
 }
 
 export function HoverCard({ children, content, side = 'bottom', align = 'center' }: HoverCardProps) {
+  const reduceMotion = useReducedMotion()
   return (
     <RHover.Root openDelay={300} closeDelay={200}>
       <RHover.Trigger asChild>
@@ -18,9 +19,9 @@ export function HoverCard({ children, content, side = 'bottom', align = 'center'
       <RHover.Portal>
         <RHover.Content className="pouf-hover" sideOffset={8} side={side} align={align} asChild>
           <motion.div
-            initial={{ opacity: 0, scale: 0.97, y: 4 }}
+            initial={reduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.97, y: 4 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.15, ease: 'easeOut' }}
+            transition={{ duration: reduceMotion ? 0.01 : 0.15, ease: 'easeOut' }}
           >
             {content}
           </motion.div>
