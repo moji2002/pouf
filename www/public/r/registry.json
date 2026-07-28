@@ -1448,6 +1448,111 @@
       ]
     },
     {
+      "name": "inventory",
+      "type": "registry:block",
+      "title": "Inventory",
+      "description": "A complete inventory workspace with searchable stock, filters, sortable records, item detail, and receiving actions.",
+      "files": [
+        {
+          "path": "registry/pouf/blocks/inventory.tsx",
+          "type": "registry:block",
+          "target": "components/pouf/blocks/inventory.tsx"
+        }
+      ],
+      "registryDependencies": [
+        "https://pouf.worksonmy.dev/r/base.json",
+        "https://pouf.worksonmy.dev/r/bottom-nav.json",
+        "https://pouf.worksonmy.dev/r/button.json",
+        "https://pouf.worksonmy.dev/r/feedback.json",
+        "https://pouf.worksonmy.dev/r/input.json",
+        "https://pouf.worksonmy.dev/r/layout.json",
+        "https://pouf.worksonmy.dev/r/media.json",
+        "https://pouf.worksonmy.dev/r/nav-link.json",
+        "https://pouf.worksonmy.dev/r/readout.json",
+        "https://pouf.worksonmy.dev/r/segmented.json",
+        "https://pouf.worksonmy.dev/r/surface.json",
+        "https://pouf.worksonmy.dev/r/table.json",
+        "https://pouf.worksonmy.dev/r/text.json"
+      ]
+    },
+    {
+      "name": "editorial",
+      "type": "registry:block",
+      "title": "Editorial desk",
+      "description": "A publishing workspace that moves stories from draft through scheduling to launch.",
+      "files": [
+        {
+          "path": "registry/pouf/blocks/editorial.tsx",
+          "type": "registry:block",
+          "target": "components/pouf/blocks/editorial.tsx"
+        }
+      ],
+      "registryDependencies": [
+        "https://pouf.worksonmy.dev/r/base.json",
+        "https://pouf.worksonmy.dev/r/bottom-nav.json",
+        "https://pouf.worksonmy.dev/r/button.json",
+        "https://pouf.worksonmy.dev/r/feedback.json",
+        "https://pouf.worksonmy.dev/r/layout.json",
+        "https://pouf.worksonmy.dev/r/media.json",
+        "https://pouf.worksonmy.dev/r/nav-link.json",
+        "https://pouf.worksonmy.dev/r/segmented.json",
+        "https://pouf.worksonmy.dev/r/surface.json",
+        "https://pouf.worksonmy.dev/r/text.json"
+      ]
+    },
+    {
+      "name": "course",
+      "type": "registry:block",
+      "title": "Course dashboard",
+      "description": "A learning workspace with a lesson outline, completion controls, and live progress.",
+      "files": [
+        {
+          "path": "registry/pouf/blocks/course.tsx",
+          "type": "registry:block",
+          "target": "components/pouf/blocks/course.tsx"
+        }
+      ],
+      "registryDependencies": [
+        "https://pouf.worksonmy.dev/r/base.json",
+        "https://pouf.worksonmy.dev/r/bottom-nav.json",
+        "https://pouf.worksonmy.dev/r/button.json",
+        "https://pouf.worksonmy.dev/r/layout.json",
+        "https://pouf.worksonmy.dev/r/media.json",
+        "https://pouf.worksonmy.dev/r/nav-link.json",
+        "https://pouf.worksonmy.dev/r/progress.json",
+        "https://pouf.worksonmy.dev/r/surface.json",
+        "https://pouf.worksonmy.dev/r/text.json"
+      ]
+    },
+    {
+      "name": "event",
+      "type": "registry:block",
+      "title": "Event check-in",
+      "description": "A live event workspace with attendee search, attendance filters, summary counts, and working check-in.",
+      "files": [
+        {
+          "path": "registry/pouf/blocks/event.tsx",
+          "type": "registry:block",
+          "target": "components/pouf/blocks/event.tsx"
+        }
+      ],
+      "registryDependencies": [
+        "https://pouf.worksonmy.dev/r/avatar.json",
+        "https://pouf.worksonmy.dev/r/base.json",
+        "https://pouf.worksonmy.dev/r/bottom-nav.json",
+        "https://pouf.worksonmy.dev/r/button.json",
+        "https://pouf.worksonmy.dev/r/feedback.json",
+        "https://pouf.worksonmy.dev/r/input.json",
+        "https://pouf.worksonmy.dev/r/layout.json",
+        "https://pouf.worksonmy.dev/r/media.json",
+        "https://pouf.worksonmy.dev/r/nav-link.json",
+        "https://pouf.worksonmy.dev/r/readout.json",
+        "https://pouf.worksonmy.dev/r/segmented.json",
+        "https://pouf.worksonmy.dev/r/surface.json",
+        "https://pouf.worksonmy.dev/r/text.json"
+      ]
+    },
+    {
       "name": "booking",
       "type": "registry:block",
       "title": "Booking flow",

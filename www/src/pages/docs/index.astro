@@ -15,33 +15,68 @@ const TOC = [
   { id: 'accessibility', label: 'Accessibility' },
   { id: 'blocks-vs-templates', label: 'Blocks vs. templates' },
 ]
+const TOC_TONES = ['purple', 'mint', 'blue', 'pink', 'yellow', 'orange', 'purple', 'mint', 'blue']
 ---
 
 <Site title="Getting started" description="Everything you need before the first install: prerequisites, the theme file, dark mode, and the conventions every Pouf component follows." wide>
-  <section style="display:flex; flex-direction:column; gap:14px; padding:8px 0 32px; max-width:760px;">
-    <span class="sticker" style="background:var(--mint); align-self:flex-start; transform:rotate(-2deg);">You own the source</span>
-    <h1 class="display" style="font-size:clamp(40px,5vw,60px); margin:0;">Getting started</h1>
-    <p style="font-size:18px; color:var(--muted); font-weight:700; margin:0;">
-      Pouf is distributed as a shadcn-style registry. You install components into your own codebase and own the source — there is no runtime dependency to lock, nothing to update, nothing to break.
-    </p>
-    <p style="font-size:15px; color:var(--muted); font-weight:700; margin:0;">
-      This page covers what you need before the first <code>add</code>, the two-layer token system, dark mode, and the conventions every component follows.
-    </p>
+  <section class="docs-hero">
+    <div class="docs-hero__copy">
+      <span class="sticker" style="background:var(--mint); align-self:flex-start; transform:rotate(-2deg);">You own the source</span>
+      <h1 class="display">Getting started</h1>
+      <p class="docs-hero__lead">
+        Pouf is distributed as a shadcn-style registry. You install components into your own codebase and own the source — there is no runtime dependency to lock, nothing to update, nothing to break.
+      </p>
+      <p class="docs-hero__detail">
+        This page covers what you need before the first <code>add</code>, the two-layer token system, dark mode, and the conventions every component follows.
+      </p>
+    </div>
+    <div class="docs-hero__path" aria-label="Guide overview">
+      <a href="#prerequisites" style="--step-tone:var(--purple);">
+        <span>01</span>
+        <strong>Prepare</strong>
+      </a>
+      <a href="#quick-start" style="--step-tone:var(--mint);">
+        <span>02</span>
+        <strong>Install</strong>
+      </a>
+      <a href="#theming" style="--step-tone:var(--pink);">
+        <span>03</span>
+        <strong>Make it yours</strong>
+      </a>
+    </div>
   </section>
+
+  <details class="docs-mobile-toc">
+    <summary>Jump to a section</summary>
+    <nav aria-label="On this page">
+      {TOC.map((t, index) => (
+        <a class="docs-toc-link" href={`#${t.id}`}>
+          <span style={`background:var(--${TOC_TONES[index]});`}>{index + 1}</span>
+          {t.label}
+        </a>
+      ))}
+    </nav>
+  </details>
 
   <div class="docs-grid">
     <aside class="docs-sidebar">
-      {TOC.map((t) => (
-        <a class="docs-toc-link" href={`#${t.id}`}>{t.label}</a>
-      ))}
+      <p>On this page</p>
+      <nav aria-label="On this page">
+        {TOC.map((t, index) => (
+          <a class="docs-toc-link" href={`#${t.id}`}>
+            <span style={`background:var(--${TOC_TONES[index]});`}>{index + 1}</span>
+            {t.label}
+          </a>
+        ))}
+      </nav>
     </aside>
 
-    <article style="max-width:760px; display:flex; flex-direction:column; gap:20px; min-width:0;">
+    <article class="docs-content">
       <section id="prerequisites" class="docs-section" style="display:flex; flex-direction:column; gap:12px;">
         <h2 style="font-size:24px; font-weight:900; margin:16px 0 0;">1. Prerequisites</h2>
         <p style="margin:0; font-weight:700;">Before your first <code>add</code>, you need three things in place:</p>
         <ul style="margin:0; padding-left:22px; display:flex; flex-direction:column; gap:10px; font-weight:700;">
-          <li><strong>A React 19 app.</strong> Every registry item targets React 19 (Pouf's own <code>react</code>/<code>react-dom</code> are pinned to <code>^19</code>) — Vite, Next, Astro with the React integration, whatever you already run.</li>
+          <li><strong>A React 18 or 19 app.</strong> Every published registry file is compatibility-tested with React 18.3.1, while Pouf's development, gallery, and documentation apps run on React 19. Vite, Next, Astro with the React integration — use whatever you already run. React 17 and older are not supported because the animation-enabled components use Framer Motion 11, whose supported range starts at React 18.</li>
           <li><strong>Tailwind CSS v4.</strong> Pouf's stylesheet is CSS-first — no <code>tailwind.config.js</code>, just <code>@theme</code> and <code>@import</code> in a <code>.css</code> file. You still need Tailwind's v4 build plugin wired into your bundler: <code>@tailwindcss/vite</code> for a Vite-based app (that's what {SITE_HOST} itself runs — an Astro site on Vite), or <code>@tailwindcss/postcss</code> for a plain PostCSS pipeline.</li>
           <li><strong>The shadcn CLI, initialized.</strong> Run <code>init</code> once to create a <code>components.json</code>. Pouf doesn't need special aliases: every file in the registry declares an explicit target path (<code>components/pouf/…</code>), so it lands in the same place no matter how your aliases are configured.</li>
         </ul>
@@ -403,20 +438,284 @@ export function ProfileForm() {
 </Site>
 
 <style>
+  .docs-hero {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(250px, 0.7fr);
+    gap: clamp(28px, 5vw, 64px);
+    align-items: end;
+    margin: 8px 0 42px;
+    padding: clamp(28px, 5vw, 58px);
+    overflow: hidden;
+    border-radius: 36px;
+    background:
+      radial-gradient(circle at 92% 12%, color-mix(in srgb, var(--pink) 72%, transparent) 0 76px, transparent 77px),
+      radial-gradient(circle at 76% 115%, color-mix(in srgb, var(--mint) 72%, transparent) 0 110px, transparent 111px),
+      color-mix(in srgb, var(--surface) 90%, transparent);
+    box-shadow: var(--pouf-card);
+  }
+  .docs-hero::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    width: 150px;
+    height: 150px;
+    top: -78px;
+    right: 25%;
+    border-radius: 44% 56% 58% 42%;
+    background: var(--yellow);
+    box-shadow: var(--pouf-blob);
+    transform: rotate(18deg);
+  }
+  .docs-hero__copy {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    min-width: 0;
+  }
+  .docs-hero h1 {
+    max-width: 720px;
+    margin: 0;
+    font-size: clamp(46px, 7vw, 82px);
+    text-wrap: balance;
+  }
+  .docs-hero__lead,
+  .docs-hero__detail {
+    max-width: 740px;
+    margin: 0;
+    color: var(--muted);
+    font-weight: 750;
+    text-wrap: pretty;
+  }
+  .docs-hero__lead {
+    font-size: clamp(17px, 2vw, 20px);
+    line-height: 1.55;
+  }
+  .docs-hero__detail {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .docs-hero__path {
+    display: grid;
+    gap: 12px;
+    align-self: stretch;
+  }
+  .docs-hero__path a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 62px;
+    padding: 10px 16px calc(10px + var(--lip));
+    border-radius: 20px;
+    color: var(--on-accent);
+    background: var(--step-tone);
+    box-shadow: var(--pouf-control);
+    text-decoration: none;
+    transition: transform 150ms ease, box-shadow 150ms ease;
+  }
+  .docs-hero__path a:hover {
+    transform: translateY(-2px) rotate(-0.5deg);
+    box-shadow: var(--pouf-control-hover);
+  }
+  .docs-hero__path a:focus-visible {
+    outline: 3px solid var(--ink);
+    outline-offset: 3px;
+  }
+  .docs-hero__path span {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    flex: 0 0 auto;
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--surface) 68%, transparent);
+    font-size: 12px;
+    font-weight: 950;
+    font-variant-numeric: tabular-nums;
+  }
+  .docs-hero__path strong {
+    font-size: 16px;
+    font-weight: 900;
+  }
+  .docs-content {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+    min-width: 0;
+  }
+  .docs-sidebar > p {
+    margin: 2px 10px 10px;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 950;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .docs-sidebar nav {
+    display: grid;
+    gap: 5px;
+  }
   .docs-toc-link {
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 42px;
     font-weight: 800;
     font-size: 14px;
     color: var(--ink);
     text-decoration: none;
-    padding: 6px 12px;
-    border-radius: 12px;
-    transition: background 140ms ease;
+    padding: 6px 10px;
+    border-radius: 14px;
+    transition: background-color 140ms ease, transform 140ms ease;
+  }
+  .docs-toc-link span {
+    display: grid;
+    place-items: center;
+    width: 26px;
+    height: 26px;
+    flex: 0 0 auto;
+    border-radius: 9px;
+    color: var(--on-accent);
+    font-size: 11px;
+    font-weight: 950;
+    font-variant-numeric: tabular-nums;
   }
   .docs-toc-link:hover {
-    background: rgba(201, 168, 255, 0.25);
+    background: color-mix(in srgb, var(--purple) 24%, transparent);
+    transform: translateX(2px);
+  }
+  .docs-toc-link:focus-visible {
+    outline: 3px solid var(--purple);
+    outline-offset: 2px;
+  }
+  .docs-toc-link[aria-current='location'] {
+    background: color-mix(in srgb, var(--purple) 32%, var(--surface));
   }
   .docs-section {
-    scroll-margin-top: 92px;
+    position: relative;
+    scroll-margin-top: 102px;
+    padding: clamp(22px, 4vw, 36px);
+    border-radius: 30px;
+    background: color-mix(in srgb, var(--surface) 91%, transparent);
+    box-shadow: var(--pouf-card);
+  }
+  .docs-section:target {
+    outline: 4px solid color-mix(in srgb, var(--purple) 72%, transparent);
+    outline-offset: 5px;
+  }
+  .docs-section > h2:first-child {
+    margin-top: 0 !important;
+    font-family: var(--display);
+    font-size: clamp(25px, 3vw, 32px) !important;
+    line-height: 1.05;
+    text-wrap: balance;
+  }
+  .docs-section > h3 {
+    line-height: 1.3;
+    text-wrap: balance;
+  }
+  .docs-section p,
+  .docs-section li {
+    line-height: 1.65;
+    text-wrap: pretty;
+  }
+  .docs-content > hr {
+    display: none;
+  }
+  .docs-content > p:last-child {
+    margin: 0 !important;
+    padding: 22px 26px calc(22px + var(--lip));
+    border-radius: 22px;
+    background: var(--mint);
+    color: var(--on-accent);
+    box-shadow: var(--pouf-control);
+  }
+  .docs-content > p:last-child a {
+    color: inherit !important;
+  }
+  .docs-mobile-toc {
+    display: none;
+    margin: 0 0 24px;
+    border-radius: 22px;
+    background: color-mix(in srgb, var(--surface) 92%, transparent);
+    box-shadow: var(--pouf-control);
+  }
+  .docs-mobile-toc summary {
+    min-height: 52px;
+    padding: 14px 18px calc(14px + var(--lip));
+    cursor: pointer;
+    font-weight: 900;
+  }
+  .docs-mobile-toc nav {
+    display: grid;
+    gap: 4px;
+    padding: 0 10px calc(12px + var(--lip));
+  }
+  @media (max-width: 900px) {
+    .docs-hero {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .docs-hero__path {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .docs-hero__path a {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+    .docs-mobile-toc {
+      display: block;
+    }
+  }
+  @media (max-width: 620px) {
+    .docs-hero {
+      margin-bottom: 28px;
+      padding: 26px 20px 30px;
+      border-radius: 28px;
+    }
+    .docs-hero__path {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .docs-hero__path a {
+      align-items: center;
+      flex-direction: row;
+    }
+    .docs-section {
+      margin-inline: -4px;
+      padding: 24px 18px 28px;
+      border-radius: 24px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .docs-hero__path a,
+    .docs-toc-link {
+      transition: none;
+    }
+    .docs-hero__path a:hover,
+    .docs-toc-link:hover {
+      transform: none;
+    }
   }
 </style>
+
+<script>
+  const links = [...document.querySelectorAll('.docs-toc-link')]
+  const sections = [...document.querySelectorAll('.docs-section')]
+  if ('IntersectionObserver' in window && links.length > 0 && sections.length > 0) {
+    const linksForHash = (hash) => links.filter((link) => link.getAttribute('href') === hash)
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0]
+        if (!visible) return
+        for (const link of links) link.removeAttribute('aria-current')
+        for (const link of linksForHash(`#${visible.target.id}`)) {
+          link.setAttribute('aria-current', 'location')
+        }
+      },
+      { rootMargin: '-18% 0px -68% 0px', threshold: 0 },
+    )
+    for (const section of sections) observer.observe(section)
+  }
+</script>

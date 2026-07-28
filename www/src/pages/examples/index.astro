@@ -1,7 +1,7 @@
 ---
 import Site from '../../layouts/Site.astro'
 import { IconBlob } from '../../components/IconBlob'
-import { TEMPLATES, BLOCKS } from '../../data/blocks'
+import { TEMPLATES, TEMPLATE_CATEGORIES, BLOCKS } from '../../data/blocks'
 ---
 
 <Site title="Templates" description="Complete screens — app shell, navigation, and content — composed from Pouf primitives." wide>
@@ -19,11 +19,45 @@ import { TEMPLATES, BLOCKS } from '../../data/blocks'
     </p>
   </section>
 
-  <div style="display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:22px;" class="ex-grid">
+  <section class="example-controls cushion" aria-label="Template filters">
+    <div class="example-search-wrap">
+      <label for="example-search">Find a Template</label>
+      <input
+        id="example-search"
+        name="template-search"
+        type="search"
+        placeholder="Search by workflow or feature…"
+        autocomplete="off"
+        aria-describedby="example-results"
+      />
+    </div>
+    <div class="example-filters" role="group" aria-label="Filter templates by category">
+      <button type="button" class="example-filter" data-category="all" aria-pressed="true">All</button>
+      {TEMPLATE_CATEGORIES.map((category) => (
+        <button type="button" class="example-filter" data-category={category} aria-pressed="false">
+          {category}
+        </button>
+      ))}
+    </div>
+    <p id="example-results" class="example-results" aria-live="polite">
+      Showing all {TEMPLATES.length} templates
+    </p>
+  </section>
+
+  <div style="display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:22px;" class="ex-grid" data-example-grid>
     {TEMPLATES.map((b, i) => (
-      <a href={`/examples/${b.slug}`} style="text-decoration:none; color:var(--on-accent);">
-        <div class="ex-card" style={`background:var(--${b.tone}); border-radius:28px; padding:26px; box-shadow: var(--pouf-control); display:flex; flex-direction:column; gap:14px; height:100%; transform:rotate(${i % 2 === 0 ? '-0.6' : '0.6'}deg);`}>
-          <IconBlob client:visible icon={b.icon as any} tone="purple" size="md" />
+      <a
+        href={`/examples/${b.slug}`}
+        class="example-link"
+        data-example-card
+        data-example-category={b.category}
+        data-example-text={`${b.title} ${b.blurb} ${b.category}`.toLowerCase()}
+      >
+        <div class="ex-card" style={`--card-rotation:${i % 2 === 0 ? '-0.6deg' : '0.6deg'}; background:var(--${b.tone});`}>
+          <div class="example-card-top">
+            <IconBlob icon={b.icon as any} tone="purple" size="md" />
+            <span class="example-category">{b.category}</span>
+          </div>
           <h2 class="display" style="font-size:28px; margin:6px 0 0;">{b.title}</h2>
           <p style="margin:0; color:var(--on-accent); opacity:0.72; font-weight:800; font-size:15px;">{b.blurb}</p>
           <span style="margin-top:auto; padding-top:8px; font-weight:900; color:var(--on-accent);">Open template →</span>
@@ -32,10 +66,208 @@ import { TEMPLATES, BLOCKS } from '../../data/blocks'
     ))}
   </div>
 
+  <div class="example-empty cushion" data-example-empty hidden>
+    <IconBlob icon="search" tone="purple" size="md" />
+    <h2 class="display">No Templates Match</h2>
+    <p>Try a broader search or choose another category.</p>
+    <button type="button" class="example-reset">Show All Templates</button>
+  </div>
+
   <style>
-    .ex-card { transition: transform 160ms ease; }
-    .ex-card:hover { transform: rotate(0deg) translateY(-4px) !important; }
+    .example-controls {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      padding: 24px;
+      margin-bottom: 28px;
+    }
+    .example-search-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .example-search-wrap label {
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .example-search-wrap input {
+      width: 100%;
+      min-height: 52px;
+      border: 0;
+      border-radius: 18px;
+      padding: 12px 18px 16px;
+      background: var(--bg);
+      color: var(--ink);
+      box-shadow: var(--pouf-field);
+      font: 800 16px/1.3 var(--font-pouf);
+    }
+    .example-search-wrap input::placeholder { color: var(--muted); }
+    .example-search-wrap input:focus-visible {
+      outline: 3px solid var(--purple);
+      outline-offset: 3px;
+    }
+    .example-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .example-filter,
+    .example-reset {
+      min-height: 40px;
+      border: 0;
+      border-radius: 14px;
+      padding: 9px 16px;
+      background: var(--surface);
+      color: var(--ink);
+      box-shadow: var(--pouf-control);
+      cursor: pointer;
+      font: 900 13px/1 var(--font-pouf);
+      touch-action: manipulation;
+      transition: transform 140ms ease, box-shadow 140ms ease, background 140ms ease;
+    }
+    .example-filter:hover,
+    .example-reset:hover { transform: translateY(-1px); background: var(--bg); }
+    .example-filter[aria-pressed='true'] {
+      background: var(--purple);
+      color: var(--on-accent);
+      box-shadow: var(--pouf-control-active);
+      transform: translateY(2px);
+    }
+    .example-filter:focus-visible,
+    .example-reset:focus-visible {
+      outline: 3px solid var(--ink);
+      outline-offset: 3px;
+    }
+    .example-results {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 800;
+    }
+    .example-link {
+      min-width: 0;
+      color: var(--on-accent);
+      text-decoration: none;
+      border-radius: 28px;
+    }
+    .example-link:focus-visible {
+      outline: 4px solid var(--ink);
+      outline-offset: 5px;
+    }
+    .ex-card {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      padding: 26px;
+      border-radius: 28px;
+      box-shadow: var(--pouf-control);
+      transform: rotate(var(--card-rotation));
+      transition: transform 160ms ease;
+    }
+    .example-link:hover .ex-card { transform: rotate(0deg) translateY(-4px); }
+    .example-card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .example-category {
+      max-width: 18ch;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--surface);
+      color: var(--ink);
+      font-size: 11px;
+      font-weight: 900;
+      line-height: 1.2;
+      text-align: right;
+    }
+    .example-empty {
+      align-items: center;
+      flex-direction: column;
+      gap: 12px;
+      padding: 42px 24px;
+      text-align: center;
+    }
+    .example-empty:not([hidden]) { display: flex; }
+    .example-empty h2,
+    .example-empty p { margin: 0; }
+    .example-empty p { color: var(--muted); font-weight: 800; }
     @media (max-width: 980px) { .ex-grid { grid-template-columns: repeat(2, minmax(0,1fr)) !important; } }
     @media (max-width: 620px) { .ex-grid { grid-template-columns: minmax(0,1fr) !important; } }
+    @media (prefers-reduced-motion: reduce) {
+      .example-filter,
+      .example-reset,
+      .ex-card { transition-duration: 0.01ms; }
+      .ex-card,
+      .example-link:hover .ex-card { transform: none; }
+    }
   </style>
+
+  <script>
+    const search = document.querySelector<HTMLInputElement>('#example-search')
+    const cards = [...document.querySelectorAll<HTMLElement>('[data-example-card]')]
+    const filters = [...document.querySelectorAll<HTMLButtonElement>('[data-category]')]
+    const results = document.querySelector<HTMLElement>('#example-results')
+    const empty = document.querySelector<HTMLElement>('[data-example-empty]')
+    const reset = document.querySelector<HTMLButtonElement>('.example-reset')
+    let category = 'all'
+
+    const applyFilters = () => {
+      const query = search?.value.trim().toLowerCase() ?? ''
+      let count = 0
+      for (const card of cards) {
+        const categoryMatch = category === 'all' || card.dataset.exampleCategory === category
+        const queryMatch = !query || card.dataset.exampleText?.includes(query)
+        const visible = Boolean(categoryMatch && queryMatch)
+        card.hidden = !visible
+        if (visible) count += 1
+      }
+
+      if (results) {
+        results.textContent =
+          count === cards.length && !query && category === 'all'
+            ? `Showing all ${count} templates`
+            : `Showing ${count} ${count === 1 ? 'template' : 'templates'}`
+      }
+      if (empty) empty.hidden = count !== 0
+
+      const params = new URLSearchParams()
+      if (query) params.set('q', query)
+      if (category !== 'all') params.set('category', category)
+      const next = params.size ? `${location.pathname}?${params}` : location.pathname
+      history.replaceState(null, '', next)
+    }
+
+    const chooseCategory = (next: string) => {
+      category = next
+      for (const filter of filters) {
+        filter.setAttribute('aria-pressed', String(filter.dataset.category === category))
+      }
+      applyFilters()
+    }
+
+    const initial = new URLSearchParams(location.search)
+    const initialQuery = initial.get('q') ?? ''
+    const initialCategory = initial.get('category') ?? 'all'
+    if (search) search.value = initialQuery
+    if (filters.some((filter) => filter.dataset.category === initialCategory)) {
+      category = initialCategory
+    }
+
+    search?.addEventListener('input', applyFilters)
+    for (const filter of filters) {
+      filter.addEventListener('click', () => chooseCategory(filter.dataset.category ?? 'all'))
+    }
+    reset?.addEventListener('click', () => {
+      if (search) search.value = ''
+      chooseCategory('all')
+      search?.focus()
+    })
+    chooseCategory(category)
+  </script>
 </Site>

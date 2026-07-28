@@ -6,10 +6,14 @@
  * Run from inside gallery/ (playwright resolves from the script's directory):
  *   SHOOT_OUT=/some/dir node scripts/audit-responsive.mjs
  */
+import fs from 'node:fs'
 import { chromium } from 'playwright'
 
 const OUT = process.env.SHOOT_OUT ?? new URL('../../.shots', import.meta.url).pathname
 const BASE = process.env.BASE ?? 'http://localhost:4821'
+const blockData = fs.readFileSync(new URL('../../www/src/data/blocks.ts', import.meta.url), 'utf8')
+const [templateSource, blockSource = ''] = blockData.split('/** Sections: drop one')
+const slugs = (source) => [...source.matchAll(/slug:\s*'([^']+)'/g)].map((match) => match[1])
 
 const PAGES = [
   ['home', '/'],
@@ -19,13 +23,8 @@ const PAGES = [
   ['templates', '/examples/'],
   ['theme', '/theme/'],
   ['changelog', '/changelog/'],
-  ['tpl-dashboard', '/examples/dashboard/'],
-  ['tpl-inbox', '/examples/inbox/'],
-  ['tpl-landing', '/examples/landing/'],
-  ['tpl-storefront', '/examples/storefront/'],
-  ['tpl-support', '/examples/support/'],
-  ['blk-login', '/blocks/login/'],
-  ['blk-music', '/blocks/music/'],
+  ...slugs(templateSource).map((slug) => [`tpl-${slug}`, `/examples/${slug}/`]),
+  ...slugs(blockSource).map((slug) => [`blk-${slug}`, `/blocks/${slug}/`]),
 ]
 
 const VIEWPORTS = [

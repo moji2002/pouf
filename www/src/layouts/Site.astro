@@ -32,6 +32,11 @@ const pageTitle = title === 'Pouf' ? 'Pouf — puffy, maximalist UI for React' :
 // serves (e.g. /components/), so this is the one true canonical for the page —
 // no hand-rolled trailing-slash logic to drift from how the site is actually built.
 const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? SITE_ORIGIN)
+const currentPath = Astro.url.pathname.replace(/\/+$/, '') || '/'
+const isCurrent = (href: string) => {
+  const path = href.replace(/\/+$/, '') || '/'
+  return path === '/' ? currentPath === '/' : currentPath === path || currentPath.startsWith(`${path}/`)
+}
 const ogImageURL = new URL('/og-image.png', Astro.site ?? SITE_ORIGIN)
 // WebSite is true of every page; it's the site-wide identity, not a per-page claim.
 const websiteSchema = {
@@ -130,12 +135,12 @@ const schemaNodes = [websiteSchema, ...(schema ? (Array.isArray(schema) ? schema
               live on a block container with real line boxes, and .site-link is a
               flex container — its bare text would become an anonymous flex item,
               which the trim never reaches. See .site-link__label in site.css. */}
-          <a class="site-link" href="/docs/"><span class="site-link__label">Docs</span></a>
-          <a class="site-link" href="/components"><span class="site-link__label">Components</span></a>
-          <a class="site-link" href="/blocks"><span class="site-link__label">Blocks</span></a>
-          <a class="site-link" href="/examples"><span class="site-link__label">Templates</span></a>
-          <a class="site-link" href="/theme"><span class="site-link__label">Theme</span></a>
-          <a class="site-link" href="/changelog"><span class="site-link__label">Changelog</span></a>
+          <a class="site-link" href="/docs/" aria-current={isCurrent('/docs') ? 'page' : undefined}><span class="site-link__label">Docs</span></a>
+          <a class="site-link" href="/components" aria-current={isCurrent('/components') ? 'page' : undefined}><span class="site-link__label">Components</span></a>
+          <a class="site-link" href="/blocks" aria-current={isCurrent('/blocks') ? 'page' : undefined}><span class="site-link__label">Blocks</span></a>
+          <a class="site-link" href="/examples" aria-current={isCurrent('/examples') ? 'page' : undefined}><span class="site-link__label">Templates</span></a>
+          <a class="site-link" href="/theme" aria-current={isCurrent('/theme') ? 'page' : undefined}><span class="site-link__label">Theme</span></a>
+          <a class="site-link" href="/changelog" aria-current={isCurrent('/changelog') ? 'page' : undefined}><span class="site-link__label">Changelog</span></a>
           <CommandPalette client:load />
           <button
             id="theme-toggle"
@@ -152,12 +157,12 @@ const schemaNodes = [websiteSchema, ...(schema ? (Array.isArray(schema) ? schema
               <span class="site-link__label">Menu</span>
             </summary>
             <div class="site-mobile-menu__panel">
-              <a href="/docs/">Docs</a>
-              <a href="/components">Components</a>
-              <a href="/blocks">Blocks</a>
-              <a href="/examples">Templates</a>
-              <a href="/theme">Theme</a>
-              <a href="/changelog">Changelog</a>
+              <a href="/docs/" aria-current={isCurrent('/docs') ? 'page' : undefined}>Docs</a>
+              <a href="/components" aria-current={isCurrent('/components') ? 'page' : undefined}>Components</a>
+              <a href="/blocks" aria-current={isCurrent('/blocks') ? 'page' : undefined}>Blocks</a>
+              <a href="/examples" aria-current={isCurrent('/examples') ? 'page' : undefined}>Templates</a>
+              <a href="/theme" aria-current={isCurrent('/theme') ? 'page' : undefined}>Theme</a>
+              <a href="/changelog" aria-current={isCurrent('/changelog') ? 'page' : undefined}>Changelog</a>
               <a href="https://github.com/moji2002/pouf" target="_blank" rel="noopener noreferrer">GitHub</a>
             </div>
           </details>
@@ -506,6 +511,9 @@ const schemaNodes = [websiteSchema, ...(schema ? (Array.isArray(schema) ? schema
     color: var(--muted);
     font-weight: 700;
   }
+  .cmdk-header:focus-within {
+    box-shadow: inset 0 -3px 0 var(--purple);
+  }
   .cmdk-close {
     flex: none;
     display: grid;
@@ -522,6 +530,10 @@ const schemaNodes = [websiteSchema, ...(schema ? (Array.isArray(schema) ? schema
   .cmdk-close:hover {
     background: var(--bg);
     color: var(--ink);
+  }
+  .cmdk-close:focus-visible {
+    outline: 3px solid var(--purple);
+    outline-offset: 2px;
   }
 
   .cmdk-list {

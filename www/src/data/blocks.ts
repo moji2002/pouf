@@ -19,23 +19,35 @@ export interface BlockDoc {
   /** A Pouf tone for the gallery card, and an Icon role for its blob. */
   tone: 'purple' | 'pink' | 'blue' | 'mint' | 'yellow' | 'orange'
   icon: string
-  /** Grouping on the /blocks index. Templates are not grouped. */
+  /** Gallery grouping on the /blocks or /examples index. */
   category?: string
 }
 
 /** Full screens: chrome included. */
 export const TEMPLATES: BlockDoc[] = [
-  { slug: 'dashboard', title: 'Dashboard', blurb: 'Sidebar nav, a KPI row, a filterable revenue chart, and a sortable orders table.', tone: 'purple', icon: 'overview' },
-  { slug: 'inbox', title: 'Inbox', blurb: 'App shell, a searchable mail list, and a reading pane with reply.', tone: 'blue', icon: 'mail' },
-  { slug: 'kanban', title: 'Kanban board', blurb: 'App shell and columns you can actually move cards between.', tone: 'mint', icon: 'log' },
-  { slug: 'settings', title: 'Settings', blurb: 'App shell, tabbed sections, and a save bar that tracks dirty state.', tone: 'orange', icon: 'settings' },
-  { slug: 'chat', title: 'Chat', blurb: 'App shell, a conversation list, message bubbles, and a working composer.', tone: 'pink', icon: 'comment' },
-  { slug: 'landing', title: 'Landing page', blurb: 'Navbar, hero, features, pricing, CTA, and footer — a marketing page end to end.', tone: 'yellow', icon: 'sparkle' },
-  { slug: 'storefront', title: 'Storefront', blurb: 'A complete shop with filters, product discovery, a working bag, totals, and footer.', tone: 'mint', icon: 'cart' },
-  { slug: 'support', title: 'Support desk', blurb: 'App shell, searchable ticket queue, customer context, replies, and status updates.', tone: 'purple', icon: 'comment' },
-  { slug: 'crm', title: 'Customer CRM', blurb: 'Responsive customer workspace with search, lifecycle stages, account details, and notes.', tone: 'blue', icon: 'users' },
-  { slug: 'booking', title: 'Booking flow', blurb: 'A complete service-booking route with site chrome, scheduling, details, review, and confirmation.', tone: 'pink', icon: 'calendar' },
+  { slug: 'dashboard', title: 'Dashboard', blurb: 'Sidebar nav, a KPI row, a filterable revenue chart, and a sortable orders table.', tone: 'purple', icon: 'overview', category: 'Business' },
+  { slug: 'crm', title: 'Customer CRM', blurb: 'Responsive customer workspace with search, lifecycle stages, account details, and notes.', tone: 'blue', icon: 'users', category: 'Business' },
+  { slug: 'settings', title: 'Settings', blurb: 'App shell, tabbed sections, and a save bar that tracks dirty state.', tone: 'orange', icon: 'settings', category: 'Business' },
+  { slug: 'inventory', title: 'Inventory', blurb: 'Searchable stock, status filters, sortable records, item detail, and receiving actions.', tone: 'blue', icon: 'database', category: 'Business' },
+  { slug: 'inbox', title: 'Inbox', blurb: 'App shell, a searchable mail list, and a reading pane with reply.', tone: 'blue', icon: 'mail', category: 'Communication' },
+  { slug: 'chat', title: 'Chat', blurb: 'App shell, a conversation list, message bubbles, and a working composer.', tone: 'pink', icon: 'comment', category: 'Communication' },
+  { slug: 'support', title: 'Support desk', blurb: 'App shell, searchable ticket queue, customer context, replies, and status updates.', tone: 'purple', icon: 'comment', category: 'Communication' },
+  { slug: 'kanban', title: 'Kanban board', blurb: 'App shell and columns you can actually move cards between.', tone: 'mint', icon: 'log', category: 'Productivity' },
+  { slug: 'editorial', title: 'Editorial desk', blurb: 'A publishing queue that moves stories from draft through scheduling to launch.', tone: 'orange', icon: 'draft', category: 'Productivity' },
+  { slug: 'landing', title: 'Landing page', blurb: 'Navbar, hero, features, pricing, CTA, and footer — a marketing page end to end.', tone: 'yellow', icon: 'sparkle', category: 'Marketing & commerce' },
+  { slug: 'storefront', title: 'Storefront', blurb: 'A complete shop with filters, product discovery, a working bag, totals, and footer.', tone: 'mint', icon: 'cart', category: 'Marketing & commerce' },
+  { slug: 'booking', title: 'Booking flow', blurb: 'A complete service-booking route with site chrome, scheduling, details, review, and confirmation.', tone: 'pink', icon: 'calendar', category: 'Marketing & commerce' },
+  { slug: 'course', title: 'Course dashboard', blurb: 'A learning workspace with a lesson outline, completion controls, and live progress.', tone: 'yellow', icon: 'wand', category: 'Learning & events' },
+  { slug: 'event', title: 'Event check-in', blurb: 'A front-desk view with attendee search, filters, arrival totals, and working check-in.', tone: 'pink', icon: 'calendar', category: 'Learning & events' },
 ]
+
+export const TEMPLATE_CATEGORIES = [
+  'Business',
+  'Communication',
+  'Productivity',
+  'Marketing & commerce',
+  'Learning & events',
+] as const
 
 /** Sections: drop one into a page you already have. */
 export const BLOCKS: BlockDoc[] = [

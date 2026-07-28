@@ -28,6 +28,22 @@ export const GET: APIRoute = ({ site }) => {
       'Tailwind v4 and a single stylesheet of CSS custom properties.',
   )
   lines.push('')
+
+  lines.push('## Requirements')
+  lines.push('')
+  lines.push(
+    '- React 18 or 19. Every published registry file is type-checked with React ' +
+      '18.3.1, including a server-render smoke test for core and Framer Motion ' +
+      'components. Pouf itself is developed and tested on React 19.',
+  )
+  lines.push(
+    '- React 17 and older are not supported. Animation-enabled components use ' +
+      'Framer Motion 11, whose supported range starts at React 18.',
+  )
+  lines.push('- Tailwind CSS v4 with its Vite or PostCSS integration.')
+  lines.push('- A shadcn CLI project initialized with `components.json`.')
+  lines.push('')
+
   lines.push('## Install')
   lines.push('')
   lines.push('Every component, block and template installs the same way:')

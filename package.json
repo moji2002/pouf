@@ -9,12 +9,14 @@
   "scripts": {
     "typecheck": "bunx tsc --noEmit -p registry && bunx tsc --noEmit -p gallery",
     "test": "bun test",
+    "test:react18": "bun scripts/test-react18-compat.ts",
     "gallery": "bun --cwd gallery dev",
     "gate": "bun gallery/harness/gate.ts",
     "gate:golden": "bun gallery/harness/gate.ts --write-golden",
     "check:deps": "bun scripts/check-block-deps.ts",
     "props": "bun scripts/extract-props.ts",
     "audit:responsive": "cd gallery && node scripts/audit-responsive.mjs",
+    "audit:links": "cd gallery && node scripts/audit-links.mjs",
     "review:ui": "cd gallery && node scripts/review-ui.mjs",
     "review:components": "cd gallery && node scripts/review-components.mjs",
     "verify:expansion": "cd gallery && node scripts/verify-expansion.mjs"

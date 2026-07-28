@@ -1,0 +1,31 @@
+---
+import demoRoutes from '../data/demo-routes.json'
+
+export function getStaticPaths() {
+  return Object.entries(demoRoutes).map(([demo, destination]) => ({
+    params: { demo },
+    props: { destination },
+  }))
+}
+
+const { destination } = Astro.props
+const canonicalURL = new URL(destination, Astro.site ?? Astro.url)
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Opening the Pouf example…</title>
+    <meta name="robots" content="noindex" />
+    <meta http-equiv="refresh" content={`0;url=${destination}`} />
+    <link rel="canonical" href={canonicalURL} />
+    <script is:inline define:vars={{ destination }}>
+      window.location.replace(destination)
+    </script>
+  </head>
+  <body>
+    <p>Opening the matching Pouf example… <a href={destination}>Continue</a></p>
+  </body>
+</html>

@@ -62,7 +62,15 @@ const rowCard = cva(
       selected: {
         /* The same words navlink--active speaks for "the active one of a set":
          * a tone fill on the whole cushion. Ink on --purple is 6.10:1. */
-        true: 'bg-purple text-[var(--on-accent)] cushion-control',
+        true: [
+          'bg-purple text-[var(--on-accent)] cushion-control',
+          /* Headings and muted Text own explicit dark-mode colours, so normal
+           * inheritance cannot make them readable on the selected pastel.
+           * Selection owns the whole cushion and therefore its complete text
+           * palette, not only the outer button's currentColor. */
+          '[&_.pouf-h1]:text-[var(--on-accent)] [&_.pouf-h2]:text-[var(--on-accent)]',
+          '[&_.pouf-h3]:text-[var(--on-accent)] [&_.pouf-text]:text-[var(--on-accent)]',
+        ].join(' '),
         false: 'bg-surface cushion-row',
       },
     },

@@ -48,7 +48,11 @@ try {
         <span style="width:12px; height:12px; border-radius:999px; background:var(--mint); display:inline-block;"></span>
         <span style="margin-left:12px; flex:1; max-width:340px; background:var(--bg); border-radius:999px; padding:6px 16px; font-size:13px; font-weight:800; color:var(--muted); font-family:ui-monospace, Menlo, monospace;">app.example.com/{block.slug}</span>
       </div>
-      <div style="background:var(--bg); padding:24px 0; max-height:82vh; overflow:auto;">
+      <!-- A transform establishes this simulated viewport as the containing
+           block for fixed app chrome. Without it, a template's mobile
+           BottomNav attaches to the real browser and escapes over the docs
+           footer after the preview scrolls out of view. -->
+      <div class="template-viewport" data-demo-root style="background:var(--bg); padding:24px 0; max-height:82vh; overflow:auto;">
         <BlockPreview client:visible slug={block.slug} />
       </div>
     </div>
@@ -60,4 +64,12 @@ try {
       </details>
     )}
   </article>
+
+  <style>
+    .template-viewport {
+      position: relative;
+      transform: translateZ(0);
+      isolation: isolate;
+    }
+  </style>
 </Site>

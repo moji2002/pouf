@@ -243,6 +243,7 @@
     transform: translateY(-1px);
   }
   .site-link[aria-current='page'] {
+    color: var(--on-accent);
     background: var(--purple);
     box-shadow: var(--pouf-control);
   }
@@ -313,6 +314,10 @@
     .site-mobile-menu__panel a:focus-visible {
       background: rgba(201, 168, 255, 0.25);
     }
+    .site-mobile-menu__panel a[aria-current='page'] {
+      color: var(--on-accent);
+      background: var(--purple);
+    }
   }
 
   .docs-grid {
@@ -320,6 +325,37 @@
     grid-template-columns: 250px minmax(0, 1fr);
     gap: 44px;
     align-items: start;
+  }
+
+  /* Example templates contain real application links so their installed source
+   * is router-ready. On the docs site those routes are intentionally contained
+   * by BlockPreview; this small status cushion explains why the URL did not
+   * change without obscuring the demo. */
+  .block-preview-boundary {
+    min-width: 0;
+  }
+  .block-preview-notice {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 35;
+    width: min(320px, calc(100vw - 36px));
+    display: grid;
+    gap: 2px;
+    padding: 12px 16px calc(12px + var(--lip));
+    border-radius: 18px;
+    color: var(--on-accent);
+    background: var(--yellow);
+    box-shadow: var(--pouf-control);
+    pointer-events: none;
+  }
+  .block-preview-notice strong {
+    overflow-wrap: anywhere;
+    text-transform: capitalize;
+  }
+  .block-preview-notice span {
+    font-size: 13px;
+    font-weight: 800;
   }
   .docs-sidebar {
     position: sticky;

@@ -12,10 +12,25 @@ async function open(path, width = 1280, height = 1000) {
   const page = await browser.newPage({ viewport: { width, height } })
   await page.goto(BASE + path, { waitUntil: 'networkidle' })
   const preview = page.locator('article .cushion').first()
-  await preview.scrollIntoViewIfNeeded()
-  await page.waitForTimeout(500)
+  if (await preview.count()) {
+    await preview.scrollIntoViewIfNeeded()
+    await page.waitForTimeout(500)
+  }
   await page.evaluate(() => document.querySelector('article > details')?.remove())
   return page
+}
+
+{
+  const page = await open('/examples/')
+  record('gallery: exposes all 14 templates', (await page.locator('[data-example-card]').count()) === 14)
+  await page.getByRole('searchbox', { name: 'Find a Template' }).fill('inventory')
+  record('gallery: search narrows templates', (await page.locator('[data-example-card]:visible').count()) === 1)
+  record('gallery: search state is linkable', new URL(page.url()).searchParams.get('q') === 'inventory')
+  await page.getByRole('searchbox', { name: 'Find a Template' }).fill('')
+  await page.getByRole('button', { name: 'Learning & events' }).click()
+  record('gallery: category filters templates', (await page.locator('[data-example-card]:visible').count()) === 2)
+  record('gallery: category state is linkable', new URL(page.url()).searchParams.get('category') === 'Learning & events')
+  await page.close()
 }
 
 {
@@ -66,6 +81,43 @@ async function open(path, width = 1280, height = 1000) {
   await page.getByRole('button', { name: 'Review booking' }).click()
   await page.getByRole('button', { name: 'Confirm booking' }).click()
   record('booking: complete flow reaches confirmation', await page.getByText('You’re booked', { exact: true }).isVisible())
+  await page.close()
+}
+
+{
+  const page = await open('/examples/inventory/')
+  await page.getByLabel('Search Inventory').fill('soft clock')
+  record('inventory: search narrows stock', (await page.locator('.pouf-table tbody tr').count()) === 1)
+  await page.getByRole('button', { name: 'Open Soft clock' }).click()
+  record('inventory: out-of-stock detail is explicit', await page.locator('.pouf-badge').getByText('Out of stock', { exact: true }).isVisible())
+  await page.getByRole('button', { name: 'Receive 12 Units' }).click()
+  record('inventory: receiving updates stock state', await page.getByText('In stock', { exact: true }).isVisible())
+  await page.close()
+}
+
+{
+  const page = await open('/examples/editorial/')
+  await page.getByRole('button', { name: 'Schedule Story' }).click()
+  record('editorial: draft moves to scheduled', await page.getByRole('button', { name: 'Publish Story' }).isVisible())
+  await page.getByRole('button', { name: 'Publish Story' }).click()
+  record('editorial: scheduled story publishes', await page.getByRole('button', { name: 'Return to Drafts' }).isVisible())
+  await page.close()
+}
+
+{
+  const page = await open('/examples/course/')
+  record('course: starts with meaningful progress', await page.getByText('25% complete', { exact: true }).isVisible())
+  await page.getByRole('button', { name: 'Mark Complete' }).click()
+  record('course: completing a lesson updates progress', await page.getByText('50% complete', { exact: true }).isVisible())
+  await page.close()
+}
+
+{
+  const page = await open('/examples/event/')
+  await page.getByLabel('Find an Attendee').fill('Noah')
+  record('event: attendee search narrows the list', (await page.getByRole('button', { name: 'Check In' }).count()) === 1)
+  await page.getByRole('button', { name: 'Check In' }).click()
+  record('event: check-in updates the attendee action', await page.getByRole('button', { name: 'Undo Check-in' }).isVisible())
   await page.close()
 }
 
