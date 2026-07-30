@@ -8,7 +8,7 @@ import { Stack, Row } from '../../../registry/pouf/layout'
 import { Heading, Text } from '../../../registry/pouf/text'
 import { useState } from 'react'
 
-/** A live collage of real Pouf components — the landing's proof that the site
+/** A live collage of real 1st-Pouf components — the landing's proof that the site
  * runs on the library it documents. */
 export function HeroShowcase() {
   const [on, setOn] = useState(true)

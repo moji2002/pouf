@@ -101,7 +101,7 @@ const brand = (
 /** A complete storefront route: responsive site chrome, merchandising,
  * category and search filters, an empty state, a working bag, quantity
  * controls, totals, and an order-complete state. Search is wired with React
- * Hook Form; the Pouf controls themselves stay library-neutral. */
+ * Hook Form; the 1st-Pouf controls themselves stay library-neutral. */
 export function StorefrontBlock() {
   const [category, setCategory] = useState<Category>('all')
   const [cart, setCart] = useState<Record<string, number>>({})

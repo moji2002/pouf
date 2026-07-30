@@ -45,7 +45,7 @@ const INITIAL: Settings = {
   volume: 60,
 }
 
-/** An example settings screen: app shell, tabbed sections of Pouf form
+/** An example settings screen: app shell, tabbed sections of 1st-Pouf form
  * controls, and a save bar that only wakes up when something actually
  * changed — Cancel restores the last saved values, Save commits them. */
 export function SettingsBlock() {

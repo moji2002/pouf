@@ -1,4 +1,4 @@
-# Pouf
+# 1st-Pouf
 
 **A puffy, pastel, kid-shaped UI kit for React.** Claymorphism — like neumorphism but maximalist: bright, chunky, every surface a cushion. Distributed as a shadcn-style registry, so you copy the source into your project and own it.
 
@@ -11,15 +11,15 @@
 
 ## Install
 
-Pouf needs a React app with **Tailwind CSS v4** and the **shadcn CLI** configured (a `components.json`).
+1st-Pouf needs a React app with **Tailwind CSS v4** and the **shadcn CLI** configured (a `components.json`).
 
 ```bash
 # the theme (tokens, cushion utilities, keyframes) — comes along automatically,
 # but you can add it explicitly
-npx shadcn@latest add https://pouf.worksonmy.dev/r/base.json
+npx shadcn@latest add https://1st-pouf.worksonmy.dev/r/base.json
 
 # a component (pulls in its dependencies + the base)
-npx shadcn@latest add https://pouf.worksonmy.dev/r/button.json
+npx shadcn@latest add https://1st-pouf.worksonmy.dev/r/button.json
 ```
 
 Import the theme and the font once in your app entry:
@@ -39,7 +39,7 @@ export function Example() {
 }
 ```
 
-Browse every component live at **[pouf.worksonmy.dev](https://pouf.worksonmy.dev)**.
+Browse every component live at **[1st-pouf.worksonmy.dev](https://1st-pouf.worksonmy.dev)**.
 
 ## Components
 
@@ -58,11 +58,11 @@ No component takes a `className` or `style` prop. That is deliberate: it is what
 
 ## Development
 
-Pouf is a bun-workspaces monorepo:
+1st-Pouf is a bun-workspaces monorepo:
 
 - `registry/pouf/` — the library source (what users receive) + `pouf.css` theme + demos
 - `gallery/` — a Vite app that renders every demo, driving the snapshot-equivalence gate
-- `www/` — the [pouf.worksonmy.dev](https://pouf.worksonmy.dev) site (Astro), which runs on Pouf itself
+- `www/` — the [1st-pouf.worksonmy.dev](https://1st-pouf.worksonmy.dev) site (Astro), which runs on 1st-Pouf itself
 
 ```bash
 bun install
@@ -75,7 +75,7 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for the workflow and the gate.
 
 ## Credits
 
-Pouf's visual language is adapted from [novusgfx/retro-design-system](https://github.com/novusgfx/retro-design-system) (`styles/39-claymorphism`), which is MIT licensed. One deliberate deviation from the reference: ink on pastel, never white — the reference's white-on-pastel buttons fail WCAG AA (measured 1.25:1–1.99:1); Pouf uses ink uniformly (6.10:1–9.75:1).
+1st-Pouf's visual language is adapted from [novusgfx/retro-design-system](https://github.com/novusgfx/retro-design-system) (`styles/39-claymorphism`), which is MIT licensed. One deliberate deviation from the reference: ink on pastel, never white — the reference's white-on-pastel buttons fail WCAG AA (measured 1.25:1–1.99:1); 1st-Pouf uses ink uniformly (6.10:1–9.75:1).
 
 ## License
 

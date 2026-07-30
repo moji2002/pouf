@@ -16,7 +16,7 @@ export interface BlockDoc {
   slug: string
   title: string
   blurb: string
-  /** A Pouf tone for the gallery card, and an Icon role for its blob. */
+  /** A 1st-Pouf tone for the gallery card, and an Icon role for its blob. */
   tone: 'purple' | 'pink' | 'blue' | 'mint' | 'yellow' | 'orange'
   icon: string
   /** Gallery grouping on the /blocks or /examples index. */

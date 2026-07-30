@@ -1,4 +1,4 @@
-/* The site runs on the real Pouf theme — it IS the demo. Importing pouf.css
+/* The site runs on the real 1st-Pouf theme — it IS the demo. Importing pouf.css
  * pulls in Tailwind, the @theme tokens, the cushion utilities, and the
  * component chrome. @source scans the site's own markup for utility classes. */
 @import '../../../registry/pouf/pouf.css';

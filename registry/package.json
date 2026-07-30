@@ -1,5 +1,5 @@
 {
-  "name": "@pouf/registry",
+  "name": "@1st-pouf/registry",
   "private": true,
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",

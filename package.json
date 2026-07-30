@@ -1,5 +1,5 @@
 {
-  "name": "pouf-monorepo",
+  "name": "1st-pouf-monorepo",
   "private": true,
   "workspaces": [
     "registry",
@@ -10,6 +10,9 @@
     "typecheck": "bunx tsc --noEmit -p registry && bunx tsc --noEmit -p gallery",
     "test": "bun test",
     "test:react18": "bun scripts/test-react18-compat.ts",
+    "registry:build": "bunx --bun shadcn@latest build registry.json --output www/public/r",
+    "registry:validate": "bunx --bun shadcn@latest registry validate ./registry.json && bun scripts/check-registry-readiness.ts",
+    "registry:check": "bun scripts/check-registry-readiness.ts",
     "gallery": "bun --cwd gallery dev",
     "gate": "bun gallery/harness/gate.ts",
     "gate:golden": "bun gallery/harness/gate.ts --write-golden",

@@ -1,4 +1,4 @@
-# Pouf — session handoff
+# 1st-Pouf — session handoff
 
 **Date:** 2026-07-21
 **Repo:** `~/Documents/pouf` (separate from `~/Documents/zirkel`)
@@ -6,13 +6,13 @@
 
 ---
 
-## What Pouf is
+## What 1st-Pouf is
 
 The `clay` design system extracted from the zirkel trading app and open-sourced as a
 claymorphism UI library, distributed shadcn-style:
 
 ```
-npx shadcn@latest add https://pouf.worksonmy.dev/r/<item>.json
+npx shadcn@latest add https://1st-pouf.worksonmy.dev/r/<item>.json
 ```
 
 Monorepo (bun workspaces): `registry/` (the components), `gallery/` (the snapshot

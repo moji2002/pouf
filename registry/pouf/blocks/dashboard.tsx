@@ -71,7 +71,7 @@ type Range = keyof typeof REVENUE
 const TOTALS: Record<Range, string> = { day: '$2.4k', week: '$48.2k', month: '$186k' }
 
 /** An example dashboard: sidebar nav, a KPI row, a chart the range picker
- * actually redraws, and a sortable orders table — all Pouf primitives. Swap the
+ * actually redraws, and a sortable orders table — all 1st-Pouf primitives. Swap the
  * data for yours; edit the source to reshape. */
 export function DashboardBlock() {
   const [range, setRange] = useState<Range>('week')

@@ -3,7 +3,7 @@
   "name": "breadcrumb",
   "title": "Breadcrumb",
   "registryDependencies": [
-    "https://pouf.worksonmy.dev/r/base.json"
+    "https://1st-pouf.worksonmy.dev/r/base.json"
   ],
   "files": [
     {

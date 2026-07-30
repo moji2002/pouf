@@ -7,8 +7,8 @@
     "framer-motion"
   ],
   "registryDependencies": [
-    "https://pouf.worksonmy.dev/r/base.json",
-    "https://pouf.worksonmy.dev/r/icon.json"
+    "https://1st-pouf.worksonmy.dev/r/base.json",
+    "https://1st-pouf.worksonmy.dev/r/icon.json"
   ],
   "files": [
     {

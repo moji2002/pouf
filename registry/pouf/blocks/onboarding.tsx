@@ -97,7 +97,7 @@ export function OnboardingBlock() {
             >
               {step === 0 && (
                 <Stack gap={4}>
-                  <Heading level={2}>Welcome to Pouf</Heading>
+                  <Heading level={2}>Welcome to 1st-Pouf</Heading>
                   <Field label="Your name" error={errors.name?.message}>
                     {(id, describedBy) => (
                       <Controller

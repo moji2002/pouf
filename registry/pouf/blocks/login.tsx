@@ -107,7 +107,7 @@ export function LoginBlock() {
                 <Stack gap={1}>
                   <Heading level={2}>{mode === 'magic' ? 'Sign in with email' : 'Welcome back'}</Heading>
                   <Text size="sm" muted>
-                    {mode === 'magic' ? "We'll email you a one-time sign-in link." : 'Sign in to your Pouf account.'}
+                    {mode === 'magic' ? "We'll email you a one-time sign-in link." : 'Sign in to your 1st-Pouf account.'}
                   </Text>
                 </Stack>
               </Stack>

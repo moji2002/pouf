@@ -19,7 +19,7 @@ const QUESTIONS = [
     answer: 'b',
   },
   {
-    q: 'Why does Pouf use ink text on pastel buttons, never white?',
+    q: 'Why does 1st-Pouf use ink text on pastel buttons, never white?',
     options: [
       { value: 'a', label: 'White fails WCAG AA on the pastels' },
       { value: 'b', label: 'It looked nicer' },
@@ -46,7 +46,7 @@ const QUESTIONS = [
     answer: 'b',
   },
   {
-    q: "What replaced emoji across Pouf's icon vocabulary?",
+    q: "What replaced emoji across 1st-Pouf's icon vocabulary?",
     options: [
       { value: 'a', label: 'A stroked SVG icon set' },
       { value: 'b', label: 'Coloured PNGs' },

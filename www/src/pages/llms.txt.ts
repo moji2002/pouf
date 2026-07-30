@@ -19,7 +19,7 @@ export const GET: APIRoute = ({ site }) => {
 
   const lines: string[] = []
 
-  lines.push('# Pouf')
+  lines.push('# 1st-Pouf')
   lines.push('')
   lines.push(
     '> A claymorphism React component library distributed shadcn-style: you run one ' +
@@ -34,7 +34,7 @@ export const GET: APIRoute = ({ site }) => {
   lines.push(
     '- React 18 or 19. Every published registry file is type-checked with React ' +
       '18.3.1, including a server-render smoke test for core and Framer Motion ' +
-      'components. Pouf itself is developed and tested on React 19.',
+      'components. 1st-Pouf itself is developed and tested on React 19.',
   )
   lines.push(
     '- React 17 and older are not supported. Animation-enabled components use ' +

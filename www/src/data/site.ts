@@ -13,7 +13,7 @@
  * carries its own copies. `bun scripts/set-origin.ts <origin>` rewrites both
  * this constant and that file together.
  */
-export const SITE_ORIGIN = 'https://pouf.worksonmy.dev'
+export const SITE_ORIGIN = 'https://1st-pouf.worksonmy.dev'
 
 /** Host without the scheme — for display, not for building URLs. */
 export const SITE_HOST = SITE_ORIGIN.replace(/^https?:\/\//, '')

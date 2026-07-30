@@ -166,7 +166,7 @@ Expected: frozen install has no lockfile changes, TypeScript passes, 17 unit tes
 Run:
 
 ```bash
-bun --cwd www run build
+bun run --cwd www build
 pnpm --dir ../this.is-a.dev run build
 ```
 
@@ -314,7 +314,68 @@ curl -fsSL https://1st-pouf.worksonmy.dev/r/registry.json
 
 Expected: the new endpoint returns `200`, the old endpoint redirects permanently while preserving `/r/button.json`, and the live catalog name is `1st-pouf`.
 
-### Task 5: Submit `@1st-pouf` to the shadcn registry directory
+### Task 5: Verify clean Vite/React and Next.js consumers
+
+**Files:**
+- Create temporarily: `/private/tmp/1st-pouf-consumers-*/vite-app`
+- Create temporarily: `/private/tmp/1st-pouf-consumers-*/next-app`
+
+**Interfaces:**
+- Consumes: the live registry at `https://1st-pouf.worksonmy.dev/r/{name}.json`.
+- Produces: two clean production builds proving that a new consumer can install and render 1st-Pouf.
+
+- [ ] **Step 1: Scaffold clean consumer projects**
+
+Create a new directory with `mktemp -d`, then run:
+
+```bash
+bunx create-vite@latest vite-app --template react-ts
+bun create next-app@latest next-app --ts --tailwind --eslint --app --src-dir --import-alias "@/*" --use-bun --yes
+```
+
+- [ ] **Step 2: Initialize shadcn and install 1st-Pouf**
+
+Run in each consumer:
+
+```bash
+bunx --bun shadcn@4.16.0 init --defaults
+bunx --bun shadcn@4.16.0 add https://1st-pouf.worksonmy.dev/r/button.json --yes
+```
+
+Expected: `Button.tsx`, `tone.ts`, and `pouf.css` land under `components/pouf`, and required npm dependencies are installed.
+
+- [ ] **Step 3: Render the installed component**
+
+In the Vite app, import `@fontsource-variable/nunito`, `components/pouf/pouf.css`, and `Button` from the installed source, then render:
+
+```tsx
+<Button tone="purple">Vite + 1st-Pouf</Button>
+```
+
+In the Next.js root layout, import the font and `pouf.css`; in the home page render:
+
+```tsx
+<Button tone="mint">Next.js + 1st-Pouf</Button>
+```
+
+- [ ] **Step 4: Build both consumers**
+
+Run:
+
+```bash
+bun run --cwd vite-app build
+bun run --cwd next-app build
+```
+
+Expected: both production builds exit successfully with no missing imports, CSS, types, or server/client-boundary errors.
+
+- [ ] **Step 5: Verify rendered output in a browser**
+
+Serve both production builds locally and use Playwright to assert that each page contains its expected button label and that the installed button has `display: inline-flex` plus a non-transparent pastel background.
+
+Expected: both runtime checks pass.
+
+### Task 6: Submit `@1st-pouf` to the shadcn registry directory
 
 **Files:**
 - Consume: `docs/shadcn-directory-entry.json`

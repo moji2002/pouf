@@ -1,13 +1,13 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
-  "name": "pouf",
-  "homepage": "https://pouf.worksonmy.dev",
+  "name": "1st-pouf",
+  "homepage": "https://1st-pouf.worksonmy.dev",
   "items": [
     {
       "name": "base",
       "type": "registry:style",
-      "title": "Pouf base",
-      "description": "Theme tokens, cushion utilities, keyframes, and component chrome. Required by every Pouf component. Also import @fontsource-variable/nunito once in your app.",
+      "title": "1st-Pouf base",
+      "description": "Theme tokens, cushion utilities, keyframes, and component chrome. Required by every 1st-Pouf component. Also import @fontsource-variable/nunito once in your app.",
       "dependencies": [
         "clsx",
         "class-variance-authority",
@@ -37,10 +37,10 @@
         "clsx"
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/feedback.json",
-        "https://pouf.worksonmy.dev/r/icon.json",
-        "https://pouf.worksonmy.dev/r/text.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/feedback.json",
+        "https://1st-pouf.worksonmy.dev/r/icon.json",
+        "https://1st-pouf.worksonmy.dev/r/text.json"
       ]
     },
     {
@@ -58,7 +58,7 @@
         "@radix-ui/react-aspect-ratio"
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json"
       ]
     },
     {
@@ -77,9 +77,9 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/icon.json",
-        "https://pouf.worksonmy.dev/r/tone.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/icon.json",
+        "https://1st-pouf.worksonmy.dev/r/tone.json"
       ]
     },
     {
@@ -98,13 +98,13 @@
         "clsx"
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/button.json",
-        "https://pouf.worksonmy.dev/r/icon.json",
-        "https://pouf.worksonmy.dev/r/layout.json",
-        "https://pouf.worksonmy.dev/r/nav-link.json",
-        "https://pouf.worksonmy.dev/r/text.json",
-        "https://pouf.worksonmy.dev/r/tone.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/button.json",
+        "https://1st-pouf.worksonmy.dev/r/icon.json",
+        "https://1st-pouf.worksonmy.dev/r/layout.json",
+        "https://1st-pouf.worksonmy.dev/r/nav-link.json",
+        "https://1st-pouf.worksonmy.dev/r/text.json",
+        "https://1st-pouf.worksonmy.dev/r/tone.json"
       ]
     },
     {
@@ -119,7 +119,7 @@
         }
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json"
       ]
     },
     {
@@ -137,8 +137,8 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/tone.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/tone.json"
       ]
     },
     {
@@ -156,8 +156,8 @@
         "recharts"
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/tone.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/tone.json"
       ]
     },
     {
@@ -176,7 +176,7 @@
         "clsx"
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json"
       ]
     },
     {
@@ -200,13 +200,13 @@
         "clsx"
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/button.json",
-        "https://pouf.worksonmy.dev/r/icon.json",
-        "https://pouf.worksonmy.dev/r/input.json",
-        "https://pouf.worksonmy.dev/r/layout.json",
-        "https://pouf.worksonmy.dev/r/text.json",
-        "https://pouf.worksonmy.dev/r/tone.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/button.json",
+        "https://1st-pouf.worksonmy.dev/r/icon.json",
+        "https://1st-pouf.worksonmy.dev/r/input.json",
+        "https://1st-pouf.worksonmy.dev/r/layout.json",
+        "https://1st-pouf.worksonmy.dev/r/text.json",
+        "https://1st-pouf.worksonmy.dev/r/tone.json"
       ]
     },
     {
@@ -224,7 +224,7 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json"
       ]
     },
     {
@@ -246,10 +246,10 @@
         "framer-motion"
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/button.json",
-        "https://pouf.worksonmy.dev/r/icon.json",
-        "https://pouf.worksonmy.dev/r/tone.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/button.json",
+        "https://1st-pouf.worksonmy.dev/r/icon.json",
+        "https://1st-pouf.worksonmy.dev/r/tone.json"
       ]
     },
     {
@@ -264,12 +264,12 @@
         }
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/button.json",
-        "https://pouf.worksonmy.dev/r/layout.json",
-        "https://pouf.worksonmy.dev/r/media.json",
-        "https://pouf.worksonmy.dev/r/surface.json",
-        "https://pouf.worksonmy.dev/r/text.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/button.json",
+        "https://1st-pouf.worksonmy.dev/r/layout.json",
+        "https://1st-pouf.worksonmy.dev/r/media.json",
+        "https://1st-pouf.worksonmy.dev/r/surface.json",
+        "https://1st-pouf.worksonmy.dev/r/text.json"
       ]
     },
     {
@@ -287,11 +287,11 @@
         "clsx"
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/icon.json",
-        "https://pouf.worksonmy.dev/r/layout.json",
-        "https://pouf.worksonmy.dev/r/media.json",
-        "https://pouf.worksonmy.dev/r/text.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/icon.json",
+        "https://1st-pouf.worksonmy.dev/r/layout.json",
+        "https://1st-pouf.worksonmy.dev/r/media.json",
+        "https://1st-pouf.worksonmy.dev/r/text.json"
       ]
     },
     {
@@ -306,7 +306,7 @@
         }
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json"
       ]
     },
     {
@@ -325,7 +325,7 @@
         "framer-motion"
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json"
       ]
     },
     {
@@ -343,7 +343,7 @@
         "@tabler/icons-react"
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json"
       ]
     },
     {
@@ -361,7 +361,7 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json"
       ]
     },
     {
@@ -379,7 +379,7 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json"
       ]
     },
     {
@@ -397,9 +397,9 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/icon.json",
-        "https://pouf.worksonmy.dev/r/tone.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/icon.json",
+        "https://1st-pouf.worksonmy.dev/r/tone.json"
       ]
     },
     {
@@ -420,8 +420,8 @@
         "framer-motion"
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/icon.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/icon.json"
       ]
     },
     {
@@ -441,8 +441,8 @@
         "framer-motion"
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/icon.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/icon.json"
       ]
     },
     {
@@ -460,9 +460,9 @@
         "clsx"
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/icon.json",
-        "https://pouf.worksonmy.dev/r/tone.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/icon.json",
+        "https://1st-pouf.worksonmy.dev/r/tone.json"
       ]
     },
     {
@@ -480,7 +480,7 @@
         "clsx"
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json"
       ]
     },
     {
@@ -498,10 +498,10 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/icon.json",
-        "https://pouf.worksonmy.dev/r/input.json",
-        "https://pouf.worksonmy.dev/r/numberinput-math.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/icon.json",
+        "https://1st-pouf.worksonmy.dev/r/input.json",
+        "https://1st-pouf.worksonmy.dev/r/numberinput-math.json"
       ]
     },
     {
@@ -528,11 +528,11 @@
         }
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/button.json",
-        "https://pouf.worksonmy.dev/r/icon.json",
-        "https://pouf.worksonmy.dev/r/layout.json",
-        "https://pouf.worksonmy.dev/r/text.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/button.json",
+        "https://1st-pouf.worksonmy.dev/r/icon.json",
+        "https://1st-pouf.worksonmy.dev/r/layout.json",
+        "https://1st-pouf.worksonmy.dev/r/text.json"
       ]
     },
     {
@@ -552,8 +552,8 @@
         "framer-motion"
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/tone.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/tone.json"
       ]
     },
     {
@@ -571,7 +571,7 @@
         "@radix-ui/react-radio-group"
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json"
       ]
     },
     {
@@ -586,12 +586,12 @@
         }
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/icon.json",
-        "https://pouf.worksonmy.dev/r/media.json",
-        "https://pouf.worksonmy.dev/r/surface.json",
-        "https://pouf.worksonmy.dev/r/text.json",
-        "https://pouf.worksonmy.dev/r/tone.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/icon.json",
+        "https://1st-pouf.worksonmy.dev/r/media.json",
+        "https://1st-pouf.worksonmy.dev/r/surface.json",
+        "https://1st-pouf.worksonmy.dev/r/text.json",
+        "https://1st-pouf.worksonmy.dev/r/tone.json"
       ]
     },
     {
@@ -609,7 +609,7 @@
         "@radix-ui/react-scroll-area"
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json"
       ]
     },
     {
@@ -627,9 +627,9 @@
         "clsx"
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/button.json",
-        "https://pouf.worksonmy.dev/r/tone.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/button.json",
+        "https://1st-pouf.worksonmy.dev/r/tone.json"
       ]
     },
     {
@@ -647,7 +647,7 @@
         "@radix-ui/react-separator"
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json"
       ]
     },
     {
@@ -665,11 +665,11 @@
         "@radix-ui/react-dialog"
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/button.json",
-        "https://pouf.worksonmy.dev/r/icon.json",
-        "https://pouf.worksonmy.dev/r/layout.json",
-        "https://pouf.worksonmy.dev/r/text.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/button.json",
+        "https://1st-pouf.worksonmy.dev/r/icon.json",
+        "https://1st-pouf.worksonmy.dev/r/layout.json",
+        "https://1st-pouf.worksonmy.dev/r/text.json"
       ]
     },
     {
@@ -687,7 +687,7 @@
         "@radix-ui/react-slider"
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json"
       ]
     },
     {
@@ -705,11 +705,11 @@
         "clsx"
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/layout.json",
-        "https://pouf.worksonmy.dev/r/media.json",
-        "https://pouf.worksonmy.dev/r/text.json",
-        "https://pouf.worksonmy.dev/r/tone.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/layout.json",
+        "https://1st-pouf.worksonmy.dev/r/media.json",
+        "https://1st-pouf.worksonmy.dev/r/text.json",
+        "https://1st-pouf.worksonmy.dev/r/tone.json"
       ]
     },
     {
@@ -727,7 +727,7 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json"
       ]
     },
     {
@@ -742,8 +742,8 @@
         }
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/text.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/text.json"
       ]
     },
     {
@@ -761,8 +761,8 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/tone.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/tone.json"
       ]
     },
     {
@@ -781,8 +781,8 @@
         "framer-motion"
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/icon.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/icon.json"
       ]
     },
     {
@@ -800,8 +800,8 @@
         "framer-motion"
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/icon.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/icon.json"
       ]
     },
     {
@@ -820,10 +820,10 @@
         "clsx"
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/button.json",
-        "https://pouf.worksonmy.dev/r/icon.json",
-        "https://pouf.worksonmy.dev/r/tone.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/button.json",
+        "https://1st-pouf.worksonmy.dev/r/icon.json",
+        "https://1st-pouf.worksonmy.dev/r/tone.json"
       ]
     },
     {
@@ -838,7 +838,7 @@
         }
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json"
       ]
     },
     {
@@ -854,18 +854,18 @@
         }
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/bottom-nav.json",
-        "https://pouf.worksonmy.dev/r/charts.json",
-        "https://pouf.worksonmy.dev/r/layout.json",
-        "https://pouf.worksonmy.dev/r/media.json",
-        "https://pouf.worksonmy.dev/r/nav-link.json",
-        "https://pouf.worksonmy.dev/r/readout.json",
-        "https://pouf.worksonmy.dev/r/segmented.json",
-        "https://pouf.worksonmy.dev/r/status.json",
-        "https://pouf.worksonmy.dev/r/surface.json",
-        "https://pouf.worksonmy.dev/r/table.json",
-        "https://pouf.worksonmy.dev/r/text.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/bottom-nav.json",
+        "https://1st-pouf.worksonmy.dev/r/charts.json",
+        "https://1st-pouf.worksonmy.dev/r/layout.json",
+        "https://1st-pouf.worksonmy.dev/r/media.json",
+        "https://1st-pouf.worksonmy.dev/r/nav-link.json",
+        "https://1st-pouf.worksonmy.dev/r/readout.json",
+        "https://1st-pouf.worksonmy.dev/r/segmented.json",
+        "https://1st-pouf.worksonmy.dev/r/status.json",
+        "https://1st-pouf.worksonmy.dev/r/surface.json",
+        "https://1st-pouf.worksonmy.dev/r/table.json",
+        "https://1st-pouf.worksonmy.dev/r/text.json"
       ]
     },
     {
@@ -884,15 +884,15 @@
         "react-hook-form"
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/button.json",
-        "https://pouf.worksonmy.dev/r/feedback.json",
-        "https://pouf.worksonmy.dev/r/input.json",
-        "https://pouf.worksonmy.dev/r/layout.json",
-        "https://pouf.worksonmy.dev/r/media.json",
-        "https://pouf.worksonmy.dev/r/separator.json",
-        "https://pouf.worksonmy.dev/r/surface.json",
-        "https://pouf.worksonmy.dev/r/text.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/button.json",
+        "https://1st-pouf.worksonmy.dev/r/feedback.json",
+        "https://1st-pouf.worksonmy.dev/r/input.json",
+        "https://1st-pouf.worksonmy.dev/r/layout.json",
+        "https://1st-pouf.worksonmy.dev/r/media.json",
+        "https://1st-pouf.worksonmy.dev/r/separator.json",
+        "https://1st-pouf.worksonmy.dev/r/surface.json",
+        "https://1st-pouf.worksonmy.dev/r/text.json"
       ]
     },
     {
@@ -911,20 +911,20 @@
         "react-hook-form"
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/bottom-nav.json",
-        "https://pouf.worksonmy.dev/r/button.json",
-        "https://pouf.worksonmy.dev/r/controls.json",
-        "https://pouf.worksonmy.dev/r/disclosure.json",
-        "https://pouf.worksonmy.dev/r/input.json",
-        "https://pouf.worksonmy.dev/r/layout.json",
-        "https://pouf.worksonmy.dev/r/media.json",
-        "https://pouf.worksonmy.dev/r/nav-link.json",
-        "https://pouf.worksonmy.dev/r/radio-group.json",
-        "https://pouf.worksonmy.dev/r/separator.json",
-        "https://pouf.worksonmy.dev/r/slider.json",
-        "https://pouf.worksonmy.dev/r/surface.json",
-        "https://pouf.worksonmy.dev/r/text.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/bottom-nav.json",
+        "https://1st-pouf.worksonmy.dev/r/button.json",
+        "https://1st-pouf.worksonmy.dev/r/controls.json",
+        "https://1st-pouf.worksonmy.dev/r/disclosure.json",
+        "https://1st-pouf.worksonmy.dev/r/input.json",
+        "https://1st-pouf.worksonmy.dev/r/layout.json",
+        "https://1st-pouf.worksonmy.dev/r/media.json",
+        "https://1st-pouf.worksonmy.dev/r/nav-link.json",
+        "https://1st-pouf.worksonmy.dev/r/radio-group.json",
+        "https://1st-pouf.worksonmy.dev/r/separator.json",
+        "https://1st-pouf.worksonmy.dev/r/slider.json",
+        "https://1st-pouf.worksonmy.dev/r/surface.json",
+        "https://1st-pouf.worksonmy.dev/r/text.json"
       ]
     },
     {
@@ -940,17 +940,17 @@
         }
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/avatar.json",
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/bottom-nav.json",
-        "https://pouf.worksonmy.dev/r/button.json",
-        "https://pouf.worksonmy.dev/r/icon.json",
-        "https://pouf.worksonmy.dev/r/input.json",
-        "https://pouf.worksonmy.dev/r/layout.json",
-        "https://pouf.worksonmy.dev/r/media.json",
-        "https://pouf.worksonmy.dev/r/nav-link.json",
-        "https://pouf.worksonmy.dev/r/surface.json",
-        "https://pouf.worksonmy.dev/r/text.json"
+        "https://1st-pouf.worksonmy.dev/r/avatar.json",
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/bottom-nav.json",
+        "https://1st-pouf.worksonmy.dev/r/button.json",
+        "https://1st-pouf.worksonmy.dev/r/icon.json",
+        "https://1st-pouf.worksonmy.dev/r/input.json",
+        "https://1st-pouf.worksonmy.dev/r/layout.json",
+        "https://1st-pouf.worksonmy.dev/r/media.json",
+        "https://1st-pouf.worksonmy.dev/r/nav-link.json",
+        "https://1st-pouf.worksonmy.dev/r/surface.json",
+        "https://1st-pouf.worksonmy.dev/r/text.json"
       ],
       "dependencies": [
         "clsx"
@@ -969,16 +969,16 @@
         }
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/button.json",
-        "https://pouf.worksonmy.dev/r/icon.json",
-        "https://pouf.worksonmy.dev/r/layout.json",
-        "https://pouf.worksonmy.dev/r/media.json",
-        "https://pouf.worksonmy.dev/r/progress.json",
-        "https://pouf.worksonmy.dev/r/readout.json",
-        "https://pouf.worksonmy.dev/r/surface.json",
-        "https://pouf.worksonmy.dev/r/table.json",
-        "https://pouf.worksonmy.dev/r/text.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/button.json",
+        "https://1st-pouf.worksonmy.dev/r/icon.json",
+        "https://1st-pouf.worksonmy.dev/r/layout.json",
+        "https://1st-pouf.worksonmy.dev/r/media.json",
+        "https://1st-pouf.worksonmy.dev/r/progress.json",
+        "https://1st-pouf.worksonmy.dev/r/readout.json",
+        "https://1st-pouf.worksonmy.dev/r/surface.json",
+        "https://1st-pouf.worksonmy.dev/r/table.json",
+        "https://1st-pouf.worksonmy.dev/r/text.json"
       ]
     },
     {
@@ -994,14 +994,14 @@
         }
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/button.json",
-        "https://pouf.worksonmy.dev/r/icon.json",
-        "https://pouf.worksonmy.dev/r/layout.json",
-        "https://pouf.worksonmy.dev/r/media.json",
-        "https://pouf.worksonmy.dev/r/segmented.json",
-        "https://pouf.worksonmy.dev/r/surface.json",
-        "https://pouf.worksonmy.dev/r/text.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/button.json",
+        "https://1st-pouf.worksonmy.dev/r/icon.json",
+        "https://1st-pouf.worksonmy.dev/r/layout.json",
+        "https://1st-pouf.worksonmy.dev/r/media.json",
+        "https://1st-pouf.worksonmy.dev/r/segmented.json",
+        "https://1st-pouf.worksonmy.dev/r/surface.json",
+        "https://1st-pouf.worksonmy.dev/r/text.json"
       ]
     },
     {
@@ -1017,15 +1017,15 @@
         }
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/avatar.json",
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/feedback.json",
-        "https://pouf.worksonmy.dev/r/layout.json",
-        "https://pouf.worksonmy.dev/r/media.json",
-        "https://pouf.worksonmy.dev/r/pagination.json",
-        "https://pouf.worksonmy.dev/r/segmented.json",
-        "https://pouf.worksonmy.dev/r/surface.json",
-        "https://pouf.worksonmy.dev/r/text.json"
+        "https://1st-pouf.worksonmy.dev/r/avatar.json",
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/feedback.json",
+        "https://1st-pouf.worksonmy.dev/r/layout.json",
+        "https://1st-pouf.worksonmy.dev/r/media.json",
+        "https://1st-pouf.worksonmy.dev/r/pagination.json",
+        "https://1st-pouf.worksonmy.dev/r/segmented.json",
+        "https://1st-pouf.worksonmy.dev/r/surface.json",
+        "https://1st-pouf.worksonmy.dev/r/text.json"
       ]
     },
     {
@@ -1041,16 +1041,16 @@
         }
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/avatar.json",
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/button.json",
-        "https://pouf.worksonmy.dev/r/disclosure.json",
-        "https://pouf.worksonmy.dev/r/icon.json",
-        "https://pouf.worksonmy.dev/r/layout.json",
-        "https://pouf.worksonmy.dev/r/media.json",
-        "https://pouf.worksonmy.dev/r/readout.json",
-        "https://pouf.worksonmy.dev/r/surface.json",
-        "https://pouf.worksonmy.dev/r/text.json"
+        "https://1st-pouf.worksonmy.dev/r/avatar.json",
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/button.json",
+        "https://1st-pouf.worksonmy.dev/r/disclosure.json",
+        "https://1st-pouf.worksonmy.dev/r/icon.json",
+        "https://1st-pouf.worksonmy.dev/r/layout.json",
+        "https://1st-pouf.worksonmy.dev/r/media.json",
+        "https://1st-pouf.worksonmy.dev/r/readout.json",
+        "https://1st-pouf.worksonmy.dev/r/surface.json",
+        "https://1st-pouf.worksonmy.dev/r/text.json"
       ]
     },
     {
@@ -1066,16 +1066,16 @@
         }
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/avatar.json",
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/bottom-nav.json",
-        "https://pouf.worksonmy.dev/r/button.json",
-        "https://pouf.worksonmy.dev/r/icon.json",
-        "https://pouf.worksonmy.dev/r/layout.json",
-        "https://pouf.worksonmy.dev/r/media.json",
-        "https://pouf.worksonmy.dev/r/nav-link.json",
-        "https://pouf.worksonmy.dev/r/surface.json",
-        "https://pouf.worksonmy.dev/r/text.json"
+        "https://1st-pouf.worksonmy.dev/r/avatar.json",
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/bottom-nav.json",
+        "https://1st-pouf.worksonmy.dev/r/button.json",
+        "https://1st-pouf.worksonmy.dev/r/icon.json",
+        "https://1st-pouf.worksonmy.dev/r/layout.json",
+        "https://1st-pouf.worksonmy.dev/r/media.json",
+        "https://1st-pouf.worksonmy.dev/r/nav-link.json",
+        "https://1st-pouf.worksonmy.dev/r/surface.json",
+        "https://1st-pouf.worksonmy.dev/r/text.json"
       ],
       "dependencies": [
         "@dnd-kit/core",
@@ -1095,14 +1095,14 @@
         }
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/button.json",
-        "https://pouf.worksonmy.dev/r/icon.json",
-        "https://pouf.worksonmy.dev/r/layout.json",
-        "https://pouf.worksonmy.dev/r/media.json",
-        "https://pouf.worksonmy.dev/r/slider.json",
-        "https://pouf.worksonmy.dev/r/surface.json",
-        "https://pouf.worksonmy.dev/r/text.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/button.json",
+        "https://1st-pouf.worksonmy.dev/r/icon.json",
+        "https://1st-pouf.worksonmy.dev/r/layout.json",
+        "https://1st-pouf.worksonmy.dev/r/media.json",
+        "https://1st-pouf.worksonmy.dev/r/slider.json",
+        "https://1st-pouf.worksonmy.dev/r/surface.json",
+        "https://1st-pouf.worksonmy.dev/r/text.json"
       ]
     },
     {
@@ -1118,15 +1118,15 @@
         }
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/avatar.json",
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/button.json",
-        "https://pouf.worksonmy.dev/r/icon.json",
-        "https://pouf.worksonmy.dev/r/input.json",
-        "https://pouf.worksonmy.dev/r/layout.json",
-        "https://pouf.worksonmy.dev/r/media.json",
-        "https://pouf.worksonmy.dev/r/surface.json",
-        "https://pouf.worksonmy.dev/r/text.json"
+        "https://1st-pouf.worksonmy.dev/r/avatar.json",
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/button.json",
+        "https://1st-pouf.worksonmy.dev/r/icon.json",
+        "https://1st-pouf.worksonmy.dev/r/input.json",
+        "https://1st-pouf.worksonmy.dev/r/layout.json",
+        "https://1st-pouf.worksonmy.dev/r/media.json",
+        "https://1st-pouf.worksonmy.dev/r/surface.json",
+        "https://1st-pouf.worksonmy.dev/r/text.json"
       ]
     },
     {
@@ -1145,15 +1145,15 @@
         "react-hook-form"
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/button.json",
-        "https://pouf.worksonmy.dev/r/checkbox.json",
-        "https://pouf.worksonmy.dev/r/feedback.json",
-        "https://pouf.worksonmy.dev/r/input.json",
-        "https://pouf.worksonmy.dev/r/layout.json",
-        "https://pouf.worksonmy.dev/r/segmented.json",
-        "https://pouf.worksonmy.dev/r/surface.json",
-        "https://pouf.worksonmy.dev/r/text.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/button.json",
+        "https://1st-pouf.worksonmy.dev/r/checkbox.json",
+        "https://1st-pouf.worksonmy.dev/r/feedback.json",
+        "https://1st-pouf.worksonmy.dev/r/input.json",
+        "https://1st-pouf.worksonmy.dev/r/layout.json",
+        "https://1st-pouf.worksonmy.dev/r/segmented.json",
+        "https://1st-pouf.worksonmy.dev/r/surface.json",
+        "https://1st-pouf.worksonmy.dev/r/text.json"
       ]
     },
     {
@@ -1172,14 +1172,14 @@
         "react-hook-form"
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/button.json",
-        "https://pouf.worksonmy.dev/r/input.json",
-        "https://pouf.worksonmy.dev/r/layout.json",
-        "https://pouf.worksonmy.dev/r/progress.json",
-        "https://pouf.worksonmy.dev/r/radio-group.json",
-        "https://pouf.worksonmy.dev/r/surface.json",
-        "https://pouf.worksonmy.dev/r/text.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/button.json",
+        "https://1st-pouf.worksonmy.dev/r/input.json",
+        "https://1st-pouf.worksonmy.dev/r/layout.json",
+        "https://1st-pouf.worksonmy.dev/r/progress.json",
+        "https://1st-pouf.worksonmy.dev/r/radio-group.json",
+        "https://1st-pouf.worksonmy.dev/r/surface.json",
+        "https://1st-pouf.worksonmy.dev/r/text.json"
       ]
     },
     {
@@ -1195,14 +1195,14 @@
         }
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/icon.json",
-        "https://pouf.worksonmy.dev/r/layout.json",
-        "https://pouf.worksonmy.dev/r/media.json",
-        "https://pouf.worksonmy.dev/r/readout.json",
-        "https://pouf.worksonmy.dev/r/segmented.json",
-        "https://pouf.worksonmy.dev/r/surface.json",
-        "https://pouf.worksonmy.dev/r/text.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/icon.json",
+        "https://1st-pouf.worksonmy.dev/r/layout.json",
+        "https://1st-pouf.worksonmy.dev/r/media.json",
+        "https://1st-pouf.worksonmy.dev/r/readout.json",
+        "https://1st-pouf.worksonmy.dev/r/segmented.json",
+        "https://1st-pouf.worksonmy.dev/r/surface.json",
+        "https://1st-pouf.worksonmy.dev/r/text.json"
       ]
     },
     {
@@ -1218,15 +1218,15 @@
         }
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/button.json",
-        "https://pouf.worksonmy.dev/r/icon.json",
-        "https://pouf.worksonmy.dev/r/layout.json",
-        "https://pouf.worksonmy.dev/r/media.json",
-        "https://pouf.worksonmy.dev/r/progress.json",
-        "https://pouf.worksonmy.dev/r/radio-group.json",
-        "https://pouf.worksonmy.dev/r/surface.json",
-        "https://pouf.worksonmy.dev/r/text.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/button.json",
+        "https://1st-pouf.worksonmy.dev/r/icon.json",
+        "https://1st-pouf.worksonmy.dev/r/layout.json",
+        "https://1st-pouf.worksonmy.dev/r/media.json",
+        "https://1st-pouf.worksonmy.dev/r/progress.json",
+        "https://1st-pouf.worksonmy.dev/r/radio-group.json",
+        "https://1st-pouf.worksonmy.dev/r/surface.json",
+        "https://1st-pouf.worksonmy.dev/r/text.json"
       ]
     },
     {
@@ -1242,17 +1242,17 @@
         }
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/button.json",
-        "https://pouf.worksonmy.dev/r/cta.json",
-        "https://pouf.worksonmy.dev/r/footer.json",
-        "https://pouf.worksonmy.dev/r/layout.json",
-        "https://pouf.worksonmy.dev/r/media.json",
-        "https://pouf.worksonmy.dev/r/navbar.json",
-        "https://pouf.worksonmy.dev/r/segmented.json",
-        "https://pouf.worksonmy.dev/r/surface.json",
-        "https://pouf.worksonmy.dev/r/text.json",
-        "https://pouf.worksonmy.dev/r/icon.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/button.json",
+        "https://1st-pouf.worksonmy.dev/r/cta.json",
+        "https://1st-pouf.worksonmy.dev/r/footer.json",
+        "https://1st-pouf.worksonmy.dev/r/layout.json",
+        "https://1st-pouf.worksonmy.dev/r/media.json",
+        "https://1st-pouf.worksonmy.dev/r/navbar.json",
+        "https://1st-pouf.worksonmy.dev/r/segmented.json",
+        "https://1st-pouf.worksonmy.dev/r/surface.json",
+        "https://1st-pouf.worksonmy.dev/r/text.json",
+        "https://1st-pouf.worksonmy.dev/r/icon.json"
       ]
     },
     {
@@ -1271,18 +1271,18 @@
         "react-hook-form"
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/button.json",
-        "https://pouf.worksonmy.dev/r/feedback.json",
-        "https://pouf.worksonmy.dev/r/footer.json",
-        "https://pouf.worksonmy.dev/r/icon.json",
-        "https://pouf.worksonmy.dev/r/input.json",
-        "https://pouf.worksonmy.dev/r/layout.json",
-        "https://pouf.worksonmy.dev/r/media.json",
-        "https://pouf.worksonmy.dev/r/navbar.json",
-        "https://pouf.worksonmy.dev/r/segmented.json",
-        "https://pouf.worksonmy.dev/r/surface.json",
-        "https://pouf.worksonmy.dev/r/text.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/button.json",
+        "https://1st-pouf.worksonmy.dev/r/feedback.json",
+        "https://1st-pouf.worksonmy.dev/r/footer.json",
+        "https://1st-pouf.worksonmy.dev/r/icon.json",
+        "https://1st-pouf.worksonmy.dev/r/input.json",
+        "https://1st-pouf.worksonmy.dev/r/layout.json",
+        "https://1st-pouf.worksonmy.dev/r/media.json",
+        "https://1st-pouf.worksonmy.dev/r/navbar.json",
+        "https://1st-pouf.worksonmy.dev/r/segmented.json",
+        "https://1st-pouf.worksonmy.dev/r/surface.json",
+        "https://1st-pouf.worksonmy.dev/r/text.json"
       ]
     },
     {
@@ -1302,19 +1302,19 @@
         "react-hook-form"
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/avatar.json",
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/bottom-nav.json",
-        "https://pouf.worksonmy.dev/r/button.json",
-        "https://pouf.worksonmy.dev/r/controls.json",
-        "https://pouf.worksonmy.dev/r/feedback.json",
-        "https://pouf.worksonmy.dev/r/icon.json",
-        "https://pouf.worksonmy.dev/r/input.json",
-        "https://pouf.worksonmy.dev/r/layout.json",
-        "https://pouf.worksonmy.dev/r/media.json",
-        "https://pouf.worksonmy.dev/r/nav-link.json",
-        "https://pouf.worksonmy.dev/r/surface.json",
-        "https://pouf.worksonmy.dev/r/text.json"
+        "https://1st-pouf.worksonmy.dev/r/avatar.json",
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/bottom-nav.json",
+        "https://1st-pouf.worksonmy.dev/r/button.json",
+        "https://1st-pouf.worksonmy.dev/r/controls.json",
+        "https://1st-pouf.worksonmy.dev/r/feedback.json",
+        "https://1st-pouf.worksonmy.dev/r/icon.json",
+        "https://1st-pouf.worksonmy.dev/r/input.json",
+        "https://1st-pouf.worksonmy.dev/r/layout.json",
+        "https://1st-pouf.worksonmy.dev/r/media.json",
+        "https://1st-pouf.worksonmy.dev/r/nav-link.json",
+        "https://1st-pouf.worksonmy.dev/r/surface.json",
+        "https://1st-pouf.worksonmy.dev/r/text.json"
       ]
     },
     {
@@ -1330,18 +1330,18 @@
         }
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/avatar.json",
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/bottom-nav.json",
-        "https://pouf.worksonmy.dev/r/button.json",
-        "https://pouf.worksonmy.dev/r/feedback.json",
-        "https://pouf.worksonmy.dev/r/icon.json",
-        "https://pouf.worksonmy.dev/r/input.json",
-        "https://pouf.worksonmy.dev/r/layout.json",
-        "https://pouf.worksonmy.dev/r/media.json",
-        "https://pouf.worksonmy.dev/r/nav-link.json",
-        "https://pouf.worksonmy.dev/r/surface.json",
-        "https://pouf.worksonmy.dev/r/text.json"
+        "https://1st-pouf.worksonmy.dev/r/avatar.json",
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/bottom-nav.json",
+        "https://1st-pouf.worksonmy.dev/r/button.json",
+        "https://1st-pouf.worksonmy.dev/r/feedback.json",
+        "https://1st-pouf.worksonmy.dev/r/icon.json",
+        "https://1st-pouf.worksonmy.dev/r/input.json",
+        "https://1st-pouf.worksonmy.dev/r/layout.json",
+        "https://1st-pouf.worksonmy.dev/r/media.json",
+        "https://1st-pouf.worksonmy.dev/r/nav-link.json",
+        "https://1st-pouf.worksonmy.dev/r/surface.json",
+        "https://1st-pouf.worksonmy.dev/r/text.json"
       ],
       "dependencies": [
         "clsx"
@@ -1360,15 +1360,15 @@
         }
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/button.json",
-        "https://pouf.worksonmy.dev/r/feedback.json",
-        "https://pouf.worksonmy.dev/r/icon.json",
-        "https://pouf.worksonmy.dev/r/layout.json",
-        "https://pouf.worksonmy.dev/r/media.json",
-        "https://pouf.worksonmy.dev/r/segmented.json",
-        "https://pouf.worksonmy.dev/r/surface.json",
-        "https://pouf.worksonmy.dev/r/text.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/button.json",
+        "https://1st-pouf.worksonmy.dev/r/feedback.json",
+        "https://1st-pouf.worksonmy.dev/r/icon.json",
+        "https://1st-pouf.worksonmy.dev/r/layout.json",
+        "https://1st-pouf.worksonmy.dev/r/media.json",
+        "https://1st-pouf.worksonmy.dev/r/segmented.json",
+        "https://1st-pouf.worksonmy.dev/r/surface.json",
+        "https://1st-pouf.worksonmy.dev/r/text.json"
       ]
     },
     {
@@ -1384,15 +1384,15 @@
         }
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/button.json",
-        "https://pouf.worksonmy.dev/r/controls.json",
-        "https://pouf.worksonmy.dev/r/feedback.json",
-        "https://pouf.worksonmy.dev/r/input.json",
-        "https://pouf.worksonmy.dev/r/layout.json",
-        "https://pouf.worksonmy.dev/r/media.json",
-        "https://pouf.worksonmy.dev/r/surface.json",
-        "https://pouf.worksonmy.dev/r/text.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/button.json",
+        "https://1st-pouf.worksonmy.dev/r/controls.json",
+        "https://1st-pouf.worksonmy.dev/r/feedback.json",
+        "https://1st-pouf.worksonmy.dev/r/input.json",
+        "https://1st-pouf.worksonmy.dev/r/layout.json",
+        "https://1st-pouf.worksonmy.dev/r/media.json",
+        "https://1st-pouf.worksonmy.dev/r/surface.json",
+        "https://1st-pouf.worksonmy.dev/r/text.json"
       ]
     },
     {
@@ -1408,15 +1408,15 @@
         }
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/avatar.json",
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/button.json",
-        "https://pouf.worksonmy.dev/r/icon.json",
-        "https://pouf.worksonmy.dev/r/layout.json",
-        "https://pouf.worksonmy.dev/r/media.json",
-        "https://pouf.worksonmy.dev/r/segmented.json",
-        "https://pouf.worksonmy.dev/r/surface.json",
-        "https://pouf.worksonmy.dev/r/text.json"
+        "https://1st-pouf.worksonmy.dev/r/avatar.json",
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/button.json",
+        "https://1st-pouf.worksonmy.dev/r/icon.json",
+        "https://1st-pouf.worksonmy.dev/r/layout.json",
+        "https://1st-pouf.worksonmy.dev/r/media.json",
+        "https://1st-pouf.worksonmy.dev/r/segmented.json",
+        "https://1st-pouf.worksonmy.dev/r/surface.json",
+        "https://1st-pouf.worksonmy.dev/r/text.json"
       ]
     },
     {
@@ -1432,19 +1432,19 @@
         }
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/avatar.json",
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/bottom-nav.json",
-        "https://pouf.worksonmy.dev/r/button.json",
-        "https://pouf.worksonmy.dev/r/controls.json",
-        "https://pouf.worksonmy.dev/r/feedback.json",
-        "https://pouf.worksonmy.dev/r/input.json",
-        "https://pouf.worksonmy.dev/r/layout.json",
-        "https://pouf.worksonmy.dev/r/media.json",
-        "https://pouf.worksonmy.dev/r/nav-link.json",
-        "https://pouf.worksonmy.dev/r/segmented.json",
-        "https://pouf.worksonmy.dev/r/surface.json",
-        "https://pouf.worksonmy.dev/r/text.json"
+        "https://1st-pouf.worksonmy.dev/r/avatar.json",
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/bottom-nav.json",
+        "https://1st-pouf.worksonmy.dev/r/button.json",
+        "https://1st-pouf.worksonmy.dev/r/controls.json",
+        "https://1st-pouf.worksonmy.dev/r/feedback.json",
+        "https://1st-pouf.worksonmy.dev/r/input.json",
+        "https://1st-pouf.worksonmy.dev/r/layout.json",
+        "https://1st-pouf.worksonmy.dev/r/media.json",
+        "https://1st-pouf.worksonmy.dev/r/nav-link.json",
+        "https://1st-pouf.worksonmy.dev/r/segmented.json",
+        "https://1st-pouf.worksonmy.dev/r/surface.json",
+        "https://1st-pouf.worksonmy.dev/r/text.json"
       ]
     },
     {
@@ -1460,19 +1460,19 @@
         }
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/bottom-nav.json",
-        "https://pouf.worksonmy.dev/r/button.json",
-        "https://pouf.worksonmy.dev/r/feedback.json",
-        "https://pouf.worksonmy.dev/r/input.json",
-        "https://pouf.worksonmy.dev/r/layout.json",
-        "https://pouf.worksonmy.dev/r/media.json",
-        "https://pouf.worksonmy.dev/r/nav-link.json",
-        "https://pouf.worksonmy.dev/r/readout.json",
-        "https://pouf.worksonmy.dev/r/segmented.json",
-        "https://pouf.worksonmy.dev/r/surface.json",
-        "https://pouf.worksonmy.dev/r/table.json",
-        "https://pouf.worksonmy.dev/r/text.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/bottom-nav.json",
+        "https://1st-pouf.worksonmy.dev/r/button.json",
+        "https://1st-pouf.worksonmy.dev/r/feedback.json",
+        "https://1st-pouf.worksonmy.dev/r/input.json",
+        "https://1st-pouf.worksonmy.dev/r/layout.json",
+        "https://1st-pouf.worksonmy.dev/r/media.json",
+        "https://1st-pouf.worksonmy.dev/r/nav-link.json",
+        "https://1st-pouf.worksonmy.dev/r/readout.json",
+        "https://1st-pouf.worksonmy.dev/r/segmented.json",
+        "https://1st-pouf.worksonmy.dev/r/surface.json",
+        "https://1st-pouf.worksonmy.dev/r/table.json",
+        "https://1st-pouf.worksonmy.dev/r/text.json"
       ]
     },
     {
@@ -1488,16 +1488,16 @@
         }
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/bottom-nav.json",
-        "https://pouf.worksonmy.dev/r/button.json",
-        "https://pouf.worksonmy.dev/r/feedback.json",
-        "https://pouf.worksonmy.dev/r/layout.json",
-        "https://pouf.worksonmy.dev/r/media.json",
-        "https://pouf.worksonmy.dev/r/nav-link.json",
-        "https://pouf.worksonmy.dev/r/segmented.json",
-        "https://pouf.worksonmy.dev/r/surface.json",
-        "https://pouf.worksonmy.dev/r/text.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/bottom-nav.json",
+        "https://1st-pouf.worksonmy.dev/r/button.json",
+        "https://1st-pouf.worksonmy.dev/r/feedback.json",
+        "https://1st-pouf.worksonmy.dev/r/layout.json",
+        "https://1st-pouf.worksonmy.dev/r/media.json",
+        "https://1st-pouf.worksonmy.dev/r/nav-link.json",
+        "https://1st-pouf.worksonmy.dev/r/segmented.json",
+        "https://1st-pouf.worksonmy.dev/r/surface.json",
+        "https://1st-pouf.worksonmy.dev/r/text.json"
       ]
     },
     {
@@ -1513,15 +1513,15 @@
         }
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/bottom-nav.json",
-        "https://pouf.worksonmy.dev/r/button.json",
-        "https://pouf.worksonmy.dev/r/layout.json",
-        "https://pouf.worksonmy.dev/r/media.json",
-        "https://pouf.worksonmy.dev/r/nav-link.json",
-        "https://pouf.worksonmy.dev/r/progress.json",
-        "https://pouf.worksonmy.dev/r/surface.json",
-        "https://pouf.worksonmy.dev/r/text.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/bottom-nav.json",
+        "https://1st-pouf.worksonmy.dev/r/button.json",
+        "https://1st-pouf.worksonmy.dev/r/layout.json",
+        "https://1st-pouf.worksonmy.dev/r/media.json",
+        "https://1st-pouf.worksonmy.dev/r/nav-link.json",
+        "https://1st-pouf.worksonmy.dev/r/progress.json",
+        "https://1st-pouf.worksonmy.dev/r/surface.json",
+        "https://1st-pouf.worksonmy.dev/r/text.json"
       ]
     },
     {
@@ -1537,19 +1537,19 @@
         }
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/avatar.json",
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/bottom-nav.json",
-        "https://pouf.worksonmy.dev/r/button.json",
-        "https://pouf.worksonmy.dev/r/feedback.json",
-        "https://pouf.worksonmy.dev/r/input.json",
-        "https://pouf.worksonmy.dev/r/layout.json",
-        "https://pouf.worksonmy.dev/r/media.json",
-        "https://pouf.worksonmy.dev/r/nav-link.json",
-        "https://pouf.worksonmy.dev/r/readout.json",
-        "https://pouf.worksonmy.dev/r/segmented.json",
-        "https://pouf.worksonmy.dev/r/surface.json",
-        "https://pouf.worksonmy.dev/r/text.json"
+        "https://1st-pouf.worksonmy.dev/r/avatar.json",
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/bottom-nav.json",
+        "https://1st-pouf.worksonmy.dev/r/button.json",
+        "https://1st-pouf.worksonmy.dev/r/feedback.json",
+        "https://1st-pouf.worksonmy.dev/r/input.json",
+        "https://1st-pouf.worksonmy.dev/r/layout.json",
+        "https://1st-pouf.worksonmy.dev/r/media.json",
+        "https://1st-pouf.worksonmy.dev/r/nav-link.json",
+        "https://1st-pouf.worksonmy.dev/r/readout.json",
+        "https://1st-pouf.worksonmy.dev/r/segmented.json",
+        "https://1st-pouf.worksonmy.dev/r/surface.json",
+        "https://1st-pouf.worksonmy.dev/r/text.json"
       ]
     },
     {
@@ -1565,17 +1565,17 @@
         }
       ],
       "registryDependencies": [
-        "https://pouf.worksonmy.dev/r/base.json",
-        "https://pouf.worksonmy.dev/r/button.json",
-        "https://pouf.worksonmy.dev/r/feedback.json",
-        "https://pouf.worksonmy.dev/r/footer.json",
-        "https://pouf.worksonmy.dev/r/input.json",
-        "https://pouf.worksonmy.dev/r/layout.json",
-        "https://pouf.worksonmy.dev/r/media.json",
-        "https://pouf.worksonmy.dev/r/navbar.json",
-        "https://pouf.worksonmy.dev/r/progress.json",
-        "https://pouf.worksonmy.dev/r/surface.json",
-        "https://pouf.worksonmy.dev/r/text.json"
+        "https://1st-pouf.worksonmy.dev/r/base.json",
+        "https://1st-pouf.worksonmy.dev/r/button.json",
+        "https://1st-pouf.worksonmy.dev/r/feedback.json",
+        "https://1st-pouf.worksonmy.dev/r/footer.json",
+        "https://1st-pouf.worksonmy.dev/r/input.json",
+        "https://1st-pouf.worksonmy.dev/r/layout.json",
+        "https://1st-pouf.worksonmy.dev/r/media.json",
+        "https://1st-pouf.worksonmy.dev/r/navbar.json",
+        "https://1st-pouf.worksonmy.dev/r/progress.json",
+        "https://1st-pouf.worksonmy.dev/r/surface.json",
+        "https://1st-pouf.worksonmy.dev/r/text.json"
       ]
     }
   ]

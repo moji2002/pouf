@@ -10,9 +10,9 @@ const demoRoutes = JSON.parse(
 )
 const redirectPaths = new Set(Object.keys(demoRoutes).map((path) => `/${path}/`))
 
-// Vercel static hosting at a custom domain (pouf.worksonmy.dev) serves from the root.
+// Vercel static hosting at a custom domain (1st-pouf.worksonmy.dev) serves from the root.
 export default defineConfig({
-  site: 'https://pouf.worksonmy.dev',
+  site: 'https://1st-pouf.worksonmy.dev',
   // llms.txt is a machine-readable index for assistants, not a search result —
   // excluded so it doesn't show up as a page in sitemap.xml.
   integrations: [

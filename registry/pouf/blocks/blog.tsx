@@ -55,7 +55,7 @@ export function BlogBlock() {
     <div style={{ maxWidth: 1000, margin: '0 auto', padding: 24 }}>
       <Stack gap={6}>
         <Stack gap={2}>
-          <Eyebrow>The Pouf blog</Eyebrow>
+          <Eyebrow>The 1st-Pouf blog</Eyebrow>
           <Heading level={1}>Notes on soft software</Heading>
         </Stack>
 

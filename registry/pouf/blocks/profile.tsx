@@ -36,7 +36,7 @@ export function ProfileBlock() {
 
   const about = (
     <Stack gap={3}>
-      <Text>Designer & engineer. Making software that feels like it wants to be touched. Currently building Pouf.</Text>
+      <Text>Designer & engineer. Making software that feels like it wants to be touched. Currently building 1st-Pouf.</Text>
       <Row gap={2}>
         <Badge tone="mint">Design systems</Badge>
         <Badge tone="blue">React</Badge>

@@ -4,17 +4,17 @@
   "title": "Landing page",
   "description": "A complete marketing route — navbar, hero, proof, features, pricing, CTA, and footer.",
   "registryDependencies": [
-    "https://pouf.worksonmy.dev/r/base.json",
-    "https://pouf.worksonmy.dev/r/button.json",
-    "https://pouf.worksonmy.dev/r/cta.json",
-    "https://pouf.worksonmy.dev/r/footer.json",
-    "https://pouf.worksonmy.dev/r/layout.json",
-    "https://pouf.worksonmy.dev/r/media.json",
-    "https://pouf.worksonmy.dev/r/navbar.json",
-    "https://pouf.worksonmy.dev/r/segmented.json",
-    "https://pouf.worksonmy.dev/r/surface.json",
-    "https://pouf.worksonmy.dev/r/text.json",
-    "https://pouf.worksonmy.dev/r/icon.json"
+    "https://1st-pouf.worksonmy.dev/r/base.json",
+    "https://1st-pouf.worksonmy.dev/r/button.json",
+    "https://1st-pouf.worksonmy.dev/r/cta.json",
+    "https://1st-pouf.worksonmy.dev/r/footer.json",
+    "https://1st-pouf.worksonmy.dev/r/layout.json",
+    "https://1st-pouf.worksonmy.dev/r/media.json",
+    "https://1st-pouf.worksonmy.dev/r/navbar.json",
+    "https://1st-pouf.worksonmy.dev/r/segmented.json",
+    "https://1st-pouf.worksonmy.dev/r/surface.json",
+    "https://1st-pouf.worksonmy.dev/r/text.json",
+    "https://1st-pouf.worksonmy.dev/r/icon.json"
   ],
   "files": [
     {

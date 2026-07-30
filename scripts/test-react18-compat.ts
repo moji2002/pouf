@@ -1,10 +1,10 @@
 /**
  * Verifies the published shadcn payloads—not the monorepo source tree—against
  * React 18. The main workspace intentionally stays on React 19, so compiling it
- * alone cannot prove that an installed Pouf component works in an older app.
+ * alone cannot prove that an installed 1st-Pouf component works in an older app.
  *
  * This test materializes every /r/<item>.json file into an isolated temporary
- * consumer, installs React 18 plus the exact dependency ranges Pouf develops
+ * consumer, installs React 18 plus the exact dependency ranges 1st-Pouf develops
  * against, type-checks every component/block/template with React 18 types, and
  * server-renders both a core control and a Framer Motion component.
  */

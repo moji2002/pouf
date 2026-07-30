@@ -61,7 +61,7 @@ function InteractiveTextarea() {
 }
 
 export const inputDemos: Demo[] = [
-  { id: 'basic', states: ['focus', 'hover'], render: () => <InteractiveInput label="Name" initial="Pouf" subject /> },
+  { id: 'basic', states: ['focus', 'hover'], render: () => <InteractiveInput label="Name" initial="1st-Pouf" subject /> },
   { id: 'placeholder', render: () => <InteractiveInput label="Email" initial="" placeholder="you@example.com…" /> },
   { id: 'invalid', render: () => <InteractiveInput label="Age" initial="abc" invalid /> },
   { id: 'disabled', render: () => (

@@ -6,10 +6,10 @@
     "class-variance-authority"
   ],
   "registryDependencies": [
-    "https://pouf.worksonmy.dev/r/base.json",
-    "https://pouf.worksonmy.dev/r/icon.json",
-    "https://pouf.worksonmy.dev/r/input.json",
-    "https://pouf.worksonmy.dev/r/numberinput-math.json"
+    "https://1st-pouf.worksonmy.dev/r/base.json",
+    "https://1st-pouf.worksonmy.dev/r/icon.json",
+    "https://1st-pouf.worksonmy.dev/r/input.json",
+    "https://1st-pouf.worksonmy.dev/r/numberinput-math.json"
   ],
   "files": [
     {

@@ -4,17 +4,17 @@
   "title": "Booking flow",
   "description": "A complete service-booking route with site chrome, scheduling, contact details, review, and confirmation.",
   "registryDependencies": [
-    "https://pouf.worksonmy.dev/r/base.json",
-    "https://pouf.worksonmy.dev/r/button.json",
-    "https://pouf.worksonmy.dev/r/feedback.json",
-    "https://pouf.worksonmy.dev/r/footer.json",
-    "https://pouf.worksonmy.dev/r/input.json",
-    "https://pouf.worksonmy.dev/r/layout.json",
-    "https://pouf.worksonmy.dev/r/media.json",
-    "https://pouf.worksonmy.dev/r/navbar.json",
-    "https://pouf.worksonmy.dev/r/progress.json",
-    "https://pouf.worksonmy.dev/r/surface.json",
-    "https://pouf.worksonmy.dev/r/text.json"
+    "https://1st-pouf.worksonmy.dev/r/base.json",
+    "https://1st-pouf.worksonmy.dev/r/button.json",
+    "https://1st-pouf.worksonmy.dev/r/feedback.json",
+    "https://1st-pouf.worksonmy.dev/r/footer.json",
+    "https://1st-pouf.worksonmy.dev/r/input.json",
+    "https://1st-pouf.worksonmy.dev/r/layout.json",
+    "https://1st-pouf.worksonmy.dev/r/media.json",
+    "https://1st-pouf.worksonmy.dev/r/navbar.json",
+    "https://1st-pouf.worksonmy.dev/r/progress.json",
+    "https://1st-pouf.worksonmy.dev/r/surface.json",
+    "https://1st-pouf.worksonmy.dev/r/text.json"
   ],
   "files": [
     {

@@ -1,6 +1,6 @@
-# Contributing to Pouf
+# Contributing to 1st-Pouf
 
-Thanks for helping. Pouf's whole promise is that its look is stable and coherent, so the contribution workflow is built around one idea: **the snapshot gate is the contract.**
+Thanks for helping. 1st-Pouf's whole promise is that its look is stable and coherent, so the contribution workflow is built around one idea: **the snapshot gate is the contract.**
 
 ## Setup
 
@@ -13,7 +13,7 @@ Monorepo layout:
 
 - `registry/pouf/` — the library source users receive, plus `pouf.css` (the theme) and `demos/` (every component × variant × state)
 - `gallery/` — a Vite app rendering each demo at `#/<component>/<demoId>`; the gate captures from it
-- `www/` — the Astro site, built on Pouf itself
+- `www/` — the Astro site, built on 1st-Pouf itself
 
 ## The gate
 

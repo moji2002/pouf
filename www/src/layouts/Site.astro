@@ -25,9 +25,9 @@ interface Props {
    * on the homepage). The sitewide WebSite graph below is emitted regardless. */
   schema?: Record<string, unknown> | Record<string, unknown>[]
 }
-const { title = 'Pouf', description = 'A puffy, pastel, maximalist UI kit for React. Claymorphism as a shadcn-style registry — copy it in, own the source.', wide = false, schema } = Astro.props
+const { title = '1st-Pouf', description = 'A puffy, pastel, maximalist UI kit for React. Claymorphism as a shadcn-style registry — copy it in, own the source.', wide = false, schema } = Astro.props
 const wrapClass = wide ? 'site-wide' : 'site-wrap'
-const pageTitle = title === 'Pouf' ? 'Pouf — puffy, maximalist UI for React' : `${title} · Pouf`
+const pageTitle = title === '1st-Pouf' ? '1st-Pouf — puffy, maximalist UI for React' : `${title} · 1st-Pouf`
 // Astro.url already carries the trailing slash a directory-format static build
 // serves (e.g. /components/), so this is the one true canonical for the page —
 // no hand-rolled trailing-slash logic to drift from how the site is actually built.
@@ -42,7 +42,7 @@ const ogImageURL = new URL('/og-image.png', Astro.site ?? SITE_ORIGIN)
 const websiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
-  name: 'Pouf',
+  name: '1st-Pouf',
   url: SITE_ORIGIN,
   description: 'A puffy, pastel, maximalist UI kit for React, distributed as a shadcn-style registry.',
 }
@@ -66,14 +66,14 @@ const schemaNodes = [websiteSchema, ...(schema ? (Array.isArray(schema) ? schema
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Pouf" />
+    <meta property="og:site_name" content="1st-Pouf" />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImageURL} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Pouf — puffy, pastel, maximalist UI kit for React" />
+    <meta property="og:image:alt" content="1st-Pouf — puffy, pastel, maximalist UI kit for React" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={description} />
@@ -129,7 +129,7 @@ const schemaNodes = [websiteSchema, ...(schema ? (Array.isArray(schema) ? schema
         <nav class="site-nav" aria-label="Primary">
           <a href="/" style="display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--ink); margin-right:auto;">
             <span aria-hidden="true" style="width:36px; height:36px; border-radius:13px; background:var(--purple); box-shadow: var(--pouf-blob); display:inline-block;"></span>
-            <strong class="display" style="font-size:24px;">Pouf</strong>
+            <strong class="display" style="font-size:24px;">1st-Pouf</strong>
           </a>
           {/* The label is wrapped so it can carry text-box-trim. The trim has to
               live on a block container with real line boxes, and .site-link is a
@@ -151,7 +151,7 @@ const schemaNodes = [websiteSchema, ...(schema ? (Array.isArray(schema) ? schema
           >
             <span class="theme-toggle__icon" aria-hidden="true"></span>
           </button>
-          <a class="site-link" href="https://github.com/moji2002/pouf" target="_blank" rel="noopener noreferrer" style="background:var(--inverse-surface); color:var(--inverse-ink);"><span class="site-link__label">GitHub</span></a>
+          <a class="site-link" href="https://github.com/moji2002/1st-pouf" target="_blank" rel="noopener noreferrer" style="background:var(--inverse-surface); color:var(--inverse-ink);"><span class="site-link__label">GitHub</span></a>
           <details class="site-mobile-menu">
             <summary class="site-link site-mobile-menu__trigger">
               <span class="site-link__label">Menu</span>
@@ -163,7 +163,7 @@ const schemaNodes = [websiteSchema, ...(schema ? (Array.isArray(schema) ? schema
               <a href="/examples" aria-current={isCurrent('/examples') ? 'page' : undefined}>Templates</a>
               <a href="/theme" aria-current={isCurrent('/theme') ? 'page' : undefined}>Theme</a>
               <a href="/changelog" aria-current={isCurrent('/changelog') ? 'page' : undefined}>Changelog</a>
-              <a href="https://github.com/moji2002/pouf" target="_blank" rel="noopener noreferrer">GitHub</a>
+              <a href="https://github.com/moji2002/1st-pouf" target="_blank" rel="noopener noreferrer">GitHub</a>
             </div>
           </details>
         </nav>
@@ -183,8 +183,8 @@ const schemaNodes = [websiteSchema, ...(schema ? (Array.isArray(schema) ? schema
           <div style="display:flex; align-items:center; gap:12px;">
             <span aria-hidden="true" style="width:44px; height:44px; border-radius:16px; background:var(--pink); box-shadow: var(--pouf-blob); display:inline-block;"></span>
             <div>
-              <div class="display" style="font-size:22px;">Pouf</div>
-              <div style="color:var(--muted); font-weight:700; font-size:14px;">MIT licensed · Built with Pouf</div>
+              <div class="display" style="font-size:22px;">1st-Pouf</div>
+              <div style="color:var(--muted); font-weight:700; font-size:14px;">MIT licensed · Built with 1st-Pouf</div>
               <div class="site-byline">
                 by <a class="site-foot-link" href="https://github.com/moji2002" target="_blank" rel="noopener noreferrer">Mojtaba Beheshti</a>
                 <span aria-hidden="true">·</span>
@@ -202,7 +202,7 @@ const schemaNodes = [websiteSchema, ...(schema ? (Array.isArray(schema) ? schema
             <a class="site-foot-link" href="/components">Components</a>
             <a class="site-foot-link" href="/blocks">Blocks</a>
             <a class="site-foot-link" href="/examples">Templates</a>
-            <a class="site-foot-link" href="https://github.com/moji2002/pouf" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a class="site-foot-link" href="https://github.com/moji2002/1st-pouf" target="_blank" rel="noopener noreferrer">GitHub</a>
           </div>
         </div>
         <p style="text-align:center; color:var(--muted); font-weight:700; font-size:13px; margin-top:20px;">Visual language adapted from <a href="https://github.com/novusgfx/retro-design-system" target="_blank" rel="noopener noreferrer" style="color:var(--muted); font-weight:800;">novusgfx/retro-design-system</a> (MIT).</p>

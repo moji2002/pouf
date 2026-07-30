@@ -30,6 +30,11 @@ jobs:
         # the monorepo — but ships a file that will not compile into the
         # user's project. Nothing else in this pipeline can catch it.
         run: bun run check:deps
+      - name: Registry source and directory readiness
+        # The build command validates enough to emit JSON, but directory
+        # submission has additional rules: a content-free catalog, flat item
+        # endpoints, a non-reserved namespace, and source/build parity.
+        run: bun run registry:validate
       - name: Install Chromium
         # From gallery/, not the repo root. There is no `playwright` at the
         # root, so a root `bunx playwright` silently downloads the LATEST
@@ -48,6 +53,9 @@ jobs:
         # racing its shutdown. One owner of the port, no race.
         run: bun run gate -- --json-only
       - name: Registry build
-        run: bunx shadcn@latest build registry.json -o www/public/r
+        run: bun run registry:build
+      - name: Registry build parity
+        # Re-check after generation so a stale committed /r payload cannot pass.
+        run: bun run registry:check
       - name: Site build
         run: cd www && bun install && bun run build

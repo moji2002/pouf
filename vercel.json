@@ -1,8 +1,22 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "installCommand": "bun install --frozen-lockfile",
-  "buildCommand": "git fetch --unshallow --quiet 2>/dev/null || true; bunx shadcn@latest build registry.json -o www/public/r && cd www && bun run build",
+  "buildCommand": "git fetch --unshallow --quiet 2>/dev/null || true; bun run registry:build && bun run registry:check && cd www && bun run build",
   "outputDirectory": "www/dist",
+  "redirects": [
+    {
+      "source": "/:path*",
+      "destination": "https://1st-pouf.worksonmy.dev/:path*",
+      "permanent": true,
+      "has": [
+        {
+          "type": "header",
+          "key": "host",
+          "value": "pouf.worksonmy.dev"
+        }
+      ]
+    }
+  ],
   "headers": [
     {
       "source": "/r/(.*)",

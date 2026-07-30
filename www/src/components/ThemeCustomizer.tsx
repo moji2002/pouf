@@ -188,7 +188,7 @@ export function ThemeCustomizer() {
 
         {tab === 'preview' ? (
           /* The one element that carries the overrides. Everything below is an
-             unmodified Pouf component reading the same tokens it always does. */
+             unmodified 1st-Pouf component reading the same tokens it always does. */
           <div style={{ ...(vars as React.CSSProperties), background: 'var(--bg)', padding: 28, borderRadius: 26 }}>
             <Stack gap={5}>
               <Row justify="between">

@@ -3,14 +3,16 @@
 Everything in this repo is built and verified. What remains are the steps only
 you can do — they need your accounts. Do them in order.
 
-The site deploys to **Vercel** at **pouf.worksonmy.dev**, a subdomain of a
-domain you already own. There is no domain purchase in the critical path.
+The site deploys to **Vercel** at **1st-pouf.worksonmy.dev**, a subdomain of a
+domain you already own. The old **pouf.worksonmy.dev** hostname remains attached
+only to redirect existing install links.
 
-## 1. Create the GitHub repo
+## 1. Rename the GitHub repo
 
 ```bash
 cd ~/Documents/my-website/pouf
-gh repo create moji2002/pouf --public --source=. --remote=origin --push
+gh repo rename -R moji2002/pouf 1st-pouf
+git remote set-url origin https://github.com/moji2002/1st-pouf.git
 ```
 
 Any other owner works too — if you move it (e.g. to an org later), update the
@@ -49,12 +51,12 @@ Two things in there are load-bearing and easy to lose:
 
 ## 3. Point DNS at Vercel
 
-`pouf.worksonmy.dev` is a subdomain, so it is one `CNAME` record on the
+`1st-pouf.worksonmy.dev` is a subdomain, so it is one `CNAME` record on the
 `worksonmy.dev` zone in Cloudflare:
 
 | Type | Name | Target | Proxy |
 |---|---|---|---|
-| `CNAME` | `pouf` | `cname.vercel-dns.com` | **DNS only (grey cloud)** |
+| `CNAME` | `1st-pouf` | `cname.vercel-dns.com` | **DNS only (grey cloud)** |
 
 **Grey cloud, not orange.** Cloudflare's proxy in front of Vercel double-proxies
 TLS and is what produced the `522` on the apex `worksonmy.dev` earlier. Vercel
@@ -64,11 +66,14 @@ request.
 Then attach it:
 
 ```bash
-vercel domains add pouf.worksonmy.dev
+vercel domains add 1st-pouf.worksonmy.dev
 ```
 
 `.dev` is on the HSTS preload list, so HTTPS is mandatory — fine, Vercel
 provisions the cert automatically once the CNAME resolves.
+
+Keep `pouf.worksonmy.dev` attached to the same project. The host-conditioned
+permanent redirect in `vercel.json` preserves paths such as `/r/button.json`.
 
 ## 4. Reserve the npm name
 
@@ -84,11 +89,11 @@ See `npm-stub/PUBLISH.md`.
 
 ```bash
 # in a fresh throwaway React 19 + Tailwind v4 app with a components.json:
-npx shadcn@latest add https://pouf.worksonmy.dev/r/button.json
+npx shadcn@latest add https://1st-pouf.worksonmy.dev/r/button.json
 # → components/pouf/{pouf.css,tone.ts,Button.tsx} land, and <Button/> renders cushioned.
 ```
 
-If that works, Pouf is live.
+If that works, 1st-Pouf is live.
 
 ---
 
@@ -97,7 +102,7 @@ If that works, Pouf is live.
 Run one command:
 
 ```bash
-bun scripts/set-origin.ts https://pouf.dev
+bun scripts/set-origin.ts https://new.example.dev
 ```
 
 It rewrites the single constant in `www/src/data/site.ts` and every absolute URL
@@ -132,15 +137,20 @@ The registry schema is already satisfied (`$schema`, `name`, `homepage`,
 Two optional extras, neither of them blocking:
 
 - **Registry index (namespace).** Submitting an open-source registry to
-  shadcn's index gets you `npx shadcn@latest add @pouf/dashboard` instead of a
+  shadcn's index gets you `npx shadcn@latest add @1st-pouf/dashboard` instead of a
   full URL, plus discoverability via `shadcn search`. Requirements: open
   source, public, valid schema, flat layout (`/registry.json` and
   `/<item>.json` at the root), and no `content` in the source `files` array.
-  Pouf meets all of these — `registry.json` carries only `path`/`type`/`target`;
-  the `content` inlining happens in the **build output**, which is expected and
-  is how a one-command install avoids cloning the repo.
+  1st-Pouf meets all of these — `registry.json` carries only `path`/`type`/`target`;
+  the `content` inlining happens only in the individual **built item payloads**,
+  which is expected and is how a one-command install avoids cloning the repo.
+  `bun run registry:validate` enforces the source schema and directory rules.
+  `docs/shadcn-directory-entry.json` contains the complete `@1st-pouf` entry,
+  including the required inline SVG logo. Insert that object first in
+  `apps/v4/registry/directory.json` in a fork of `shadcn-ui/ui`, run
+  `pnpm validate:registries`, and open a PR.
 - **A public GitHub repo with `registry.json` at the root is itself a valid
-  registry.** So `moji2002/pouf` can serve installs even before DNS is live —
+  registry.** So `moji2002/1st-pouf` can serve installs even before DNS is live —
   the domain is not a launch blocker, only a nicer URL.
 
 ---
@@ -149,8 +159,8 @@ Two optional extras, neither of them blocking:
 
 - 38 components, 12 blocks, 6 templates — all migrated to Tailwind v4 and held
   pixel-stable by the 168-demo snapshot gate.
-- 61-item shadcn registry; install proven end-to-end into a fresh Vite app.
-- The site builds 25 static pages plus `/llms.txt`: landing, single components
+- 71-item shadcn registry; install proven end-to-end into a fresh Vite app.
+- The site builds 63 static pages including `/llms.txt`: landing, single components
   page with per-component prop tables, blocks, templates, docs, theme
   customizer, changelog.
 - Dark mode (`<html data-theme="dark">`), ⌘K command palette, and generated

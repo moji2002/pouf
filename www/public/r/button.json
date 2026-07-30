@@ -6,8 +6,8 @@
     "class-variance-authority"
   ],
   "registryDependencies": [
-    "https://pouf.worksonmy.dev/r/base.json",
-    "https://pouf.worksonmy.dev/r/tone.json"
+    "https://1st-pouf.worksonmy.dev/r/base.json",
+    "https://1st-pouf.worksonmy.dev/r/tone.json"
   ],
   "files": [
     {

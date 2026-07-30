@@ -1,5 +1,5 @@
 {
-  "name": "@pouf/gallery",
+  "name": "@1st-pouf/gallery",
   "private": true,
   "scripts": {
     "dev": "vite --port 4700 --strictPort",

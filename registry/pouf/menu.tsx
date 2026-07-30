@@ -37,7 +37,7 @@ export function DropdownMenu({ children, items, label }: DropdownMenuProps) {
   return (
     <RMenu.Root>
       {/* asChild places Radix's ARIA state, handlers, and ref on the actual
-          focusable trigger. Pouf Button forwards those native attributes. */}
+          focusable trigger. 1st-Pouf Button forwards those native attributes. */}
       <RMenu.Trigger asChild aria-label={label}>
         {children}
       </RMenu.Trigger>

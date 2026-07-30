@@ -11,10 +11,10 @@ import { installCommand, SITE_ORIGIN } from '../data/site'
 const softwareSchema = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareSourceCode',
-  name: 'Pouf',
+  name: '1st-Pouf',
   description: 'A puffy, pastel, maximalist UI kit for React. Claymorphism as a shadcn-style registry — copy it in, own the source.',
   url: SITE_ORIGIN,
-  codeRepository: 'https://github.com/moji2002/pouf',
+  codeRepository: 'https://github.com/moji2002/1st-pouf',
   programmingLanguage: ['TypeScript', 'CSS'],
   runtimePlatform: 'React',
   license: 'https://opensource.org/licenses/MIT',
@@ -55,13 +55,12 @@ const FEATURED_BLOCKS = BLOCKS.slice(0, 6)
         </span>
       </h1>
       <p class="pop" style="font-size:21px; font-weight:800; color:var(--muted); max-width:36ch; margin:0; animation-delay:200ms;">
-        Pouf is a puffy, pastel, <strong style="color:var(--ink);">maximalist</strong> UI kit — and the best-looking one you'll install this year. Every surface a cushion — bright, chunky, tactile. Copy it in shadcn-style and own the source.
+        1st-Pouf is a puffy, pastel, <strong style="color:var(--ink);">maximalist</strong> UI kit — and the best-looking one you'll install this year. Every surface a cushion — bright, chunky, tactile. Copy it in shadcn-style and own the source.
       </p>
       {/* No max-width: the 560px cap was sized around the old pouf.dev command.
-          pouf.worksonmy.dev is 10 characters longer — measured 525px of content
-          in a 480px box, truncating the homepage's primary call to action
-          mid-URL. It scrolls, but a command you must scroll to read is a
-          command you cannot copy by eye. */}
+          The longer canonical host would otherwise truncate the homepage's
+          primary call to action mid-URL. It scrolls, but a command you must
+          scroll to read is a command you cannot copy by eye. */}
       <div class="pop" style="animation-delay:280ms;">
         <CopyCommand command={installCommand('button')} />
       </div>

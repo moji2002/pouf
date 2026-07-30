@@ -262,8 +262,8 @@ for (const [name, width, height] of [['desktop', 1440, 1000], ['mobile', 390, 84
 
   await hydrate(page, '#input')
   const nameInput = page.getByLabel('Name').first()
-  await nameInput.fill('Updated Pouf')
-  record('input: demo accepts text', (await nameInput.inputValue()) === 'Updated Pouf')
+  await nameInput.fill('Updated 1st-Pouf')
+  record('input: demo accepts text', (await nameInput.inputValue()) === 'Updated 1st-Pouf')
 
   await hydrate(page, '#number-input')
   const stepper = page.getByLabel('Stepper').first()

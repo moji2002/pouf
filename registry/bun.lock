@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "@pouf/registry",
+      "name": "@1st-pouf/registry",
       "dependencies": {
         "@radix-ui/react-accordion": "^1.2.16",
         "@radix-ui/react-alert-dialog": "^1.1.19",

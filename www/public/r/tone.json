@@ -3,7 +3,7 @@
   "name": "tone",
   "title": "Tone tokens",
   "registryDependencies": [
-    "https://pouf.worksonmy.dev/r/base.json"
+    "https://1st-pouf.worksonmy.dev/r/base.json"
   ],
   "files": [
     {

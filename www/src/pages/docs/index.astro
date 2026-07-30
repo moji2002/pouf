@@ -18,13 +18,13 @@ const TOC = [
 const TOC_TONES = ['purple', 'mint', 'blue', 'pink', 'yellow', 'orange', 'purple', 'mint', 'blue']
 ---
 
-<Site title="Getting started" description="Everything you need before the first install: prerequisites, the theme file, dark mode, and the conventions every Pouf component follows." wide>
+<Site title="Getting started" description="Everything you need before the first install: prerequisites, the theme file, dark mode, and the conventions every 1st-Pouf component follows." wide>
   <section class="docs-hero">
     <div class="docs-hero__copy">
       <span class="sticker" style="background:var(--mint); align-self:flex-start; transform:rotate(-2deg);">You own the source</span>
       <h1 class="display">Getting started</h1>
       <p class="docs-hero__lead">
-        Pouf is distributed as a shadcn-style registry. You install components into your own codebase and own the source — there is no runtime dependency to lock, nothing to update, nothing to break.
+        1st-Pouf is distributed as a shadcn-style registry. You install components into your own codebase and own the source — there is no runtime dependency to lock, nothing to update, nothing to break.
       </p>
       <p class="docs-hero__detail">
         This page covers what you need before the first <code>add</code>, the two-layer token system, dark mode, and the conventions every component follows.
@@ -76,9 +76,9 @@ const TOC_TONES = ['purple', 'mint', 'blue', 'pink', 'yellow', 'orange', 'purple
         <h2 style="font-size:24px; font-weight:900; margin:16px 0 0;">1. Prerequisites</h2>
         <p style="margin:0; font-weight:700;">Before your first <code>add</code>, you need three things in place:</p>
         <ul style="margin:0; padding-left:22px; display:flex; flex-direction:column; gap:10px; font-weight:700;">
-          <li><strong>A React 18 or 19 app.</strong> Every published registry file is compatibility-tested with React 18.3.1, while Pouf's development, gallery, and documentation apps run on React 19. Vite, Next, Astro with the React integration — use whatever you already run. React 17 and older are not supported because the animation-enabled components use Framer Motion 11, whose supported range starts at React 18.</li>
-          <li><strong>Tailwind CSS v4.</strong> Pouf's stylesheet is CSS-first — no <code>tailwind.config.js</code>, just <code>@theme</code> and <code>@import</code> in a <code>.css</code> file. You still need Tailwind's v4 build plugin wired into your bundler: <code>@tailwindcss/vite</code> for a Vite-based app (that's what {SITE_HOST} itself runs — an Astro site on Vite), or <code>@tailwindcss/postcss</code> for a plain PostCSS pipeline.</li>
-          <li><strong>The shadcn CLI, initialized.</strong> Run <code>init</code> once to create a <code>components.json</code>. Pouf doesn't need special aliases: every file in the registry declares an explicit target path (<code>components/pouf/…</code>), so it lands in the same place no matter how your aliases are configured.</li>
+          <li><strong>A React 18 or 19 app.</strong> Every published registry file is compatibility-tested with React 18.3.1, while 1st-Pouf's development, gallery, and documentation apps run on React 19. Vite, Next, Astro with the React integration — use whatever you already run. React 17 and older are not supported because the animation-enabled components use Framer Motion 11, whose supported range starts at React 18.</li>
+          <li><strong>Tailwind CSS v4.</strong> 1st-Pouf's stylesheet is CSS-first — no <code>tailwind.config.js</code>, just <code>@theme</code> and <code>@import</code> in a <code>.css</code> file. You still need Tailwind's v4 build plugin wired into your bundler: <code>@tailwindcss/vite</code> for a Vite-based app (that's what {SITE_HOST} itself runs — an Astro site on Vite), or <code>@tailwindcss/postcss</code> for a plain PostCSS pipeline.</li>
+          <li><strong>The shadcn CLI, initialized.</strong> Run <code>init</code> once to create a <code>components.json</code>. 1st-Pouf doesn't need special aliases: every file in the registry declares an explicit target path (<code>components/pouf/…</code>), so it lands in the same place no matter how your aliases are configured.</li>
         </ul>
         <CopyCommand command="npx shadcn@latest init" />
         <p style="margin:0; font-weight:700;">
@@ -123,10 +123,10 @@ export function Example() {
       <section id="forms" class="docs-section" style="display:flex; flex-direction:column; gap:12px;">
         <h2 style="font-size:24px; font-weight:900; margin:16px 0 0;">4. Forms</h2>
         <p style="margin:0; font-weight:700;">
-          Pouf does not choose a form library for you. Its controls expose controlled <code>value</code>/<code>onChange</code> APIs, and text fields additionally forward <code>ref</code>, <code>name</code>, <code>onBlur</code>, autocomplete, and native input attributes. Use plain React state, native forms, Formik, or anything else.
+          1st-Pouf does not choose a form library for you. Its controls expose controlled <code>value</code>/<code>onChange</code> APIs, and text fields additionally forward <code>ref</code>, <code>name</code>, <code>onBlur</code>, autocomplete, and native input attributes. Use plain React state, native forms, Formik, or anything else.
         </p>
         <p style="margin:0; font-weight:700;">
-          The examples use <a href="https://react-hook-form.com/" target="_blank" rel="noopener noreferrer" style="color:var(--ink);">React Hook Form</a>. Its <code>Controller</code> maps directly to every controlled Pouf form component while keeping validation and submission in the example rather than the design system.
+          The examples use <a href="https://react-hook-form.com/" target="_blank" rel="noopener noreferrer" style="color:var(--ink);">React Hook Form</a>. Its <code>Controller</code> maps directly to every controlled 1st-Pouf form component while keeping validation and submission in the example rather than the design system.
         </p>
         <CopyCommand command="npm install react-hook-form" />
         <Code code={`import { Controller, useForm } from 'react-hook-form'
@@ -382,7 +382,7 @@ export function ProfileForm() {
           No component takes a <code>className</code> or <code>style</code> prop. Appearance is chosen with variants — <code>tone</code>, <code>size</code>, <code>variant</code> — so your UI can't quietly drift off-system one utility class at a time. Tones are <code>purple, pink, blue, mint, yellow, orange</code>, plus five semantic aliases that speak intent instead of colour: <code>up, down, warn, info, idle</code> (see Theming above for what they map to, and how to remap them).
         </p>
         <p style="margin:0; font-weight:700;">
-          When you genuinely need an escape hatch that no variant covers, you own the file — edit it. That is the whole trade Pouf makes: a strong default that holds, with the source in your hands when it shouldn't.
+          When you genuinely need an escape hatch that no variant covers, you own the file — edit it. That is the whole trade 1st-Pouf makes: a strong default that holds, with the source in your hands when it shouldn't.
         </p>
       </section>
 
@@ -417,7 +417,7 @@ export function ProfileForm() {
       <section id="blocks-vs-templates" class="docs-section" style="display:flex; flex-direction:column; gap:12px;">
         <h2 style="font-size:24px; font-weight:900; margin:16px 0 0;">9. Blocks vs. templates</h2>
         <p style="margin:0; font-weight:700;">
-          Past a single component, Pouf ships two tiers of copy-pasteable composition. Both install exactly like a component — a registry item that lands with its own dependencies — but they promise different things:
+          Past a single component, 1st-Pouf ships two tiers of copy-pasteable composition. Both install exactly like a component — a registry item that lands with its own dependencies — but they promise different things:
         </p>
         <ul style="margin:0; padding-left:22px; display:flex; flex-direction:column; gap:10px; font-weight:700;">
           <li><strong>Blocks are sections.</strong> A pricing table, a login card, a music player — you drop one into a page you already have.</li>

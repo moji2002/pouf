@@ -15,7 +15,7 @@
  * until the next `shadcn build` reverts it. Regenerate instead — this script
  * prints the command.
  *
- * Run: bun scripts/set-origin.ts https://pouf.dev
+ * Run: bun scripts/set-origin.ts https://1st-pouf.worksonmy.dev
  */
 import { readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
@@ -27,7 +27,7 @@ const REGISTRY = join(ROOT, 'registry.json')
 const next = process.argv[2]
 
 if (!next) {
-  console.error('usage: bun scripts/set-origin.ts <origin>   e.g. https://pouf.dev')
+  console.error('usage: bun scripts/set-origin.ts <origin>   e.g. https://1st-pouf.worksonmy.dev')
   process.exit(1)
 }
 
