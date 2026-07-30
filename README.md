@@ -2,7 +2,20 @@
 
 **A puffy, pastel, kid-shaped UI kit for React.** Claymorphism — like neumorphism but maximalist: bright, chunky, every surface a cushion. Distributed as a shadcn-style registry, so you copy the source into your project and own it.
 
+**[Live site](https://1st-pouf.worksonmy.dev)** ·
+**[Components](https://1st-pouf.worksonmy.dev/components)** ·
+**[Blocks](https://1st-pouf.worksonmy.dev/blocks)** ·
+**[Registry](https://1st-pouf.worksonmy.dev/r/registry.json)**
+
 > Every surface a cushion. Big radius. Inner highlight. Inner floor shadow. Outer drop. Pastel everywhere.
+
+## Preview
+
+[![1st-Pouf landing page showing the pastel claymorphism design system](./docs/screenshots/landing.png)](https://1st-pouf.worksonmy.dev)
+
+| [Live component catalog](https://1st-pouf.worksonmy.dev/components) | [Ready-to-install blocks](https://1st-pouf.worksonmy.dev/blocks) |
+| --- | --- |
+| [![1st-Pouf component catalog](./docs/screenshots/components.png)](https://1st-pouf.worksonmy.dev/components) | [![1st-Pouf blocks gallery](./docs/screenshots/blocks.png)](https://1st-pouf.worksonmy.dev/blocks) |
 
 - **Depth is the affordance.** Buttons press in; badges stay flat. State you can feel, not just read.
 - **You own the source.** Install with the shadcn CLI or copy the file. No runtime dependency to version-lock.
