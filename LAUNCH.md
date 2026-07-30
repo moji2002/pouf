@@ -145,7 +145,7 @@ Two optional extras, neither of them blocking:
   the `content` inlining happens only in the individual **built item payloads**,
   which is expected and is how a one-command install avoids cloning the repo.
   `bun run registry:validate` enforces the source schema and directory rules.
-  `docs/shadcn-directory-entry.json` contains the complete `@1st-pouf` entry,
+  `shadcn-directory-entry.json` contains the complete `@1st-pouf` entry,
   including the required inline SVG logo. Insert that object first in
   `apps/v4/registry/directory.json` in a fork of `shadcn-ui/ui`, run
   `pnpm validate:registries`, and open a PR.

@@ -42,7 +42,7 @@
 - Modify: `npm-stub/README.md`
 - Modify: `npm-stub/PUBLISH.md`
 - Modify: `docs/HANDOFF.md`
-- Modify: `docs/shadcn-directory-entry.json`
+- Modify: `shadcn-directory-entry.json`
 - Modify: `../this.is-a.dev/content/projects/pouf.mdx`
 
 **Interfaces:**
@@ -378,7 +378,7 @@ Expected: both runtime checks pass.
 ### Task 6: Submit `@1st-pouf` to the shadcn registry directory
 
 **Files:**
-- Consume: `docs/shadcn-directory-entry.json`
+- Consume: `shadcn-directory-entry.json`
 - Modify in a temporary fork checkout: `apps/v4/registry/directory.json`
 
 **Interfaces:**
@@ -408,7 +408,7 @@ This branch exists only in the temporary upstream checkout and does not alter ei
 
 - [ ] **Step 3: Insert the approved directory object first**
 
-Copy the exact object from `docs/shadcn-directory-entry.json` into the first position of the array in:
+Copy the exact object from `shadcn-directory-entry.json` into the first position of the array in:
 
 ```text
 apps/v4/registry/directory.json

@@ -45,7 +45,7 @@ const ROOT = new URL('..', import.meta.url).pathname
 const SOURCE_PATH = join(ROOT, 'registry.json')
 const BUILD_DIR = join(ROOT, 'www/public/r')
 const CATALOG_PATH = join(BUILD_DIR, 'registry.json')
-const DIRECTORY_ENTRY_PATH = join(ROOT, 'docs/shadcn-directory-entry.json')
+const DIRECTORY_ENTRY_PATH = join(ROOT, 'shadcn-directory-entry.json')
 const REGISTRY_SCHEMA = 'https://ui.shadcn.com/schema/registry.json'
 const RESERVED_NAMESPACES = new Set([
   '@shadcn',
