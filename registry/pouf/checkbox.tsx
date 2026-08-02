@@ -42,17 +42,14 @@ export function Checkbox({ checked, onChange, id, disabled, label, hideLabel }: 
       >
         <RCheck.Indicator className={[
             'pouf-checkbox__indicator text-[var(--on-accent)] flex [&_svg]:w-5 [&_svg]:h-5',
-            /* The check draws itself in. Radix mounts the indicator on check, so
-             * a keyframe entry is correct; uncheck unmounts instantly. Reduced
-             * motion keeps the state change legible, drops the drawing. */
-            '[&_path]:[stroke-dasharray:1]',
-            '[&_path]:[animation:pouf-check-draw_250ms_cubic-bezier(0.23,1,0.32,1)_both]',
-            'motion-reduce:[&_path]:[animation-name:pouf-check-fade]',
+            /* Radix mounts the indicator on check, so animate that HTML wrapper
+             * with compositor-friendly properties instead of animating the SVG
+             * path's stroke. Reduced motion keeps a short opacity-only fade. */
+            '[animation:pouf-check-pop_250ms_cubic-bezier(0.23,1,0.32,1)_both]',
+            'motion-reduce:[animation-name:pouf-check-fade]',
           ].join(' ')}>
-          {/* Inline rather than Icon: the draw-in animation needs pathLength=1
-              on the stroke, which the shared icon vocabulary has no reason to
-              carry. Geometry and stroke match the Tabler set (24 viewbox, 2.4
-              stroke, round caps) so the glyphs read as the same hand. */}
+          {/* Inline rather than Icon so the indeterminate state can swap the
+              stroke while keeping geometry consistent with the Tabler set. */}
           <svg
             viewBox="0 0 24 24"
             fill="none"
@@ -63,9 +60,9 @@ export function Checkbox({ checked, onChange, id, disabled, label, hideLabel }: 
             aria-hidden="true"
           >
             {checked === 'indeterminate' ? (
-              <path d="M5 12h14" pathLength={1} />
+              <path d="M5 12h14" />
             ) : (
-              <path d="M5 12l5 5L20 7" pathLength={1} />
+              <path d="M5 12l5 5L20 7" />
             )}
           </svg>
         </RCheck.Indicator>

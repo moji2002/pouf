@@ -23,7 +23,6 @@ export function Slider({ value, onChange, min = 0, max = 100, step = 1, disabled
       max={max}
       step={step}
       disabled={disabled}
-      aria-label={label}
     >
       <RSlider.Track className="pouf-slider__track relative flex-1 h-3.5 rounded-[999px] bg-bg cushion-field">
         <RSlider.Range className="pouf-slider__range absolute h-full rounded-[999px] bg-purple [box-shadow:inset_0_-3px_0_rgba(0,0,0,0.1)]" />

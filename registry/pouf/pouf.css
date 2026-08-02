@@ -343,13 +343,11 @@
   }
 }
 
-/* Checkbox check draw-in (reduced-motion falls back to a fade). */
-@keyframes pouf-check-draw {
+/* Checkbox check pop-in (reduced-motion falls back to a fade). */
+@keyframes pouf-check-pop {
   from {
-    stroke-dashoffset: 1;
-  }
-  to {
-    stroke-dashoffset: 0;
+    opacity: 0;
+    transform: scale(0.65);
   }
 }
 @keyframes pouf-check-fade {

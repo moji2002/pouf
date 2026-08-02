@@ -188,8 +188,8 @@
     text-box: trim-both cap alphabetic;
   }
   /* Footer links. Bare anchors rendered ~23px tall, under the WCAG 2.2 AA
-   * target minimum; the negative margin keeps the visual row spacing the same
-   * while the hit area grows. */
+   * target minimum. Padding grows the hit area without overlapping adjacent
+   * links when the compact byline wraps on a phone. */
   .site-foot-link {
     color: var(--ink);
     text-decoration: none;
@@ -197,7 +197,6 @@
     align-items: center;
     min-height: 24px;
     padding: 6px 4px;
-    margin: -6px -4px;
     border-radius: 10px;
   }
   .site-foot-link:hover {

@@ -33,6 +33,7 @@ const pageTitle = title === '1st-Pouf' ? '1st-Pouf — puffy, maximalist UI for 
 // no hand-rolled trailing-slash logic to drift from how the site is actually built.
 const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? SITE_ORIGIN)
 const currentPath = Astro.url.pathname.replace(/\/+$/, '') || '/'
+const needsGlobalToaster = currentPath === '/components'
 const isCurrent = (href: string) => {
   const path = href.replace(/\/+$/, '') || '/'
   return path === '/' ? currentPath === '/' : currentPath === path || currentPath.startsWith(`${path}/`)
@@ -174,8 +175,9 @@ const schemaNodes = [websiteSchema, ...(schema ? (Array.isArray(schema) ? schema
       <slot />
     </main>
 
-    <!-- Global toast stack (fixed, top-right). toast() renders here. -->
-    <ToasterMount client:idle />
+    <!-- Only the components catalog exposes toast() triggers. Avoid hydrating
+         React + Framer Motion on every other page for an empty global stack. -->
+    {needsGlobalToaster && <ToasterMount client:idle />}
 
     <footer style="position:relative; z-index:1; margin-top:40px;">
       <div class={wrapClass} style="padding-bottom:48px;">
