@@ -1,12 +1,13 @@
-# Publishing the name-reservation stub
+# Maintaining the name-reservation stub
 
-This reserves `pouf-ui` on npm so no one else takes it. It ships no code.
+This reserves `pouf-ui` on npm and redirects visitors to 1st-Pouf. It ships no code and must never present itself as an installable library.
+
+Publish a new `0.0.x` version only when its redirect or package metadata needs correcting:
 
 ```bash
 cd npm-stub
-npm login              # your npm account
+npm pack --dry-run
 npm publish --access public
 ```
 
-That's it. Do NOT bump the version or add code here — the real distribution is
-the registry at 1st-pouf.worksonmy.dev, consumed via `npx shadcn add`.
+The real distribution is the registry at `1st-pouf.worksonmy.dev`, consumed via `npx shadcn add`.

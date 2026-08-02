@@ -1,12 +1,18 @@
 {
   "name": "pouf-ui",
-  "version": "0.0.1",
-  "description": "1st-Pouf — a puffy, pastel, kid-shaped UI kit for React. Claymorphism as a shadcn-style registry. This package reserves the name; install components from https://1st-pouf.worksonmy.dev.",
+  "version": "0.0.2",
+  "description": "Name reservation and redirect for the 1st-Pouf shadcn-style React component registry. Do not install this package; use https://1st-pouf.worksonmy.dev.",
   "keywords": ["react", "ui", "components", "tailwind", "claymorphism", "shadcn", "design-system"],
   "homepage": "https://1st-pouf.worksonmy.dev",
   "repository": { "type": "git", "url": "git+https://github.com/moji2002/1st-pouf.git" },
+  "bugs": { "url": "https://github.com/moji2002/1st-pouf/issues" },
   "license": "MIT",
-  "author": "Mojtaba Beheshti",
+  "author": {
+    "name": "Mojtaba Beheshti",
+    "email": "it@worksonmy.dev",
+    "url": "https://www.worksonmy.dev"
+  },
   "files": ["README.md"],
+  "publishConfig": { "access": "public" },
   "private": false
 }
