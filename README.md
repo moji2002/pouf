@@ -5,11 +5,16 @@
 **[Live site](https://1st-pouf.worksonmy.dev)** ·
 **[Components](https://1st-pouf.worksonmy.dev/components)** ·
 **[Blocks](https://1st-pouf.worksonmy.dev/blocks)** ·
+**[Templates](https://1st-pouf.worksonmy.dev/examples)** ·
 **[Registry](https://1st-pouf.worksonmy.dev/r/registry.json)**
 
 > Every surface a cushion. Big radius. Inner highlight. Inner floor shadow. Outer drop. Pastel everywhere.
 
 ## Preview
+
+Try every component, block, and template in the browser without an account or
+local setup. The live galleries are the fastest way to decide whether the
+claymorphism system fits your product.
 
 [![1st-Pouf landing page showing the pastel claymorphism design system](./docs/screenshots/landing.png)](https://1st-pouf.worksonmy.dev)
 
@@ -18,9 +23,10 @@
 | [![1st-Pouf component catalog](./docs/screenshots/components.png)](https://1st-pouf.worksonmy.dev/components) | [![1st-Pouf blocks gallery](./docs/screenshots/blocks.png)](https://1st-pouf.worksonmy.dev/blocks) |
 
 - **Depth is the affordance.** Buttons press in; badges stay flat. State you can feel, not just read.
-- **You own the source.** Install with the shadcn CLI or copy the file. No runtime dependency to version-lock.
+- **You own the source.** Install with the shadcn CLI or copy the file. There is no 1st-Pouf runtime package to version-lock.
 - **Variants, not classNames.** Appearance is chosen by props, so your app can't drift off-system. Need an escape hatch? You have the code.
 - **Built on** Tailwind CSS v4, Radix UI, `class-variance-authority`, and Recharts.
+- **71 installable registry items.** 40 UI entries plus 28 complete blocks and templates, with live previews before you copy anything.
 
 ## Install
 
@@ -52,7 +58,24 @@ export function Example() {
 }
 ```
 
+To exercise the same consumer-facing imports from this repository without
+starting the gallery or a test runner:
+
+```bash
+bun run example:consumer
+```
+
+The command renders a small Card, Stack, Heading, Text, and Button composition
+through React's server renderer and prints the resulting accessible markup.
+
 Browse every component live at **[1st-pouf.worksonmy.dev](https://1st-pouf.worksonmy.dev)**.
+
+## Compatibility
+
+- React 18.3.1 and React 19
+- Tailwind CSS 4
+- Vite, Next.js, or Astro with React
+- Modern evergreen browsers; keyboard and reduced-motion behavior are included
 
 ## Components
 
@@ -87,12 +110,16 @@ No component takes a `className` or `style` prop. That is deliberate: it is what
 
 ```bash
 bun install
+bun run example:consumer  # render public component APIs without the gallery
 bun run gallery      # the demo gallery at :4700
 bun run gate         # the snapshot gate (computed styles + pixels)
 bun test             # unit tests
+bun run social:preview # rebuild docs/social-preview.png at 1280x640
 ```
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md) for the workflow and the gate.
+The repository-ready social preview is at
+[`docs/social-preview.png`](./docs/social-preview.png).
 
 ## Credits
 

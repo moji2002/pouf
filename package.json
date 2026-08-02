@@ -7,6 +7,8 @@
     "www"
   ],
   "scripts": {
+    "example:consumer": "bun registry/examples/consumer-usage.tsx",
+    "social:preview": "node scripts/generate-social-preview.mjs",
     "typecheck": "bunx tsc --noEmit -p registry && bunx tsc --noEmit -p gallery",
     "test": "bun test",
     "test:react18": "bun scripts/test-react18-compat.ts",
