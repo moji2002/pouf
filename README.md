@@ -65,6 +65,14 @@ Feedback (Status, Freshness, ModeBanner, Empty, Skeleton, ErrorNote, Toasts, Ale
 Navigation (Tabs, Accordion, Collapsible, NavLink, BottomNav, Breadcrumb, Pagination) ·
 Data (Table, Charts).
 
+## Testing copied components
+
+Because 1st-Pouf installs source into your application, test it through the
+behavior your users observe. The opt-in [consumer testing guide](./docs/testing.md)
+includes Vitest/jsdom setup plus copy-paste Button and NumberInput tests. Test
+files and runner configuration stay in your application; registry installs do
+not add or overwrite them.
+
 ## The one rule
 
 No component takes a `className` or `style` prop. That is deliberate: it is what keeps a whole app on-system. Choose appearance with variants (`tone`, `size`, `variant`). When you genuinely need to break out, edit the source — it's yours.
